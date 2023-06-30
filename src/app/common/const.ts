@@ -1,5 +1,11 @@
 // url tinh thanh API
 export const  tinhthanhApi = "https://provinces.open-api.vn/api/?depth=2";
+
+// type notifi
+export const System = 'system';
+export const Notifi = 'notifi';
+export const Vison = 'vison';
+
 //phong ban
 export const Ant100addPhongban = 'phongban/ant100addPhongban';
 export const Ant100editPhongban = 'phongban/ant100editPhongban';
@@ -45,3 +51,7 @@ export const Ant100DetailDatasc = 'screenpc/ant100DetailDatasc';
 
 // upload file 
 export const Tmt010Ant100SaveFile = 'tmt010/tmt010Ant100SaveFile';
+
+// nhật ký hệ thống
+export const NhatkyhethongfindType = "nhatkyhethong/nhatkyhethongAnt100getAll";
+
