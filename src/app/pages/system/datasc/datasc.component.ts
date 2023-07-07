@@ -27,6 +27,7 @@ import { MenuTreeComponent } from './menu-tree/menu-tree.component';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzWaveModule } from 'ng-zorro-antd/core/wave';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { AuthDirective } from '@app/shared/directives/auth.directive';
 
 interface SearchParam {
   title1: string;
@@ -53,7 +54,8 @@ interface SearchParam {
     FormsModule,
     NzFormModule,
     NzInputModule,
-    NzIconModule
+    NzIconModule,
+    AuthDirective,
   ]
 })
 export class DatascComponent implements OnInit {

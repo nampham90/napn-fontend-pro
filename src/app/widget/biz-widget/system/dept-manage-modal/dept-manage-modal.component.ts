@@ -28,7 +28,7 @@ export class DeptManageModalComponent implements OnInit {
 
   initForm(): void {
     this.addEditForm = this.fb.group({
-      departmentName: [null, [Validators.required]],
+      tenphongban: [null, [Validators.required]],
       state: [true],
       orderNum: [0]
     });

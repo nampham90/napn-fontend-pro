@@ -6,6 +6,9 @@ import { getDeepReuseStrategyKeyFn, fnGetPathWithoutParam } from '@utils/tools';
 import _ from 'lodash';
 
 import { SimpleReuseStrategy } from './reuse-strategy';
+import { DatascStoreService } from '../store/common-store/datasc-store.service';
+import { MenusService } from '../http/system/menus.service';
+import { IObjectString } from '@app/common/IObiectString';
 
 export interface TabModel {
   title: string;
@@ -23,8 +26,13 @@ export class TabService {
   private tabArray$ = new BehaviorSubject<TabModel[]>([]);
   private tabArray: TabModel[] = [];
   private currSelectedIndexTab = 0;
+  formItemNm: IObjectString = {};
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private router: Router, 
+    private datascStoreService: DatascStoreService,
+    private menusService: MenusService,
+    private activatedRoute: ActivatedRoute) {}
 
   getTabArray$(): Observable<TabModel[]> {
     return this.tabArray$.asObservable();
@@ -44,6 +52,16 @@ export class TabService {
   }
 
   addTab(param: TabModel, isNewTabDetailPage = false): void {
+    // lay datasc
+    this.menusService.getMenuDetailFromUrl(param.path).subscribe( ( list )=> {
+      list.forEach( item => {
+        this.formItemNm[item.stt] = item.title1;
+      })
+      this.datascStoreService.setDatascArrayStore(this.formItemNm);
+      if(list[0].idyoutube){
+        this.datascStoreService.setIdyoutubeStore(list[0].idyoutube);
+      }
+    })
     this.tabArray.forEach(tab => {
       // 列表详情操作，例如用户表单点击详情，在当前tab中打开这个详情，可以看在线示例：“查询表格”与表格中的“查看按钮”
       // title需和用户表单详情组件路由的title相同

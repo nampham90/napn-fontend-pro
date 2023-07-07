@@ -64,4 +64,12 @@ export class AccountService {
   public editAccountPsd(param: UserPsd): Observable<any> {
     return this.http.put(Const.Ant100ChangePasswordUser, param);
   }
+
+  public checkEmail(param: string): Observable<boolean> {
+    return this.http.post(Const.Ant100CheckEmailUser,{email:param});
+  }
+
+  public checkName(param: string): Observable<boolean> {
+    return this.http.post(Const.Ant100CheckNameUser, {name: param});
+  }
 }

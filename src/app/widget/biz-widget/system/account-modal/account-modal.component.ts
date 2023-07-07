@@ -1,11 +1,11 @@
 import { NgIf, NgFor } from '@angular/common';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
 import { OptionsInterface } from '@core/services/types';
 import { ValidatorsService } from '@core/services/validators/validators.service';
-import { User } from '@services/system/account.service';
+import { AccountService, User } from '@services/system/account.service';
 import { DeptService } from '@services/system/dept.service';
 import { RoleService } from '@services/system/role.service';
 import { fnCheckForm } from '@utils/tools';
@@ -20,6 +20,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+import { ValidationFormService } from '@app/core/services/common/message-errors.service';
 
 @Component({
   selector: 'app-account-modal',
@@ -36,14 +37,25 @@ export class AccountModalComponent implements OnInit {
   value?: string;
   deptNodes: NzTreeNodeOptions[] = [];
 
-  constructor(private modalRef: NzModalRef, private fb: FormBuilder, private validatorsService: ValidatorsService, private roleService: RoleService, private deptService: DeptService) {}
+  isReadonly = false;
+  messageErrors: any = [];
 
-  // 此方法为如果有异步数据需要加载，则在该方法中添加
+  listDept: any = [];
+  listRole: any = [];
+
+  constructor(
+    private modalRef: NzModalRef, 
+    private fb: FormBuilder, 
+    private validatorsService: ValidatorsService, 
+    private accountService: AccountService,
+    private roleService: RoleService, 
+    private vf: ValidationFormService,
+    private deptService: DeptService) {}
+
   protected getAsyncFnData(modalValue: NzSafeAny): Observable<NzSafeAny> {
     return of(modalValue);
   }
 
-  // 返回false则不关闭对话框
   protected getCurrentValue(): Observable<NzSafeAny> {
     if (!fnCheckForm(this.addEditForm)) {
       return of(false);
@@ -72,7 +84,7 @@ export class AccountModalComponent implements OnInit {
       this.deptService.getDepts({ pageNum: 0, pageSize: 0 }).subscribe(({ list }) => {
         list.forEach(item => {
           // @ts-ignore
-          item.title = item.departmentName;
+          item.title = item.tenphongban;
           // @ts-ignore
           item.key = item.id;
         });
@@ -86,17 +98,21 @@ export class AccountModalComponent implements OnInit {
 
   initForm(): void {
     this.addEditForm = this.fb.group({
-      userName: [null, [Validators.required]],
+      name: [null, [Validators.required]],
       password: ['a123456', [Validators.required, this.validatorsService.passwordValidator()]],
       sex: [1],
       available: [true],
-      telephone: [null, [this.validatorsService.telephoneValidator()]],
-      mobile: [null, [this.validatorsService.mobileValidator()]],
+      zalo: [null, [this.validatorsService.mobileValidator()]],
+      dienthoai: [null, [this.validatorsService.mobileValidator()]],
       email: [null, [this.validatorsService.emailValidator()]],
-      roleId: [null, [Validators.required]],
-      departmentId: [null, [Validators.required]],
+      role_id: [null, [Validators.required]],
+      phongban_id: [null, [Validators.required]],
       departmentName: [null]
     });
+  }
+
+  get f():{ [key: string]: AbstractControl } {
+    return this.addEditForm.controls;
   }
 
   async ngOnInit(): Promise<void> {
@@ -106,6 +122,23 @@ export class AccountModalComponent implements OnInit {
     if (this.isEdit) {
       this.addEditForm.patchValue(this.params);
       this.addEditForm.controls['password'].disable();
+      this.isReadonly = !this.isReadonly;
     }
+  }
+
+  checkEmail(email: string) {
+    this.accountService.checkEmail(email).subscribe(check =>{
+      if(check) {
+         this.addEditForm.controls['email'].setErrors({'message': this.vf.errorMessages.email.emaildb});
+      }
+    })
+  }
+
+  checkName(name: string) {
+    this.accountService.checkName(name).subscribe(check => {
+      if(check) {
+        this.addEditForm.controls['name'].setErrors({'message': this.vf.errorMessages.name.namedb});
+      }
+    })
   }
 }

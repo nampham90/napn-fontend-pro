@@ -26,8 +26,8 @@ export class RoleManageModalComponent implements OnInit {
 
   initForm(): void {
     this.addEditForm = this.fb.group({
-      roleName: [null, [Validators.required]],
-      roleDesc: [null]
+      rolename: [null, [Validators.required]],
+      mota: [null]
     });
   }
 

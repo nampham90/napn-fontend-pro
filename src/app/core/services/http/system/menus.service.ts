@@ -18,6 +18,13 @@ export interface MenuListObj {
   newLinkFlag: 0 | 1;
 }
 
+export interface DatascObj {
+  stt: number;
+  title1: string;
+  title2: string;
+  idyoutube: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -48,7 +55,7 @@ export class MenusService {
     return this.http.post(Const.Ant100PostDetailMenu, { menuId: id }, { needSuccessInfo: true });
   }
 
-  public getMenuDetailFromUrl(url: any): Observable<MenuListObj> {
+  public getMenuDetailFromUrl(url: string): Observable<DatascObj[]> {
     return this.http.post(Const.Ant100PostUrlParams, { url: url }, { needSuccessInfo: true });
   }
 }

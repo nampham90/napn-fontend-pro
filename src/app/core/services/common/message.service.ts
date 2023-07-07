@@ -55,19 +55,19 @@ export class MessageService {
       }
     };
     if (type === MessageType.Info) {
-      options.nzTitle = options.nzTitle || '信息提示';
+      options.nzTitle = options.nzTitle || 'Thông báo tin nhắn';
       modalRef = this.nzModalService.info(options);
     } else if (type === MessageType.Success) {
-      options.nzTitle = options.nzTitle || '成功提示';
+      options.nzTitle = options.nzTitle || 'Mẹo thành công';
       modalRef = this.nzModalService.success(options);
     } else if (type === MessageType.Error) {
-      options.nzTitle = options.nzTitle || '失败提示';
+      options.nzTitle = options.nzTitle || 'Dấu nhắc thất bại';
       modalRef = this.nzModalService.error(options);
     } else if (type === MessageType.Warning) {
-      options.nzTitle = options.nzTitle || '警告提示';
+      options.nzTitle = options.nzTitle || 'Cảnh báo';
       modalRef = this.nzModalService.warning(options);
     } else if (type === MessageType.Confirm) {
-      options.nzTitle = options.nzTitle || '确认提示';
+      options.nzTitle = options.nzTitle || 'Lời nhắc xác nhận';
       modalRef = this.nzModalService.confirm(options);
     }
     this.modalCtrl.push(modalRef!);

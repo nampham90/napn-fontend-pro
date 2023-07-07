@@ -43,10 +43,12 @@ const fnTreeDataToMap = function tableToTreeData(dataList: any[]): { [key: strin
 const fnFlatDataHasParentToTree = function translateDataToTree(data: any[], fatherId = 'fatherId'): any {
   // 我们认为，fatherId=0的数据，为一级数据
   //没有父节点的数据
-  let parents = data.filter(value => value[fatherId] === 0);
+  let parents = data.filter(value => value[fatherId] === 0)
+  .sort((a, b) => a.orderNum - b.orderNum);
 
   //有父节点的数据
-  let children = data.filter(value => value[fatherId] !== 0);
+  let children = data.filter(value => value[fatherId] !== 0)
+  .sort((a, b) => a.orderNum - b.orderNum);
 
   //定义转换方法的具体实现
   let translator = (parents: any[], children: any[]): any => {

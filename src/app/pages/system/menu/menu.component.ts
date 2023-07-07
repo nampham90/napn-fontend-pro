@@ -110,7 +110,6 @@ export class MenuComponent implements OnInit {
 
   getDataList(e?: NzTableQueryParams): void {
     this.tableConfig.loading = true;
-    this.tableConfig.loading = true;
     const params: SearchCommonVO<any> = {
       pageSize: 0,
       pageNum: 0,
@@ -131,7 +130,7 @@ export class MenuComponent implements OnInit {
       });
   }
 
-  /*重置*/
+  /*Làm mới form*/
   resetForm(): void {
     this.searchParam = {};
     this.getDataList();
