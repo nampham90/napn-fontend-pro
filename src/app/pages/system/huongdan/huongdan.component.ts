@@ -29,6 +29,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 import { AbsComponent } from '../abs.component';
+import { SpinService } from '@app/core/services/store/common-store/spin.service';
 
 interface SearchParam {
   urldisplayid: string;
@@ -51,15 +52,17 @@ export class HuongdanComponent extends AbsComponent implements OnInit {
 
   constructor(
     private datascStoreService: DatascStoreService,
-    private cdr: ChangeDetectorRef,
+   
     public message: NzMessageService,
     private huongdanModalService: HuongdanModalService,
+    protected override cdr: ChangeDetectorRef,
+    protected override spinService: SpinService,
     protected override dataService: HuongdanService,
     protected override youtubeModalService: YoutubeModalService,
     protected override router: Router,
     protected override menusService: MenusService
   ) {
-    super(dataService, youtubeModalService, router, menusService);
+    super(cdr, spinService, dataService, youtubeModalService, router, menusService);
   }
 
   override ngOnInit(): void {
