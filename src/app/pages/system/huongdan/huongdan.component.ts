@@ -115,6 +115,10 @@ export class HuongdanComponent extends AbsComponent implements OnInit {
 
   allDel(): void {}
 
+  error(): void {
+    this.router.navigate(['/error404']);
+  }
+
   searchName($event: any): void {
     const params: SearchCommonVO<any> = {
       pageSize: this.tableConfig.pageSize!,
