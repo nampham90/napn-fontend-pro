@@ -19,12 +19,4 @@ export class DatascStoreService {
   getDatascArrayStore(): Observable<IObjectString> {
     return this.datascArray$.asObservable();
   }
-
-  setIdyoutubeStore(idyoutube: string): void {
-    this.idyoutube$.next(idyoutube);
-  }
-
-  getIdyoutubeStore(): Observable<string> {
-    return this.idyoutube$.asObservable();
-  }
 }
