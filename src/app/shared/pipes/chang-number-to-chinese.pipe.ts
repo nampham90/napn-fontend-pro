@@ -8,19 +8,19 @@ export class ChangNumberToChinesePipe implements PipeTransform {
   transform(value: number): string {
     switch (value) {
       case 1:
-        return '一';
+        return '2';
       case 2:
-        return '二';
+        return '3';
       case 3:
-        return '三';
+        return '4';
       case 4:
-        return '四';
+        return '5';
       case 5:
-        return '五';
+        return '6';
       case 6:
-        return '六';
+        return '7';
       case 7:
-        return '七';
+        return 'CN';
       case 8:
         return '八';
       case 9:
