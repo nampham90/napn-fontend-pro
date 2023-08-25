@@ -11,26 +11,33 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { BasicConfirmModalComponent } from '../../base-modal';
+import { ValidatorsService } from '@app/core/services/validators/validators.service';
 
 @Component({
   selector: 'app-login-modal',
   templateUrl: './login-modal.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [FormsModule, NzFormModule, ReactiveFormsModule, NzGridModule, NzInputModule, NgIf]
+  imports: [FormsModule, NzFormModule, ReactiveFormsModule, NzGridModule, NzInputModule, NgIf, NzIconModule]
 })
 export class LoginModalComponent extends BasicConfirmModalComponent implements OnInit {
   loginModalForm!: FormGroup;
   override params: object;
 
-  constructor(protected override modalRef: NzModalRef, private fb: FormBuilder, private loginService: LoginService) {
+  passwordVisible = false;
+
+  constructor(protected override modalRef: NzModalRef, 
+    private fb: FormBuilder, 
+    private loginService: LoginService,
+    private validators: ValidatorsService
+    ) {
     super(modalRef);
     this.params = {};
   }
 
-  // 返回false则不关闭对话框
+  // Nếu trả về false thì không đóng hộp thoại
   protected getCurrentValue(): Observable<NzSafeAny> {
     if (!fnCheckForm(this.loginModalForm)) {
       return of(false);
@@ -44,7 +51,7 @@ export class LoginModalComponent extends BasicConfirmModalComponent implements O
 
   initForm(): void {
     this.loginModalForm = this.fb.group({
-      userName: [null, [Validators.required]],
+      email: [null, [Validators.required, this.validators.emailValidator()]],
       password: [null, [Validators.required]]
     });
   }

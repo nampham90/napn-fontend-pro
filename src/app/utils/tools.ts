@@ -8,7 +8,7 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { silentEvent } from 'ng-zorro-antd/core/util';
 import { v4 as uuidv4 } from 'uuid';
 
-/*获取1到100之间的随机整数 this.randomNum(1,101)*/
+/*Lấy số nguyên ngẫu nhiên trong khoảng từ 1 đến 100 this.randomNum(1, 101)*/
 const fnGetRandomNum = function getRandomNum(m: number, n: number): number {
   let num = Math.floor(Math.random() * (m - n) + n);
   return num;
@@ -45,7 +45,7 @@ const fnCheckForm = function checkForm(form: FormGroup): boolean {
   return !form.invalid;
 };
 
-// 清空formArray
+// Xoá sạch FormArray
 const fnClearFormArray = function clearFormArray(formArray: FormArray): void {
   while (formArray.length !== 0) {
     formArray.removeAt(0);
@@ -58,7 +58,7 @@ const fnStopMouseEvent = function stopMouseEvent(e: MouseEvent): void {
   // e.preventDefault();
 };
 
-// 数组对象去重
+// Loại bỏ trùng lặp trong mảng đối tượng
 const fnRemoveDouble = function removeDouble<T>(list: NzSafeAny[], col: NzSafeAny): T {
   const obj = {};
   return list.reduce((cur, next) => {
@@ -68,7 +68,7 @@ const fnRemoveDouble = function removeDouble<T>(list: NzSafeAny[], col: NzSafeAn
   }, []);
 };
 
-// 获取路由复用缓存的key，为key+param的形式：login{name:xxx}
+// Nhận khóa bộ nhớ cache tái sử dụng đường dẫn, theo định dạng key+param: login{name:xxx}
 const getDeepReuseStrategyKeyFn = function (route: ActivatedRouteSnapshot): string {
   let temp = route;
   while (temp.firstChild) {
@@ -77,7 +77,7 @@ const getDeepReuseStrategyKeyFn = function (route: ActivatedRouteSnapshot): stri
   return fnGetReuseStrategyKeyFn(temp);
 };
 
-// 获取key，为key+param的形式：login{name:xxx}
+// Nhận khóa, theo định dạng key+param: login{name:xxx}
 const fnGetReuseStrategyKeyFn = function getKey(route: ActivatedRouteSnapshot): string {
   const configKey = route.data['key'];
   if (!configKey) {
@@ -95,7 +95,7 @@ const fnGetReuseStrategyKeyFn = function getKey(route: ActivatedRouteSnapshot): 
   }
 };
 
-// 获取没有参数的路由
+// Nhận đường dẫn không có tham số
 const fnGetPathWithoutParam = function getPathWithoutParam(path: string): string {
   const paramIndex = path.indexOf('?');
   if (paramIndex > -1) {
@@ -104,7 +104,7 @@ const fnGetPathWithoutParam = function getPathWithoutParam(path: string): string
   return path;
 };
 
-// 返回uuid
+// Trả về UUID
 const fnGetUUID = function getUUID(): string {
   return uuidv4();
 };
