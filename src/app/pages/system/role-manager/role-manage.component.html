@@ -13,7 +13,20 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col [nzLg]="8" [nzMd]="12" [nzSm]="24" [nzXl]="8" [nzXs]="24" [nzXXl]="8"></div>
+        <div nz-col [nzLg]="8" [nzMd]="12" [nzSm]="24" [nzXl]="8" [nzXs]="24" [nzXXl]="8">
+          <nz-form-item>
+            <nz-form-label [nzFor]="">Input Number</nz-form-label>
+            <nz-form-control>
+              <ng-container *ngIf="flg == true else numberTpl">
+                <app-input-currency [Amount]="amountMode" (changeAmount)="changeAmount($event)"></app-input-currency>
+
+              </ng-container>
+              <ng-template #numberTpl>
+                <app-input-number  [Number]="numberMode" (changeNumber)="changeNumber($event)"></app-input-number>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
         <div class="text-right p-0 m-b-10" nz-col [nzLg]="8" [nzMd]="12" [nzSm]="24" [nzXl]="8" [nzXs]="24" [nzXXl]="8">
           <button nz-button [nzType]="'primary'" (click)="getDataList()">
             <i nz-icon nzType="search"></i>

@@ -1,26 +1,26 @@
 /*定义常量*/
 
-// 请求头token的前缀
+// Dấu hiệu tiền tố của mã thông báo yêu cầu
 export const TokenPre = 'Bearer ';
 // tokenKey
 export const TokenKey = 'Authorization';
-// 是否是暗黑模式key
+// Khóa cho chế độ tối
 export const IsNightKey = 'IsNightKey';
-// 主题设置key
+// Khóa cài đặt chủ đề
 export const ThemeOptionsKey = 'ThemeOptionsKey';
-// 用于记录是否是第一次加载
+// Dùng để ghi nhận liệu có phải lần tải đầu tiên không
 export const IsFirstLogin = 'IsFirstLogin';
-// 锁屏key
+// Khóa màn hình khóa
 export const LockedKey = 'LockedKey';
-// 加盐
+// Thêm muối
 export const salt = 'EIpWsyfiy@R@X#qn17!StJNdZK1fFF8iV6ffN!goZkqt#JxO';
 
-// 登录超时code码，弹出登录对话框
+// Mã lỗi vượt quá thời gian đăng nhập, hiển thị hộp thoại đăng nhập
 export const loginTimeOutCode = 1012;
-// token错误，重新登录
+// Lỗi mã thông báo, đăng nhập lại
 export const tokenErrorCode = 1010;
 
-// 左侧菜单变成over模式最大的宽度
+// Độ rộng tối đa của chế độ mở rộng của menu bên trái
 export const SideCollapsedMaxWidth = 700;
-// 顶部菜单变成over模式最大的宽度
+// Độ rộng tối đa của chế độ mở rộng của menu bên trái
 export const TopCollapsedMaxWidth = 1244;

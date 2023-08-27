@@ -9,6 +9,7 @@ import { MessageService } from '@core/services/common/message.service';
 import { SearchCommonVO } from '@core/services/types';
 import { Role, RoleService } from '@services/system/role.service';
 import { AntTableConfig, AntTableComponent } from '@shared/components/ant-table/ant-table.component';
+import { InputNumberComponent } from '@shared/components/input-number/input-number.component';
 import { CardTableWrapComponent } from '@shared/components/card-table-wrap/card-table-wrap.component';
 import { PageHeaderType, PageHeaderComponent } from '@shared/components/page-header/page-header.component';
 import { AuthDirective } from '@shared/directives/auth.directive';
@@ -24,6 +25,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { CurrencyPipe, DecimalPipe, NgIf } from '@angular/common';
+import { InputCurrencyComponent } from '@app/shared/components/input-currency/input-currency.component';
 
 interface SearchParam {
   rolename: string;
@@ -46,8 +49,12 @@ interface SearchParam {
     NzIconModule,
     CardTableWrapComponent,
     AntTableComponent,
-    AuthDirective
-  ]
+    AuthDirective,
+    InputNumberComponent,
+    InputCurrencyComponent,
+    NgIf
+  ],
+  providers: [DecimalPipe,CurrencyPipe]
 })
 export class RoleManageComponent implements OnInit {
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<any>;
@@ -62,6 +69,10 @@ export class RoleManageComponent implements OnInit {
   ActionCode = ActionCode;
   destroyRef = inject(DestroyRef);
 
+  flg = true;
+  numberMode = 1000;
+  amountMode = 1000;
+
   constructor(
     private dataService: RoleService,
     private modalSrv: NzModalService,
@@ -71,6 +82,9 @@ export class RoleManageComponent implements OnInit {
     private router: Router,
     public message: NzMessageService
   ) {}
+
+  changeNumber($event: any) {this.numberMode = $event; }
+  changeAmount($event: any) {this.amountMode = $event; }
 
   selectedChecked(e: any): void {
     // @ts-ignore
