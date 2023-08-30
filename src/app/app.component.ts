@@ -3,7 +3,6 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, DestroyRef, inject, 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
-
 import { PreloaderService } from '@core/services/common/preloader.service';
 import { LockScreenComponent } from '@shared/components/lock-screen/lock-screen.component';
 import { LockScreenStoreService } from '@store/common-store/lock-screen-store.service';
@@ -11,7 +10,6 @@ import { SpinService } from '@store/common-store/spin.service';
 import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
-
 import { fadeRouteAnimation } from './animations/fade.animation';
 
 @Component({
@@ -38,7 +36,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   lockedState$ = this.lockScreenStoreService.getLockScreenStore();
   destroyRef = inject(DestroyRef);
 
-  constructor(private lockScreenStoreService: LockScreenStoreService, private preloader: PreloaderService, private spinService: SpinService, public router: Router) {}
+  constructor(
+    private lockScreenStoreService: LockScreenStoreService, 
+    private preloader: PreloaderService, 
+    private spinService: SpinService, 
+    public router: Router,
+    ) {
+
+  }
 
   prepareRoute(outlet: RouterOutlet): string {
     return outlet?.activatedRouteData?.['key'];

@@ -23,6 +23,8 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { AccountService } from '@app/core/services/http/system/account.service';
 
 import { AvatarStoreService } from '@app/core/services/store/common-store/avatar-store.service';
+import { TokenStoreService } from '@app/core/services/store/common-store/token-store.service';
+import { SocketService } from '@app/core/services/common/socket.service';
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -47,7 +49,9 @@ export class LoginFormComponent implements OnInit {
     private notification: NzNotificationService,
     private router: Router,
     private userService: AccountService,
-    private avatarService: AvatarStoreService
+    private avatarService: AvatarStoreService,
+    private tokenStoreService: TokenStoreService,
+    private socketService: SocketService
   ) {}
 
   submitForm(): void {
@@ -76,7 +80,14 @@ export class LoginFormComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(userToken => {
+        // luu token store
+        this.tokenStoreService.setGlobalTokenStore(userToken);
         // Sau khi đăng nhập thành công từ phía máy chủ, chỉ sẽ trả về một tập hợp mã thông báo được mã hóa bằng JWT. Tiếp theo, cần phân tích mã thông báo.
+        this.socketService.emit('chat message', "nampham");
+        this.socketService.on('chat message', (msg: string) => {
+          console.log(msg)
+        })
+
         this.loginInOutService
           .loginIn(userToken)
           .then(() => {
