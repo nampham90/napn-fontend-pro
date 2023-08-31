@@ -163,7 +163,7 @@ export class HuongdanComponent extends AbsComponent implements OnInit {
         this.tableConfig.pageIndex = pageNum!;
         this.tableLoading(false);
         this.checkedCashArray = [...this.checkedCashArray];
-        this.initTable();
+        //this.initTable();
       });
   }
 
