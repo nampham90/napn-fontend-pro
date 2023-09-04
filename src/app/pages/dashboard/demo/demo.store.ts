@@ -43,6 +43,7 @@ export class ProductStore {
 
         this.socketService.on(ConstSocket.demoCreatePorduct, (product:Product)=> {
             this.products.push(mapProduct(product));
+            this.setProductStore(this.products);
         });
 
         this.socketService.on(ConstSocket.demoUpdatePorduct, (product:Product)=> {

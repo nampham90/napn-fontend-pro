@@ -19,6 +19,8 @@ import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SocketService } from '@app/core/services/common/socket.service';
 import * as ConstSocket from '@app/common/constSocket';
+import { SubdemoService } from '@app/widget/biz-widget/demo/subdemo/subdemo.service';
+import { ModalBtnStatus } from '@app/widget/base-modal';
 @Component({
   selector: 'app-demo',
   templateUrl: './demo.component.html',
@@ -50,7 +52,8 @@ export class DemoComponent extends AbsComponent implements OnInit{
     protected override menusService: MenusService,
     public message: NzMessageService,
     private productStore: ProductStore,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private subdemoService: SubdemoService
   ) {
     super(cdr, spinService, dataService, youtubeModalService, router, menusService);
   }
@@ -61,7 +64,17 @@ export class DemoComponent extends AbsComponent implements OnInit{
   }
 
   add(): void {
-
+    this.subdemoService.show({nzTitle: "Thêm mới"}).subscribe(
+      res => {
+        if (!res || res.status === ModalBtnStatus.Cancel) {
+          return;
+        }
+        this.tableLoading(true);
+        this.socketService.emit(ConstSocket.demoCreatePorduct,res.modalValue);
+        this.tableLoading(false);
+      },
+      error => this.tableLoading(false)
+    );
   }
 
   edit(id: number): void {}
