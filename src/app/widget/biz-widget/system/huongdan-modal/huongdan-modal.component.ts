@@ -1,6 +1,6 @@
 
 import { NgIf } from '@angular/common';
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core'
+import {ChangeDetectionStrategy, Component, OnInit, signal} from '@angular/core'
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationFormService } from '@app/core/services/common/message-errors.service';
 import { fnCheckForm } from '@app/utils/tools';
@@ -33,7 +33,7 @@ export class HuongdanModalComponent implements OnInit {
 
     addEditForm!: FormGroup;
     params!: any;
-    isEdit = false;
+    isEdit =  false;
     value?: string;
 
     constructor(

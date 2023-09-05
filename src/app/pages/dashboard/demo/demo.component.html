@@ -14,13 +14,19 @@
             [tableConfig]="tableConfig"
             [tableData]="dataList"
       ></app-ant-table>
-      <ng-template #operationTpl let-id="id">
+      <ng-template #operationTpl let-id="id" let-idpro="idpro" let-proname="proname" let-price="price">
         <span  class="operate-text">
-          <button nz-button nzGhost nzType="primary" (click)="edit(id)">Cập nhật</button>
+          <button nz-button nzGhost nzType="primary" (click)="edit(id,idpro,proname,price)">Cập nhật</button>
         </span>
         <span class="operate-text">
-          <button nz-button nzGhost nzType="primary" (click)="del(id)">Xóa</button>
+          <button nz-button nzGhost nzType="primary" (click)="del(id,idpro)">Xóa</button>
         </span>
+      </ng-template>
+      <ng-template #priceTpl let-price="price">
+        <span>{{price}}</span>
+      </ng-template>
+      <ng-template #pronameTpl let-proname="proname">
+        <span>{{proname}}</span>
       </ng-template>
     </app-card-table-wrap>
     <ng-template #tableBtns>

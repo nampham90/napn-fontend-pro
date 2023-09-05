@@ -80,14 +80,6 @@ export class LoginFormComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(userToken => {
-        // luu token store
-        this.tokenStoreService.setGlobalTokenStore(userToken);
-        // Sau khi đăng nhập thành công từ phía máy chủ, chỉ sẽ trả về một tập hợp mã thông báo được mã hóa bằng JWT. Tiếp theo, cần phân tích mã thông báo.
-        this.socketService.emit('chat message', "nampham");
-        this.socketService.on('chat message', (msg: string) => {
-          console.log(msg)
-        })
-
         this.loginInOutService
           .loginIn(userToken)
           .then(() => {

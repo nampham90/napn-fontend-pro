@@ -3,6 +3,8 @@ import { io,Socket } from 'socket.io-client';
 import { localUrl } from '@env/environment';
 import { TokenStoreService } from '../store/common-store/token-store.service';
 import { ClientEvents, ServerEvents } from '@app/common/events';
+import { WindowService } from '@core/services/common/window.service';
+import { TokenKey, TokenPre } from '@app/config/constant';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,12 +12,24 @@ export class SocketService {
 
   private socket = io(localUrl, {
     auth: {
-      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzIxZmU1M2MyNmQ0MDI0ZGQzMTI0MzciLCJyb2wiOiJkZWZhdWx0OmRhc2hib2FyZCxkZWZhdWx0OmRhc2hib2FyZDphbmFseXNpcyxkZWZhdWx0OmRhc2hib2FyZDpkZW1vLGRlZmF1bHQ6cGFnZS1kZW1vLGRlZmF1bHQ6cGFnZS1kZW1vOnJlc3VsdCxkZWZhdWx0OnBhZ2UtZGVtbzpyZXN1bHQ6c3VjY2VzcyxkZWZhdWx0OnBhZ2UtZGVtbzpyZXN1bHQ6ZmFpbCxkZWZhdWx0OnBhZ2UtZGVtbzpleGNlcHQsZGVmYXVsdDpwYWdlLWRlbW86ZXhjZXB0OmV4Y2VwdDQwMyxkZWZhdWx0OnBhZ2UtZGVtbzpleGNlcHQ6ZXhjZXB0NDA0LGRlZmF1bHQ6cGFnZS1kZW1vOmV4Y2VwdDpleGNlcHQ1MDAsZGVmYXVsdDpwYWdlLWRlbW86ZXhjZXB0Om5ldHdvcmstZXJyb3IsZGVmYXVsdDpwYWdlLWRlbW86ZXhjZXB0Om5vLWRhdGEsZGVmYXVsdDpwYWdlLWRlbW86cGVyc29uYWwsZGVmYXVsdDpwYWdlLWRlbW86cGVyc29uYWw6cGVyc29uYWwtY2VudGVyLGRlZmF1bHQ6cGFnZS1kZW1vOnBlcnNvbmFsOnBlcnNvbmFsLXNldHRpbmcsZGVmYXVsdDpwcm9kdWN0LGRlZmF1bHQ6cHJvZHVjdDpzZWFyY2gsZGVmYXVsdDpwcm9kdWN0Om5ld3Byb2R1Y3QsZGVmYXVsdDpwcm9kdWN0OmNhdGVnb3J5LGRlZmF1bHQ6c3lzdGVtLGRlZmF1bHQ6c3lzdGVtOmFjY291bnQsZGVmYXVsdDpzeXN0ZW06YWNjb3VudDphZGQsZGVmYXVsdDpzeXN0ZW06YWNjb3VudDplZGl0LGRlZmF1bHQ6c3lzdGVtOnJvbGUtbWFuYWdlcixkZWZhdWx0OnN5c3RlbTpyb2xlLW1hbmFnZXI6YWRkLGRlZmF1bHQ6c3lzdGVtOnJvbGUtbWFuYWdlcjplZGl0LGRlZmF1bHQ6c3lzdGVtOnJvbGUtbWFuYWdlcjpkZWwsZGVmYXVsdDpzeXN0ZW06cm9sZS1tYW5hZ2VyOnNldC1yb2xlLGRlZmF1bHQ6c3lzdGVtOm1lbnUsZGVmYXVsdDpzeXN0ZW06bWVudTphZGQsZGVmYXVsdDpzeXN0ZW06bWVudTplZGl0LGRlZmF1bHQ6c3lzdGVtOm1lbnU6ZGVsLGRlZmF1bHQ6c3lzdGVtOm1lbnU6YWRkbG93bGV2ZWwsZGVmYXVsdDpzeXN0ZW06ZGVwdCxkZWZhdWx0OnN5c3RlbTpkZXB0OmFkZCxkZWZhdWx0OnN5c3RlbTpkZXB0OmVkaXQsZGVmYXVsdDpzeXN0ZW06ZGVwdDpkZWwsZGVmYXVsdDpzeXN0ZW06ZGVwdDphZGRsb3dsZXZlbCxkZWZhdWx0OnN5c3RlbTpkYXRhc2MsZGVmYXVsdDpzeXN0ZW06ZGF0YXNjOmFkZCxkZWZhdWx0OnN5c3RlbTpkYXRhc2M6ZWRpdCxkZWZhdWx0OnN5c3RlbTpkYXRhc2M6ZGVsLGRlZmF1bHQ6c3lzdGVtOmh1b25nZGFuLGRlZmF1bHQ6c3lzdGVtOmh1b25nZGFuOmFkZCxkZWZhdWx0OnN5c3RlbTpodW9uZ2RhbjphbGxEZWwsZGVmYXVsdDpzeXN0ZW06aHVvbmdkYW46dXBkYXRlLGRlZmF1bHQ6YWJvdXQiLCJ1c2VybmFtZSI6Ik5hbSBQaOG6oW0iLCJlbWFpbCI6Im5hbWFuZHJvaWQuaXRAZ21haWwuY29tIiwiaWF0IjoxNjkzNzk3MzY3LCJleHAiOjE2OTM4ODM3Njd9.o9YUXWIduUqpHQ-YFwqDbpNq4oR7AlzojKtWJhR-RcI'
+      token: ''
     }
   });
 
-  constructor() {
+  constructor(
+    private tokenStoreService: TokenStoreService
+  ) {
+    
+  }
 
+  setupSocketConnection() {
+    this.tokenStoreService.getGlobalTokenStore().subscribe((token)=> {
+      this.socket = io(localUrl, {
+        auth: {
+          token: token
+        }
+      });
+    })
   }
 
   on(eventName: string, callback: any) {
@@ -24,5 +38,11 @@ export class SocketService {
 
   emit(eventName: string, data: any) {
     this.socket.emit(eventName, data);
+  }
+
+  disconnect() {
+    if (this.socket) {
+        this.socket.disconnect();
+    }
   }
 }

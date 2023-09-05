@@ -2,10 +2,12 @@ import { SocketService } from "@app/core/services/common/socket.service";
 import * as ConstSocket from "@app/common/constSocket";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from 'rxjs';
+import { WindowService } from '@core/services/common/window.service';
 export interface Product {
+    id: string,
     idpro: number,
     proname: string,
-    pirce: number,
+    price: number,
     completed: boolean,
     editing: boolean,
     synced: boolean
@@ -25,18 +27,14 @@ const mapProduct = (porduct: Product) => {
 
 export class ProductStore {
     public products: Array<Product> = [];
-    private productStore$ = new BehaviorSubject<Product[]>([])
-    private socketService = new SocketService();
-    constructor(
-        
-    ) {
+    private productStore$ = new BehaviorSubject<Product[]>([]);
+    
+    constructor(private socketService : SocketService) {
 
-
+        this.socketService.setupSocketConnection();
 
         this.socketService.on(ConstSocket.demoListProduct, (res: Product[])=> {
-            console.log("client on DemoListProduct");
             this.products = res.map(mapProduct);
-            console.log(this.products);
             this.setProductStore(this.products);
            
         })
@@ -48,22 +46,22 @@ export class ProductStore {
 
         this.socketService.on(ConstSocket.demoUpdatePorduct, (product:Product)=> {
             const existingProduct = this.products.find(p => {
-                return p.idpro == product.idpro
+                return p.id == product.id
             });
             if(existingProduct) {
                 existingProduct.proname = product.proname;
-                existingProduct.pirce = product.pirce;
-                existingProduct.completed = product.completed;
+                existingProduct.price = product.price;
             }
+            console.log(this.products);
+            this.setProductStore(this.products);
         });
 
-        this.socketService.on(ConstSocket.demoDeletePorduct, (id:number) => {
-            const index = this.products.findIndex(p => {
-                return p.idpro = id
-            });
+        this.socketService.on(ConstSocket.demoDeletePorduct, (id:string) => {
+            const index = this.products.findIndex(p => p.id === id);
             if(index !== -1) {
                 this.products.splice(index,1);
             }
+            this.setProductStore(this.products);
         });
     }
 

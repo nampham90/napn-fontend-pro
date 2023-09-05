@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationFormService } from '@app/core/services/common/message-errors.service';
 import { fnCheckForm } from '@app/utils/tools';
@@ -30,7 +30,7 @@ import { Observable, of } from 'rxjs';
 export class SubdemoComponent implements OnInit {
   addEditForm!: FormGroup;
   params!: any;
-  isEdit = false;
+  isEdit = signal(false);
 
   constructor(
     private modalRef: NzModalRef,
@@ -56,6 +56,10 @@ export class SubdemoComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    if (Object.keys(this.params).length > 0) {
+      this.isEdit.set(true);
+      this.addEditForm.patchValue(this.params);
+    }
   }
 
   initForm(): void {
@@ -64,6 +68,6 @@ export class SubdemoComponent implements OnInit {
         proname: [null, [Validators.required]],
         price: [null],
     });
-}
+  }
 
 }

@@ -58,7 +58,7 @@ export class JudgeAuthGuardService {
     if (authCodeArray.includes(code)) {
       return true;
     } else {
-      this.message.error('您没有权限登录该模块');
+      this.message.error('Bạn không có quyền đăng nhập vào module này');
       this.loginOutService.loginOut();
       return this.router.parseUrl('/login');
     }

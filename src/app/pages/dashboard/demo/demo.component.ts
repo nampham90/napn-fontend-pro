@@ -21,6 +21,8 @@ import { SocketService } from '@app/core/services/common/socket.service';
 import * as ConstSocket from '@app/common/constSocket';
 import { SubdemoService } from '@app/widget/biz-widget/demo/subdemo/subdemo.service';
 import { ModalBtnStatus } from '@app/widget/base-modal';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { UserInfoService } from '@app/core/services/store/common-store/userInfo.service';
 @Component({
   selector: 'app-demo',
   templateUrl: './demo.component.html',
@@ -42,6 +44,8 @@ export class DemoComponent extends AbsComponent implements OnInit{
   checkedCashArray: any[] = [];
   visibleOptions: OptionsInterface[] = [];
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('priceTpl', { static: true }) priceTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('pronameTpl', { static: true }) pronameTpl!: TemplateRef<NzSafeAny>;
 
   constructor(
     protected override cdr: ChangeDetectorRef,
@@ -53,7 +57,9 @@ export class DemoComponent extends AbsComponent implements OnInit{
     public message: NzMessageService,
     private productStore: ProductStore,
     private socketService: SocketService,
-    private subdemoService: SubdemoService
+    private subdemoService: SubdemoService,
+    private modalSrv: NzModalService,
+    private userInfoService: UserInfoService
   ) {
     super(cdr, spinService, dataService, youtubeModalService, router, menusService);
   }
@@ -77,9 +83,32 @@ export class DemoComponent extends AbsComponent implements OnInit{
     );
   }
 
-  edit(id: number): void {}
+  edit(id: string, idpro: number, proname: string, price: number): void {
+    let reqSub = {
+      id: id,
+      idpro: idpro,
+      proname: proname,
+      price: price
+    }
+    this.subdemoService.show({nzTitle: "Cập nhật"}, reqSub).subscribe(({ modalValue, status })=>{
+      if (status === ModalBtnStatus.Cancel) {
+        return;
+      }
+      modalValue.id = id;
+      this.socketService.emit(ConstSocket.demoUpdatePorduct,modalValue);
+    });
+  }
 
-  del(id: number): void {}
+  del(id: string, idpro: number): void {
+    this.modalSrv.confirm({
+      nzTitle: "Bạn có chắc chắn muốn xóa không ?",
+      nzContent: "Nhấn Ok để xác thực",
+      nzOnOk: () => {
+        this.socketService.emit(ConstSocket.demoDeletePorduct, id);
+        this.getDataList();
+      }
+    })
+  }
   
   allDel(): void {
 
@@ -87,19 +116,21 @@ export class DemoComponent extends AbsComponent implements OnInit{
   
 
   getDataList(e?: NzTableQueryParams): void {
-    this.socketService.emit(ConstSocket.demoListProduct, "");
-    this.tableLoading(true);
-    this.productStore.getProductStore()
-    .pipe(
-      finalize(() => {
+    this.userInfoService.getUserInfo().subscribe(user=> {
+      this.socketService.emit(ConstSocket.demoListProduct, user);
+      this.tableLoading(true);
+      this.productStore.getProductStore()
+      .pipe(
+        finalize(() => {
+          this.tableLoading(false);
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(listProduct => {
+        this.dataList = [...listProduct];
         this.tableLoading(false);
-      }),
-      takeUntilDestroyed(this.destroyRef)
-    )
-    .subscribe(listProduct => {
-      this.dataList = [...listProduct];
-      this.tableLoading(false);
-    });
+      });
+    })
   }
 
   // kích hoạt kiểm tra thay đổi của bảng
@@ -140,12 +171,14 @@ export class DemoComponent extends AbsComponent implements OnInit{
         {
           title: "Name",
           width: 180,
-          field: 'proname'
+          field: 'proname',
+          tdTemplate: this.pronameTpl
         },
         {
           title: "Price",
           width: 120,
-          field: 'price'
+          field: 'price',
+          tdTemplate: this.priceTpl
         },
         {
           title: "Events",

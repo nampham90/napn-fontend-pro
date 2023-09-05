@@ -1,11 +1,12 @@
 <form nz-form [formGroup]="addEditForm">
+  <ng-container *ngIf="!isEdit()">
     <nz-form-item>
       <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="idpro">ID Product</nz-form-label>
       <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Vui lòng nhập ID Product">
         <input nz-input formControlName="idpro" name="idpro" placeholder="Vui lòng nhập ID Product" id="idpro" />
       </nz-form-control>
     </nz-form-item>
-
+  </ng-container>
     <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="proname">Tên Sản Phẩm</nz-form-label>
         <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Vui lòng nhập Tên Sản Phẩm">

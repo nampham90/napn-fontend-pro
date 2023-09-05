@@ -17,6 +17,9 @@ import { fnFlatDataHasParentToTree } from '@utils/treeTableTools';
 import { AccountService, User } from '../http/system/account.service';
 import {serverUrl} from '@env/environment.prod'
 import { AvatarStoreService } from '../store/common-store/avatar-store.service';
+import { TokenStoreService } from '../store/common-store/token-store.service';
+import { SocketService } from './socket.service';
+
 /*
  * 退出登录
  * */
@@ -35,7 +38,9 @@ export class LoginInOutService {
     private userInfoService: UserInfoService,
     private menuService: MenuStoreService,
     private windowServe: WindowService,
-    private avatarService: AvatarStoreService
+    private avatarService: AvatarStoreService,
+    private tokenStoreService: TokenStoreService,
+    private socketService: SocketService
   ) {}
 
   // 通过用户Id来获取菜单数组
@@ -48,6 +53,7 @@ export class LoginInOutService {
       // 将 token 持久化缓存，请注意，如果没有缓存，则会在路由守卫中被拦截，不让路由跳转
       // 这个路由守卫在src/app/core/services/common/guard/judgeLogin.guard.ts
       this.windowServe.setSessionStorage(TokenKey, TokenPre + token);
+      this.tokenStoreService.setGlobalTokenStore(token);
       // 解析token ，然后获取用户信息
       const userInfo: UserInfo = this.userInfoService.parsToken(TokenPre + token);
       // todo  这里是手动添加静态页面标签页操作中打开详情的按钮的权限，因为他们涉及到路由跳转，会走路由守卫，但是权限又没有通过后端管理，所以下面两行手动添加权限，实际操作中可以删除下面2行
@@ -110,6 +116,7 @@ export class LoginInOutService {
         return this.clearSessionCash();
       })
       .then(() => {
+        this.socketService.disconnect();
         this.router.navigate(['/login/login-form']);
       });
   }
