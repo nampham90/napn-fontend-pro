@@ -7,7 +7,7 @@ const port = '3006';
 export const localUrl = `http://${ip}:${port}`;
 
 export const environment = {
-  production: false
+  production: true
 };
 
 /*
