@@ -5,6 +5,7 @@ import { TokenStoreService } from '../store/common-store/token-store.service';
 import { ClientEvents, ServerEvents } from '@app/common/events';
 import { WindowService } from '@core/services/common/window.service';
 import { TokenKey, TokenPre } from '@app/config/constant';
+import * as Const from '@app/common/const'
 @Injectable({
   providedIn: 'root'
 })
@@ -24,7 +25,7 @@ export class SocketService {
 
   setupSocketConnection() {
     this.tokenStoreService.getGlobalTokenStore().subscribe((token)=> {
-      this.socket = io(localUrl, {
+      this.socket = io(localUrl + Const.PathSocket, {
         auth: {
           token: token
         }

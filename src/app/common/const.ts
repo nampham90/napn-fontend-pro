@@ -6,6 +6,9 @@ export const System = 'system';
 export const Notifi = 'notifi';
 export const Vison = 'vison';
 
+// path socket.io
+export const PathSocket = "/socket.io"
+
 //phong ban
 export const Ant100addPhongban = 'phongban/ant100addPhongban';
 export const Ant100editPhongban = 'phongban/ant100editPhongban';
