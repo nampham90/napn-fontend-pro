@@ -22,9 +22,9 @@ import { ExperimentsComponent } from './experiments/experiments.component';
 })
 export class TransitionComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '动画组件示例',
-    desc: '动起来！',
-    breadcrumb: ['首页', '组件', '动画组件']
+    title: 'Ví dụ về thành phần hoạt ảnh',
+    desc: 'Hãy di chuyển!',
+    breadcrumb: ['Home', 'Các thành phần', 'thành phần hoạt hình']
   };
   currentComp = 'home';
 

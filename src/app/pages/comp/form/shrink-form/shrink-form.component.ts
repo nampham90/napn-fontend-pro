@@ -25,21 +25,21 @@ interface SearchParam {
 })
 export class ShrinkFormComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '可折叠表单示例',
-    breadcrumb: ['首页', '组件', 'Form', '可折叠表单'],
-    desc: '可折叠表单'
+    title: 'Ví dụ về biểu mẫu có thể thu gọn',
+    breadcrumb: ['Home', 'Các thành phần', 'Form', 'hình thức đóng mở'],
+    desc: 'mở rộng đóng định thức'
   };
 
   searchParam: Partial<SearchParam> = {};
 
   isCollapse = true;
 
-  /*重置*/
+  /*cài lại*/
   resetForm(): void {
     this.searchParam = {};
   }
 
-  /*展开*/
+  /*mở rộng*/
   toggleCollapse(): void {
     this.isCollapse = !this.isCollapse;
   }

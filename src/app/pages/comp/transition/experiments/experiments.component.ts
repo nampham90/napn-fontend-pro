@@ -40,9 +40,9 @@ import { AngularImgComponent } from '../angular-img/angular-img.component';
   imports: [NgFor, AngularImgComponent, NzButtonModule, NzWaveModule]
 })
 export class ExperimentsComponent implements OnInit {
-  text1 = '少林功夫好，真的好，少林功夫棒，真的棒...'.split('');
-  text2 = '你有金刚腿，我有金刚腿，我有铁头功，嗷嗷...'.split('');
-  text3 = '我拳拳虎虎生风，虎虎生风，我掌掌黯然销魂，黯然销魂...'.split('');
+  text1 = 'Công phu Thiếu Lâm hay, thực sự hay, Công phu Thiếu Lâm hay, thực sự hay...'.split('');
+  text2 = 'Bạn có chân kim cương, tôi có chân kim cương, tôi có kỹ năng đầu sắt, ôi...'.split('');
+  text3 = 'Ta đấm hổ thì hổ làm gió, hổ và hổ làm gió, lòng bàn tay ta ngất ngây, ngất ngây...'.split('');
 
   animationState = false;
   hueState = false;

@@ -28,7 +28,7 @@ export class LazyTargCompComponent implements OnInit, OnChanges {
   destroyRef = inject(DestroyRef);
   constructor() {}
 
-  // 选择明星
+  // chọn ngôi sao
   choosePeople(people: LazySelPeopleEnum): void {
     this.purChoosePeople = people;
     this.currentPeople.next(people);

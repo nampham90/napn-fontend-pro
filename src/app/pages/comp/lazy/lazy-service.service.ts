@@ -26,13 +26,13 @@ export class LazyServiceService {
     const viewContainerRef = this._adHost.viewContainerRef;
     const { LazyTargCompComponent } = await import('./lazy-targ-comp/lazy-targ-comp.component');
     const componentRef = viewContainerRef.createComponent(LazyTargCompComponent);
-    // 使用setInput api可以被onchange钩子管理
+    // Có thể được quản lý bằng onchange hook bằng setInput api
     componentRef.setInput('purChoosePeople', selPerson);
-    // 传递destroy引用
+    // vượt qua tham chiếu tiêu diệt
     componentRef.instance.currentPeople.pipe(takeUntilDestroyed(componentRef.instance.destroyRef)).subscribe(() => {
       this.create(componentRef.instance.purChoosePeople);
     });
-    // 实现OnChange钩子
+    // Triển khai hook OnChange
     // (instance as any).ngOnChanges({
     //   purChoosePeople: new SimpleChange(null, instance.purChoosePeople, true)
     // });

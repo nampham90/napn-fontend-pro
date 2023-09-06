@@ -1,22 +1,22 @@
-<h1 class="center sp-28" [@enter1]="{ value: '', params: { delay: 0 } }">动态参数</h1>
+<h1 class="center sp-28" [@enter1]="{ value: '', params: { delay: 0 } }">Thông số động</h1>
 
 <form #f="ngForm" class="center" nz-form nzLayout="vertical" [@enter1]="{ value: '', params: { delay: 0 } }">
   <nz-form-item>
-    <nz-form-label nzFor="duration" nzRequired>过度时间（ms）</nz-form-label>
+    <nz-form-label nzFor="duration" nzRequired>Thời gian chuyển tiếp (ms)</nz-form-label>
     <nz-form-control>
       <nz-input-number id="duration" name="duration" [nzMin]="1" [nzStep]="1" [(ngModel)]="duration" />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label nzFor="delay" nzRequired>延迟时间（ms）</nz-form-label>
+    <nz-form-label nzFor="delay" nzRequired>Thời gian trễ (ms)</nz-form-label>
     <nz-form-control>
       <nz-input-number id="delay" name="delay" [nzMin]="1" [nzStep]="1" [(ngModel)]="delay" />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item *ngIf="animation === 'pulse'">
-    <nz-form-label nzFor="scale" nzRequired>放大缩小倍数</nz-form-label>
+    <nz-form-label nzFor="scale" nzRequired>hệ số phóng đại/thu nhỏ</nz-form-label>
     <nz-form-control>
       <nz-input-number id="scale" name="scale" [nzMin]="0" [nzStep]="0.01" [(ngModel)]="scale" />
     </nz-form-control>
@@ -94,7 +94,7 @@
       ].includes(animation)
     "
   >
-    <nz-form-label nzFor="degrees" nzRequired>旋转度数</nz-form-label>
+    <nz-form-label nzFor="degrees" nzRequired>Độ quay</nz-form-label>
     <nz-form-control>
       <nz-input-number id="degrees" name="degrees" [nzMin]="0" [nzStep]="0.01" [(ngModel)]="degrees" />
     </nz-form-control>
@@ -200,7 +200,7 @@
     <app-angular-img *ngSwitchCase="'hueRotate'" [@hueRotate]="{ value: animationState, params: { duration: duration, delay: delay } }" />
   </div>
 
-  <div *ngSwitchDefault>选择动画</div>
+  <div *ngSwitchDefault>Chọn hoạt ảnh</div>
 </div>
 
 <div class="center" [@enter3]="{ value: '', params: { delay: 1200, duration: 1000 } }">
@@ -210,5 +210,5 @@
     </nz-option-group>
   </nz-select>
 
-  <button nz-button nzType="default" [disabled]="f.invalid" (click)="animate()">点击骚动起来</button>
+  <button nz-button nzType="default" [disabled]="f.invalid" (click)="animate()">bấm vào để khuấy động</button>
 </div>

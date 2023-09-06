@@ -26,11 +26,11 @@ export class LuckysheetComponent implements OnInit, AfterViewInit {
       ])
       .then(() => {
         const options = {
-          userName: 'NgAntAdmin', // 用户名
+          userName: 'NgAntAdmin', // tên tài khoản
           myFolderUrl: 'https://github.com/huajian123/ng-ant-admin',
           container: 'luckysheet',
-          title: '简单的示例', // 设定表格名称
-          lang: 'zh' // 设定表格语言
+          title: 'Ví dụ đơn giản', // đặt tên bảng
+          lang: 'vi' // Đặt ngôn ngữ biểu mẫu
         };
         // @ts-ignore
         luckysheet.create(options);

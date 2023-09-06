@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="center sp-28" [@enter1]>进场/离场动画.</h1>
+  <h1 class="center sp-28" [@enter1]>Hoạt ảnh vào/ra.</h1>
 
   <div [@enter2]>
     <nz-select class="m-r-8" nzAllowClear nzPlaceHolder="Choose" nzShowSearch style="width: 200px" [(ngModel)]="animation" (ngModelChange)="state = false">
@@ -8,7 +8,7 @@
       </nz-option-group>
     </nz-select>
 
-    <button nz-button nzType="default" (click)="toggleState()">点击切换</button>
+    <button nz-button nzType="default" (click)="toggleState()">Bấm để chuyển đổi</button>
   </div>
 
   <div class="center-children-horizontally" [@enter3] [ngSwitch]="animation">

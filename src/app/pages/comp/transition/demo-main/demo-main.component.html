@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="center sp-28" [@enter1]>Angular Animations 有点骚气啊</h1>
+  <h1 class="center sp-28" [@enter1]>Angular Animations</h1>
 
   <div class="center" [@enter2] [ngSwitch]="animation">
     <div class="angular-img-wrapper">
@@ -104,7 +104,7 @@
       <app-angular-img *ngSwitchCase="'hueRotate'" [@hueRotate]="animationState" />
     </div>
 
-    <div *ngSwitchDefault>选择动画</div>
+    <div *ngSwitchDefault>Chọn hoạt ảnh</div>
   </div>
 
   <div class="center" [@enter3] (@enter3.done)="animationState = !animationState">
@@ -114,10 +114,10 @@
       </nz-option-group>
     </nz-select>
 
-    <button nz-button nzType="default" [@hueButton]="hueBtnState" (@hueButton.done)="hueBtnState = !hueBtnState" (click)="animate()">点击骚动起来</button>
+    <button nz-button nzType="default" [@hueButton]="hueBtnState" (@hueButton.done)="hueBtnState = !hueBtnState" (click)="animate()">bấm vào để khuấy động</button>
   </div>
 
   <div [@enter3]>
-    <div class="center">鼠标悬停这个按钮，颜色会渐变</div>
+    <div class="center">Khi di chuột qua nút này, màu sắc sẽ thay đổi dần</div>
   </div>
 </div>

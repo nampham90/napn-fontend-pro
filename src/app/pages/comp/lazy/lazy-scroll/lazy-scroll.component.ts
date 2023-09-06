@@ -20,9 +20,9 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
 })
 export class LazyScrollComponent implements OnInit, AfterViewInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '滚动懒加载组件示例',
-    breadcrumb: ['首页', '组件', '滚动懒加载'],
-    desc: '滚动页面，加载组件'
+    title: 'Ví dụ về thành phần tải lười biếng cuộn',
+    breadcrumb: ['Home', 'Các thành phần', 'cuộn tải lười biếng'],
+    desc: 'Cuộn trang và tải thành phần'
   };
   @ViewChild(AdDirective, { static: true }) adHost!: AdDirective;
   destroyRef = inject(DestroyRef);

@@ -19,9 +19,9 @@ import { PageHeaderComponent } from '../../../shared/components/page-header/page
 })
 export class StrengthMeterComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '密码强度校验组件',
-    breadcrumb: ['首页', '组件', '密码强度校验组件'],
-    desc: '看看你密码强度够不够'
+    title: 'Thành phần xác minh độ mạnh mật khẩu',
+    breadcrumb: ['Home', 'Các thành phân', 'Thành phần xác minh độ mạnh mật khẩu'],
+    desc: 'Kiểm tra xem mật khẩu của bạn có đủ mạnh không'
   };
   passwordVisible = false;
   newPassword!: string;
