@@ -17,9 +17,9 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 })
 export class BasicComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '基础组件',
-    breadcrumb: ['首页', '组件', '基础组件'],
-    desc: '一系列基础组件'
+    title: 'Thành phần cơ bản',
+    breadcrumb: ['Home', 'Các thành phần', 'Thành phần cơ bản'],
+    desc: 'Một loạt các thành phần cơ bản'
   };
 
   constructor() {}

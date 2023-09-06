@@ -10,7 +10,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzInputModule } from 'ng-zorro-antd/input';
 
-// 不要在这里定义，这里只是写个例子
+// Đừng định nghĩa nó ở đây, chỉ viết một ví dụ ở đây
 interface WareHouseManageObj {
   warehouseName: string;
   warehouseDomainName: string;
@@ -67,7 +67,7 @@ export class WarehouseManageFormComponent implements OnInit, ControlValueAccesso
   registerOnTouched(fn: NzSafeAny): void {}
 
   checkForm(): boolean {
-    // 用下面方式让formArray每一项置脏（如果有formArray的话，这里只是做个示例）
+    // Sử dụng phương pháp sau để làm bẩn từng mục của formArray (nếu có formArray thì đây chỉ là một ví dụ)
     /* ((this.validateForm.get('fontImgArray') as FormArray).controls).forEach(item => {
        fnCheckForm(item as FormGroup);
      })*/

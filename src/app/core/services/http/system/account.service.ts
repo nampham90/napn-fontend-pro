@@ -7,7 +7,7 @@ import { PageInfo, SearchCommonVO } from '../../types';
 import { BaseHttpService } from '../base-http.service';
 import { TMT010FILE } from '@app/model/tmt010_file.model';
 /*
- * 用户管理
+ * uản lý người dùng
  * */
 export interface User {
   id: number;
@@ -27,7 +27,7 @@ export interface User {
 }
 
 /*
- * 用户修改密码
+ * Người dùng thay đổi mật khẩu
  * */
 export interface UserPsd {
   id: string;

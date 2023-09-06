@@ -3,7 +3,7 @@
   <nz-card class="m-b-10" nzTitle="Message">
     <button class="m-b-8" nz-button nzBlock [nzType]="'dashed'" (click)="addForm()">
       <i nz-icon nzType="plus"></i>
-      <span>添加</span>
+      <span>Thêm vào</span>
     </button>
 
     <form nz-form [formGroup]="validateForm">
@@ -19,7 +19,7 @@
           <nz-form-item nz-col [nzSpan]="4">
             <button nz-button [nzGhost]="true" [nzType]="'primary'" (click)="del(groupIndex)">
               <i nz-icon nzType="delete"></i>
-              移除
+              Di dời
             </button>
           </nz-form-item>
         </div>
@@ -28,115 +28,115 @@
 
     <ng-template #combineTpl let-control>
       <ng-container *ngIf="control.hasError('message')">{{ control.errors.message }}</ng-container>
-      <ng-container *ngIf="control.hasError('required')">必填项</ng-container>
+      <ng-container *ngIf="control.hasError('required')">Phần bắt buộc</ng-container>
     </ng-template>
   </nz-card>
 
   <nz-card class="m-b-10" nzTitle="Message">
     <div class="task-head" nz-row nzAlign="middle" nzJustify="space-between">
       <div class="text-center" nz-col nzSpan="7">
-        <div class="task-head-title m-b-5" nz-typography nzType="secondary">我的待办</div>
-        <p>2个任务</p>
+        <div class="task-head-title m-b-5" nz-typography nzType="secondary">Danh sách việc cần làm của tôi</div>
+        <p>2 nhiệm vụ</p>
       </div>
       <div>
         <nz-divider class="divider" nzType="vertical"></nz-divider>
       </div>
       <div class="text-center" nz-col nzSpan="7">
-        <div class="m-b-5" nz-typography nzType="secondary">已逾期任务数</div>
-        <p>1个任务</p>
+        <div class="m-b-5" nz-typography nzType="secondary">Nhiệm vụ quá hạn</div>
+        <p>1 nhiệm vụ</p>
       </div>
       <div class="center">
         <nz-divider class="divider" nzType="vertical"></nz-divider>
       </div>
       <div class="text-center" nz-col nzSpan="7">
-        <div class="m-b-5" nz-typography nzType="secondary">进行中任务数</div>
-        <p>1个任务</p>
+        <div class="m-b-5" nz-typography nzType="secondary">Số lượng nhiệm vụ đang thực hiện</div>
+        <p>1 nhiệm vụ</p>
       </div>
     </div>
     <nz-divider></nz-divider>
     <div class="space-between">
-      <h3 class="sp-18">任务列表</h3>
+      <h3 class="sp-18">Danh sách công việc</h3>
       <div>
         <nz-radio-group class="m-r-15" [ngModel]="taskState">
           <label nz-radio-button [nzValue]="taskStateSearchEnum.All">
-            <span>全部</span>
+            <span>tất cả</span>
           </label>
           <label nz-radio-button [nzValue]="taskStateSearchEnum.NoStarted">
-            <span>未开始</span>
+            <span>chưa bắt đầu</span>
           </label>
           <label nz-radio-button [nzValue]="taskStateSearchEnum.Processing">
-            <span>进行中</span>
+            <span>trong tiến trình</span>
           </label>
           <label nz-radio-button [nzValue]="taskStateSearchEnum.Complete">
-            <span>已完成</span>
+            <span>hoàn thành</span>
           </label>
           <label nz-radio-button [nzValue]="taskStateSearchEnum.Overdue">
-            <span>已逾期</span>
+            <span>quá hạn</span>
           </label>
         </nz-radio-group>
         <nz-radio-group class="m-r-15" [ngModel]="taskCheckPeriodState">
           <label nz-radio-button [nzValue]="taskCheckPeriodStateEnum.All">
-            <span>全部</span>
+            <span>tất cả</span>
           </label>
           <label nz-radio-button [nzValue]="taskCheckPeriodStateEnum.DayCheck">
-            <span>日检</span>
+            <span>Kiểm tra hàng ngày</span>
           </label>
           <label nz-radio-button [nzValue]="taskCheckPeriodStateEnum.MonthCheck">
-            <span>月检</span>
+            <span>kiểm tra hàng tháng</span>
           </label>
           <label nz-radio-button [nzValue]="taskCheckPeriodStateEnum.QuarterlyCheck">
-            <span>季检</span>
+            <span>Kiểm tra hàng quý</span>
           </label>
           <label nz-radio-button [nzValue]="taskCheckPeriodStateEnum.YearCheck">
-            <span>年检</span>
+            <span>Thanh tra hàng năm</span>
           </label>
         </nz-radio-group>
         <nz-input-group nzSuffixIcon="search" style="width: 200px">
-          <input type="text" name="q" nz-input placeholder="请输入" />
+          <input type="text" name="q" nz-input placeholder="vui lòng nhập" />
         </nz-input-group>
       </div>
     </div>
 
     <button class="m-b-8 m-t-20" nz-button nzBlock [nzType]="'dashed'" (click)="add()">
       <i nz-icon nzType="plus"></i>
-      <span>添加</span>
+      <span>Thêm vào</span>
     </button>
 
     <nz-list [nzDataSource]="showTaskList" [nzLoading]="loading" [nzPagination]="pagination" [nzRenderItem]="item">
       <ng-template #item let-item>
         <nz-list-item [nzActions]="[edit, op]" [nzContent]="nzContent">
           <ng-template #edit>
-            <a class="operate-text" nz-typography>完成</a>
+            <a class="operate-text" nz-typography>Hoàn thành</a>
           </ng-template>
           <ng-template #op>
             <a class="ant-dropdown-link operate-text" nz-dropdown nz-typography [nzDropdownMenu]="opMenu">
-              更多
+              Hơn
               <i nz-icon nzType="down"></i>
             </a>
             <nz-dropdown-menu #opMenu="nzDropdownMenu">
               <ul nz-menu>
-                <li nz-menu-item>编辑</li>
-                <li nz-menu-item>删除</li>
+                <li nz-menu-item>biên tập</li>
+                <li nz-menu-item>xóa bỏ</li>
               </ul>
             </nz-dropdown-menu>
           </ng-template>
           <nz-list-item-meta [nzDescription]="item.taskDesc" [nzTitle]="nzTitle">
             <ng-template #nzTitle>
               <a class="sp-18 m-r-8" href="{{ item.href }}" target="_blank">{{ item.taskName }}</a>
-              <nz-tag [nzColor]="'blue'">标记</nz-tag>
+              <nz-tag [nzColor]="'blue'">đánh dấu</nz-tag>
             </ng-template>
           </nz-list-item-meta>
           <ng-template #nzContent>
             <div style="width: 280px">
               <div style="display: flex; color: #8c8c8c">
                 <div style="flex: 1">
-                  执行人
+                  người thi hành án
                   <p nz-typography nzEllipsis nzExpandable [attr.title]="item.userName" [nzEllipsisRows]="1" (nzOnEllipsis)="onEllipsisChange($event)">
                     {{ item.userName }}
                   </p>
                 </div>
                 <div class="text-right">
-                  截止时间
+                  thời hạn
                   <p>{{ item.endTime | date : 'yyyy-MM-dd' }}</p>
                 </div>
               </div>

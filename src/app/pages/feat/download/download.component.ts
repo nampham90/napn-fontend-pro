@@ -19,9 +19,9 @@ import { NzWaveModule } from 'ng-zorro-antd/core/wave';
 })
 export class DownloadComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '文件下载',
-    breadcrumb: ['首页', '功能', '文件下载'],
-    desc: '各种文件下载'
+    title: 'Tải tài liệu',
+    breadcrumb: ['Home', 'CHức năng', 'Tải tài liệu'],
+    desc: 'Tải tập tin khác nhau'
   };
   destroyRef = inject(DestroyRef);
 
@@ -31,14 +31,14 @@ export class DownloadComponent implements OnInit {
 
   fileStreamDownload(): void {
     const downloadDto = {
-      downloadUrl: `http://${ip}/api/file/图纸实际材料量导入模板.xlsx`
+      downloadUrl: `http://${ip}/api/file/Mẫu nhập số lượng vật liệu thực tế vào bản vẽ.xlsx`
     };
     this.downloadService
       .fileStreamDownload(downloadDto)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         const blob = new Blob([res], { type: 'text/plain;charset=utf-8' });
-        FileSaver.saveAs(blob, '材料库导入模板.xlsx');
+        FileSaver.saveAs(blob, 'Mẫu nhập thư viện tài liệu.xlsx');
       });
   }
 }

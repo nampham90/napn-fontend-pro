@@ -19,9 +19,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 })
 export class PlayScrollComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '玩弄滚动条',
-    breadcrumb: ['首页', '拓展功能', '玩弄滚动条'],
-    desc: '传说有一位少年骑着电驴去买瓜'
+    title: 'Tung hứng thanh cuộn',
+    breadcrumb: ['Home', 'Mở rộng chức năng', 'Tung hứng thanh cuộn'],
+    desc: 'Truyền thuyết kể rằng có một thiếu niên cưỡi lừa điện đi mua dưa.'
   };
 
   constructor(private scrollService: NzScrollService, @Inject(DOCUMENT) private _doc: Document) {}

@@ -8,7 +8,7 @@ export interface LockScreenFlag {
 }
 
 /**
- * 锁屏状态service的store
+ * Kho dịch vụ trạng thái màn hình khóa
  */
 @Injectable({
   providedIn: 'root'

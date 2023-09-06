@@ -1,30 +1,30 @@
 /*
- * 通用interface
+ * Giao diện chung
  * */
 
 import { Type } from '@angular/core';
 
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 
-// 动态组件
+// thành phần động
 export class DynamicComponent {
   constructor(public component: Type<NzSafeAny>, public data: NzSafeAny) {}
 }
 
-// select下拉
+// chọn thả xuống
 export interface OptionsInterface {
   value: number | string;
   label: string;
 }
 
-// 列表搜索
+// danh sách tìm kiếm
 export interface SearchCommonVO<T> {
   pageNum: number;
   pageSize: number;
   filters?: T;
 }
 
-// 分页
+// phân trang
 export interface PageInfo<T> {
   pageNum: number;
   pageSize: number;
@@ -47,12 +47,12 @@ export interface PageInfo<T> {
   navigatepageNums?: number[];
 }
 
-// 动态组件
+// thành phần động
 export interface AdComponent {
   data: NzSafeAny;
 }
 
-// 级联选择数据结构
+// Cấu trúc dữ liệu chọn tầng
 export interface CascaderOption {
   value: number | string;
   label: string;
@@ -61,21 +61,21 @@ export interface CascaderOption {
 }
 
 /*
- * 菜单
+ * Menu
  * */
 export interface Menu {
   id: number | string;
   fatherId: number | string;
   path: string;
   menuName: string;
-  menuType: 'C' | 'F'; // c:菜单，f按钮
-  icon?: string; // 如果showIcon为false，设置这个为搜索窗口时，最左侧的icon
-  alIcon?: string; // 如果showIcon为false，设置这个为搜索窗口时，最左侧的icon
+  menuType: 'C' | 'F'; // c: menu, f nút
+  icon?: string; // Nếu showIcon sai, hãy đặt biểu tượng này làm biểu tượng ngoài cùng bên trái trong cửa sổ tìm kiếm
+  alIcon?: string; //Nếu showIcon sai, hãy đặt biểu tượng này làm biểu tượng ngoài cùng bên trái trong cửa sổ tìm kiếm
   open?: boolean;
-  selected?: boolean; // 是否选中
+  selected?: boolean; // Nó đã được chọn chưa
   children?: Menu[];
-  code?: string; // 权限码
-  newLinkFlag?: 0 | 1; // 是否是新页
+  code?: string; // Mã quyền
+  newLinkFlag?: 0 | 1; // Đây có phải là một trang mới?
   visible?: boolean;
   status?: boolean;
 }

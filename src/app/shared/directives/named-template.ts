@@ -31,7 +31,7 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 })
 export class NamedTemplate<T> implements OnInit {
   /**
-   * 模板名称
+   * Tên mẫu
    */
   @Input() named!: string;
   constructor(public template: TemplateRef<T>) {}
@@ -43,7 +43,7 @@ export class NamedTemplate<T> implements OnInit {
   resolveName(): void {
     if (!this.named && this.template) {
       const tplRef = this.template as NzSafeAny;
-      // localNames为数组, 如果没有name则为null
+      // localNames là một mảng hoặc nếu không có tên null
       this.named = tplRef._declarationTContainer.localNames?.[0];
     }
   }

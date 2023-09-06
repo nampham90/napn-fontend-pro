@@ -56,8 +56,8 @@ export class NormalLoginComponent implements OnInit {
     //   return;
     // }
     setTimeout(() => {
-      // 请查看src/app/pages/login/login-form/login-form.component.ts文件中的登录逻辑
-      // 这里的登录逻辑只是做个展示示例
+      // Vui lòng kiểm tra logic đăng nhập trong tệp src/app/pages/login/login-form/login-form.comComponent.ts
+      // Logic đăng nhập ở đây chỉ là một ví dụ minh họa
       this.router.navigateByUrl('default/dashboard/analysis').then(() => {
         this.spinService.setCurrentGlobalSpinStore(false);
       });

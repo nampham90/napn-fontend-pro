@@ -55,48 +55,48 @@ export class SearchTableComponent implements OnInit {
   isCollapse = true;
   tableConfig!: AntTableConfig;
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '查询表格（表头可拖动，点击列表的"查看"按钮，演示在当前tab打开详情操作，如果需要新开tab展示详情，请跳转到"功能>页签操作"中查看演示效果）',
-    // desc: '表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。',
-    breadcrumb: ['首页', '列表页', '查询表格']
+    title: 'Biểu mẫu truy vấn (có thể kéo tiêu đề, nhấp vào nút "Xem" trong danh sách và trình bày thao tác mở chi tiết trong tab hiện tại, nếu bạn cần mở tab mới để hiển thị chi tiết, vui lòng chuyển đến "Chức năng > Tab Operation" để xem hiệu ứng trình diễn)',
+    // desc: 'Các trang biểu mẫu được sử dụng để thu thập hoặc xác minh thông tin từ người dùng và các biểu mẫu cơ bản thường được sử dụng trong các tình huống biểu mẫu có ít mục dữ liệu hơn.',
+    breadcrumb: ['Home', 'Danh sách', 'mẫu yêu cầu']
   };
   checkedCashArray: NzSafeAny[] = [
     {
       id: '1',
-      noShow: '默认不展示',
-      longText: '文字超级长文字超级长文字超级长文字超级长文字超级长文字超级长',
-      newline: '没有省略号没有省略号没有省略号没有省略号没有省略号没有省略号没有省略号没有省略号',
-      addStyle: '加样式',
-      name: '自定义模板',
-      obj: { a: { b: '点出来的值1' } }
+      noShow: 'Không được hiển thị theo mặc định',
+      longText: 'văn bản siêu dài văn bản siêu dài văn bản siêu dài văn bản siêu dài văn bản siêu dài văn bản siêu dài',
+      newline: 'không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng',
+      addStyle: 'thêm phong cách',
+      name: 'mẫu tùy chỉnh',
+      obj: { a: { b: 'Hãy chỉ ra giá trị 1' } }
     },
     {
       id: '2',
-      noShow: '默认不展示',
-      longText: '文字超级长',
+      noShow: 'Không được hiển thị theo mặc định',
+      longText: 'văn bản siêu dài',
       newline: 'string',
-      name: '自定义模板',
-      addStyle: '加样式',
-      obj: { a: { b: '点出来的值1' } }
+      name: 'mẫu tùy chỉnh',
+      addStyle: 'thêm phong cách',
+      obj: { a: { b: 'Hãy chỉ ra giá trị 1' } }
     }
-  ]; // 需修改为对应业务的数据类型
-  dataList: NzSafeAny[] = []; // 需修改为对应业务的数据类型
+  ]; // Cần sửa lại kiểu dữ liệu tương ứng với doanh nghiệp
+  dataList: NzSafeAny[] = []; // Cần sửa lại kiểu dữ liệu tương ứng với doanh nghiệp
 
   constructor(private fb: FormBuilder, private modalSrv: NzModalService, public message: NzMessageService, private router: Router, private cdr: ChangeDetectorRef) {}
 
-  // 最左侧复选框选中触发
+  // Hộp kiểm ngoài cùng bên trái được chọn để kích hoạt
   selectedChecked(e: any): void {
     this.checkedCashArray = [...e];
   }
 
-  // 刷新页面
+  // làm mới trang
   reloadTable(): void {
-    this.message.info('已经刷新了');
+    this.message.info('đã được làm mới');
     this.getDataList();
   }
 
-  // 触发表格变更检测
+  // Phát hiện thay đổi bảng kích hoạt
   tableChangeDectction(): void {
-    // 改变引用触发变更检测。
+    // Thay đổi tham chiếu sẽ kích hoạt phát hiện thay đổi.
     this.dataList = [...this.dataList];
     this.cdr.detectChanges();
   }
@@ -117,57 +117,57 @@ export class SearchTableComponent implements OnInit {
       this.dataList = [
         {
           id: '1',
-          noShow: '默认不展示',
-          longText: '文字超级长文字超级长文字超级长文字超级长文字超级长文字超级长',
-          newline: '没有省略号没有省略号没有省略号没有省略号没有省略号没有省略号没有省略号没有省略号',
-          addStyle: '加样式',
-          name: '自定义模板',
-          obj: { a: { b: '点出来的值1' } }
+          noShow: 'Không được hiển thị theo mặc định',
+          longText: 'văn bản siêu dài văn bản siêu dài văn bản siêu dài văn bản siêu dài văn bản siêu dài văn bản siêu dài',
+          newline: 'không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng không có dấu chấm lửng',
+          addStyle: 'thêm phong cách',
+          name: 'mẫu tùy chỉnh',
+          obj: { a: { b: 'Giá trị được nhấp 1' } }
         },
         {
           id: '2',
-          noShow: '默认不展示',
+          noShow: 'Không được hiển thị theo mặc định',
           longText: '文字超级长',
           newline: 'string',
-          name: '自定义模板',
-          addStyle: '加样式',
-          obj: { a: { b: '点出来的值1' } }
+          name: 'mẫu tùy chỉnh',
+          addStyle: 'thêm phong cách',
+          obj: { a: { b: 'Giá trị được nhấp 1' } }
         },
         {
           id: '3',
-          noShow: '默认不展示',
+          noShow: 'Không được hiển thị theo mặc định',
           longText: 'string',
           newline: 'string',
-          name: '自定义模板',
-          addStyle: '加样式',
-          obj: { a: { b: '点出来的值1' } }
+          name: 'mẫu tùy chỉnh',
+          addStyle: 'thêm phong cách',
+          obj: { a: { b: 'Giá trị được nhấp 1' } }
         },
         {
           id: '4',
-          noShow: '默认不展示',
+          noShow: 'Không được hiển thị theo mặc định',
           longText: 'string',
           newline: 'string',
-          name: '自定义模板',
-          addStyle: '加样式',
-          obj: { a: { b: '点出来的值1' } }
+          name: 'mẫu tùy chỉnh',
+          addStyle: 'thêm phong cách',
+          obj: { a: { b: 'Giá trị được nhấp 1' } }
         },
         {
           id: '5',
-          noShow: '默认不展示',
+          noShow: 'Không được hiển thị theo mặc định',
           longText: 'string',
           newline: 'string',
-          name: '自定义模板',
-          addStyle: '加样式',
-          obj: { a: { b: '点出来的值1' } }
+          name: 'mẫu tùy chỉnh',
+          addStyle: 'thêm phong cách',
+          obj: { a: { b: 'Giá trị được nhấp 1' } }
         },
         {
           id: '6',
-          noShow: '默认不展示',
+          noShow: 'Không được hiển thị theo mặc định',
           longText: 'string',
           newline: 'string',
-          name: '自定义模板',
-          addStyle: '加样式',
-          obj: { a: { b: '点出来的值1' } }
+          name: 'mẫu tùy chỉnh',
+          addStyle: 'thêm phong cách',
+          obj: { a: { b: 'Giá trị được nhấp 1' } }
         }
       ];
       this.tableConfig.total = 13;
@@ -176,7 +176,7 @@ export class SearchTableComponent implements OnInit {
       this.tableLoading(false);
     });
 
-    /*-----实际业务请求http接口如下------*/
+    /*-----Giao diện http yêu cầu kinh doanh thực tế như sau------*/
     // this.tableConfig.loading = true;
     // const params: SearchCommonVO<any> = {
     //   pageSize: this.tableConfig.pageSize!,
@@ -195,25 +195,25 @@ export class SearchTableComponent implements OnInit {
     // }));
   }
 
-  /*重置*/
+  /* cài lại */
   resetForm(): void {
     this.searchParam = {};
     this.getDataList();
   }
 
-  /*展开*/
+  /*Mở rộng*/
   toggleCollapse(): void {
     this.isCollapse = !this.isCollapse;
   }
 
-  /*查看*/
+  /*Kiểm tra*/
   check(name: string): void {
-    // skipLocationChange导航时不要把新状态记入历史时设置为true
+    // SkipLocationChange Đặt thành true khi điều hướng và không ghi trạng thái mới vào lịch sử
     this.router.navigate(['default/page-demo/list/search-table/search-table-detail', name, 123]);
   }
 
   add(): void {
-    // this.modalService.show({nzTitle: '新增'}).subscribe((res) => {
+    // this.modalService.show({nzTitle: 'Thêm mới'}).subscribe((res) => {
     //   if (!res || res.status === ModalBtnStatus.Cancel) {
     //     return;
     //   }
@@ -222,10 +222,10 @@ export class SearchTableComponent implements OnInit {
     // }, error => this.tableLoading(false));
   }
 
-  // 修改
+  // Cập nhật
   edit(id: number): void {
     // this.dataService.getFireSysDetail(id).subscribe(res => {
-    //   this.modalService.show({nzTitle: '编辑'}, res).subscribe(({modalValue, status}) => {
+    //   this.modalService.show({nzTitle: 'Cập nhật'}, res).subscribe(({modalValue, status}) => {
     //     if (status === ModalBtnStatus.Cancel) {
     //       return;
     //     }
@@ -244,11 +244,11 @@ export class SearchTableComponent implements OnInit {
 
   del(id: number): void {
     this.modalSrv.confirm({
-      nzTitle: '确定要删除吗？',
-      nzContent: '删除后不可恢复',
+      nzTitle: 'Bạn chắc chắn muốn xóa nó?',
+      nzContent: 'Không thể khôi phục sau khi xóa',
       nzOnOk: () => {
         this.tableLoading(true);
-        /*注释的是模拟接口调用*/
+        /*Chú thích là lệnh gọi giao diện mô phỏng*/
         // this.dataService.delFireSys([id]).subscribe(() => {
         //   if (this.dataList.length === 1) {
         //     this.tableConfig.pageIndex--;
@@ -258,7 +258,7 @@ export class SearchTableComponent implements OnInit {
         // }, error => this.tableLoading(false));
 
         setTimeout(() => {
-          this.message.info(`id数组(支持分页保存):${JSON.stringify(id)}`);
+          this.message.info(`mảng id (hỗ trợ lưu phân trang):${JSON.stringify(id)}`);
           this.getDataList();
           this.checkedCashArray.splice(
             this.checkedCashArray.findIndex(item => item.id === id),
@@ -273,15 +273,15 @@ export class SearchTableComponent implements OnInit {
   allDel(): void {
     if (this.checkedCashArray.length > 0) {
       this.modalSrv.confirm({
-        nzTitle: '确定要删除吗？',
-        nzContent: '删除后不可恢复',
+        nzTitle: 'Bạn chắc chắn muốn xóa nó?',
+        nzContent: 'Không thể phục hồi sau khi xóa',
         nzOnOk: () => {
           const tempArrays: number[] = [];
           this.checkedCashArray.forEach(item => {
             tempArrays.push(item.id);
           });
           this.tableLoading(true);
-          // 注释的是模拟接口的调用
+          // Chú thích là lệnh gọi của giao diện giả
           // this.dataService.delFireSys(tempArrays).subscribe(() => {
           //   if (this.dataList.length === 1) {
           //     this.tableConfig.pageIndex--;
@@ -290,7 +290,7 @@ export class SearchTableComponent implements OnInit {
           //   this.checkedCashArray = [];
           // }, error => this.tableLoading(false));
           setTimeout(() => {
-            this.message.info(`id数组(支持分页保存):${JSON.stringify(tempArrays)}`);
+            this.message.info(`mảng id (hỗ trợ lưu phân trang):${JSON.stringify(tempArrays)}`);
             this.getDataList();
             this.checkedCashArray = [];
             this.tableLoading(false);
@@ -298,41 +298,41 @@ export class SearchTableComponent implements OnInit {
         }
       });
     } else {
-      this.message.error('请勾选数据');
+      this.message.error('Vui lòng kiểm tra dữ liệu');
       return;
     }
   }
 
   changeSort(e: SortFile): void {
-    this.message.info(`排序字段：${e.fileName},排序为:${e.sortDir}`);
+    this.message.info(`Trường sắp xếp:${e.fileName},Sắp xếp như:${e.sortDir}`);
   }
 
-  // 修改一页几条
+  // Sửa đổi một số mục trên một trang
   changePageSize(e: number): void {
     this.tableConfig.pageSize = e;
   }
 
   private initTable(): void {
     /*
-     * 注意，这里需要留一列不要设置width，让列表自适应宽度
+     * Lưu ý là bạn cần để lại một cột ở đây mà không đặt độ rộng để danh sách có thể điều chỉnh theo độ rộng
      *
      * */
     this.tableConfig = {
       headers: [
         {
-          title: '默认不显示',
+          title: 'Không hiển thị theo mặc định',
           width: 130,
           field: 'noShow',
           show: false
         },
         {
-          title: '文字很长',
+          title: 'Văn bản rất dài',
           width: 130,
           field: 'longText',
           showSort: true
         },
         {
-          title: '换行',
+          title: 'dòng mới',
           width: 100,
           field: 'newline',
           notNeedEllipsis: true,
@@ -340,23 +340,23 @@ export class SearchTableComponent implements OnInit {
           tdClassList: ['text-wrap']
         },
         {
-          title: '加样式',
+          title: 'Thêm phong cách',
           width: 100,
           field: 'addStyle',
           tdClassList: ['operate-text']
         },
         {
-          title: '自定义模板',
+          title: 'mẫu tùy chỉnh',
           field: 'name',
           tdTemplate: this.highLightTpl,
           width: 140
         },
         {
-          title: '对象点出来（obj.a.b）',
+          title: 'đối tượng chỉ ra（obj.a.b）',
           field: 'obj.a.b'
         },
         {
-          title: '操作',
+          title: 'vận hành',
           tdTemplate: this.operationTpl,
           width: 120,
           fixed: true,

@@ -463,7 +463,7 @@ export class MonitorComponent implements OnInit, AfterViewInit {
         fill: '#d6e3fd'
       },
       annotations: [
-        // 平均值
+        // giá trị trung bình
         {
           type: 'line',
           start: ['min', 'mean'],
@@ -482,7 +482,7 @@ export class MonitorComponent implements OnInit, AfterViewInit {
             //   stroke: 'rgba(0, 0, 0, 0.25)',
           }
         },
-        // 目标值
+        // giá trị của mục tiêu
         {
           type: 'line',
           start: ['min', 800],
@@ -530,11 +530,11 @@ export class MonitorComponent implements OnInit, AfterViewInit {
         fontFamily: 'Verdana',
         fontSize: [24, 80]
       },
-      // 设置交互类型
+      // đặt loại tương tác
       interactions: [{ type: 'element-active' }],
       state: {
         active: {
-          // 这里可以设置 active 时的样式
+          // Tại đây bạn có thể đặt kiểu hoạt động
           style: {
             lineWidth: 3
           }
@@ -573,11 +573,11 @@ export class MonitorComponent implements OnInit, AfterViewInit {
           }
 
           this.wordCloud();
-          // 地图
+          // bản đồ
           // api地址
           // https://lbs.amap.com/demo/javascript-api/example/map-lifecycle/map-show
-          // 自己去申请一个key，别用我这个Key，多谢
-          // 申请地址 https://console.amap.com/dev/key/app
+          // Hãy tự đăng ký lấy chìa khóa. Đừng sử dụng Chìa khóa của tôi. Cảm ơn bạn.
+          // Địa chỉ ứng dụng https://console.amap.com/dev/key/app
           AMapLoader.load({
             key: '1c1b77fae2e59c25eb26ced9a0801103', //首次load必填
             version: '1.4.15',

@@ -40,7 +40,7 @@ export class TreeTableComponent implements OnInit, OnChanges {
   _dataList!: TreeNodeInterface[];
   allChecked: boolean = false;
   indeterminate = false;
-  // 从业务组件中传入的缓存的已经选中的checkbox数据数组,相当于缓存的tableData
+  //Mảng dữ liệu hộp kiểm đã chọn được lưu trong bộ nhớ đệm được truyền vào từ thành phần nghiệp vụ tương đương với dữ liệu bảng được lưu trong bộ nhớ đệm
   @Input() cashArray: NzSafeAny[] = [];
   checkedCashArrayFromComment: NzSafeAny[] = [];
   @Output() readonly sortFn: EventEmitter<SortFile> = new EventEmitter<SortFile>();
@@ -49,19 +49,19 @@ export class TreeTableComponent implements OnInit, OnChanges {
   mapOfExpandedData: { [key: string]: TreeNodeInterface[] } = {};
   @Input() tableConfig!: AntTableConfig;
   @Output() readonly selectedChange: EventEmitter<NzSafeAny[]> = new EventEmitter<NzSafeAny[]>();
-  cashExpandIdArray: Array<number | string> = []; // 缓存已经展开的节点的id
+  cashExpandIdArray: Array<number | string> = []; // Lưu trữ id của nút mở rộng
 
   @Input()
   set tableData(value: TreeNodeInterface[]) {
     this._dataList = value;
-    // 根据dataList获取map形式的treeData,每一个key对应一组（也就是有子集）的数据
+    // Lấy treeData dưới dạng bản đồ theo dataList, mỗi key tương ứng với một nhóm (tức là một tập con) dữ liệu
     this.mapOfExpandedData = fnTreeDataToMap(this._dataList);
-    const beFilterId: Array<string | number> = []; // 待删除的展开数据的child集的id数组
+    const beFilterId: Array<string | number> = []; // Mảng id của tập con của dữ liệu mở rộng cần xóa
     Object.values(this.mapOfExpandedData).forEach(menuArray => {
       menuArray.forEach(menuItem => {
         if (this.cashExpandIdArray.includes(menuItem.id)) {
           menuItem.expand = true;
-          // 让当前节点子集进行缓存，下面再删除，不然会多余出子集的数据到expand为true的平级上
+          // Hãy để tập hợp con nút hiện tại được lưu vào bộ nhớ đệm, sau đó xóa nó sau, nếu không dữ liệu của tập hợp con sẽ dư thừa đến mức mà việc mở rộng là đúng
           if (menuItem.children && menuItem.children.length > 0) {
             menuItem.children.forEach(item => {
               beFilterId.push(item.id);
@@ -92,12 +92,12 @@ export class TreeTableComponent implements OnInit, OnChanges {
   constructor(private cdr: ChangeDetectorRef) {}
 
   tableChangeDectction(): void {
-    // 改变引用触发变更检测。
+    //Thay đổi tham chiếu sẽ kích hoạt phát hiện thay đổi.
     this._dataList = [...this._dataList];
     this.cdr.markForCheck();
   }
 
-  // 表头拖动
+  // kéo tiêu đề
   onResize(nzResizeEvent: NzResizeEvent, col: string): void {
     this.tableConfig.headers = this.tableConfig.headers.map(e =>
       e.title === col
@@ -109,7 +109,7 @@ export class TreeTableComponent implements OnInit, OnChanges {
     ) as TableHeader[];
   }
 
-  // 点击排序
+  // Bấm để sắp xếp
   changeSort(tableHeader: TableHeader): void {
     this.tableConfig.headers.forEach(item => {
       if (item.field !== tableHeader.field) {
@@ -122,12 +122,12 @@ export class TreeTableComponent implements OnInit, OnChanges {
     this.sortFn.emit({ fileName: tableHeader.field!, sortDir: tableHeader.sortDir });
   }
 
-  // 分页页码改变
+  // Thay đổi số trang phân trang
   onQueryParamsChange(tableQueryParams: NzTableQueryParams): void {
     this.changePageNum.emit(tableQueryParams);
   }
 
-  // 修改一页几条的页码
+  //Sửa đổi số trang của một số mục trên một trang
   onPageSizeChange($event: NzSafeAny): void {
     this.changePageSize.emit($event);
   }
@@ -160,7 +160,7 @@ export class TreeTableComponent implements OnInit, OnChanges {
     }
   }
 
-  // 设置选中与否，并处理缓存值
+  // Đặt đã kiểm tra hay không và xử lý các giá trị được lưu trong bộ nhớ cache
   setIsCheckFn(dataItem: NzSafeAny, isChecked: boolean): void {
     dataItem['_checked'] = isChecked;
     const index = this.checkedCashArrayFromComment.findIndex(cashItem => cashItem.id === dataItem.id);
@@ -175,7 +175,7 @@ export class TreeTableComponent implements OnInit, OnChanges {
     }
   }
 
-  // 全选
+  // chọn tất cả
   onAllChecked(isChecked: boolean): void {
     fnGetFlattenTreeDataByMap(this.mapOfExpandedData).forEach(row => {
       this.setIsCheckFn(row, isChecked);
@@ -184,16 +184,16 @@ export class TreeTableComponent implements OnInit, OnChanges {
     this.refreshStatus();
   }
 
-  // 单选
+  // Lựa chọn duy nhất
   public checkRowSingle(isChecked: boolean, selectIndex: number, row: TreeNodeInterface): void {
     this.setIsCheckFn(row, isChecked);
     this.selectedChange.emit(this.checkedCashArrayFromComment);
     this.refreshStatus();
   }
 
-  // 刷新复选框状态
+  // Làm mới trạng thái hộp kiểm
   refreshStatus(): void {
-    // 获取铺平的treeData
+    // Lấy dữ liệu cây phẳng
     const dataTempArray: TreeNodeInterface[] = fnGetFlattenTreeDataByMap(this.mapOfExpandedData);
 
     const allChecked =
@@ -210,7 +210,7 @@ export class TreeTableComponent implements OnInit, OnChanges {
     if (changes['cashArray'] && !changes['cashArray'].firstChange) {
       this.checkedCashArrayFromComment = [...changes['cashArray'].currentValue];
       fnGetFlattenTreeDataByMap(this.mapOfExpandedData).forEach(row => {
-        // 判断缓存中是否有该值，有的话设置成true
+        // Xác định xem giá trị có tồn tại trong bộ đệm hay không và nếu có, hãy đặt nó thành true
         const index = this.checkedCashArrayFromComment.findIndex(item => item.id === row.id);
         this.setIsCheckFn(row, index !== -1);
       });

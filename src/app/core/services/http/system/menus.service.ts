@@ -11,7 +11,7 @@ export interface MenuListObj {
   alIcon: string;
   icon: string;
   orderNum: number;
-  menuType: 'C' | 'F'; // c:菜单，f按钮
+  menuType: 'C' | 'F'; // c: menu，f nút
   path: string;
   visible: 0 | 1;
   status: boolean;

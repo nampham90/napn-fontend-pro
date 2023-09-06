@@ -31,9 +31,9 @@ export class MsgComponent implements OnInit {
   };
 
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '消息提示',
-    breadcrumb: ['首页', '功能', '消息提示'],
-    desc: '这个是好心人pr的功能'
+    title: 'Thông báo',
+    breadcrumb: ['Home', 'Chức năng', 'Thông báo'],
+    desc: 'Đây là chức năng của những người tốt bụng PR'
   };
 
   constructor(private cdr: ChangeDetectorRef, private message: NzMessageService, private modal: NzModalService, private notification: NzNotificationService) {}

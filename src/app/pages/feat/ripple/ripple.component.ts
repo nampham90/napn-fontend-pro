@@ -18,8 +18,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
 })
 export class RippleComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '水波纹',
-    breadcrumb: ['首页', '功能', '水波纹']
+    title: 'gợn nước',
+    breadcrumb: ['Home', 'Chức năng', 'gợn nước']
   };
   centered = false;
   disabled = false;

@@ -22,9 +22,9 @@ export const enum ModalBtnStatus {
   Ok
 }
 
-// 组件实例需要继承此类
+// Các cá thể thành phần cần kế thừa lớp này
 export abstract class BasicConfirmModalComponent {
-  protected params: NzSafeAny; // service传给component instance的参数
+  protected params: NzSafeAny; // Các tham số được dịch vụ truyền tới phiên bản thành phần
   protected constructor(protected modalRef: NzModalRef) {}
 
   protected abstract getCurrentValue(): NzSafeAny;
@@ -98,9 +98,9 @@ export class ModalWrapService {
   }
 
   /**
-   * 获取所有对话框最大值,并确定是否需要修改
+   * Nhận giá trị tối đa của tất cả các hộp thoại và xác định xem có cần sửa đổi hay không
    *
-   * @param wrapElement 待修改z-index 容器
+   * @param wrapElement vùng chứa chỉ mục z cần được sửa đổi
    */
   getModalMaxZIndex(wrapElement: HTMLElement): ModalZIndex {
     return this.bsModalService.openModals.reduce<ModalZIndex>(
@@ -120,7 +120,7 @@ export class ModalWrapService {
     );
   }
 
-  // 当对话框面板时,设置当前对话框z-index为最大
+  // Khi hộp thoại nằm trong hộp thoại, đặt chỉ mục z của hộp thoại hiện tại ở mức tối đa
   protected setMaxZIndex(wrapElement: HTMLElement): void {
     wrapElement.addEventListener(
       'mousedown',
@@ -156,11 +156,12 @@ export class ModalWrapService {
     wrapElement.style.pointerEvents = 'none';
   }
 
-  // 创建对话框的配置项
+  // Tạo các mục cấu hình hộp thoại
   createModalConfig(component: Type<NzSafeAny>, modalOptions: ModalOptions = {}, params: object = {}, wrapCls: string): ModalOptions {
     let str=JSON.stringify(params);
     let obj = JSON.parse(str);
     let showCf = false;
+    // showcomfirm = false "không hiển thị xác nhận"
     if(obj['showcomfirm'] != undefined){
       showCf = obj['showcomfirm'];
     } else {
@@ -194,7 +195,7 @@ export class ModalWrapService {
       nzWidth: 720,
       nzComponentParams: {
         params
-      } // 参数中的属性将传入nzContent实例中
+      } // Các thuộc tính trong tham số sẽ được truyền vào instance nzContent
     };
     const newOptions = _.merge(defaultOptions, modalOptions);
     newOptions.nzWrapClassName = `${newOptions.nzWrapClassName || ''} ${wrapCls}`;

@@ -48,8 +48,8 @@ import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 })
 export class StandardTableComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '标准列表',
-    breadcrumb: ['首页', '列表页面', '标准列表']
+    title: 'danh sách tiêu chuẩn',
+    breadcrumb: ['Home', 'Trang danh sách', 'danh sách tiêu chuẩn']
   };
   isSpinning = false;
   list: Array<{
@@ -66,9 +66,9 @@ export class StandardTableComponent implements OnInit {
     {
       id: 1,
       name: 'Alipay',
-      desc: '那是一种内在的东西， 他们到达不了，也无法触及的',
+      desc: 'Đó là thứ gì đó bên trong mà họ không thể với tới, không thể chạm tới',
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-      owner: '付小小',
+      owner: 'Nam Phạm',
       owner_id: '1',
       time: '2020-11-18 15:12',
       progress: 75,
@@ -77,9 +77,9 @@ export class StandardTableComponent implements OnInit {
     {
       id: 2,
       name: 'Angular',
-      desc: '希望是一个好东西，也许是最好的，好东西是不会消亡的',
+      desc: 'Hy vọng là điều tốt, có thể là điều tốt nhất, điều tốt đẹp sẽ không chết',
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
-      owner: '曲丽丽',
+      owner: 'Nam Phạm',
       owner_id: '2',
       time: '2020-11-19 07:51',
       progress: 93,
@@ -88,9 +88,9 @@ export class StandardTableComponent implements OnInit {
     {
       id: 3,
       name: 'Ant Design',
-      desc: '生命就像一盒巧克力，结果往往出人意料',
+      desc: 'Cuộc đời giống như một hộp sôcôla, kết quả thường không ngờ tới',
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png',
-      owner: '林东东',
+      owner: 'Nam Phạm',
       owner_id: '3',
       time: '2020-11-19 05:51',
       progress: 94,
@@ -99,9 +99,9 @@ export class StandardTableComponent implements OnInit {
     {
       id: 4,
       name: 'Ant Design Pro',
-      desc: '城镇中有那么多的酒馆，她却偏偏走进了我的酒馆',
+      desc: 'Trong thị trấn có rất nhiều quán rượu nhưng cô ấy vừa bước vào quán rượu của tôi',
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png',
-      owner: '周星星',
+      owner: 'Nam Phạm',
       owner_id: '4',
       time: '2020-11-19 03:51',
       progress: 93,
@@ -110,9 +110,9 @@ export class StandardTableComponent implements OnInit {
     {
       id: 5,
       name: 'Bootstrap',
-      desc: '那时候我只会想自己想要什么，从不想自己拥有什么',
+      desc: 'Lúc đó tôi chỉ nghĩ đến những gì mình muốn chứ không bao giờ nghĩ đến những gì mình có.',
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png',
-      owner: '吴加好',
+      owner: 'Nam Phạm',
       owner_id: '5',
       time: '2020-11-19 01:51',
       progress: 91,

@@ -15,7 +15,7 @@ export class TopProgressBarComponent {
 
   constructor(private router: Router, private cdr: ChangeDetectorRef) {
     this.router.events.subscribe(evt => {
-      // 表示在惰性加载某个路由配置前触发的事件。
+      // Cho biết một sự kiện được kích hoạt trước khi cấu hình định tuyến được tải từng phần.
       if (!this.isFetching && evt instanceof RouteConfigLoadStart) {
         this.isFetching = true;
         this.cdr.markForCheck();

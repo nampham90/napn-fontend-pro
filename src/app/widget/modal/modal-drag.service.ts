@@ -5,7 +5,7 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { ModalTypes, NzModalService } from 'ng-zorro-antd/modal';
 
 /**
- * 对话框拖动服务
+ * Dịch vụ kéo hộp thoại
  */
 @Injectable({
   providedIn: 'root'
@@ -15,10 +15,10 @@ export class ModalDragService {
   constructor(public modal: NzModalService, public dragDrop: DragDrop) {}
 
   /**
-   * 创建拖拽手柄
+   *Tạo một tay cầm kéo
    *
-   * @param wrapCls 类名
-   * @param nzModalType 对话框类型
+   * @param wrapCls tên lớp
+   * @param nzModalType Kiểu hộp thoại
    */
   createDragHandler<T = NzSafeAny>(wrapCls: string, nzModalType?: ModalTypes): DragRef<T> {
     const wrapElement = document.querySelector<HTMLDivElement>(`.${wrapCls}`)!;
@@ -30,14 +30,14 @@ export class ModalDragService {
   }
 
   /**
-   * 获取随机类名
+   * Lấy tên lớp ngẫu nhiên
    */
   getRandomCls() {
     return ModalDragService.DRAG_CLS_PREFIX + Date.now() + Math.random().toString().replace('0.', '');
   }
 
   /**
-   * 解决wrap的样式, 设置鼠标可以穿透
+   * Giải quyết kiểu quấn, đặt chuột có thể xuyên qua
    *
    * @param wrapElement
    * @protected
@@ -47,10 +47,10 @@ export class ModalDragService {
   }
 
   /**
-   * 当前对话框点击时,设置当前对话框z-index为最大
+   * Khi nhấp vào hộp thoại hiện tại, hãy đặt chỉ mục z của hộp thoại hiện tại ở mức tối đa
    *
-   * @param rootElement 当前对话框
-   * @param wrapElement 待修改z-index 容器
+   * @param rootElement hộp thoại hiện tại
+   * @param wrapElement vùng chứa chỉ mục z cần được sửa đổi
    * @protected
    */
   protected setMaxZIndex(rootElement: HTMLElement, wrapElement: HTMLElement): void {
@@ -67,9 +67,9 @@ export class ModalDragService {
   }
 
   /**
-   * 获取所有对话框最大值,并确定是否需要修改
+   * Nhận giá trị tối đa của tất cả các hộp thoại và xác định xem có cần sửa đổi hay không
    *
-   * @param wrapElement 待修改z-index 容器
+   * @param wrapElement vùng chứa chỉ mục z cần được sửa đổi
    */
   protected getModalMaxZIndex(wrapElement: HTMLElement): number | null {
     const wrapZIndex = this.getZIndex(wrapElement);

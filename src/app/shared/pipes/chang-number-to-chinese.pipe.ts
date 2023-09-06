@@ -8,25 +8,25 @@ export class ChangNumberToChinesePipe implements PipeTransform {
   transform(value: number): string {
     switch (value) {
       case 1:
-        return '一';
+        return 'Một';
       case 2:
-        return '二';
+        return 'Hai';
       case 3:
-        return '三';
+        return 'Ba';
       case 4:
-        return '四';
+        return 'Bố';
       case 5:
-        return '五';
+        return 'Năm';
       case 6:
-        return '六';
+        return 'Sáu';
       case 7:
-        return '七';
+        return 'Bảy';
       case 8:
-        return '八';
+        return 'Tám';
       case 9:
-        return '九';
+        return 'Chín';
       case 10:
-        return '十';
+        return 'Mười';
       default:
         return '';
     }

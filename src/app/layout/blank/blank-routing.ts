@@ -12,12 +12,12 @@ export default [
     children: [
       {
         path: 'empty-page',
-        data: { title: '空页面', key: 'empty-page', shouldDetach: 'no' },
+        data: { title: 'Trang trống', key: 'empty-page', shouldDetach: 'no' },
         loadComponent: () => import('../../pages/empty/empty.component').then(m => m.EmptyComponent)
       },
       {
         canDeactivate: [(component: EmptyForLockComponent) => !component.routeStatus.locked],
-        data: { title: '空页面', key: 'empty-for-lock', shouldDetach: 'no' },
+        data: { title: 'Trang trống', key: 'empty-for-lock', shouldDetach: 'no' },
         path: 'empty-for-lock',
         loadComponent: () => import('../../shared/components/empty-for-lock/empty-for-lock.component').then(m => m.EmptyForLockComponent)
       },

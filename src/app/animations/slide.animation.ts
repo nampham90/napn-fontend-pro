@@ -4,7 +4,7 @@ const options: AnimationQueryOptions = {
   optional: true
 };
 
-/** 水平滑动路由动画 */
+/** Hoạt ảnh định tuyến trượt ngang */
 export const horizontalSlideInRouteAnimation = trigger('horizontalSlideInRouteAnimation', [
   transition(':increment', [
     style({ position: 'relative' }),

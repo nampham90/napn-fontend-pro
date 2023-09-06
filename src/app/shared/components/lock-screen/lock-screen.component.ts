@@ -36,14 +36,14 @@ export class LockScreenComponent implements OnInit {
   public showUnlock = false;
   public time$: Observable<Date> = timer(0, 1000).pipe(
     map(() => new Date()),
-    takeUntilDestroyed() // 这里没加  this.destroyRef 是因为在生命周期中https://stackoverflow.com/questions/76264067/takeuntildestroyed-can-only-be-used-within-an-injection-context
+    takeUntilDestroyed() //This.destroyRef không được thêm vào đây vì trong vòng đời https://stackoverflow.com/questions/76264067/takeuntildestroyed-can-only-be-used-within-an-injection-context
   );
   validateForm!: FormGroup;
   passwordVisible = false;
   lockedState: LockScreenFlag = {
     locked: false,
     password: '',
-    beforeLockPath: '' // 锁屏前的页面路由
+    beforeLockPath: '' // Định tuyến trang trước màn hình khóa
   };
   destroyRef = inject(DestroyRef);
   userDetail!: UserInfo;
@@ -58,19 +58,19 @@ export class LockScreenComponent implements OnInit {
     private userInfoService: UserInfoService, 
     private windowSrv: WindowService) {}
 
-  // 返回登录页面则解锁
+  // Quay lại trang đăng nhập để mở khóa
   loginOut(): void {
     this.unlock();
     this.loginOutService.loginOut().then();
   }
 
-  // 进入系统
+  // vào hệ thống
   intoSys(): void {
     if (!fnCheckForm(this.validateForm)) {
       return;
     }
     if (this.lockedState.locked) {
-      // 密码正确则解锁
+      // Nếu mật khẩu đúng, nó sẽ được mở khóa
       if (this.lockedState.password === this.validateForm.get('password')!.value) {
         this.router.navigateByUrl(this.lockedState.beforeLockPath);
         this.unlock();
@@ -80,14 +80,14 @@ export class LockScreenComponent implements OnInit {
     }
   }
 
-  // 解锁
+  // mở khóa
   unlock(): void {
     const lockedStatus = { locked: false, password: '', beforeLockPath: '' };
     this.lockScreenStoreService.setLockScreenStore(lockedStatus);
     this.windowSrv.setSessionStorage(LockedKey, fnEncrypt(lockedStatus, salt));
   }
 
-  // 点击解锁按钮
+  // Bấm vào nút mở khóa
   unlockBtn(): void {
     this.validateForm.reset();
     this.showUnlock = true;

@@ -1,4 +1,4 @@
-<nz-card nzTitle="系列">
+<nz-card nzTitle="loạt">
   <nz-tabset [nzTabPosition]="tabPosition">
     <nz-tab *ngFor="let item of tabArray; let index = index" [nzTitle]="item.label" (nzClick)="to(index)">
       <ng-template [cdkPortalOutlet]="selectedPortal"></ng-template>

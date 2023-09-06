@@ -1,4 +1,4 @@
-/*定义常量*/
+/*xác định hằng số*/
 
 // Dấu hiệu tiền tố của mã thông báo yêu cầu
 export const TokenPre = 'Bearer ';

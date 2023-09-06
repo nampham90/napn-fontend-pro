@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
-type componentName = '搜索列表（文章）' | '搜索列表（项目）' | '搜索列表（应用）';
+type componentName = 'Danh sách tìm kiếm (Bài viết)' | 'Danh sách tìm kiếm (Dự án)' | 'Danh sách tìm kiếm (Ứng dụng)';
 
-// 这个是缓存搜索列表的store，属于业务的store
+// Đây là cửa hàng lưu trữ danh sách tìm kiếm và thuộc về cửa hàng doanh nghiệp.
 @Injectable({
   providedIn: 'root'
 })

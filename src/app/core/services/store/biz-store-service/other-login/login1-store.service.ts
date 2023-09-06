@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { LoginType } from '@app/pages/other-login/login1/login1.component';
 
-// 这个是缓存login1的store，属于业务的store
+// Đây là cửa hàng lưu trữ login1, thuộc về cửa hàng doanh nghiệp
 @Injectable({
   providedIn: 'root'
 })

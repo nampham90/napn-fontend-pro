@@ -23,7 +23,7 @@ interface ItemData {
   imports: [NzTableModule, NgFor, NgIf, NzInputModule, FormsModule, NzPopconfirmModule, NzButtonModule, NzWaveModule, NzIconModule]
 })
 export class UserMemberManageComponent implements OnInit {
-  // 表格
+  // tờ giấy
   editCache: { [key: string]: { edit: boolean; data: ItemData } } = {};
   listOfData: ItemData[] = [];
   constructor() {}

@@ -18,7 +18,7 @@ interface InitThemeOption {
 }
 
 /*
- * 初始化theme
+ * Khởi tạo chủ đề
  * */
 @Injectable({
   providedIn: 'root'

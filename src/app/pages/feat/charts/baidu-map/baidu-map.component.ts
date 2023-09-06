@@ -14,18 +14,18 @@ declare var BMap: any;
 })
 export class BaiduMapComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '百度地图，可不要暴露行踪了哟',
-    breadcrumb: ['首页', '功能', '图表', '百度地图']
+    title: 'Bản đồ Baidu, đừng tiết lộ nơi ở của bạn',
+    breadcrumb: ['Home', 'Chức năng', 'đồ thị', 'Bản đồ Baidu']
   };
 
   constructor(private lazyService: LazyService) {}
 
   ngOnInit(): void {
     this.lazyService.loadScript('http://api.map.baidu.com/getscript?v=2.0&ak=RD5HkkjTa6uAIDpw7GRFtR83Fk7Wdk0j').then(() => {
-      const map = new BMap.Map('map'); //创建地图实例
-      const point = new BMap.Point(116.404, 39.915); //创建点坐标
-      map.centerAndZoom(point, 15); //初始化地图，设置中心点坐标和地图级别
-      map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+      const map = new BMap.Map('map'); //Tạo một phiên bản bản đồ
+      const point = new BMap.Point(116.404, 39.915); //Tạo tọa độ điểm
+      map.centerAndZoom(point, 15); //Khởi tạo bản đồ và đặt tọa độ điểm trung tâm và cấp độ bản đồ
+      map.enableScrollWheelZoom(true); //Bật thu phóng bánh xe chuột
     });
   }
 }

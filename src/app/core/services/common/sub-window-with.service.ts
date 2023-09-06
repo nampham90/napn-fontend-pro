@@ -7,7 +7,7 @@ import { SideCollapsedMaxWidth, TopCollapsedMaxWidth } from '@config/constant';
 import { ThemeService } from '@store/common-store/theme.service';
 import { EquipmentWidth, WindowsWidthService } from '@store/common-store/windows-width.service';
 
-/*监听屏幕宽度服务*/
+/*Dịch vụ giám sát chiều rộng màn hình*/
 @Injectable({
   providedIn: 'root'
 })
@@ -24,7 +24,7 @@ export class SubWindowWithService {
 
   constructor(private winWidthService: WindowsWidthService, private breakpointObserver: BreakpointObserver, private themesService: ThemeService) {}
 
-  // 监听主题（是top，还是side），确定over模式最小宽度
+  // Theo dõi chủ đề (trên cùng hoặc bên cạnh) và xác định độ rộng tối thiểu của chế độ trên
   subWidthForTheme(): void {
     this.themesService
       .getThemesMode()
@@ -36,7 +36,7 @@ export class SubWindowWithService {
           } else if (res.mode === 'top' || (res.mode === 'mixi' && res.splitNav)) {
             maxWidth = `(max-width: ${TopCollapsedMaxWidth}px)`;
           }
-          // 可以入参[Breakpoints.Small, Breakpoints.XSmall]
+          // Bạn có thể nhập thông số [Breakpoints.Small, Breakpoints.XSmall]
           return this.breakpointObserver.observe([maxWidth]);
         }),
         takeUntilDestroyed(this.destroyRef)
@@ -44,14 +44,14 @@ export class SubWindowWithService {
       .subscribe(result => {
         const isOverMode = result.matches;
         this.themesService.setIsOverMode(isOverMode);
-        // 是over模式，展开折叠状态得左侧菜单
+        // Đã hết chế độ, mở rộng menu bên trái ở trạng thái gập
         if (isOverMode) {
           this.themesService.setIsCollapsed(false);
         }
       });
   }
 
-  // 根据传入的屏幕宽度判断是在哪个栅格节点
+  // Xác định nút lưới nào dựa trên chiều rộng màn hình đến
   judgeWindowsWidth(width: number): EquipmentWidth {
     let currentPoint: EquipmentWidth;
     Object.values(this.subWidthObj).forEach(item => {
@@ -62,7 +62,7 @@ export class SubWindowWithService {
     return currentPoint!;
   }
 
-  // 监听浏览器宽度用于通用的栅格系统
+  // Lắng nghe độ rộng trình duyệt cho một hệ thống lưới chung
   subWidthForStore(): void {
     this.breakpointObserver
       .observe(Object.keys(this.subWidthObj))
@@ -79,7 +79,7 @@ export class SubWindowWithService {
   subWindowWidth(): void {
     this.subWidthForTheme();
     this.subWidthForStore();
-    // 初始化的时候就设置当前节点
+    // Đặt nút hiện tại trong quá trình khởi tạo
     this.winWidthService.setWindowWidthStore(this.judgeWindowsWidth(window.innerWidth));
   }
 }

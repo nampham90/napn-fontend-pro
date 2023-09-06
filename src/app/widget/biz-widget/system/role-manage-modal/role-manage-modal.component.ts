@@ -31,12 +31,12 @@ export class RoleManageModalComponent implements OnInit {
     });
   }
 
-  // 此方法为如果有异步数据需要加载，则在该方法中添加
+  // Phương pháp này là nếu có dữ liệu không đồng bộ cần được tải, hãy thêm nó vào phương thức này
   protected getAsyncFnData(modalValue: NzSafeAny): Observable<NzSafeAny> {
     return of(modalValue);
   }
 
-  // 返回false则不关闭对话框
+  // Trả về false để không đóng hộp thoại
   protected getCurrentValue(): Observable<NzSafeAny> {
     if (!fnCheckForm(this.addEditForm)) {
       return of(false);

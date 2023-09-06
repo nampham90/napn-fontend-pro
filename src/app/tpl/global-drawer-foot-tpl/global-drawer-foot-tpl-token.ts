@@ -6,7 +6,7 @@ import { GlobalDrawerFootTplComponent } from '@app/tpl/global-drawer-foot-tpl/gl
 import { GlobalModalBtnTplComponent } from '@app/tpl/global-modal-btn-tpl/global-modal-btn-tpl.component';
 
 /**
- * 全局抽屉的footer模板，也就是确定，取消按钮啦
+ * Mẫu chân trang của ngăn kéo chung, tức là các nút OK và Hủy
  */
 export const GLOBAL_DRAWER_FOOT_TPL_TOKEN = new InjectionToken<ComponentRef<GlobalDrawerFootTplComponent>>('drawer action btn token', {
   providedIn: 'root',
@@ -17,7 +17,7 @@ export const GLOBAL_DRAWER_FOOT_TPL_TOKEN = new InjectionToken<ComponentRef<Glob
     const componentRef = createComponent(GlobalDrawerFootTplComponent, {
       environmentInjector: injector
     });
-    // 使用 `ApplicationRef` 实例注册新创建的 ref将组件视图包含到变更检测周期中。
+    // Đăng ký tham chiếu mới được tạo với phiên bản `ApplicationRef` để đưa chế độ xem thành phần vào chu trình phát hiện thay đổi.
     appRef.attachView(componentRef.hostView);
     return componentRef;
   }

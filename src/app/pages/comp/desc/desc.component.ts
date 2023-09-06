@@ -17,9 +17,9 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 })
 export class DescComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '详情组件示例',
-    breadcrumb: ['首页', '组件', '详情组件'],
-    desc: '一系列详情组件'
+    title: 'Ví dụ thành phần chi tiết',
+    breadcrumb: ['Home', 'Các thành phần', 'Thành phần chi tiết'],
+    desc: 'Một loạt các thành phần chi tiết'
   };
 
   constructor() {}

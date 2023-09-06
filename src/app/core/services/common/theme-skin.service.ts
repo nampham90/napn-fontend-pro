@@ -10,7 +10,7 @@ const enum ThemeType {
   default = 'default'
 }
 /*
- * 切换主题服务
+ * Chuyển đổi dịch vụ chủ đề
  * */
 @Injectable({
   providedIn: 'root'

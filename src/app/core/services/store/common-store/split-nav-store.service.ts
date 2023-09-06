@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Menu } from '../../types';
 
 /**
- * 自动分割菜单时，左侧菜单的store
+ * Khi menu được tự động chia nhỏ, việc lưu trữ menu bên trái
  */
 @Injectable({
   providedIn: 'root'

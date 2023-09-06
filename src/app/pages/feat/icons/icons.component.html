@@ -1,17 +1,17 @@
 <app-page-header [pageHeaderInfo]="pageHeaderInfo" />
 
 <div class="normal-table-wrap">
-  <nz-card nzTitle="图标选择器">
-    <button class="m-b-8" nz-button nzType="primary" (click)="visible = !visible">打开图标选择器</button>
+  <nz-card nzTitle="Bộ chọn biểu tượng">
+    <button class="m-b-8" nz-button nzType="primary" (click)="visible = !visible">Mở bộ chọn biểu tượng</button>
     <nz-input-group [nzAddOnAfter]="selIcon">
-      <input disabled nz-input [placeholder]="'点击右侧图标选择图标，这句话有点绕'" [(ngModel)]="seletedIcon" />
+      <input disabled nz-input [placeholder]="'Bấm vào biểu tượng bên phải để chọn biểu tượng Câu này hơi khó hiểu.'" [(ngModel)]="seletedIcon" />
     </nz-input-group>
     <ng-template #selIcon>
       <app-icon-sel [visible]="visible" (selIcon)="seletedIcon = $event"></app-icon-sel>
     </ng-template>
   </nz-card>
 
-  <nz-card nzTitle="zorro官网直接用">
+  <nz-card nzTitle="Trang web chính thức của Zorro sử dụng trực tiếp">
     <div class="space-between">
       <i class="example" nz-icon nzTheme="outline" nzType="google"></i>
       <i class="example" nz-icon nzTheme="outline" nzType="qq"></i>
@@ -20,14 +20,14 @@
     </div>
   </nz-card>
 
-  <nz-card nzTitle="使用material图标（第一个是基本图标，第二个是svg图标）">
+  <nz-card nzTitle="Sử dụng các biểu tượng vật liệu (đầu tiên là biểu tượng cơ bản, thứ hai là biểu tượng svg)">
     <div class="space-between">
       <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
       <mat-icon aria-hidden="false" aria-label="Example thumbs up SVG icon" svgIcon="thumbs-up"></mat-icon>
     </div>
   </nz-card>
 
-  <nz-card nzTitle="彩色图标">
+  <nz-card nzTitle="biểu tượng màu">
     <div class="space-around">
       <i class="example" nz-icon [nzTheme]="'twotone'" [nzType]="'smile'"></i>
       <i class="example" nz-icon [nzTheme]="'twotone'" [nzTwotoneColor]="'#eb2f96'" [nzType]="'heart'"></i>
@@ -35,7 +35,7 @@
     </div>
   </nz-card>
 
-  <nz-card nzTitle="自定义图标，我是zorro官网搬运工">
+  <nz-card nzTitle="Biểu tượng tùy chỉnh, tôi là người khuân vác trang web chính thức của zorro">
     <div class="space-around">
       <i class="example" nz-icon style="color: hotpink">
         <svg>
@@ -75,7 +75,7 @@
     </div>
   </nz-card>
 
-  <nz-card nzTitle="引入阿里图标库的图标,在这里需要先从图标库网站生成对应js,引入load-ali-icon-cdn.service.ts">
+  <nz-card nzTitle="Để giới thiệu các biểu tượng từ thư viện biểu tượng Alibaba, trước tiên bạn cần tạo js tương ứng từ trang web thư viện biểu tượng và giới thiệu Load-ali-icon-cdn.service.ts">
     <div class="space-around">
       <i class="example" nz-icon [nzIconfont]="'icon-medium'"></i>
       <i class="example" nz-icon [nzIconfont]="'icon-mel-help'"></i>

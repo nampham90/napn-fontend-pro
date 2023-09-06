@@ -19,21 +19,21 @@ export interface ReuseComponentRef {
   instance: ReuseComponentInstance;
 }
 
-/*路由复用*/
-// 参考https://zhuanlan.zhihu.com/p/29823560
+/*Ghép kênh định tuyến*/
+// tham khảo https://zhuanlan.zhihu.com/p/29823560
 // https://blog.csdn.net/weixin_30561425/article/details/96985967?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control
 export class SimpleReuseStrategy implements RouteReuseStrategy {
   destroyRef = inject(DestroyRef);
-  // 缓存每个component的map
+// Lưu trữ bản đồ của từng thành phần
   static handlers: { [key: string]: NzSafeAny } = {};
-  // 缓存每个页面的scroll位置,为啥不放在handlers里面呢,因为路由离开时路由复用导致以当前页为key为null了
+// Cache vị trí cuộn của mỗi trang, tại sao không đặt nó vào bộ xử lý, vì khi tuyến rời đi, việc sử dụng lại tuyến khiến trang hiện tại làm khóa bị rỗng
   static scrollHandlers: { [key: string]: NzSafeAny } = {};
 
-  // 这个参数的目的是，在当前页签中点击删除按钮，虽然页签关闭了，但是在路由离开的时候，还是会将已经关闭的页签的组件缓存，
-  // 用这个参数来记录，是否需要缓存当前路由
+// Mục đích của tham số này là click vào nút xóa trong tab hiện tại, mặc dù tab đã bị đóng nhưng khi Route rời đi, các thành phần của tab đã đóng sẽ vẫn được lưu vào bộ đệm.
+  // Sử dụng tham số này để ghi lại xem tuyến đường hiện tại có cần được lưu vào bộ đệm hay không
   public static waitDelete: string | null;
 
-  // 是否有多页签，没有多页签则不做路由缓存
+  //Cho dù có nhiều tab hay không, nếu không có nhiều tab, bộ nhớ đệm tuyến đường sẽ không được thực hiện.
   isShowTab$ = inject(ThemeService).getThemesMode();
 
   public static deleteRouteSnapshot(key: string): void {
@@ -46,7 +46,7 @@ export class SimpleReuseStrategy implements RouteReuseStrategy {
     }
   }
 
-  // 删除全部的缓存，在退出登录，不使用多标签 等操作中需要用到
+  // Xóa tất cả bộ đệm, nó cần được sử dụng trong các hoạt động như đăng xuất và không sử dụng đa nhãn
   public static deleteAllRouteSnapshot(route: ActivatedRouteSnapshot): Promise<void> {
     return new Promise(resolve => {
       Object.keys(SimpleReuseStrategy.handlers).forEach(key => {
@@ -59,9 +59,9 @@ export class SimpleReuseStrategy implements RouteReuseStrategy {
 
   constructor(@Inject(DOCUMENT) private doc: Document, private scrollService: ScrollService) {}
 
-  // 是否允许复用路由
+  // Có cho phép sử dụng lại tuyến đường hay không
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
-    // 是否展示多页签，如果不展示多页签，则不做路由复用
+    // Có hiển thị nhiều tab hay không, nếu không, việc sử dụng lại tuyến đường sẽ không được thực hiện
     let isShowTab = false;
     this.isShowTab$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(res => {
       isShowTab = res.isShowTab;
@@ -69,13 +69,13 @@ export class SimpleReuseStrategy implements RouteReuseStrategy {
     return route.data['shouldDetach'] !== 'no' && isShowTab;
   }
 
-  // 当路由离开时会触发，存储路由
+  // Được kích hoạt khi tuyến rời đi, tuyến được lưu trữ
   store(route: ActivatedRouteSnapshot, handle: NzSafeAny): void {
     if (route.data['shouldDetach'] === 'no') {
       return;
     }
     const key = fnGetReuseStrategyKeyFn(route);
-    // 如果待删除的是当前路由则不存储快照
+    // Nếu tuyến đường cần xóa là tuyến đường hiện tại thì ảnh chụp nhanh sẽ không được lưu trữ.
     if (SimpleReuseStrategy.waitDelete === key) {
       this.runHook('_onReuseDestroy', handle.componentRef);
       handle.componentRef.destroy();
@@ -84,8 +84,8 @@ export class SimpleReuseStrategy implements RouteReuseStrategy {
       return;
     }
 
-    // 离开路由的时候缓存当前页面的scroll位置
-    // 默认都需要keepScroll，如果不需要keepScroll才添加needKeepScroll:no属性
+// Cache vị trí cuộn của trang hiện tại khi rời khỏi tuyến đường
+    // Theo mặc định, keepScroll là bắt buộc. Nếu không cần keepScroll, hãy thêm thuộc tính needKeepScroll:no
     const innerScrollContainer = [];
     if (route.data['needKeepScroll'] !== 'no') {
       const scrollContain = route.data['scrollContain'] ?? [];
@@ -107,19 +107,19 @@ export class SimpleReuseStrategy implements RouteReuseStrategy {
     }
   }
 
-  // 是否允许还原路由
+  // Có cho phép khôi phục tuyến đường hay không
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
     const key = fnGetReuseStrategyKeyFn(route);
     return !!key && !!SimpleReuseStrategy.handlers[key];
   }
 
-  // 获取存储路由
+  // Nhận lộ trình lưu trữ
   retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
     const key = fnGetReuseStrategyKeyFn(route);
     return !key ? null : SimpleReuseStrategy.handlers[key];
   }
 
-  // 进入路由触发，是同一路由时复用路由
+  // Trình kích hoạt tuyến đường đến, khi đó là cùng một tuyến đường, tuyến đường đó được ghép kênh
   shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
     const futureKey = fnGetReuseStrategyKeyFn(future);
     const currKey = fnGetReuseStrategyKeyFn(curr);
@@ -128,11 +128,11 @@ export class SimpleReuseStrategy implements RouteReuseStrategy {
     }
 
     const result = futureKey === currKey;
-    // 懒加载读取不到data，通过此方法下钻到最下一级路由
+    // Tải chậm không thể đọc dữ liệu. Hãy sử dụng phương pháp này để đi sâu vào lộ trình cấp thấp nhất.
     while (future.firstChild) {
       future = future.firstChild;
     }
-    // 重新获取是因为future在上面while循环中已经变了
+    // Việc mua lại là do tương lai đã thay đổi trong vòng lặp while ở trên
     const scrollFutureKey = fnGetReuseStrategyKeyFn(future);
     if (!!scrollFutureKey && SimpleReuseStrategy.scrollHandlers[scrollFutureKey]) {
       SimpleReuseStrategy.scrollHandlers[scrollFutureKey].scroll.forEach((elOptionItem: { [key: string]: [number, number] }) => {

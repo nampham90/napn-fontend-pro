@@ -33,9 +33,9 @@ export class StepComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedPortal!: Portal<any>;
   stepDirection: 'horizontal' | 'vertical' = 'horizontal';
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '分步表单',
-    desc: '将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。（演示cdk传送点）',
-    breadcrumb: ['首页', '表单页', '分步表单']
+    title: 'Hình thức từng bước',
+    desc: 'Chia một nhiệm vụ biểu mẫu dài hoặc lạ thành các bước và hướng dẫn người dùng thực hiện nhiệm vụ đó. (Bản demo điểm chuyển cdk)',
+    breadcrumb: ['Home', 'Trang mẫu', 'Hình thức từng bước']
   };
   currentStep = 1;
   stepComponentArray: Array<ComponentType<comp>> = [StepOneComponent, StepTwoComponent, StepThreeComponent];
@@ -47,11 +47,11 @@ export class StepComponent implements OnInit, AfterViewInit, OnDestroy {
     this.currentStep = currentStepNum;
     ref!.destroy();
     this.goStep(step);
-    // ngZoneEventCoalescing，ngZoneRunCoalescing例子,请查看main.ts
+    // ví dụ về ngZoneEventCoalescing, ngZoneRunCoalescing, vui lòng xem main.ts
     this.cdr.detectChanges();
   }
 
-  // 这么做完全是为了演示CDK portal的简单用法
+  // Điều này được thực hiện hoàn toàn để chứng minh cách sử dụng cổng CDK đơn giản
   initComponent(ref: CdkPortalOutletAttachedRef): void {
     if (ref instanceof ComponentRef) {
       if (ref.instance instanceof StepOneComponent) {

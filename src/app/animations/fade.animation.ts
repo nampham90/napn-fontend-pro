@@ -4,7 +4,7 @@ const options: AnimationQueryOptions = {
   optional: true
 };
 
-/** 淡入淡出动画 */
+/** Hoạt hình mờ dần */
 export const fadeAnimation = trigger('fadeAnimation', [
   transition(':enter', [
     style({

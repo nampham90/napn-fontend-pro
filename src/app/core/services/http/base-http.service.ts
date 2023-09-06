@@ -10,9 +10,9 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import * as qs from 'qs';
 
 export interface HttpCustomConfig {
-  needSuccessInfo?: boolean; // 是否需要"操作成功"提示
-  showLoading?: boolean; // 是否需要loading
-  otherUrl?: boolean; // 是否是第三方接口
+  needSuccessInfo?: boolean; // Bạn có cần lời nhắc "thao tác thành công" không?
+  showLoading?: boolean; // Bạn có cần tải không
+  otherUrl?: boolean; // Đây có phải là giao diện của bên thứ ba không?
 }
 
 export interface ActionResult<T> {

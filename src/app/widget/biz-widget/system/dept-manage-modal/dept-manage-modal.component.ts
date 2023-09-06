@@ -34,7 +34,7 @@ export class DeptManageModalComponent implements OnInit {
     });
   }
 
-  // 此方法为如果有异步数据需要加载，则在该方法中添加
+  // Phương pháp này là nếu có dữ liệu không đồng bộ cần được tải, hãy thêm nó vào phương thức này
   protected getAsyncFnData(modalValue: NzSafeAny): Observable<NzSafeAny> {
     return of(modalValue);
   }

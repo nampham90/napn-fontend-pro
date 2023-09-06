@@ -32,49 +32,49 @@ export class CardTableComponent implements OnInit, AfterViewInit {
       id: 1,
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
       name: 'Alipay',
-      desc: '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。'
+      desc: 'Trong quá trình phát triển các sản phẩm trung cấp, các thông số kỹ thuật thiết kế và phương pháp triển khai khác nhau sẽ xuất hiện, nhưng thường có nhiều trang và thành phần tương tự nhau và những thành phần tương tự này sẽ được trích xuất thành một bộ thông số kỹ thuật tiêu chuẩn.'
     },
     {
       id: 2,
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
       name: 'Angular',
-      desc: '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。'
+      desc: 'Trong quá trình phát triển các sản phẩm trung cấp, các thông số kỹ thuật thiết kế và phương pháp triển khai khác nhau sẽ xuất hiện, nhưng thường có nhiều trang và thành phần tương tự nhau và những thành phần tương tự này sẽ được trích xuất thành một bộ thông số kỹ thuật tiêu chuẩn.'
     },
     {
       id: 3,
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png',
       name: 'Ant Design',
-      desc: '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。'
+      desc: 'Trong quá trình phát triển các sản phẩm trung cấp, các thông số kỹ thuật thiết kế và phương pháp triển khai khác nhau sẽ xuất hiện, nhưng thường có nhiều trang và thành phần tương tự nhau và những thành phần tương tự này sẽ được trích xuất thành một bộ thông số kỹ thuật tiêu chuẩn.'
     },
     {
       id: 4,
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png',
       name: 'Ant Design Pro',
-      desc: '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。'
+      desc: 'Trong quá trình phát triển các sản phẩm trung cấp, các thông số kỹ thuật thiết kế và phương pháp triển khai khác nhau sẽ xuất hiện, nhưng thường có nhiều trang và thành phần tương tự nhau và những thành phần tương tự này sẽ được trích xuất thành một bộ thông số kỹ thuật tiêu chuẩn.'
     },
     {
       id: 5,
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png',
       name: 'Bootstrap',
-      desc: '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。'
+      desc: 'Trong quá trình phát triển các sản phẩm trung cấp, các thông số kỹ thuật thiết kế và phương pháp triển khai khác nhau sẽ xuất hiện, nhưng thường có nhiều trang và thành phần tương tự nhau và những thành phần tương tự này sẽ được trích xuất thành một bộ thông số kỹ thuật tiêu chuẩn.'
     },
     {
       id: 6,
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png',
       name: 'React',
-      desc: '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。'
+      desc: 'Trong quá trình phát triển các sản phẩm trung cấp, các thông số kỹ thuật thiết kế và phương pháp triển khai khác nhau sẽ xuất hiện, nhưng thường có nhiều trang và thành phần tương tự nhau và những thành phần tương tự này sẽ được trích xuất thành một bộ thông số kỹ thuật tiêu chuẩn.'
     },
     {
       id: 7,
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
       name: 'Vue',
-      desc: '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。'
+      desc: 'Trong quá trình phát triển các sản phẩm trung cấp, các thông số kỹ thuật thiết kế và phương pháp triển khai khác nhau sẽ xuất hiện, nhưng thường có nhiều trang và thành phần tương tự nhau và những thành phần tương tự này sẽ được trích xuất thành một bộ thông số kỹ thuật tiêu chuẩn.'
     },
     {
       id: 8,
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png',
       name: 'Webpack',
-      desc: '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。'
+      desc: 'Trong quá trình phát triển các sản phẩm trung cấp, các thông số kỹ thuật thiết kế và phương pháp triển khai khác nhau sẽ xuất hiện, nhưng thường có nhiều trang và thành phần tương tự nhau và những thành phần tương tự này sẽ được trích xuất thành một bộ thông số kỹ thuật tiêu chuẩn.'
     }
   ];
   @ViewChild('headerContent', { static: false }) headerContent!: TemplateRef<NzSafeAny>;
@@ -85,8 +85,8 @@ export class CardTableComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
-      title: '卡片列表',
-      breadcrumb: ['首页', '列表页', '卡片列表'],
+      title: 'danh sách thẻ',
+      breadcrumb: ['trang đầu', 'Danh sách', 'danh sách thẻ'],
       desc: this.headerContent
     };
   }

@@ -15,9 +15,9 @@ import { NzWaveModule } from 'ng-zorro-antd/core/wave';
 })
 export class SessionTimeoutComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '登录过期',
-    breadcrumb: ['首页', '功能', '登录过期'],
-    desc: '用户登录过期示例。如果redis超时了，则重新弹出登录框，登录成功则将原先的接口重新发送，' + '登录失败，则跳转到登录页面。'
+    title: 'Đăng nhập đã hết hạn',
+    breadcrumb: ['Home', 'Chức năng', 'Đăng nhập đã hết hạn'],
+    desc: 'Ví dụ hết hạn đăng nhập của người dùng. Nếu hết thời gian redis, hộp đăng nhập sẽ bật lên lần nữa. Nếu đăng nhập thành công, giao diện ban đầu sẽ được gửi lại. '+' Nếu đăng nhập thất bại, nó sẽ chuyển đến trang đăng nhập.'
   };
   destroyRef = inject(DestroyRef);
 

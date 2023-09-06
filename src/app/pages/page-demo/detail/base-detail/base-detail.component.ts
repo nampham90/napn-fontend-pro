@@ -27,15 +27,15 @@ interface ReturnObj {
 export class BaseDetailComponent implements OnInit {
   @ViewChild('returnProductTpl', { static: true }) returnProductTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '基础详情页',
-    breadcrumb: ['首页', '详情页', '基础详情页']
+    title: 'Trang chi tiết cơ bản',
+    breadcrumb: ['Home', 'Trang chi tiết', 'Trang chi tiết cơ bản']
   };
   returnTableConfig!: AntTableConfig;
   returnTableConfig2!: AntTableConfig;
   returnDataList: ReturnObj[] = [
     {
       num: '1234561',
-      name: '矿泉水 550ml',
+      name: 'Nước khoáng 550ml',
       code: '12421432143214321',
       unitPrice: '2.00',
       number: '1',
@@ -43,7 +43,7 @@ export class BaseDetailComponent implements OnInit {
     },
     {
       num: '1234561',
-      name: '矿泉水 550ml',
+      name: 'Nước khoáng 550ml',
       code: '12421432143214321',
       unitPrice: '2.00',
       number: '1',
@@ -51,7 +51,7 @@ export class BaseDetailComponent implements OnInit {
     },
     {
       num: '1234561',
-      name: '矿泉水 550ml',
+      name: 'Nước khoáng 550ml',
       code: '12421432143214321',
       unitPrice: '2.00',
       number: '1',
@@ -59,7 +59,7 @@ export class BaseDetailComponent implements OnInit {
     },
     {
       num: '1234561',
-      name: '矿泉水 550ml',
+      name: 'Nước khoáng 550ml',
       code: '12421432143214321',
       unitPrice: '2.00',
       number: '1',
@@ -67,7 +67,7 @@ export class BaseDetailComponent implements OnInit {
     },
     {
       num: '1234561',
-      name: '矿泉水 550ml',
+      name: 'Nước khoáng 550ml',
       code: '12421432143214321',
       unitPrice: '2.00',
       number: '1',
@@ -82,33 +82,33 @@ export class BaseDetailComponent implements OnInit {
       showCheckbox: false,
       headers: [
         {
-          title: '商品编号',
+          title: 'Số sản phẩm',
           field: 'num',
           width: 150,
           tdTemplate: this.returnProductTpl
         },
         {
-          title: '商品名称',
+          title: 'tên sản phẩm',
           width: 160,
           field: 'name'
         },
         {
-          title: '商品条码',
+          title: 'mã vạch',
           width: 150,
           field: 'code'
         },
         {
-          title: '单价',
+          title: 'đơn giá',
           width: 150,
           field: 'unitPrice'
         },
         {
-          title: '数量（件）',
+          title: 'Số lượng/cái',
           width: 150,
           field: 'number'
         },
         {
-          title: '金额',
+          title: 'số tiền',
           field: 'price'
         }
       ],
@@ -121,33 +121,33 @@ export class BaseDetailComponent implements OnInit {
       showCheckbox: false,
       headers: [
         {
-          title: '商品编号',
+          title: 'Số sản phẩm',
           field: 'num',
           width: 150,
           tdTemplate: this.returnProductTpl
         },
         {
-          title: '商品名称',
+          title: 'tên sản phẩm',
           width: 160,
           field: 'name'
         },
         {
-          title: '商品条码',
+          title: 'mã vạch',
           width: 150,
           field: 'code'
         },
         {
-          title: '单价',
+          title: 'đơn giá',
           width: 150,
           field: 'unitPrice'
         },
         {
-          title: '数量（件）',
+          title: 'Số lượng/cái)',
           width: 150,
           field: 'number'
         },
         {
-          title: '金额',
+          title: 'số tiền',
           field: 'price'
         }
       ],

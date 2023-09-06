@@ -124,7 +124,7 @@
 <ng-template #mixiHeadTpl>
   <ul nz-menu nzMode="horizontal" nzTheme="dark">
     <ng-container *ngFor="let menu of menus; trackByProperty: 'id'; let i = index">
-      <!--Quyền hạn 1（不需要时删除此ng-container节点）-->
+      <!--Quyền hạn 1（Xóa nút ng-container này khi không còn cần thiết）-->
       <ng-container *appAuth="menu.code">
         <li *ngIf="!menu.children || menu.children.length === 0" nz-menu-item [nzSelected]="menu.selected">
           <a [routerLink]="[menu.path]">

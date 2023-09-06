@@ -17,7 +17,7 @@ import { TaskManageFormComponent as TaskManageFormComponent_1 } from './task-man
 import { UserMemberManageComponent } from './user-member-manage/user-member-manage.component';
 import { WarehouseManageFormComponent as WarehouseManageFormComponent_1 } from './warehouse-manage-form/warehouse-manage-form.component';
 
-// 自定义表单
+// Mẫu tùy chỉnh
 /*https://juejin.cn/post/6844904018922176520*/
 @Component({
   selector: 'app-advanced',
@@ -44,9 +44,9 @@ export class AdvancedComponent implements OnInit, OnDestroy {
   @ViewChild('warehouseManageComponent') warehouseManageComponent!: WarehouseManageFormComponent;
   @ViewChild('taskManageComponent') taskManageComponent!: TaskManageFormComponent;
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '高级表单',
-    desc: '高级表单常见于一次性输入和提交大批量数据的场景。(演示自定义表单)',
-    breadcrumb: ['首页', '表单页', '高级表单']
+    title: 'Biểu mẫu nâng cao',
+    desc: 'Các biểu mẫu nâng cao thường được sử dụng trong các trường hợp nhập và gửi một lượng lớn dữ liệu cùng một lúc. (bản demo tùy chỉnh)',
+    breadcrumb: ['Home', 'Trang mẫu', 'Biểu mẫu nâng cao']
   };
   validateForm!: FormGroup;
 
@@ -57,7 +57,7 @@ export class AdvancedComponent implements OnInit, OnDestroy {
     if (!fnCheckForm(this.validateForm) | this.warehouseManageComponent.checkForm() | this.taskManageComponent.checkForm()) {
       return;
     }
-    this.message.info('控制台打印出了表单数据');
+    this.message.info('Bảng điều khiển in ra dữ liệu biểu mẫu');
     console.log(this.validateForm.value);
   }
 

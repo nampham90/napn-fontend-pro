@@ -1,32 +1,32 @@
-/*配置权限码*/
+/*Cấu hình mã quyền*/
 export const ActionCode = {
-  /*标签页操作打开详情*/
+  /*Thao tác tab mở chi tiết*/
   TabsDetail: 'default:feat:tabs:example-detail',
-  /*查询表格 打开查看*/
+  /*Mẫu yêu cầu Mở Xem*/
   SearchTableDetail: 'default:page-demo:search-table:example-detail',
 
-  /*系统管理*/
-  AccountAdd: 'default:system:account:add', // 账号管理新增
-  AccountEdit: 'default:system:account:edit', // 账号管理编辑
-  AccountDel: 'default:system:account:del', // 账号管理删除
+  /*Quản lý hệ thống*/
+  AccountAdd: 'default:system:account:add', // Đã thêm quản lý tài khoản
+  AccountEdit: 'default:system:account:edit', // edit quản lý tài khoàn
+  AccountDel: 'default:system:account:del', // xóa quản lý tài khoàn
 
-  /*角色管理*/
-  RoleManagerAdd: 'default:system:role-manager:add', // 角色管理新增
-  RoleManagerEdit: 'default:system:role-manager:edit', // 角色管理编辑
-  RoleManagerDel: 'default:system:role-manager:del', // 角色管理删除
-  RoleManagerSetRole: 'default:system:role-manager:set-role', // 角色管理设置角色
+  /*quản lý vai trò*/
+  RoleManagerAdd: 'default:system:role-manager:add', // thêm vai trò
+  RoleManagerEdit: 'default:system:role-manager:edit', // sữa vai trò
+  RoleManagerDel: 'default:system:role-manager:del', // xóa vai trò
+  RoleManagerSetRole: 'default:system:role-manager:set-role', // thiết lập quyền
 
-  /*菜单管理*/
-  MenuAdd: 'default:system:menu:add', // 菜单新增
-  MenuEdit: 'default:system:menu:edit', // 菜单编辑
-  MenuDel: 'default:system:menu:del', // 菜单删除
-  MenuAddLowLevel: 'default:system:menu:addlowlevel', // 菜单添加下级
+  /*Quản lý menu*/
+  MenuAdd: 'default:system:menu:add', // Thêm menu
+  MenuEdit: 'default:system:menu:edit', // sữa menu
+  MenuDel: 'default:system:menu:del', // xóa menu
+  MenuAddLowLevel: 'default:system:menu:addlowlevel', // Thêm menu con
 
-  /*部门管理*/
-  DeptAdd: 'default:system:dept:add', // 部门管理新增
-  DeptEdit: 'default:system:dept:edit', // 部门管理编辑
-  DeptDel: 'default:system:dept:del', // 部门管理删除
-  DeptAddLowLevel: 'default:system:dept:addlowlevel', // 部门管理添加下级
+  /*Quản lý bộ phận*/
+  DeptAdd: 'default:system:dept:add', // Thêm bộ phận
+  DeptEdit: 'default:system:dept:edit', // sữa bộ phận
+  DeptDel: 'default:system:dept:del', // xóa bộ phận
+  DeptAddLowLevel: 'default:system:dept:addlowlevel', //Quản lý bộ phận Thêm cấp dưới
 
   /*ActionCode ql datasc*/
   DataScAdd: 'default:system:datasc:add',

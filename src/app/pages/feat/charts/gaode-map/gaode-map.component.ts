@@ -16,8 +16,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 })
 export class GaodeMapComponent implements OnInit, AfterViewInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '高德地图，可不要暴露行踪了哟',
-    breadcrumb: ['首页', '功能', '图表', '高德地图']
+    title: 'Bản đồ Gaode, đừng tiết lộ nơi ở của bạn.',
+    breadcrumb: ['Home', 'Chức năng', 'đồ thị', 'Bản đồ Gaode']
   };
   marker: [number, number] = [116.437253, 39.935033];
   markerPosition: string = this.marker.join(',');
@@ -25,10 +25,10 @@ export class GaodeMapComponent implements OnInit, AfterViewInit {
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
-    // api地址
+    // ịa chỉ api
     // https://lbs.amap.com/demo/javascript-api/example/map-lifecycle/map-show
-    // 自己去申请一个key，别用我这个Key，多谢
-    // 申请地址 https://console.amap.com/dev/key/app
+    // Hãy tự đăng ký lấy chìa khóa. Đừng sử dụng Chìa khóa của tôi. Cảm ơn bạn.
+    // Địa chỉ ứng dụng https://console.amap.com/dev/key/app
     AMapLoader.load({
       key: '1c1b77fae2e59c25eb26ced9a0801103', //首次load必填
       version: '1.4.15',
@@ -45,7 +45,7 @@ export class GaodeMapComponent implements OnInit, AfterViewInit {
         });
 
         const marker = new AMap.Marker({
-          position: new AMap.LngLat(this.marker[0], this.marker[1]), // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+          position: new AMap.LngLat(this.marker[0], this.marker[1]), // Đối tượng kinh độ và vĩ độ hoặc mảng một chiều của kinh độ và vĩ độ [116,39, 39,9]
           /*  title: '南京',*/
           draggable: true
         });

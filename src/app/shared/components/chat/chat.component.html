@@ -23,7 +23,7 @@
 
         <div *ngIf="item.dir === 'right'" class="m-t-20" nz-row>
           <div nz-col nzFlex="30px"></div>
-          <!--有未读的样式-->
+          <!--Có những phong cách chưa đọc-->
           <div class="flex flex-coloum" nz-col nzFlex="1">
             <div class="m-t-0 p-8 text-break" nz-result-content>
               <span nz-typography>{{ item.msg }}</span>
@@ -32,7 +32,7 @@
             <span class="sp-12 text-right m-t-5" nz-typography nzType="secondary">{{ item.isReaded ? 'Đã đọc' : 'Chưa đọc' }}</span>
           </div>
 
-          <!--没有未读的样式-->
+          <!--không có phong cách chưa đọc-->
           <!-- <div class="m-t-0 p-8 text-break" nz-result-content nz-col nzFlex="1">
              <span nz-typography>{{item}}</span>{{last ? scrollToBottom() : ''}}
            </div>-->

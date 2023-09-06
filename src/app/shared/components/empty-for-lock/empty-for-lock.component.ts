@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { LockScreenFlag, LockScreenStoreService } from '@store/common-store/lock-screen-store.service';
 
-/*此组件为了解决锁屏时f12仍然能查看到被隐藏的页面，而创建的空白页面*/
+/*Thành phần này tạo một trang trống nhằm giải quyết vấn đề f12 vẫn xem được trang ẩn khi màn hình khóa.*/
 
 @Component({
   selector: 'app-empty-for-lock',
@@ -13,7 +13,7 @@ import { LockScreenFlag, LockScreenStoreService } from '@store/common-store/lock
   standalone: true
 })
 export class EmptyForLockComponent {
-  // 路由的锁屏状态
+  // Trạng thái màn hình khóa bộ định tuyến
   routeStatus!: LockScreenFlag;
   destroyRef = inject(DestroyRef);
 

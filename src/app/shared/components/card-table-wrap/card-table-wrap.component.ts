@@ -54,7 +54,7 @@ interface TableSizeItem {
 export class CardTableWrapComponent implements OnInit, AfterContentInit {
   @Input() tableTitle: string | TemplateRef<NzSafeAny> | undefined;
   @Input() btnTpl: TemplateRef<NzSafeAny> | undefined;
-  @Input() isNormalTable = true; // 如果只是需要card-table-wrap的样式，这里设置为false
+  @Input() isNormalTable = true; // Nếu bạn chỉ cần kiểu bọc thẻ trên bàn, hãy đặt kiểu này thành sai
   @Output() readonly reload = new EventEmitter<NzSafeAny>();
   @ContentChild(AntTableComponentToken) antTableComponent!: AntTableComponentToken;
   @ContentChild(AntTreeTableComponentToken) antTreeTableComponent!: AntTreeTableComponentToken;
@@ -66,26 +66,26 @@ export class CardTableWrapComponent implements OnInit, AfterContentInit {
   ];
   tableHeaders: TableHeader[] = [];
   currentTableComponent!: AntTableComponentToken | AntTreeTableComponentToken;
-  allTableFieldChecked = false; // 设置里面全选列
-  allTableFieldIndeterminate = false; // 设置里面全选列的半选状态
-  copyHeader: TableHeader[] = []; // 缓存默认配置
+  allTableFieldChecked = false; // Chọn tất cả các cột trong cài đặt
+  allTableFieldIndeterminate = false; // Đặt trạng thái được chọn một nửa của cột được chọn tất cả bên trong
+  copyHeader: TableHeader[] = []; // Cấu hình mặc định bộ đệm
 
   constructor() {}
 
-  // 是否展示复选框
+  // Có hiển thị hộp kiểm hay không
   changeTableCheckBoxShow(e: boolean): void {
     this.currentTableComponent.tableConfig.showCheckbox = e;
     this.tableChangeDectction();
   }
 
-  // 大中小表格密度
+  // Mật độ dạng lớn, vừa và nhỏ
   tableSizeMenuClick(item: TableSizeItem): void {
     this.tableSizeOptions.forEach(tableSizeItem => (tableSizeItem.selected = false));
     item.selected = true;
     this.currentTableComponent.tableSize = item.value;
   }
 
-  // 配置中tableCheckbox是否全选
+  // Có nên chọn tất cả các hộp kiểm bảng trong cấu hình hay không
   changeAllTableTableConfigShow(e: boolean): void {
     if (e) {
       this.allTableFieldChecked = e;
@@ -95,7 +95,7 @@ export class CardTableWrapComponent implements OnInit, AfterContentInit {
     this.tableChangeDectction();
   }
 
-  // 设置固定左侧还是右侧
+  // Đặt cố định bên trái hoặc bên phải
   changeTableConfigShow(): void {
     const tempArray = [...this.tableHeaders];
     const fixedLeftArray: TableHeader[] = [];
@@ -131,26 +131,26 @@ export class CardTableWrapComponent implements OnInit, AfterContentInit {
     this.reload.emit();
   }
 
-  // 某一列check变化
+  // Kiểm tra các thay đổi trong một cột nhất định
   changeSignalCheck(e: boolean, item: TableHeader): void {
     item.show = e;
     this.judgeAllChecked();
     this.tableChangeDectction();
   }
 
-  // 使子列表变更检测
+  // Bật phát hiện thay đổi danh sách phụ
   tableChangeDectction(): void {
     this.currentTableComponent.tableChangeDectction();
   }
 
-  // 判断列展示这个checkbox的状态
+  // Cột phán đoán hiển thị trạng thái của hộp kiểm
   judgeAllChecked(): void {
     this.allTableFieldChecked = this.tableHeaders.every(item => item.show === true);
     const allUnChecked = this.tableHeaders.every(item => !item.show);
     this.allTableFieldIndeterminate = !this.allTableFieldChecked && !allUnChecked;
   }
 
-  // 重置
+  // cài lại
   reset(): void {
     this.tableHeaders = [];
     this.copyHeader.forEach(item => {

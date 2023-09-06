@@ -16,8 +16,8 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 })
 export class ImgPreviewComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '图片预览',
-    breadcrumb: ['首页', '功能', '图片预览']
+    title: 'Xem trước hình ảnh',
+    breadcrumb: ['Home', 'Chức năng', 'Xem trước hình ảnh']
   };
   constructor(private nzImageService: NzImageService) {}
   onClick(): void {

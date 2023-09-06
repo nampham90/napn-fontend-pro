@@ -6,7 +6,7 @@ import * as Const from 'src/app/common/const';
 import { PageInfo, SearchCommonVO } from '../../types';
 import { BaseHttpService } from '../base-http.service';
 /*
- *  部门列表
+ *  Quản lý vai trò
  * */
 export interface Dept {
   id?: string;

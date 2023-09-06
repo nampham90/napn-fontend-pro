@@ -33,7 +33,7 @@ export class GlobalModalBtnTplComponent implements GlobalModalBtnTplComponentTok
   fullScreenIconClick($event: MouseEvent): void {
     this.modalFullScreenFlag = !this.modalFullScreenFlag;
     this.modalFullStatus.setModalFullStatusStore(this.modalFullScreenFlag);
-    // 可以阻止对话框关闭
+    // Có thể ngăn hộp thoại đóng
     fnStopMouseEvent($event);
   }
 

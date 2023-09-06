@@ -60,7 +60,7 @@ export class SearchRouteComponent extends BasicConfirmModalComponent implements 
   changeSelAnswerIndex(dir: 'up' | 'down'): number | null {
     const index = this.resultListShow.findIndex(item => item.selItem);
     if (index > -1) {
-      // 向上
+      // hướng lên
       if (dir === 'up') {
         if (index === 0) {
           return this.resultListShow.length - 1;
@@ -165,7 +165,7 @@ export class SearchRouteComponent extends BasicConfirmModalComponent implements 
             this.resultListShow[0].selItem = true;
           }
           this.resultListShow = [...this.resultListShow];
-          // 清空搜索条件时将结果集置空
+          // Làm trống tập kết quả khi xóa tiêu chí tìm kiếm
           if (!res) {
             this.resultListShow = [];
           }

@@ -45,14 +45,14 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 export class BaseComponent implements OnInit, OnDestroy {
   @ViewChild('dragTpl', { static: true }) dragTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '基础表单',
-    desc: '表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。',
-    breadcrumb: ['首页', '表单页', '基础表单']
+    title: 'Hình thức cơ bản',
+    desc: 'Các trang biểu mẫu được sử dụng để thu thập hoặc xác minh thông tin từ người dùng và các biểu mẫu cơ bản thường được sử dụng trong các tình huống biểu mẫu có ít mục dữ liệu hơn.',
+    breadcrumb: ['Home', 'Trang mẫu', 'Hình thức cơ bản']
   };
   listOfOption = [
-    { label: '同事甲', value: '同事甲' },
-    { label: '同事乙', value: '同事乙' },
-    { label: '同事丙', value: '同事丙' }
+    { label: 'đồng nghiệp A', value: 'đồng nghiệp A' },
+    { label: 'đồng nghiệp B', value: 'đồng nghiệp B' },
+    { label: 'đồng nghiệp C', value: 'đồng nghiệp C' }
   ];
 
   validateForm!: FormGroup;

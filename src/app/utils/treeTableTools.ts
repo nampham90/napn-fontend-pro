@@ -26,7 +26,7 @@ function visitNode(node: TreeNodeInterface, hashMap: { [key: string]: boolean },
   }
 }
 
-// 获取map形式的treeData,入参为dataList
+// Lấy treeData ở dạng bản đồ và tham số đầu vào là dataList
 const fnTreeDataToMap = function tableToTreeData(dataList: any[]): { [key: string]: TreeNodeInterface[] } {
   const mapOfExpandedData: { [key: string]: TreeNodeInterface[] } = {};
   dataList.forEach(item => {
@@ -36,46 +36,47 @@ const fnTreeDataToMap = function tableToTreeData(dataList: any[]): { [key: strin
 };
 
 /**
- * 该方法用于将有父子关系的数组转换成树形结构的数组
- * 接收一个具有父子关系的数组作为参数
- * 返回一个树形结构的数组
+ * Phương thức này dùng để chuyển đổi mảng có quan hệ cha-con thành mảng có cấu trúc cây
+ * Nhận một mảng có tham số là mối quan hệ cha-con
+ * Trả về một mảng cấu trúc cây
  */
 const fnFlatDataHasParentToTree = function translateDataToTree(data: any[], fatherId = 'fatherId'): any {
-  // 我们认为，fatherId=0的数据，为一级数据
-  //没有父节点的数据
+
+  // Chúng tôi tin rằng dữ liệu có parentId=0 là dữ liệu cấp một
+  // dữ liệu không có nút cha
   let parents = data.filter(value => value[fatherId] === 0)
   .sort((a, b) => a.orderNum - b.orderNum);
 
-  //有父节点的数据
+  //Dữ liệu với nút cha
   let children = data.filter(value => value[fatherId] !== 0)
   .sort((a, b) => a.orderNum - b.orderNum);
 
-  //定义转换方法的具体实现
+  //Xác định cách triển khai cụ thể của phương thức chuyển đổi
   let translator = (parents: any[], children: any[]): any => {
-    //遍历父节点数据
+    //Duyệt qua dữ liệu nút cha
     parents.forEach(parent => {
-      //遍历子节点数据
+      //Duyệt qua dữ liệu nút con
       children.forEach((current, index) => {
-        //此时找到父节点对应的一个子节点
+        //Lúc này, một nút con tương ứng với nút cha được tìm thấy.
         if (current[fatherId] === parent.id) {
-          //对子节点数据进行深复制，这里只支持部分类型的数据深复制，对深复制不了解的童靴可以先去了解下深复制
+          //Thực hiện sao chép sâu dữ liệu nút con. Ở đây chỉ hỗ trợ một số loại dữ liệu sao chép sâu. Giày trẻ em chưa quen với bản sao sâu có thể tìm hiểu về bản sao sâu trước.
           let temp = JSON.parse(JSON.stringify(children));
-          //让当前子节点从temp中移除，temp作为新的子节点数据，这里是为了让递归时，子节点的遍历次数更少，如果父子关系的层级越多，越有利
+          //Hãy xóa nút con hiện tại khỏi temp và temp được sử dụng làm dữ liệu nút con mới. Điều này nhằm làm cho số lần truyền qua nút con ít hơn trong quá trình đệ quy. Nếu mối quan hệ cha-con có nhiều cấp độ hơn thì sẽ nhiều hơn có lợi
           temp.splice(index, 1);
-          //让当前子节点作为唯一的父节点，去递归查找其对应的子节点
+          //Đặt nút con hiện tại là nút cha duy nhất và tìm kiếm đệ quy nút con tương ứng của nó.
           translator([current], temp);
-          //把找到子节点放入父节点的children属性中
+          //Đặt nút con tìm thấy vào thuộc tính con của nút cha
           typeof parent.children !== 'undefined' ? parent.children.push(current) : (parent.children = [current]);
         }
       });
     });
   };
-  //调用转换方法
+  //phương pháp chuyển đổi cuộc gọi
   translator(parents, children);
   return parents;
 };
 
-// 将树状结构数据添加层级以及是否是根节点的标记，根节点isLeaf为true，层级由level表示
+// Thêm một hệ thống phân cấp vào dữ liệu cấu trúc cây và đánh dấu xem đó có phải là nút gốc hay không, nút gốc isLeaf là đúng và cấp độ được biểu thị bằng cấp độ
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const fnAddTreeDataGradeAndLeaf = function AddTreeDataGradeAndLeaf(array: any[], levelName = 'level', childrenName = 'children') {
   const recursive = (array: any[], level = 0): any => {
@@ -95,14 +96,14 @@ const fnAddTreeDataGradeAndLeaf = function AddTreeDataGradeAndLeaf(array: any[],
   return recursive(array);
 };
 
-// 摊平的tree数据
+// Dữ liệu cây phẳng
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const fnFlattenTreeDataByDataList = function flattenTreeData(dataList: any[]) {
   const mapOfExpandedData: { [key: string]: TreeNodeInterface[] } = fnTreeDataToMap(dataList);
   return fnGetFlattenTreeDataByMap(mapOfExpandedData);
 };
 
-// 获取摊平的tree数据,入参为map形式的treeData
+// Lấy dữ liệu cây phẳng và tham số đầu vào là treeData ở dạng bản đồ.
 const fnGetFlattenTreeDataByMap = function getFlattenTreeData(mapOfExpandedData: { [key: string]: TreeNodeInterface[] }): TreeNodeInterface[] {
   const targetArray: TreeNodeInterface[] = [];
   Object.values(mapOfExpandedData).forEach(item => {

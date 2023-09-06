@@ -24,7 +24,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 /*
- * 任务对象
+ * Đối tượng nhiệm vụ
  * */
 export interface TaskObj {
   id: number;
@@ -47,7 +47,7 @@ export interface TaskObj {
   finishRate: number;
 }
 
-// 任务搜索条件
+// Tiêu chí tìm kiếm nhiệm vụ
 export enum TaskStateSearchEnum {
   NoStarted,
   Processing,
@@ -56,7 +56,7 @@ export enum TaskStateSearchEnum {
   All
 }
 
-// 任务搜索条件
+// Tiêu chí tìm kiếm nhiệm vụ
 export enum TaskStateSearchCheckPeriodEnum {
   DayCheck,
   MonthCheck,
@@ -99,9 +99,9 @@ export enum TaskStateSearchCheckPeriodEnum {
 export class AppendFormComponent implements OnInit {
   destroyRef = inject(DestroyRef);
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '表单增删示例',
-    breadcrumb: ['首页', '组件', 'Form', '表单增删'],
-    desc: '表单增删示例'
+    title: 'Ví dụ về thêm và xóa biểu mẫu',
+    breadcrumb: ['Home', 'Các thành phần', 'Form', 'Bổ sung và xóa biểu mẫu'],
+    desc: 'Ví dụ về thêm và xóa biểu mẫu'
   };
   taskStateSearchEnum = TaskStateSearchEnum;
   taskState = TaskStateSearchEnum.All;
@@ -114,18 +114,18 @@ export class AppendFormComponent implements OnInit {
   showAllTaskList: TaskObj[] = [
     {
       id: 1,
-      taskName: '一个任务',
-      taskDesc: '一个任务',
+      taskName: 'một nhiệm vụ',
+      taskDesc: 'một nhiệm vụ',
       taskEvaluate: null,
       equipmentId: 1,
-      equipmentName: '一个任务',
-      systemName: '一个任务',
+      equipmentName: 'một nhiệm vụ',
+      systemName: 'một nhiệm vụ',
       systemId: 1,
       taskState: 1,
-      userName: '小华',
-      taskStateName: '一个任务',
-      taskUserId: '一个任务',
-      checkPeriod: '一个任务',
+      userName: 'Tiểu Hoa',
+      taskStateName: 'một nhiệm vụ',
+      taskUserId: 'một nhiệm vụ',
+      checkPeriod: 'một nhiệm vụ',
       createTime: 1,
       updateTime: 1,
       endTime: 1,
@@ -134,18 +134,18 @@ export class AppendFormComponent implements OnInit {
     },
     {
       id: 2,
-      taskName: '一个任务',
-      taskDesc: '一个任务',
+      taskName: 'một nhiệm vụ',
+      taskDesc: 'một nhiệm vụ',
       taskEvaluate: null,
       equipmentId: 1,
-      equipmentName: '一个任务',
-      systemName: '一个任务',
+      equipmentName: 'một nhiệm vụ',
+      systemName: 'một nhiệm vụ',
       systemId: 1,
       taskState: 1,
-      userName: '小张',
-      taskStateName: '一个任务',
-      taskUserId: '一个任务',
-      checkPeriod: '一个任务',
+      userName: 'Tiểu Trương',
+      taskStateName: 'một nhiệm vụ',
+      taskUserId: 'một nhiệm vụ',
+      checkPeriod: 'một nhiệm vụ',
       createTime: 1,
       updateTime: 1,
       endTime: 1,
@@ -154,18 +154,18 @@ export class AppendFormComponent implements OnInit {
     },
     {
       id: 1,
-      taskName: '一个任务',
-      taskDesc: '一个任务',
+      taskName: 'một nhiệm vụ',
+      taskDesc: 'một nhiệm vụ',
       taskEvaluate: null,
       equipmentId: 1,
-      equipmentName: '一个任务',
-      systemName: '一个任务',
+      equipmentName: 'một nhiệm vụ',
+      systemName: 'một nhiệm vụ',
       systemId: 1,
       taskState: 1,
-      userName: '小林',
-      taskStateName: '一个任务',
-      taskUserId: '一个任务',
-      checkPeriod: '一个任务',
+      userName: 'Kobayashi',
+      taskStateName: 'một nhiệm vụ',
+      taskUserId: 'một nhiệm vụ',
+      checkPeriod: 'một nhiệm vụ',
       createTime: 1,
       updateTime: 1,
       endTime: 1,
@@ -174,18 +174,18 @@ export class AppendFormComponent implements OnInit {
     },
     {
       id: 1,
-      taskName: '一个任务',
-      taskDesc: '一个任务',
+      taskName: 'một nhiệm vụ',
+      taskDesc: 'một nhiệm vụ',
       taskEvaluate: null,
       equipmentId: 1,
-      equipmentName: '一个任务',
-      systemName: '一个任务',
+      equipmentName: 'một nhiệm vụ',
+      systemName: 'một nhiệm vụ',
       systemId: 1,
       taskState: 1,
-      userName: '小子',
-      taskStateName: '一个任务',
-      taskUserId: '一个任务',
-      checkPeriod: '一个任务',
+      userName: 'con trai',
+      taskStateName: 'một nhiệm vụ',
+      taskUserId: 'một nhiệm vụ',
+      checkPeriod: 'một nhiệm vụ',
       createTime: 1,
       updateTime: 1,
       endTime: 1,
@@ -235,7 +235,7 @@ export class AppendFormComponent implements OnInit {
 
   add(): void {
     this.modalService
-      .show({ nzTitle: '新增' })
+      .show({ nzTitle: 'Thêm mới' })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(({ modalValue, status }) => {
         if (status === ModalBtnStatus.Cancel) {
@@ -251,7 +251,7 @@ export class AppendFormComponent implements OnInit {
     // console.log(ellipsis);
   }
 
-  // 分页获取数据
+  // Lấy dữ liệu trong các trang
   getData(event: number = this.pageObj.pageNum): void {
     this.pageObj = { ...this.pageObj, pageNum: event };
     this.showTaskList = [...this.showAllTaskList.slice((this.pageObj.pageNum - 1) * this.pageObj.pageSize, this.pageObj.pageNum * this.pageObj.pageSize)];

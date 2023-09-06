@@ -14,9 +14,9 @@ import { ColorPickerModule } from 'ngx-color-picker';
 export class ColorSelComponent implements OnInit {
   public color: string = '#2889e9';
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '我突然想到了“你却说花花世界不必当真”这句歌词',
-    desc: '所有示例：https://zefoy.github.io/ngx-color-picker/',
-    breadcrumb: ['首页', '功能', '颜色选择器']
+    title: 'Tôi chợt nghĩ đến lời bài hát "Anh đã nói thế giới đầy màu sắc không cần phải coi trọng"',
+    desc: 'Tất cả các ví dụ：https://zefoy.github.io/ngx-color-picker/',
+    breadcrumb: ['Home', 'Chức năng', 'bộ chọn màu']
   };
   constructor() {}
 

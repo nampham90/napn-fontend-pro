@@ -3,7 +3,7 @@ import { PreloadingStrategy, Route } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 /*
- * 模块预加载service
+ * Dịch vụ tải trước module
  * */
 @Injectable({
   providedIn: 'root'

@@ -12,9 +12,9 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { Menu } from '../../types';
 import { WindowService } from '../window.service';
 
-// 有兴趣的可以看看class与fn的争议https://github.com/angular/angular/pull/47924
-// 我这里提供了跟judgeLogin.guard.ts的不同写法，供大家参考,也可以去官网查找mapToCanActivate 这个api，
-// 用于切换路由时判断该用户是否有权限进入该业务页面，如果没有权限则跳转到登录页
+// Những ai quan tâm có thể xem tranh cãi giữa class và fn https://github.com/angular/angular/pull/47924
+// Ở đây tôi cung cấp một cách viết khác JudgeLogin.guard.ts để bạn tham khảo. Bạn cũng có thể vào trang web chính thức để tìm api mapToCanActivate.
+// Được sử dụng để xác định xem người dùng có được phép vào trang doanh nghiệp khi chuyển tuyến hay không và chuyển sang trang đăng nhập nếu không
 @Injectable({
   providedIn: 'root'
 })
@@ -40,7 +40,7 @@ export class JudgeAuthGuardService {
       });
   }
 
-  // 保存当前的menu到this.selMenu
+  // Lưu menu hiện tại vào this.selMenu
   getMenu(menu: Menu[], url: string): void {
     for (let i = 0; i < menu.length; i++) {
       if (url === menu[i].path) {
@@ -72,20 +72,20 @@ export class JudgeAuthGuardService {
     while (route.firstChild) {
       route = route.firstChild;
     }
-    // 如果有authCode，则表示是页面上点击按钮跳转到新的路由，而不是菜单中的路由
+    // Nếu có authCode, điều đó có nghĩa là việc nhấp vào nút trên trang sẽ chuyển sang tuyến đường mới chứ không phải tuyến đường trong menu
     if (!!route.data['authCode']) {
       return this.getResult(route.data['authCode'], this.authCodeArray);
     }
 
-    // 如果是菜单上的按钮，则走下面
+    // Nếu đó là một nút trên menu, hãy đi xuống bên dưới
     this.getMenu(this.menuNavList, state.url);
-    // 没找到菜单，直接回登录页
+    // Không tìm thấy menu, đi thẳng đến trang đăng nhập
     if (!this.selMenu) {
       return this.getResult(fnGetUUID(), this.authCodeArray);
     }
     const selMenuCode = this.selMenu.code;
     this.selMenu = null;
-    // 找到了菜单，但是菜单的权限码用户不拥有，则跳转到登录页
+    // Nếu tìm thấy menu nhưng người dùng không sở hữu mã cấp phép của menu, nó sẽ chuyển đến trang đăng nhập.
     return this.getResult(selMenuCode!, this.authCodeArray);
   }
 }

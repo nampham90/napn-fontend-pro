@@ -4,7 +4,7 @@ import { Inject, Injectable } from '@angular/core';
 import Driver from 'driver.js';
 /*
  * https://madewith.cn/766
- * 引导页
+ * Trang hướng dẫn
  * */
 @Injectable({
   providedIn: 'root'

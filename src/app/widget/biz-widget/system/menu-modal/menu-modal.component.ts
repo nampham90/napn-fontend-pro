@@ -15,7 +15,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 
-// c:菜单，f按钮
+// c:Menu，f: nút
 type menuType = 'C' | 'F';
 
 @Component({
@@ -33,7 +33,7 @@ export class MenuModalComponent implements OnInit {
 
   constructor(private modalRef: NzModalRef, private fb: FormBuilder) {}
 
-  // 返回false则不关闭对话框
+  // Trả về false để không đóng hộp thoại
   protected getCurrentValue(): Observable<any> {
     if (!fnCheckForm(this.validateForm)) {
       return of(false);
@@ -68,7 +68,7 @@ export class MenuModalComponent implements OnInit {
     this.validateForm.get('path')?.[methodName]();
   }
 
-  // 修改菜单type
+  // Sửa đổi loại menu
   changeMenuType(type: menuType): void {
     this.menuType = type;
     if (type === 'F') {

@@ -31,9 +31,9 @@ const THUMBUP_ICON =
 })
 export class IconsComponent {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '图标',
-    breadcrumb: ['首页', '功能', '图标'],
-    desc: '在图标选择器中演示：搜索防抖，前端分页功能。'
+    title: 'Biểu tượng',
+    breadcrumb: ['Home', 'CHức năng', 'Biểu tượng'],
+    desc: 'Thể hiện trong bộ chọn biểu tượng: tìm kiếm chống rung, chức năng phân trang giao diện người dùng.'
   };
   seletedIcon = '';
   visible = false;

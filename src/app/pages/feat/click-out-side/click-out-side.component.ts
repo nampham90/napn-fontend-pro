@@ -17,12 +17,12 @@ import { fnStopMouseEvent } from '@utils/tools';
 })
 export class ClickOutSideComponent implements OnInit, AfterViewInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '点内外部触发事件，点一点总会有好运',
-    breadcrumb: ['首页', '功能', 'ClickOutSide']
+    title: 'Nhấp vào các sự kiện kích hoạt bên trong và bên ngoài, nhấp vào chúng và bạn sẽ luôn gặp may mắn',
+    breadcrumb: ['Home', 'Chưc năng', 'ClickOutSide']
   };
   destroyRef = inject(DestroyRef);
-  text: string = '点击内部或者外部';
-  winClick$!: Observable<Event>; // 绑定window的click事件
+  text: string = 'bấm vào bên trong hoặc bên ngoài';
+  winClick$!: Observable<Event>; // Liên kết sự kiện nhấp chuột của cửa sổ
   @ViewChild('targetHtml') targetHtml!: ElementRef;
   targetHtmlClick$!: Observable<any>;
 
@@ -32,12 +32,12 @@ export class ClickOutSideComponent implements OnInit, AfterViewInit {
     this.targetHtmlClick$ = fromEvent(this.targetHtml.nativeElement, 'click').pipe(
       tap(e => {
         fnStopMouseEvent(<MouseEvent>e);
-        this.text = '刀斩肉身';
+        this.text = 'Dùng dao chặt thịt';
       })
     );
     this.winClick$ = fromEvent(this.doc, 'click').pipe(
       tap(() => {
-        this.text = '心斩灵魂';
+        this.text = 'Trái tim và tâm hồn';
       })
     );
     merge(this.targetHtmlClick$, this.winClick$)

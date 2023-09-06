@@ -1,6 +1,6 @@
 <div class="p-24">
   <nz-input-group nzSize="large" [nzPrefix]="prefixTemplateUser" [nzSuffix]="inputClearTpl">
-    <input #searchInput type="text" nz-input nzSize="large" placeholder="搜索" [(ngModel)]="inputValue" />
+    <input #searchInput type="text" nz-input nzSize="large" placeholder="tìm kiếm" [(ngModel)]="inputValue" />
   </nz-input-group>
   <ng-template #inputClearTpl>
     <i *ngIf="inputValue" class="ant-input-clear-icon" nz-icon nzTheme="fill" nzType="close-circle" (click)="clearInput()"></i>
@@ -10,7 +10,7 @@
     <ng-template #noResult>
       <nz-empty [nzNotFoundContent]="contentTpl">
         <ng-template #contentTpl>
-          <span>请输入菜单名称进行搜索</span>
+          <span>Vui lòng nhập tên menu để tìm kiếm</span>
         </ng-template>
       </nz-empty>
     </ng-template>
@@ -41,12 +41,12 @@
 <div class="p-l-24 p-t-16 p-b-16">
   <footer class="flex left-start-center">
     <i class="footer-icon" nz-icon nzTheme="outline" nzType="enter"></i>
-    确认
+    xác nhận
     <i class="footer-icon m-l-8" nz-icon nzTheme="outline" nzType="arrow-up"></i>
     <i class="footer-icon m-l-8" nz-icon nzTheme="outline" nzType="arrow-down"></i>
-    切换
+    để chuyển đổi
     <span class="footer-icon sp-12 m-l-8">ESC</span>
-    关闭
+    Khép kín
   </footer>
 </div>
 

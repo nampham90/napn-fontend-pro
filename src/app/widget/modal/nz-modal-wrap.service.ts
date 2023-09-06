@@ -13,7 +13,7 @@ export class NzModalWrapService {
   constructor(public modal: NzModalService, public modalDragService: ModalDragService) {}
 
   /**
-   * 创建对话框, 增加可拖拽功能
+   * Tạo hộp thoại và thêm chức năng kéo thả
    *
    * @param config ModalOptions
    */
@@ -73,7 +73,7 @@ export class NzModalWrapService {
   protected createModalConfig<T, R = NzSafeAny>(config: ModalOptions<T, R>, wrapCls: string): ModalOptions<T, R> {
     const defaultConfig: ModalOptions = {
       nzMaskClosable: false,
-      nzTitle: '提示'
+      nzTitle: 'gợi ý'
     };
     const maskStyle = config.nzMask === false ? { nzMaskStyle: { display: 'none' } } : {};
     const newConfig = Object.assign(defaultConfig, config, maskStyle);

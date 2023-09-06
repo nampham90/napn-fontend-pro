@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Menu } from '@core/services/types';
 
-// 菜单store service
+// dịch vụ lưu trữ thực đơn
 @Injectable({
   providedIn: 'root'
 })

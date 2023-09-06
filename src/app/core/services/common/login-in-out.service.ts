@@ -21,7 +21,7 @@ import { TokenStoreService } from '../store/common-store/token-store.service';
 import { SocketService } from './socket.service';
 
 /*
- * 退出登录
+ * đăng xuất
  * */
 @Injectable({
   providedIn: 'root'
@@ -43,23 +43,24 @@ export class LoginInOutService {
     private socketService: SocketService
   ) {}
 
-  // 通过用户Id来获取菜单数组
+  // Lấy mảng menu theo Id người dùng
   getMenuByUserId(userId: string): Observable<Menu[]> {
     return this.loginService.getMenuByUserId(userId);
   }
 
   loginIn(token: string): Promise<void> {
     return new Promise(resolve => {
-      // 将 token 持久化缓存，请注意，如果没有缓存，则会在路由守卫中被拦截，不让路由跳转
-      // 这个路由守卫在src/app/core/services/common/guard/judgeLogin.guard.ts
+      // Liên tục lưu mã thông báo vào bộ đệm. Xin lưu ý rằng nếu không có bộ đệm, nó sẽ bị chặn trong bộ bảo vệ tuyến và tuyến sẽ không được phép nhảy.
+      // Tuyến đường này được bảo vệ tại src/app/core/services/common/guard/judgeLogin.guard.ts
       this.windowServe.setSessionStorage(TokenKey, TokenPre + token);
+      // Lưu token vào store
       this.tokenStoreService.setGlobalTokenStore(token);
-      // 解析token ，然后获取用户信息
+      // Phân tích mã thông báo và lấy thông tin người dùng
       const userInfo: UserInfo = this.userInfoService.parsToken(TokenPre + token);
-      // todo  这里是手动添加静态页面标签页操作中打开详情的按钮的权限，因为他们涉及到路由跳转，会走路由守卫，但是权限又没有通过后端管理，所以下面两行手动添加权限，实际操作中可以删除下面2行
+      // việc cần làm Đây là quyền thêm nút theo cách thủ công để mở chi tiết trong thao tác tab trang tĩnh, vì chúng liên quan đến các bước nhảy định tuyến và chúng sẽ được bảo vệ bằng cách đi bộ, nhưng các quyền không được quản lý bởi phần phụ trợ, vì vậy hai dòng sau thêm quyền theo cách thủ công, thao tác thực tế Bạn có thể xóa 2 dòng sau trong
       userInfo.authCode.push(ActionCode.TabsDetail);
       userInfo.authCode.push(ActionCode.SearchTableDetail);
-      // 将用户信息缓存到全局service中
+      // Lưu trữ thông tin người dùng vào dịch vụ toàn cầu
       this.userInfoService.setUserInfo(userInfo);
       
       this.userService.getAccountDetail(userInfo.userId)
@@ -69,7 +70,7 @@ export class LoginInOutService {
             this.avatarService.setAvatarStore(serverUrl + res.avatar.path);
           }
       });
-      // 通过用户id来获取这个用户所拥有的menu
+      // Nhận menu do người dùng này sở hữu thông qua ID người dùng
       this.getMenuByUserId(userInfo.userId)
         .pipe(
           finalize(() => {
@@ -84,18 +85,18 @@ export class LoginInOutService {
             return item.menuType === 'C';
           });
           const temp = fnFlatDataHasParentToTree(menus);
-          // 存储menu
+          // Lưu trử Menu
           this.menuService.setMenuArrayStore(temp);
           resolve();
         });
       });
   }
 
-  // 清除Tab缓存,是与路由复用相关的东西
+  // Xóa bộ đệm Tab là một việc liên quan đến việc sử dụng lại tuyến đường.
   clearTabCash(): Promise<void> {
     return SimpleReuseStrategy.deleteAllRouteSnapshot(this.activatedRoute.snapshot).then(() => {
       return new Promise(resolve => {
-        // 清空tab
+        // xóa tab
         this.tabService.clearTabs();
         resolve();
       });

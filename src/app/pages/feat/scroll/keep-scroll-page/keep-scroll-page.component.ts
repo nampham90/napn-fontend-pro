@@ -14,9 +14,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 })
 export class KeepScrollPageComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '缓存滚动条',
-    breadcrumb: ['首页', '拓展功能', '缓存滚动条'],
-    desc: '搞了2天终于比较满意了,默认可以被复用的页面都会缓存滚动条。如果该页面设置为无法复用，则滚动条也不会缓存。如果需要某个可以复用的页面，不缓存滚动条，则在路由配置中设置needKeepScroll为no'
+    title: 'Thanh cuộn bộ nhớ đệm',
+    breadcrumb: ['Home', 'Mở rộng chức năng', 'Thanh cuộn bộ nhớ đệm'],
+    desc: 'Sau 2 ngày làm việc, cuối cùng tôi cũng hài lòng, theo mặc định, những trang có thể sử dụng lại sẽ lưu vào bộ nhớ đệm thanh cuộn. Nếu trang được đặt thành không được sử dụng lại thì thanh cuộn cũng sẽ không được lưu vào bộ đệm. Nếu bạn cần một trang có thể sử dụng lại mà không cần lưu thanh cuộn vào bộ nhớ đệm, hãy đặt needKeepScroll thành no trong cấu hình định tuyến.'
   };
   constructor() {}
 

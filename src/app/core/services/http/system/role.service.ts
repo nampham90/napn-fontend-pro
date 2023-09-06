@@ -7,7 +7,7 @@ import * as Const from 'src/app/common/const';
 import { PageInfo, SearchCommonVO } from '../../types';
 import { BaseHttpService } from '../base-http.service';
 /*
- *  权限
+ *  quyền
  * */
 export interface Permission {
   hasChildren: boolean;
@@ -15,20 +15,20 @@ export interface Permission {
   code: string;
   fatherId: number;
   id: number;
-  menuGrade: number; // 级别
+  menuGrade: number; // mức độ
   permissionVo: Permission[];
-  isOpen?: boolean; // 是否折叠
+  isOpen?: boolean; // có nên gấp không
   checked: boolean;
 }
 
-// 更新权限参数接口
+// Cập nhật giao diện tham số quyền
 export interface PutPermissionParam {
   permissionIds: string[];
   roleId: string;
 }
 
 /*
- * 角色
+ * Vai trò
  * */
 export interface Role {
   id?: string;

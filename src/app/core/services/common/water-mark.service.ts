@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 /*
- * 水印服务
+ * dịch vụ hình mờ
  * */
 @Injectable({
   providedIn: 'root'

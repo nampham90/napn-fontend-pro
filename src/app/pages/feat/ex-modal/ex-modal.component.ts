@@ -22,8 +22,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 export class ExModalComponent implements OnInit {
   @ViewChild('dragTpl', { static: true }) dragTpl!: TemplateRef<NzSafeAny>;
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '拖动Modal，树挪死，人挪活',
-    breadcrumb: ['首页', '拖拽modal']
+    title: 'Kéo Modal, cái cây sẽ được chuyển đến cái chết, và con người sẽ được chuyển đến sự sống.',
+    breadcrumb: ['Home', 'kéo phương thức']
   };
   destroyRef = inject(DestroyRef);
   isVisible = false;
@@ -50,38 +50,38 @@ export class ExModalComponent implements OnInit {
   showDailogConfirm(): void {
     this.modalDragService.confirm({
       nzTitle: 'Confirm',
-      nzContent: '提示一下的内容',
+      nzContent: 'Nhắc nhở điều gì',
       nzOnOk: () => {
-        console.log('确定');
+        console.log('Chắc chắn');
       },
       nzOnCancel: () => {
-        console.log('取消');
+        console.log('Hủy bỏ');
       }
     });
   }
 
   showDailogInfo(): void {
-    this.modalDragService.info({ nzTitle: 'Info', nzContent: '提示一下的内容' });
+    this.modalDragService.info({ nzTitle: 'Info', nzContent: 'Nhắc nhở điều gì' });
   }
 
   showDailogSuccess(): void {
-    this.modalDragService.success({ nzTitle: 'Success', nzContent: '提示一下的内容' });
+    this.modalDragService.success({ nzTitle: 'Success', nzContent: 'Nhắc nhở điều gì' });
   }
 
   showDailogError(): void {
-    this.modalDragService.error({ nzTitle: 'Error', nzContent: '提示一下的内容' });
+    this.modalDragService.error({ nzTitle: 'Error', nzContent: 'Nhắc nhở điều gì' });
   }
 
   showDailogWarning(): void {
-    this.modalDragService.warning({ nzTitle: 'Warning', nzContent: '提示一下的内容' });
+    this.modalDragService.warning({ nzTitle: 'Warning', nzContent: 'Nhắc nhở điều gì' });
   }
 
   showDailog(): void {
-    // 两种方式
+    // hai lối
     // this.dragService.show({nzTitle: this.dragTpl, nzMask: false,nzMaskStyle:{display:'none'},nzWrapClassName:"pointer-events-none"}).subscribe(res=>console.log(res))
     this.dragService
       .show({
-        nzTitle: '拖动的title',
+        nzTitle: 'Kéo tiêu đề',
         nzMask: false,
         nzMaskStyle: { display: 'none' },
         nzWrapClassName: 'pointer-events-none'

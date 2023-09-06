@@ -58,9 +58,9 @@ export class TreeListComponent implements OnInit {
   isCollapse = true;
   tableConfig!: AntTableConfig;
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '树状表格（演示默认值的情况，删除或者查看，可以打印选中行的id）',
-    // desc: '表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。',
-    breadcrumb: ['首页', '列表页', '树状表格']
+    title: 'Bảng cây (thể hiện giá trị mặc định, xóa hoặc xem, có thể in id của hàng đã chọn)',
+    // desc: '',
+    breadcrumb: ['Home', 'Danh sách', 'dạng cây']
   };
   checkedCashArray: any[] = [];
   dataList: NzSafeAny[] = [];
@@ -68,13 +68,13 @@ export class TreeListComponent implements OnInit {
   constructor(private fb: FormBuilder, private modalSrv: NzModalService, public message: NzMessageService, private router: Router, private cdr: ChangeDetectorRef) {}
 
   reloadTable(): void {
-    this.message.info('已经刷新了');
+    this.message.info('Đã được làm mới');
     this.getDataList();
   }
 
-  // 触发表格变更检测
+  // Phát hiện thay đổi bảng kích hoạt
   tableChangeDectction(): void {
-    // 改变引用触发变更检测。
+    // Thay đổi tham chiếu sẽ kích hoạt phát hiện thay đổi.
     this.dataList = [...this.dataList];
     this.cdr.detectChanges();
   }
@@ -96,7 +96,7 @@ export class TreeListComponent implements OnInit {
         {
           id: `1`,
           name: 'John Brown sr.',
-          sex: '男',
+          sex: 'Nam',
           age: 60,
           address: 'New York No. 1 Lake Park',
           children: [
@@ -104,20 +104,20 @@ export class TreeListComponent implements OnInit {
               id: `1-1`,
               name: 'John Brown',
               age: 42,
-              sex: '男',
+              sex: 'Nam',
               address: 'New York No. 2 Lake Park'
             },
             {
               id: `1-2`,
               name: 'John Brown jr.',
               age: 30,
-              sex: '男',
+              sex: 'Nam',
               address: 'New York No. 3 Lake Park',
               children: [
                 {
                   id: `1-2-1`,
                   name: 'Jimmy Brown',
-                  sex: '男',
+                  sex: 'Nam',
                   age: 16,
                   address: 'New York No. 3 Lake Park'
                 }
@@ -127,27 +127,27 @@ export class TreeListComponent implements OnInit {
               id: `1-3`,
               name: 'Jim Green sr.',
               age: 72,
-              sex: '男',
+              sex: 'Nam',
               address: 'London No. 1 Lake Park',
               children: [
                 {
                   id: `1-3-1`,
                   name: 'Jim Green',
-                  sex: '男',
+                  sex: 'Nam',
                   age: 42,
                   address: 'London No. 2 Lake Park',
                   children: [
                     {
                       id: `1-3-1-1`,
                       name: 'Jim Green jr.',
-                      sex: '男',
+                      sex: 'Nam',
                       age: 25,
                       address: 'London No. 3 Lake Park'
                     },
                     {
                       id: `1-3-1-2`,
                       name: 'Jimmy Green sr.',
-                      sex: '男',
+                      sex: 'Nam',
                       age: 18,
                       address: 'London No. 4 Lake Park'
                     }
@@ -160,7 +160,7 @@ export class TreeListComponent implements OnInit {
         {
           id: `2`,
           name: 'Joe Black',
-          sex: '男',
+          sex: 'Nam',
           age: 32,
           address: 'Sidney No. 1 Lake Park'
         }
@@ -171,7 +171,7 @@ export class TreeListComponent implements OnInit {
         {
           id: `1`,
           name: 'John Brown sr.',
-          sex: '男',
+          sex: 'Nam',
           age: 60,
           address: 'New York No. 1 Lake Park',
           children: [
@@ -179,13 +179,13 @@ export class TreeListComponent implements OnInit {
               id: `1-2`,
               name: 'John Brown jr.',
               age: 30,
-              sex: '男',
+              sex: 'Nam',
               address: 'New York No. 3 Lake Park',
               children: [
                 {
                   id: `1-2-1`,
                   name: 'Jimmy Brown',
-                  sex: '男',
+                  sex: 'Nam',
                   age: 16,
                   address: 'New York No. 3 Lake Park'
                 }
@@ -195,27 +195,27 @@ export class TreeListComponent implements OnInit {
               id: `1-3`,
               name: 'Jim Green sr.',
               age: 72,
-              sex: '男',
+              sex: 'Nam',
               address: 'London No. 1 Lake Park',
               children: [
                 {
                   id: `1-3-1`,
                   name: 'Jim Green',
-                  sex: '男',
+                  sex: 'Nam',
                   age: 42,
                   address: 'London No. 2 Lake Park',
                   children: [
                     {
                       id: `1-3-1-1`,
                       name: 'Jim Green jr.',
-                      sex: '男',
+                      sex: 'Nam',
                       age: 25,
                       address: 'London No. 3 Lake Park'
                     },
                     {
                       id: `1-3-1-2`,
                       name: 'Jimmy Green sr.',
-                      sex: '男',
+                      sex: 'Nam',
                       age: 18,
                       address: 'London No. 4 Lake Park'
                     }
@@ -231,7 +231,7 @@ export class TreeListComponent implements OnInit {
       this.tableLoading(false);
     });
 
-    /*-----实际业务请求http接口如下------*/
+    /*-----Giao diện http yêu cầu kinh doanh thực tế như sau------*/
     // this.tableConfig.loading = true;
     // const params: SearchCommonVO<any> = {
     //   pageSize: this.tableConfig.pageSize!,
@@ -250,19 +250,19 @@ export class TreeListComponent implements OnInit {
     // }));
   }
 
-  /*展开*/
+  /*Mở rộng*/
   toggleCollapse(): void {
     this.isCollapse = !this.isCollapse;
   }
 
-  /*查看*/
+  /*Kiểm tra*/
   check(id: string, children: any[], parent: any[]): void {
     this.message.success(id);
     console.log(children);
     console.log(parent);
   }
 
-  /*重置*/
+  /*cài lại*/
   resetForm(): void {
     this.searchParam = {};
     this.getDataList();
@@ -280,18 +280,18 @@ export class TreeListComponent implements OnInit {
 
   del(id: number): void {
     this.modalSrv.confirm({
-      nzTitle: '确定要删除吗？',
-      nzContent: '删除后不可恢复',
+      nzTitle: 'Bạn chắc chắn muốn xóa nó?',
+      nzContent: 'Không thể phục hồi sau khi xóa',
       nzOnOk: () => {
         this.tableLoading(true);
-        this.message.info(`id数组(支持分页保存):${JSON.stringify(id)}`);
+        this.message.info(`mảng id (hỗ trợ lưu phân trang):${JSON.stringify(id)}`);
         this.getDataList();
         this.checkedCashArray.splice(
           this.checkedCashArray.findIndex(item => item.id === id),
           1
         );
         this.tableLoading(false);
-        /*注释的是模拟接口调用*/
+        /*Chú thích là lệnh gọi giao diện mô phỏng*/
         // this.dataService.delFireSys([id]).subscribe(() => {
         //   if (this.dataList.length === 1) {
         //     this.tableConfig.pageIndex--;
@@ -306,19 +306,19 @@ export class TreeListComponent implements OnInit {
   allDel(): void {
     if (this.checkedCashArray.length > 0) {
       this.modalSrv.confirm({
-        nzTitle: '确定要删除吗？',
-        nzContent: '删除后不可恢复',
+        nzTitle: 'Bạn có chắc muốn xóa không?',
+        nzContent: 'Không thể phục hồi sau khi xóa',
         nzOnOk: () => {
           const tempArrays: number[] = [];
           this.checkedCashArray.forEach(item => {
             tempArrays.push(item.id);
           });
           this.tableLoading(true);
-          this.message.info(`数组(支持分页保存):${JSON.stringify(tempArrays)}`);
+          this.message.info(`Mảng (hỗ trợ lưu phân trang):${JSON.stringify(tempArrays)}`);
           this.getDataList();
           this.checkedCashArray = [];
           this.tableLoading(false);
-          // 注释的是模拟接口的调用
+          // Chú thích là lệnh gọi của giao diện giả
           // this.dataService.delFireSys(tempArrays).subscribe(() => {
           //   if (this.dataList.length === 1) {
           //     this.tableConfig.pageIndex--;
@@ -329,15 +329,15 @@ export class TreeListComponent implements OnInit {
         }
       });
     } else {
-      this.message.error('请勾选数据');
+      this.message.error('Vui lòng kiểm tra dữ liệu');
       return;
     }
   }
 
-  // 修改
+  // Cập nhật
   edit(id: number): void {
     // this.dataService.getFireSysDetail(id).subscribe(res => {
-    //   this.modalService.show({nzTitle: '编辑'}, res).subscribe(({modalValue, status}) => {
+    //   this.modalService.show({nzTitle: 'Cập nhật'}, res).subscribe(({modalValue, status}) => {
     //     if (status === ModalBtnStatus.Cancel) {
     //       return;
     //     }
@@ -355,52 +355,51 @@ export class TreeListComponent implements OnInit {
   // }
 
   changeSort(e: SortFile): void {
-    this.message.info(`排序字段：${e.fileName},排序为:${e.sortDir}`);
+    this.message.info(`Trường sắp xếp:：${e.fileName},Sắp xếp như:${e.sortDir}`);
   }
 
-  // 最左侧复选框选中触发
+  //Hộp kiểm ngoài cùng bên trái được chọn để kích hoạt
   selectedChecked(e: any): void {
     this.checkedCashArray = [...e];
     console.log(this.checkedCashArray);
   }
 
-  // 修改一页几条
+  // Sửa đổi một số mục trên một trang
   changePageSize(e: number): void {
     this.tableConfig.pageSize = e;
   }
 
   private initTable(): void {
     /*
-     * 注意，这里需要留一列不要设置width，让列表自适应宽度
-     *
+     * Lưu ý là bạn cần để lại một cột ở đây mà không đặt độ rộng để danh sách có thể điều chỉnh theo độ rộng
      * */
     this.tableConfig = {
       headers: [
         {
-          title: '姓名',
+          title: 'Tên',
           width: 230,
           field: 'name',
           showSort: true,
           tdClassList: ['operate-text']
         },
         {
-          title: '性别',
+          title: 'giới tính',
           field: 'sex',
           width: 230,
           tdTemplate: this.highLightTpl
         },
         {
-          title: '年龄',
+          title: 'tuổi',
           field: 'age',
           width: 230,
           showSort: true
         },
         {
-          title: '住址',
+          title: 'Địa chỉ',
           field: 'address'
         },
         {
-          title: '操作',
+          title: 'vận hành',
           tdTemplate: this.operationTpl,
           width: 130,
           fixed: true,

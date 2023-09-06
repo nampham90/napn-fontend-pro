@@ -33,8 +33,8 @@ type targetComp = StartedComponent | AdvancedComponent | SeriesComponent;
 export class EchartsComponent implements OnInit, AfterViewInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: 'Echarts',
-    breadcrumb: ['首页', '功能', '图表', 'Echarts'],
-    desc: 'Echarts的示例内容'
+    breadcrumb: ['Home', 'Chức năng', '图表', 'Echarts'],
+    desc: 'Nội dung mẫu cho Echarts'
   };
   @ViewChild('headerFooter', { static: false }) headerFooter!: TemplateRef<NzSafeAny>;
 
@@ -60,8 +60,8 @@ export class EchartsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
       title: 'Echarts',
-      desc: 'Echarts的示例内容',
-      breadcrumb: ['首页', '功能', '图表', 'Echarts'],
+      desc: 'Nội dung mẫu cho Echarts',
+      breadcrumb: ['Home', 'Chưc năng', 'đồ thị', 'Echarts'],
       footer: this.headerFooter
     };
   }

@@ -27,7 +27,7 @@ export class AppendFormModalComponent implements OnInit {
 
   constructor(private modalRef: NzModalRef, private fb: FormBuilder, private validatorsService: ValidatorsService, private roleService: RoleService, private deptService: DeptService) {}
 
-  // 返回false则不关闭对话框
+  // Trả về false để không đóng hộp thoại
   protected getCurrentValue(): Observable<NzSafeAny> {
     if (!fnCheckForm(this.addEditForm)) {
       return of(false);

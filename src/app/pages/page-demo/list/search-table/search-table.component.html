@@ -68,7 +68,7 @@
     </form>
   </nz-card>
 
-  <app-card-table-wrap [btnTpl]="tableBtns" [tableTitle]="'查询表格'" (reload)="reloadTable()">
+  <app-card-table-wrap [btnTpl]="tableBtns" [tableTitle]="'Mẫu yêu cầu'" (reload)="reloadTable()">
     <app-ant-table
       [checkedCashArrayFromComment]="checkedCashArray"
       [tableConfig]="tableConfig"
@@ -80,7 +80,7 @@
     ></app-ant-table>
     <ng-template #operationTpl let-id="id" let-longText="longText">
       <span class="operate-text" (click)="check(longText)">Xem</span>
-      <!--添加了权限的写法-->
+      <!--Đã thêm phương thức viết quyền-->
       <!-- <span *appAuth="ActionCode.FireSysSettingDel" class="operate-text" (click)="del(id)">删除</span>-->
       <span class="operate-text" (click)="del(id)">Xóa</span>
       <span class="operate-text" (click)="edit(id)">Chỉnh sửa</span>

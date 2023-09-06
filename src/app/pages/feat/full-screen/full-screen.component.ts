@@ -16,8 +16,8 @@ import screenfull from 'screenfull';
 })
 export class FullScreenComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '全屏示例',
-    breadcrumb: ['首页', '功能', '全屏示例']
+    title: 'Ví dụ toàn màn hình',
+    breadcrumb: ['Home', 'Chức năng', 'Ví dụ toàn màn hình']
   };
 
   isFullscreenFlag = true;

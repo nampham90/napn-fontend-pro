@@ -80,8 +80,8 @@ export class WorkbenchComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
-      title: '工作台',
-      breadcrumb: ['首页', 'Dashboard', '工作台'],
+      title: 'bàn làm việc',
+      breadcrumb: ['Home', 'Dashboard', 'bàn làm việc'],
       desc: this.pageHeaderContent
     };
     inNextTick()
@@ -100,7 +100,7 @@ export class WorkbenchComponent implements OnInit, AfterViewInit {
         seriesField: 'user',
         meta: {
           score: {
-            alias: '分数',
+            alias: 'Phân số',
             min: 0,
             max: 80
           }
@@ -116,7 +116,7 @@ export class WorkbenchComponent implements OnInit, AfterViewInit {
             }
           }
         },
-        // 开启辅助点
+        // Bật điểm phụ
         point: {
           size: 2
         }

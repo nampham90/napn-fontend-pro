@@ -18,8 +18,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 })
 export class TabsComponent implements OnInit {
   pageHeaderInfo: Partial<PageHeaderType> = {
-    title: '标签页操作示例，如果需要在当前tab页面展示详情，请在"列表页>查询表格"中点击表格查看按钮，演示效果',
-    breadcrumb: ['首页', '扩展功能', '标签页面操作示例']
+    title: 'Ví dụ về hoạt động của trang tab. Nếu bạn cần hiển thị chi tiết trên trang tab hiện tại, vui lòng nhấp vào nút xem bảng trong "Trang danh sách > Bảng truy vấn" để minh họa hiệu ứng.',
+    breadcrumb: ['Home', 'Tiện ích mở rộng', 'Ví dụ về hoạt động của trang tab']
   };
   routerPath = this.router.url;
 

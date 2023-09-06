@@ -55,18 +55,18 @@ export class ApplicationComponent implements OnInit {
   };
   allSelFlag = false;
   tagArray = [
-    { name: '类目一', isChecked: false },
-    { name: '类目二', isChecked: false },
-    { name: '类目三', isChecked: false },
-    { name: '类目四', isChecked: false },
-    { name: '类目五', isChecked: false },
-    { name: '类目六', isChecked: false },
-    { name: '类目七', isChecked: false },
-    { name: '类目八', isChecked: false },
-    { name: '类目九', isChecked: false },
-    { name: '类目十', isChecked: false },
-    { name: '类目十一', isChecked: false },
-    { name: '类目十二', isChecked: false }
+    { name: 'loại một', isChecked: false },
+    { name: 'Loại hai', isChecked: false },
+    { name: 'Loại ba', isChecked: false },
+    { name: 'Loại bốn', isChecked: false },
+    { name: 'Loại năm', isChecked: false },
+    { name: 'Loại sáu', isChecked: false },
+    { name: 'Loại bảy', isChecked: false },
+    { name: 'Loại tám', isChecked: false },
+    { name: 'Loại chín', isChecked: false },
+    { name: 'Loại mười', isChecked: false },
+    { name: 'Loại mười một', isChecked: false },
+    { name: 'Loại mười hai', isChecked: false }
   ];
   constructor(private searchListService: SearchListStoreService) {
     this._onReuseInit();
@@ -81,7 +81,7 @@ export class ApplicationComponent implements OnInit {
   }
 
   _onReuseInit(): void {
-    this.searchListService.setCurrentSearchListComponentStore('搜索列表（应用）');
+    this.searchListService.setCurrentSearchListComponentStore('Danh sách tìm kiếm (Dự án)');
   }
 
   ngOnInit(): void {}

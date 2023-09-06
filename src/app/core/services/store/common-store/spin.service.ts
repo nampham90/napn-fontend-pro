@@ -10,7 +10,7 @@ export class SpinService {
 
   constructor() {}
 
-  // 设置当前loading对象
+  // Đặt đối tượng tải hiện tại
   setCurrentGlobalSpinStore(isSpinning: boolean): void {
     this.globalSpin$.next(isSpinning);
   }

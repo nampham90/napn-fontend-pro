@@ -89,40 +89,40 @@ export class AdvDetailComponent implements OnInit, AfterViewInit {
   returnDataList: ReturnObj[] = [
     {
       num: '1234561',
-      name: '矿泉水 550ml',
-      code: '演示作用域',
+      name: 'Nước khoáng 550ml',
+      code: 'phạm vi trình bày',
       unitPrice: 1233333,
       number: '1',
       price: '2.00'
     },
     {
       num: '1234561',
-      name: '矿泉水 550ml',
-      code: '演示作用域',
+      name: 'Nước khoáng 550ml',
+      code: 'phạm vi trình bày',
       unitPrice: 1233333,
       number: '1',
       price: '2.00'
     },
     {
       num: '1234561',
-      name: '矿泉水 550ml',
-      code: '演示作用域',
+      name: 'Nước khoáng 550ml',
+      code: 'phạm vi trình bày',
       unitPrice: 1233333,
       number: '1',
       price: '2.00'
     },
     {
       num: '1234561',
-      name: '矿泉水 550ml',
-      code: '演示作用域',
+      name: 'Nước khoáng 550ml',
+      code: 'phạm vi trình bày',
       unitPrice: 1233333,
       number: '1',
       price: '2.00'
     },
     {
       num: '1234561',
-      name: '矿泉水 550ml',
-      code: '演示作用域',
+      name: 'Nước khoáng 550ml',
+      code: 'phạm vi trình bày',
       unitPrice: 1233333,
       number: '1',
       price: '2.00'
@@ -141,29 +141,29 @@ export class AdvDetailComponent implements OnInit, AfterViewInit {
       showCheckbox: false,
       headers: [
         {
-          title: '操作类型',
+          title: 'Loại hoạt động',
           field: 'num',
           width: 50
         },
         {
-          title: '操作人',
+          title: 'Nhà điều hành',
           width: 60,
           field: 'name'
         },
         {
-          title: '执行结果',
+          title: 'Kết quả của',
           width: 50,
           field: 'code',
           tdTemplate: this.highLightTpl
         },
         {
-          title: '操作时间',
+          title: 'Thời gian hoạt động',
           width: 50,
           field: 'unitPrice',
           pipe: 'date:yyyy-MM-dd HH:mm'
         },
         {
-          title: '备注',
+          title: 'Nhận xét',
           width: 50,
           field: 'number'
         }
@@ -192,8 +192,8 @@ export class AdvDetailComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {
-      title: '单号：234231029431',
-      breadcrumb: ['首页', '详情页', '高级详情页'],
+      title: 'Mã đơn hàng: 234231029431',
+      breadcrumb: ['Home', 'Trang chi tiết', 'Trang chi tiết nâng cao'],
       extra: this.headerExtra,
       desc: this.headerContent,
       footer: this.headerFooter

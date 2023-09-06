@@ -29,7 +29,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
   imports: [NgIf, NzMenuModule, NzNoAnimationModule, NgTemplateOutlet, NgFor, TrackByPropertyDirective, AuthDirective, NzButtonModule, NzIconModule, RouterLink, AsyncPipe]
 })
 export class NavBarComponent implements OnInit {
-  @Input() isMixiHead = false; // 是混合模式顶部导航
+  @Input() isMixiHead = false; // Là chế độ kết hợp điều hướng trên cùng
   @Input() isMixiLeft = false;
 
   themesOptions$ = this.themesService.getThemesMode();

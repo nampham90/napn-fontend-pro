@@ -9,13 +9,13 @@ export default [
   {
     path: '',
     component: SearchTableComponent,
-    data: { title: '查询表格', key: 'search-table' }
+    data: { title: 'Mẫu yêu cầu', key: 'search-table' }
   },
   {
     path: 'search-table-detail/:name/:age',
     component: SearchTableDetailComponent,
     data: {
-      title: '查询表格',
+      title: 'Mẫu yêu cầu',
       authCode: ActionCode.SearchTableDetail,
       key: 'search-table-detail'
     }

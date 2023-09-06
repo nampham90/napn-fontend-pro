@@ -18,9 +18,9 @@ export class ScrollService {
   constructor(@Inject(DOCUMENT) private _doc: NzSafeAny, private platform: Platform) {}
 
   /**
-   * 获取滚动条位置
+   * Lấy vị trí của thanh cuộn
    *
-   * @param element 指定元素，默认 `window`
+   * @param element phần tử được chỉ định, mặc định  `window`
    */
   getScrollPosition(element?: Element | Window): [number, number] {
     if (!this.platform.isBrowser) {
@@ -36,9 +36,9 @@ export class ScrollService {
   }
 
   /**
-   * 设置滚动条位置
+   * Đặt vị trí thanh cuộn
    *
-   * @param element 指定元素
+   * @param element phần tử được chỉ định
    */
   scrollToPosition(element: Element | Window | null | undefined, position: [number, number]): void {
     if (!this.platform.isBrowser) {
@@ -48,10 +48,10 @@ export class ScrollService {
   }
 
   /**
-   * 设置滚动条至指定元素
+   * Đặt thanh cuộn thành phần tử được chỉ định
    *
-   * @param element 指定元素，默认 `document.body`
-   * @param topOffset 偏移值，默认 `0`
+   * @param element phần tử được chỉ định, mặc định `document.body`
+   * @param topOffset giá trị bù đắp, mặc định `0`
    */
   scrollToElement(element?: Element | null, topOffset: number = 0): void {
     if (!this.platform.isBrowser) {
@@ -74,9 +74,9 @@ export class ScrollService {
   }
 
   /**
-   * 滚动至顶部
+   * cuộn lên trên cùng
    *
-   * @param topOffset 偏移值，默认 `0`
+   * @param topOffset Giá trị bù đắp, mặc định `0`
    */
   scrollToTop(topOffset: number = 0): void {
     if (!this.platform.isBrowser) {

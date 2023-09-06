@@ -83,14 +83,14 @@ const fnGetReuseStrategyKeyFn = function getKey(route: ActivatedRouteSnapshot): 
   if (!configKey) {
     return '';
   }
-  // 是query传参,并且有参数
+  // Nó là một tham số truy vấn và có các tham số
   if (Object.keys(route.queryParams).length > 0) {
     return configKey + JSON.stringify(route.queryParams);
   } else if (Object.keys(route.params).length > 0) {
-    // 是路径传参，并且有参数
+    // Đó là một tham số đường dẫn và có các tham số
     return configKey + JSON.stringify(route.params);
   } else {
-    // 没有路由参数
+    // không có tham số tuyến đường
     return `${configKey}{}`;
   }
 };
@@ -118,12 +118,12 @@ const fnGetBase64 = function getBase64(file: File): Promise<string | ArrayBuffer
   });
 };
 
-// 加密
+// mã hóa
 const fnEncrypt = function encrypt(word: NzSafeAny, keyStr: string): string {
   return CryptoJS.AES.encrypt(JSON.stringify(word), keyStr).toString();
 };
 
-// 解密
+// Giải mã
 const fnDecrypt = function decrypt(word: NzSafeAny, keyStr: string): LockScreenFlag {
   const bytes = CryptoJS.AES.decrypt(word, keyStr);
   return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
