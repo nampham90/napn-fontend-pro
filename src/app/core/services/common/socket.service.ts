@@ -12,6 +12,7 @@ import * as Const from '@app/common/const'
 export class SocketService {
 
   private socket = io(localUrl, {
+    path: '/socket.io',
     auth: {
       token: ''
     }
@@ -25,7 +26,7 @@ export class SocketService {
 
   setupSocketConnection() {
     this.tokenStoreService.getGlobalTokenStore().subscribe((token)=> {
-      this.socket = io(localUrl + Const.PathSocket, {
+      this.socket = io(localUrl, { // + Const.PathSocket
         auth: {
           token: token
         }

@@ -5,6 +5,7 @@
 import { Type } from '@angular/core';
 
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
+import { UserInfo } from './store/common-store/userInfo.service';
 
 // thành phần động
 export class DynamicComponent {
@@ -22,6 +23,8 @@ export interface SearchCommonVO<T> {
   pageNum: number;
   pageSize: number;
   filters?: T;
+  userInfo?: UserInfo,
+  data?: NzSafeAny
 }
 
 // phân trang
@@ -45,6 +48,13 @@ export interface PageInfo<T> {
   hasNextPage?: boolean;
   navigatePages?: number;
   navigatepageNums?: number[];
+}
+
+// response
+export interface Response<T> {
+  code: number;
+  msg: string;
+  data?: PageInfo<T>;
 }
 
 // thành phần động

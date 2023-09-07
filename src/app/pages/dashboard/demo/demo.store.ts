@@ -3,6 +3,8 @@ import * as ConstSocket from "@app/common/constSocket";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from 'rxjs';
 import { WindowService } from '@core/services/common/window.service';
+import { PageInfo, Response, SearchCommonVO } from "@app/core/services/types";
+import { NzModalService } from "ng-zorro-antd/modal";
 export interface Product {
     id: string,
     idpro: number,
@@ -27,80 +29,24 @@ const mapProduct = (porduct: Product) => {
 
 export class ProductStore {
     public products: Array<Product> = [];
-    private productStore$ = new BehaviorSubject<Product[]>([]);
+    private productStore$ = new BehaviorSubject<PageInfo<Product>>({pageNum:1, pageSize:10,total: 0, list: []});
     
-    constructor(private socketService : SocketService) {
+    constructor(private socketService : SocketService, private modalSrv: NzModalService,) {
 
         this.socketService.setupSocketConnection();
 
-        this.socketService.on(ConstSocket.demoListProduct, (res: Product[])=> {
-            this.products = res.map(mapProduct);
-            this.setProductStore(this.products);
-           
-        })
-
-        this.socketService.on(ConstSocket.demoCreatePorduct, (product:Product)=> {
-            this.products.push(mapProduct(product));
-            this.setProductStore(this.products);
-        });
-
-        this.socketService.on(ConstSocket.demoUpdatePorduct, (product:Product)=> {
-            const existingProduct = this.products.find(p => {
-                return p.id == product.id
-            });
-            if(existingProduct) {
-                existingProduct.proname = product.proname;
-                existingProduct.price = product.price;
+        this.socketService.on(ConstSocket.demoListProduct, (res: Response<Product>)=> {
+            if(res.code > 0) {
+                // thong bao loi ở đây
+                this.modalSrv.error({nzTitle: res.msg});
+            } else {
+                this.setProductStore(res.data!);
             }
-            console.log(this.products);
-            this.setProductStore(this.products);
-        });
-
-        this.socketService.on(ConstSocket.demoDeletePorduct, (id:string) => {
-            const index = this.products.findIndex(p => p.id === id);
-            if(index !== -1) {
-                this.products.splice(index,1);
-            }
-            this.setProductStore(this.products);
-        });
-    }
-
-    private getWithCompleted(completed: boolean) {
-        return this.products.filter((product:Product) => product.completed = completed) ;
-    }
-
-    allCompleted() {
-        return this.products.length === this.getCompleted().length;
-    }
-
-
-    getRemaining() {
-        return this.getWithCompleted(false);
-    }
-
-    getCompleted() {
-        return this.getWithCompleted(true);
-    }
-
-    setAllPro(completed : boolean) {
-        this.products.forEach(product => {
-            product.completed = completed;
-            product.synced = false;
-            this.socketService.emit(ConstSocket.demoUpdatePorduct, product);
         })
     }
 
-    removeCompleted() {
-        this.getCompleted().forEach((product) => {
-            this.socketService.emit(ConstSocket.demoDeletePorduct, product.idpro);
-        });
-        this.products = this.getRemaining();
-    }
-
-    toggleCompletion(product: Product) {
-        product.completed = !product.completed;
-        product.synced = false;
-        this.socketService.emit(ConstSocket.demoUpdatePorduct, product);
+    update(params: SearchCommonVO<Product>) {
+        this.socketService.emit(ConstSocket.demoUpdatePorduct, params);
     }
 
     remove(product: Product) {
@@ -112,11 +58,11 @@ export class ProductStore {
         this.socketService.emit(ConstSocket.demoCreatePorduct,{proname,pirce,completed: false});
     }
 
-    setProductStore(products: Product[]) {
-        this.productStore$.next(products);
+    setProductStore(productStore: PageInfo<Product>) {
+        this.productStore$.next(productStore);
     }
 
-    getProductStore() : Observable<Product[]>{
+    getProductStore() : Observable<PageInfo<Product>>{
         return this.productStore$.asObservable();
     }
 

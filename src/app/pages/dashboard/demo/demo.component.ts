@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HuongdanService } from '@app/core/services/http/system/huongdan.service';
 import { MenusService } from '@app/core/services/http/system/menus.service';
@@ -9,20 +9,23 @@ import { YoutubeModalService } from '@app/widget/biz-widget/system/youtube-modal
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { Product, ProductStore } from './demo.store';
 import { AntTableComponent, AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
-import { OptionsInterface } from '@app/core/services/types';
+import { OptionsInterface, SearchCommonVO } from '@app/core/services/types';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { CardTableWrapComponent } from '@app/shared/components/card-table-wrap/card-table-wrap.component';
 import { MapPipe, MapSet, MapKeyType } from '@app/shared/pipes/map.pipe';
-import { finalize } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SocketService } from '@app/core/services/common/socket.service';
 import * as ConstSocket from '@app/common/constSocket';
 import { SubdemoService } from '@app/widget/biz-widget/demo/subdemo/subdemo.service';
 import { ModalBtnStatus } from '@app/widget/base-modal';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { UserInfoService } from '@app/core/services/store/common-store/userInfo.service';
+import { UserInfo, UserInfoService } from '@app/core/services/store/common-store/userInfo.service';
+interface SearchParam {
+
+}
 @Component({
   selector: 'app-demo',
   templateUrl: './demo.component.html',
@@ -46,6 +49,8 @@ export class DemoComponent extends AbsComponent implements OnInit{
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('priceTpl', { static: true }) priceTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('pronameTpl', { static: true }) pronameTpl!: TemplateRef<NzSafeAny>;
+
+  searchParam: Partial<SearchParam> = {};
 
   constructor(
     protected override cdr: ChangeDetectorRef,
@@ -76,8 +81,18 @@ export class DemoComponent extends AbsComponent implements OnInit{
           return;
         }
         this.tableLoading(true);
-        this.socketService.emit(ConstSocket.demoCreatePorduct,res.modalValue);
-        this.tableLoading(false);
+        this.userInfoService.getUserInfo().subscribe(user=> {
+          const params: SearchCommonVO<any> = {
+            pageSize: this.tableConfig.pageSize!,
+            pageNum: this.tableConfig.pageIndex!,
+            filters: this.searchParam,
+            userInfo: user,
+            data: res.modalValue
+          };
+          this.socketService.emit(ConstSocket.demoCreatePorduct,params);
+          this.tableLoading(false);
+        })
+       
       },
       error => this.tableLoading(false)
     );
@@ -95,7 +110,18 @@ export class DemoComponent extends AbsComponent implements OnInit{
         return;
       }
       modalValue.id = id;
-      this.socketService.emit(ConstSocket.demoUpdatePorduct,modalValue);
+
+      this.userInfoService.getUserInfo().subscribe(user=> {
+        const params: SearchCommonVO<any> = {
+          pageSize: this.tableConfig.pageSize!,
+          pageNum: this.tableConfig.pageIndex!,
+          filters: this.searchParam,
+          userInfo: user,
+          data: modalValue
+        };
+        this.productStore.update(params);
+        this.tableLoading(false);
+      })
     });
   }
 
@@ -104,8 +130,18 @@ export class DemoComponent extends AbsComponent implements OnInit{
       nzTitle: "Bạn có chắc chắn muốn xóa không ?",
       nzContent: "Nhấn Ok để xác thực",
       nzOnOk: () => {
-        this.socketService.emit(ConstSocket.demoDeletePorduct, id);
-        this.getDataList();
+        this.tableLoading(true);
+        this.userInfoService.getUserInfo().subscribe(user=> {
+          const params: SearchCommonVO<any> = {
+            pageSize: this.tableConfig.pageSize!,
+            pageNum: this.tableConfig.pageIndex!,
+            filters: this.searchParam,
+            userInfo: user,
+            data: id
+          };
+          this.socketService.emit(ConstSocket.demoDeletePorduct, params);
+          this.tableLoading(false);
+        })
       }
     })
   }
@@ -113,11 +149,16 @@ export class DemoComponent extends AbsComponent implements OnInit{
   allDel(): void {
 
   }
-  
 
   getDataList(e?: NzTableQueryParams): void {
-    this.userInfoService.getUserInfo().subscribe(user=> {
-      this.socketService.emit(ConstSocket.demoListProduct, user);
+    this.userInfoService.getUserInfo().subscribe(user => {
+      const params: SearchCommonVO<any> = {
+        pageSize: this.tableConfig.pageSize!,
+        pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
+        filters: this.searchParam,
+        userInfo: user
+      };
+      this.socketService.emit(ConstSocket.demoListProduct, params);
       this.tableLoading(true);
       this.productStore.getProductStore()
       .pipe(
@@ -126,9 +167,13 @@ export class DemoComponent extends AbsComponent implements OnInit{
         }),
         takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe(listProduct => {
-        this.dataList = [...listProduct];
+      .subscribe(data => {
+        const { list, total, pageNum } = data;
+        this.dataList = [...list];
+        this.tableConfig.total = total!;
+        this.tableConfig.pageIndex = pageNum!;
         this.tableLoading(false);
+        this.checkedCashArray = [...this.checkedCashArray];
       });
     })
   }
