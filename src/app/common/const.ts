@@ -7,7 +7,7 @@ export const Notifi = 'notifi';
 export const Vison = 'vison';
 
 // path socket.io
-export const PathSocket = "/socket.io"
+export const PathSocket = "http://localhost:3006"// http://localhost:3006, http://nanp.bounceme.net:3006
 
 //phong ban
 export const Ant100addPhongban = 'phongban/ant100addPhongban';

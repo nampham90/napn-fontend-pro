@@ -1,4 +1,4 @@
-export const demoCreatePorduct = "DemoCreatePorduct";
-export const demoUpdatePorduct = "DemoUpdatePorduct";
-export const demoDeletePorduct = "DemoDeletePorduct";
+export const demoCreatePorduct = "DemoCreateProduct"; //DemoCreateProduct
+export const demoUpdatePorduct = "DemoUpdateProduct";
+export const demoDeletePorduct = "DemoDeleteProduct";
 export const demoListProduct = "DemoListProduct";
