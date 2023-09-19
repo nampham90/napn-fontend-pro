@@ -77,9 +77,9 @@
     </span>
     <nz-dropdown-menu #language="nzDropdownMenu">
       <ul nz-menu nzSelectable>
-        <li nz-menu-item (click)="showMessage()">English</li>
-        <li nz-menu-item nzSelected (click)="showMessage()">Tiếng Việt</li>
-        <li nz-menu-item (click)="showMessage()">Tiếng Nhật</li>
+        <li nz-menu-item [nzSelected] = "isEn" (click)="showLang('en')">English</li>
+        <li nz-menu-item [nzSelected] = "isVi" (click)="showLang('vi')">Tiếng Việt</li>
+        <li nz-menu-item [nzSelected] = "isJa" (click)="showLang('ja')">Tiếng Nhật</li>
       </ul>
     </nz-dropdown-menu>
   </div>

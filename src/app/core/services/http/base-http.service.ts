@@ -8,6 +8,7 @@ import { localUrl } from '@env/environment.prod';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import * as qs from 'qs';
+import { WindowService } from '../common/window.service';
 
 export interface HttpCustomConfig {
   needSuccessInfo?: boolean; // Bạn có cần lời nhắc "thao tác thành công" không?
@@ -27,9 +28,13 @@ export interface ActionResult<T> {
 export class BaseHttpService {
   uri: string;
 
-  protected constructor(public http: HttpClient, public message: NzMessageService) {
+  protected constructor(public http: HttpClient, public message: NzMessageService, public windowServe:WindowService) {
     this.uri = environment.production ? localUrl : '/site/api';
   }
+
+  headers = new HttpHeaders({
+    'Accept-Language': this.windowServe.getStorage('lang') || "en"
+  })
 
   get<T>(path: string, param?: NzSafeAny, config?: HttpCustomConfig): Observable<T> {
     config = config || { needSuccessInfo: false };
@@ -49,7 +54,7 @@ export class BaseHttpService {
     config = config || { needSuccessInfo: false };
     let reqPath = this.getUrl(path, config);
     console.log(reqPath);
-    return this.http.post<ActionResult<T>>(reqPath, param).pipe(this.resultHandle<T>(config));
+    return this.http.post<ActionResult<T>>(reqPath, param, {headers:this.headers}).pipe(this.resultHandle<T>(config));
   }
 
   put<T>(path: string, param?: NzSafeAny, config?: HttpCustomConfig): Observable<T> {

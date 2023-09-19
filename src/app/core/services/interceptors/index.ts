@@ -2,8 +2,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { HttpInterceptorService } from './http-interceptor.service';
 import { LoginExpiredService } from './login-expired.service';
+import { LanguageInterceptor } from './language.interceptor';
 
 export default [
   { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: LanguageInterceptor, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: LoginExpiredService, multi: true }
 ];

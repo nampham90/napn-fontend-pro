@@ -24,6 +24,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { HomeNoticeComponent } from '../home-notice/home-notice.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AvatarStoreService } from '@app/core/services/store/common-store/avatar-store.service';
+import { window } from 'rxjs';
 
 @Component({
   selector: 'app-layout-head-right-menu',
@@ -129,15 +130,24 @@ export class LayoutHeadRightMenuComponent implements OnInit {
     this.message.success('Xóa thành công, vui lòng đăng nhập lại');
   }
 
-  showMessage(): void {
-    this.message.info('Thao tác thành công !');
+  isEn = false;
+  isVi = true;
+  isJa = false;
+
+  showLang(lang: string): void {
+     this.windowServe.setStorage('lang',lang);
+     this.windowServe.reload();
+     
   }
 
   goPage(path: string): void {
     this.router.navigateByUrl(`/default/page-demo/personal/${path}`);
   }
 
+  lang!: string;
   ngOnInit(): void {
+    this.lang = this.windowServe.getStorage('lang') || "en";
+    this.configLang(this.lang);
     this.userInfoService.getUserInfo().subscribe(res => {
       this.userDetail = {
         userId: res.userId,
@@ -152,5 +162,25 @@ export class LayoutHeadRightMenuComponent implements OnInit {
     .subscribe(avatar=> {
       this.linkavatar.set(avatar);
     })
+  }
+
+  configLang(lang:string) {
+    switch(lang) {
+      case "en" : {
+        this.isEn = true;
+        this.isJa = false;
+        this.isVi = false;
+      }; break;
+      case "vi" : {
+        this.isEn = false;
+        this.isJa = false;
+        this.isVi = true;
+      }; break;
+      case "jp" : {
+        this.isEn = false;
+        this.isJa = true;
+        this.isVi = false;
+      }; break;
+    }
   }
 }

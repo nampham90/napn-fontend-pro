@@ -29,6 +29,10 @@ export class WindowService {
     return false;
   }
 
+  reload() {
+    this.window.location.reload();
+  }
+
   setStorage(key: string, value: string): void {
     if (this.isBrowser) {
       localStorage.setItem(key, value);
