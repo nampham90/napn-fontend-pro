@@ -57,12 +57,6 @@ export function httpTranslateLoader(http: HttpClient) {
 }
 
 const APPINIT_PROVIDES = [
-  // thư viên translateLoader
-  {
-    provide: TranslateLoader,
-    useFactory: httpTranslateLoader,
-    deps: [HttpClient]
-  },
   // Khởi động dự án
   {
     provide: APP_INITIALIZER,

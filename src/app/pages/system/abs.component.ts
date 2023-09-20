@@ -29,7 +29,9 @@ export class AbsComponent implements OnInit {
     extra: this.huongdanTpl
   };
 
-  constructor(protected cdr: ChangeDetectorRef, protected spinService: SpinService, protected dataService: HuongdanService, protected youtubeModalService: YoutubeModalService, protected router: Router, protected menusService: MenusService) {}
+  constructor(protected cdr: ChangeDetectorRef, protected spinService: SpinService, protected dataService: HuongdanService, protected youtubeModalService: YoutubeModalService, protected router: Router, protected menusService: MenusService) {
+    
+  }
 
   ngOnInit(): void {
     this.formItemName();
