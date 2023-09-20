@@ -1,5 +1,5 @@
 import { DOCUMENT, registerLocaleData } from '@angular/common';
-import { withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
+import { withInterceptorsFromDi, provideHttpClient, HttpClient } from '@angular/common/http';
 import vi from '@angular/common/locales/vi';
 import { enableProdMode, APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -20,6 +20,8 @@ import { SubWindowWithService } from '@core/services/common/sub-window-with.serv
 import { ThemeSkinService } from '@core/services/common/theme-skin.service';
 import { StartupService } from '@core/startup/startup.service';
 import { environment } from '@env/environment';
+import { TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NzDrawerServiceModule } from 'ng-zorro-antd/drawer';
 import { NZ_I18N, vi_VN } from 'ng-zorro-antd/i18n';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
@@ -50,7 +52,17 @@ export function SubWindowWithServiceFactory(subWindowWithService: SubWindowWithS
   return () => subWindowWithService.subWindowWidth();
 }
 
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
 const APPINIT_PROVIDES = [
+  // thư viên translateLoader
+  {
+    provide: TranslateLoader,
+    useFactory: httpTranslateLoader,
+    deps: [HttpClient]
+  },
   // Khởi động dự án
   {
     provide: APP_INITIALIZER,

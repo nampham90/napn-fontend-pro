@@ -28,6 +28,12 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzWaveModule } from 'ng-zorro-antd/core/wave';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { AuthDirective } from '@app/shared/directives/auth.directive';
+import { DatascModalService } from '@app/widget/biz-widget/system/datasc-modal/datasc-modal.service';
+import { AbsComponent } from '../abs.component';
+import { Router } from '@angular/router';
+import { HuongdanService } from '@app/core/services/http/system/huongdan.service';
+import { SpinService } from '@app/core/services/store/common-store/spin.service';
+import { YoutubeModalService } from '@app/widget/biz-widget/system/youtube-modal/youtube.service';
 
 interface SearchParam {
   title1: string;
@@ -58,7 +64,7 @@ interface SearchParam {
     AuthDirective,
   ]
 })
-export class DatascComponent implements OnInit {
+export class DatascComponent extends AbsComponent implements OnInit {
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<any>;
   @ViewChild('availableFlag', { static: true }) availableFlag!: TemplateRef<NzSafeAny>;
   searchParam: Partial<SearchParam> = {};
@@ -66,21 +72,34 @@ export class DatascComponent implements OnInit {
   dataList: DataScObj[] = [];
   checkedCashArray: DataScObj[] = [];
   ActionCode = ActionCode;
-  pageHeaderInfo: Partial<PageHeaderType> = {
-    title: 'Quản lý dử liệu SC',
-    breadcrumb: ['Home', 'Hệ thống', 'Quản lý dử liệu SC']
-  };
-
-  destroyRef = inject(DestroyRef);
 
   idmenu = '';
   menuName = '';
 
   dataSC!: DataScObj;
 
-  constructor(private menuService: MenusService, public message: NzMessageService, private modalSrv: NzModalService, private cdr: ChangeDetectorRef, private dataService: DatascService) {}
+  constructor(
+    protected override cdr: ChangeDetectorRef,
+    protected override spinService: SpinService,
+    protected override dataService: HuongdanService,
+    protected override youtubeModalService: YoutubeModalService,
+    protected override router: Router,
+    protected override menusService: MenusService,
+    private menuService: MenusService, 
+    public message: NzMessageService, 
+    private modalSrv: NzModalService, 
+    private datascService: DatascService,
+    private modalService : DatascModalService,
+    ) {
+      super(cdr,spinService,dataService,youtubeModalService,router,menusService)
+    }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.initTable();
+  }
+
+  override fnInit(): void {
     this.initTable();
   }
 
@@ -92,22 +111,59 @@ export class DatascComponent implements OnInit {
   }
 
   edit(id: any): void {
-    
+    this.datascService.detailDatasc(id).subscribe(res => {
+      if(res) {
+        this.dataSC = res;
+        this.modalService.show({nzTitle: "Cập nhật"},this.dataSC).subscribe(({ modalValue, status })=> {
+          if (status === ModalBtnStatus.Cancel) {
+            return;
+          }
+          modalValue.id = id;
+          this.tableLoading(true);
+          this.addEditData(modalValue,'editDatasc');
+        })
+      }
+    })
   }
 
   del(id: any): void {
-    
+    this.modalSrv.confirm(
+      {
+        nzTitle: "Bạn có chắc chăn muốn xóa không ?",
+        nzContent : "Nhấn OK để tiếp tục !",
+        nzOnOk: () => {
+          this.tableLoading(true);
+          this.datascService.delDatasc(id).subscribe(res => {
+            console.log(res);
+            this.getDataList();
+         })
+        }
+      }
+    )
   }
 
   add(idmenu: string): void {
-   
+    if (idmenu === "") {
+      this.message.warning("Bạn chưa chọn menu nào để thêm dữ liệu !")
+    } else {
+      this.modalService.show({ nzTitle: `Thêm Mới dữ liệu cho Menu: ${this.menuName}`},{idmenu:idmenu}).subscribe(
+        res => {
+          if (!res || res.status === ModalBtnStatus.Cancel) {
+            return;
+          }
+          res.modalValue.idmenu = idmenu;
+          this.tableLoading(true);
+          this.addEditData(res.modalValue, 'addDatasc');
+        },
+        error => this.tableLoading(false)
+      );
+    }
   }
 
   allDel(): void {}
 
   addEditData(param: DataScObj, methodName: 'editDatasc' | 'addDatasc'): void {
-    console.log(param);
-    this.dataService[methodName](param)
+    this.datascService[methodName](param)
       .pipe(
         finalize(() => {
           this.tableLoading(false);
@@ -125,7 +181,7 @@ export class DatascComponent implements OnInit {
       pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
       filters: this.searchParam
     };
-    this.dataService
+    this.datascService
       .getDataSc(params)
       .pipe(
         finalize(() => {
@@ -179,33 +235,33 @@ export class DatascComponent implements OnInit {
       showCheckbox: true,
       headers: [
         {
-          title: 'Tiêu đề 1',
+          title:  this.formItemNm[10],
           field: 'title1',
           width: 120
         },
         {
-          title: 'Tiêu đề 1',
+          title: this.formItemNm[11],
           field: 'title2',
           width: 120
         },
         {
-          title: 'Ngôn ngữ',
+          title: this.formItemNm[12],
           field: 'lang',
           width: 120
         },
         {
-          title: 'Vị trí',
+          title: this.formItemNm[13],
           field: 'vitri',
           width: 100
         },
         {
-          title: 'Trạng thái',
+          title: this.formItemNm[14],
           width: 150,
           field: 'status',
           tdTemplate: this.availableFlag
         },
         {
-          title: 'Cập nhật',
+          title: this.formItemNm[15],
           tdTemplate: this.operationTpl,
           width: 200,
           fixed: true,

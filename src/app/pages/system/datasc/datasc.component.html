@@ -10,7 +10,7 @@
           <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
             <div nz-col [nzLg]="8" [nzMd]="12" [nzSm]="24" [nzXl]="8" [nzXs]="24" [nzXXl]="8">
               <nz-form-item>
-                <nz-form-label [nzFor]="">Tiêu đề</nz-form-label>
+                <nz-form-label [nzFor]="">{{formItemNm[4]}}</nz-form-label>
                 <nz-form-control>
                   <input name="title" nz-input placeholder="Vui lòng nhập tiêu đề tìm kiếm" [(ngModel)]="searchParam.title1" />
                 </nz-form-control>
@@ -20,17 +20,17 @@
             <div class="text-right p-0 m-b-10" nz-col [nzLg]="8" [nzMd]="12" [nzSm]="24" [nzXl]="8" [nzXs]="24" [nzXXl]="8">
               <button nz-button [nzType]="'primary'" (click)="getDataList()">
                 <i nz-icon nzType="search"></i>
-                Tìm kiếm
+                {{formItemNm[5]}}
               </button>
               <button class="m-l-15" nz-button (click)="resetForm()">
                 <i nz-icon nzTheme="outline" nzType="close-circle"></i>
-                Cài lại
+                {{formItemNm[6]}}
               </button>
             </div>
           </div>
         </form>
       </nz-card>
-      <app-card-table-wrap [btnTpl]="tableBtns" [tableTitle]="'Danh sách tiêu đề'" (reload)="reloadTable()">
+      <app-card-table-wrap [btnTpl]="tableBtns" [tableTitle]="formItemNm[7]" (reload)="reloadTable()">
         <app-ant-table
           [checkedCashArrayFromComment]="checkedCashArray"
           [tableConfig]="tableConfig"
@@ -41,21 +41,21 @@
         ></app-ant-table>
         <ng-template #operationTpl let-id="id">
           <span *appAuth="ActionCode.DataScEdit" class="operate-text">
-            <button nz-button nzGhost nzType="primary" (click)="edit(id)">Cập nhật</button>
+            <button nz-button nzGhost nzType="primary" (click)="edit(id)">{{formItemNm[16]}}</button>
           </span>
           <span *appAuth="ActionCode.DataScDel" class="operate-text">
-            <button nz-button nzGhost nzType="primary" (click)="del(id)">Xóa</button>
+            <button nz-button nzGhost nzType="primary" (click)="del(id)">{{formItemNm[17]}}</button>
           </span>
         </ng-template>
       </app-card-table-wrap>
       <ng-template #tableBtns>
         <button *appAuth="ActionCode.DataScAdd" class="m-r-8" nz-button nzType="primary" (click)="add(idmenu)">
           <i nz-icon nzType="plus"></i>
-          Thêm mới
+          {{formItemNm[8]}}
         </button>
         <button *appAuth="ActionCode.DataScDelAll" nz-button nzType="default" (click)="allDel()">
           <i nz-icon nzType="delete"></i>
-          Xóa tất cả
+          {{formItemNm[9]}}
         </button>
       </ng-template>
     

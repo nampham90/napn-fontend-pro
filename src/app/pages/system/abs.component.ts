@@ -35,6 +35,8 @@ export class AbsComponent implements OnInit {
     this.formItemName();
   }
 
+  fnInit() {}
+
   showVideo(): void {
     const path = this.router.url;
     this.dataService
@@ -58,10 +60,11 @@ export class AbsComponent implements OnInit {
         this.formItemNm[item.stt] = item.title1;
       });
       this.pageHeaderInfo = {
-        title: this.formItemNm[2],
-        breadcrumb: [this.formItemNm[1], this.formItemNm[7], this.formItemNm[2]],
+        title: this.formItemNm[3],
+        breadcrumb: [this.formItemNm[1], this.formItemNm[2], this.formItemNm[3]],
         extra: this.huongdanTpl
       };
+      this.fnInit();
       this.cdr.markForCheck();
       this.spinService.setCurrentGlobalSpinStore(false);
     });

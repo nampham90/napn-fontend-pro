@@ -176,7 +176,7 @@ export class LayoutHeadRightMenuComponent implements OnInit {
         this.isJa = false;
         this.isVi = true;
       }; break;
-      case "jp" : {
+      case "ja" : {
         this.isEn = false;
         this.isJa = true;
         this.isVi = false;

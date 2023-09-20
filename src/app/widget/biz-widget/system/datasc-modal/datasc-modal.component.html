@@ -1,0 +1,46 @@
+<form nz-form [formGroup]="addEditForm">
+    <!-- tiêu dề 1 -->
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="title1">Tiêu đề 1</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="combineTpl">
+          <input nz-input name="title2" id="title2" formControlName="title1" id="title1" placeholder="Nhập tiêu đề 1" />
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="title2">Tiều đề 2</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="combineTpl">
+          <input nz-input name="title2" id="title2" formControlName="title2" id="title2" placeholder="Nhập tiêu đề 2"/>
+        </nz-form-control>
+      </nz-form-item>
+  
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="lang">Ngôn ngữ</nz-form-label>
+      <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="combineTpl">
+        <nz-select nzShowSearch nzAllowClear  formControlName="lang" nzPlaceHolder="Ngôn ngữ">
+          <nz-option *ngFor="let option of lang" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="vitri">Vị trí</nz-form-label>
+      <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Vui lòng nhập số lượng">
+          <nz-input-number name="vitri" id="vitri" formControlName="vitri" [nzMin]="0" [nzMax]="100" [nzStep]="1"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+  
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="status">Status</nz-form-label>
+      <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="combineTpl">
+        <nz-switch formControlName="status" nzCheckedChildren="Cho phép" nzUnCheckedChildren="Vô hiệu hóa"></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+    <ng-container *ngIf="!showBtnAddList">
+      <button  nz-button (click)="addList()" nzType="primary">Add List</button><span>&nbsp;&nbsp;Tổng tiêu dề: {{listdatasc.length}}</span>
+    </ng-container>
+  </form>
+  <ng-template #combineTpl let-control>
+      <ng-container *ngIf="control.hasError('message')">{{ control.errors.message }}</ng-container>
+      <ng-container *ngIf="control.hasError('required')">Phần bắt buộc</ng-container>
+  </ng-template>

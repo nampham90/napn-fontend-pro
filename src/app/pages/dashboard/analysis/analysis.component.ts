@@ -19,6 +19,13 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { TranslateService } from '@ngx-translate/core';
+import { AbsComponent } from '@app/pages/system/abs.component';
+import { Router } from '@angular/router';
+import { HuongdanService } from '@app/core/services/http/system/huongdan.service';
+import { MenusService } from '@app/core/services/http/system/menus.service';
+import { SpinService } from '@app/core/services/store/common-store/spin.service';
+import { YoutubeModalService } from '@app/widget/biz-widget/system/youtube-modal/youtube.service';
 
 interface DataItem {
   name: string;
@@ -51,8 +58,8 @@ interface DataItem {
     NumberLoopPipe
   ]
 })
-export class AnalysisComponent implements OnInit, AfterViewInit {
-  destroyRef = inject(DestroyRef);
+export class AnalysisComponent extends AbsComponent implements OnInit, AfterViewInit {
+  //destroyRef = inject(DestroyRef);
   cardPadding = { padding: '20px 24px 8px' };
   miniBarData = [497, 666, 219, 269, 274, 337, 81, 497, 666, 219, 269];
   miniAreaData = [264, 274, 284, 294, 284, 274, 264, 264, 274, 264, 264, 264, 284, 264, 254, 264, 244, 340, 264, 243, 226, 192];
@@ -134,9 +141,20 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
     }
   ];
 
-  constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone) {}
+  constructor(
+    protected override cdr: ChangeDetectorRef,
+    protected override spinService: SpinService,
+    protected override dataService: HuongdanService,
+    protected override youtubeModalService: YoutubeModalService,
+    protected override router: Router,
+    protected override menusService: MenusService,
+    private ngZone: NgZone) {
+      super(cdr,spinService,dataService,youtubeModalService,router,menusService)
+    }
 
-  ngOnInit(): void {}
+  override ngOnInit(): void {
+    super.ngOnInit();
+  }
 
   initMinibar(): void {
     const data = this.miniBarData;
@@ -289,6 +307,7 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
     });
 
     ringProgress.render();
+   
   }
 
   ngAfterViewInit(): void {

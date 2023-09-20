@@ -29,6 +29,8 @@
     "@antv/g2plot": "^2.4.31",
     "@antv/x6": "^1.33.1",
     "@auth0/angular-jwt": "^5.1.2",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
     "@tinymce/tinymce-angular": "^7.0.0",
     "@zxcvbn-ts/core": "^2.1.0",
     "@zxcvbn-ts/language-en": "^2.1.0",
