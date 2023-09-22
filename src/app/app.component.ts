@@ -29,7 +29,9 @@ import { fadeRouteAnimation } from './animations/fade.animation';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeRouteAnimation],
   standalone: true,
-  imports: [NgIf, LockScreenComponent, NzBackTopModule, RouterOutlet, NzSpinModule, AsyncPipe]
+  imports: [NgIf, LockScreenComponent, NzBackTopModule, RouterOutlet, NzSpinModule, AsyncPipe,
+
+  ]
 })
 export class AppComponent implements OnInit, AfterViewInit {
   loading$ = this.spinService.getCurrentGlobalSpinStore();

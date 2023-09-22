@@ -19,8 +19,9 @@ export function isIdCard(value: string): boolean {
 }
 
 /** Có phải là số điện thoại di động */
+// /^(0|\+?84|17951)?(13[0-9]|15[0-9]|17[0678]|18[0-9]|14[57])[0-9]{8}$/
 export function isMobile(value: string): boolean {
-  return /^(0|\+?84|17951)?(13[0-9]|15[0-9]|17[0678]|18[0-9]|14[57])[0-9]{8}$/.test(value);
+  return /((09|03|07|08|05)+([0-9]{8})\b)/g.test(value);
 }
 
 /** Có phải là số điện thoại  */
