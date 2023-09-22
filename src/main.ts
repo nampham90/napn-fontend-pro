@@ -52,7 +52,6 @@ export function SubWindowWithServiceFactory(subWindowWithService: SubWindowWithS
 }
 
 const APPINIT_PROVIDES = [
-  // thư viên translateLoader
   // Khởi động dự án
   {
     provide: APP_INITIALIZER,
