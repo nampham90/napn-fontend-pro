@@ -25,6 +25,7 @@ import { HomeNoticeComponent } from '../home-notice/home-notice.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AvatarStoreService } from '@app/core/services/store/common-store/avatar-store.service';
 import { window } from 'rxjs';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-layout-head-right-menu',
@@ -43,7 +44,8 @@ import { window } from 'rxjs';
     NzDropDownModule,
     NzBadgeModule,
     NzMenuModule,
-    HomeNoticeComponent
+    HomeNoticeComponent,
+    TranslateModule
   ]
 })
 export class LayoutHeadRightMenuComponent implements OnInit {
@@ -67,7 +69,9 @@ export class LayoutHeadRightMenuComponent implements OnInit {
     private accountService: AccountService,
     private modalSrv: NzModalService,
     private avatarService: AvatarStoreService,
+    public translate: TranslateService
   ) {
+    this.translate.setDefaultLang(localStorage.getItem('lang') || 'vi');
   }
 
   // Khóa màn hình

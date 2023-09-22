@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, In
 import { FormsModule } from '@angular/forms';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { InputNumberDirective } from './input-number.directive';
 
 export abstract class InputComponentToken {
 
@@ -15,7 +16,7 @@ export abstract class InputComponentToken {
   styleUrls: ['./input-number.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NzInputModule, FormsModule],
+  imports: [NzInputModule, FormsModule, InputNumberDirective],
   providers: [{ provide: InputComponentToken, useExisting: InputNumberComponent }],
 })
 export class InputNumberComponent implements OnInit{

@@ -18,6 +18,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 import { ScreenLessHiddenDirective } from '../../directives/screen-less-hidden.directive';
 import { AntTableComponentToken, TableHeader } from '../ant-table/ant-table.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 interface TableSizeItem {
   sizeName: string;
@@ -48,7 +49,8 @@ interface TableSizeItem {
     CdkDrag,
     CdkDragHandle,
     NzCheckboxModule,
-    NgStyle
+    NgStyle,
+    TranslateModule
   ]
 })
 export class CardTableWrapComponent implements OnInit, AfterContentInit {
@@ -70,7 +72,9 @@ export class CardTableWrapComponent implements OnInit, AfterContentInit {
   allTableFieldIndeterminate = false; // Đặt trạng thái được chọn một nửa của cột được chọn tất cả bên trong
   copyHeader: TableHeader[] = []; // Cấu hình mặc định bộ đệm
 
-  constructor() {}
+  constructor(public translate : TranslateService) {
+    this.translate.setDefaultLang(localStorage.getItem('lang') || 'vi');
+  }
 
   // Có hiển thị hộp kiểm hay không
   changeTableCheckBoxShow(e: boolean): void {

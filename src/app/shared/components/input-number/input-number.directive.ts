@@ -2,7 +2,8 @@ import { DecimalPipe } from '@angular/common';
 import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[appInputNumber]'
+  selector: '[appInputNumber]',
+  standalone: true
 })
 export class InputNumberDirective implements OnInit{
 

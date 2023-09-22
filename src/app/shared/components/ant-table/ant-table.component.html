@@ -19,7 +19,7 @@
   (nzPageSizeChange)="onPageSizeChange($event)"
   (nzQueryParams)="onQueryParamsChange($event)"
 >
-  <ng-template #rangeTemplate let-range="range" let-total>{{ range[0] }}-{{ range[1] }} Tổng cộng {{ total }} Mục</ng-template>
+  <ng-template #rangeTemplate let-range="range" let-total>{{ range[0] }}-{{ range[1] }} {{'ATCtitle1' | translate}} {{ total }} {{'ATCtitle2' | translate}}</ng-template>
   <thead>
     <tr>
       <th

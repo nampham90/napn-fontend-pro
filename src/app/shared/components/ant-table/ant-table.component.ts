@@ -8,6 +8,7 @@ import { NzTableQueryParams, NzTableSize, NzTableModule } from 'ng-zorro-antd/ta
 
 import { MapPipe } from '../../pipes/map.pipe';
 import { TableFiledPipe } from '../../pipes/table-filed.pipe';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export interface TableHeader {
   title: string; // tên tiêu đề
   field?: string; // tên trường
@@ -59,7 +60,7 @@ export interface SortFile {
   providers: [{ provide: AntTableComponentToken, useExisting: AntTableComponent }],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NzTableModule, NgIf, NgFor, NzResizableModule, NgClass, NgTemplateOutlet, MapPipe, TableFiledPipe]
+  imports: [NzTableModule, NgIf, NgFor, NzResizableModule, NgClass, NgTemplateOutlet, MapPipe, TableFiledPipe, TranslateModule]
 })
 export class AntTableComponent implements OnInit, OnChanges {
   _dataList!: NzSafeAny[];
@@ -109,7 +110,9 @@ export class AntTableComponent implements OnInit, OnChanges {
   indeterminate: boolean = false;
   allChecked: boolean = false;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, public translate : TranslateService) {
+    this.translate.setDefaultLang(localStorage.getItem('lang') || 'vi');
+  }
 
   setScrollConfig(value: AntTableConfig): void {
     if (value && !value.needNoScroll) {

@@ -69,7 +69,7 @@ export class RoleManageComponent implements OnInit {
   ActionCode = ActionCode;
   destroyRef = inject(DestroyRef);
 
-  flg = true;
+  flg = false;
   numberMode = 1000;
   amountMode = 1000;
 
@@ -121,14 +121,14 @@ export class RoleManageComponent implements OnInit {
       });
   }
 
-  // 设置权限
+  // Đặt quyền
   setRole(id: number): void {
     this.router.navigate(['/default/system/role-manager/set-role'], { queryParams: { id: id } });
   }
 
-  // 触发表格变更检测
+  // Phát hiện thay đổi bảng kích hoạt
   tableChangeDectction(): void {
-    // 改变引用触发变更检测。
+    // Thay đổi tham chiếu sẽ kích hoạt phát hiện thay đổi.
     this.dataList = [...this.dataList];
     this.cdr.detectChanges();
   }
@@ -160,7 +160,7 @@ export class RoleManageComponent implements OnInit {
     this.getDataList();
   }
 
-  // 修改
+  // Cập nhật
   edit(id: number): void {
     this.dataService
       .getRolesDetail(id)
@@ -213,7 +213,7 @@ export class RoleManageComponent implements OnInit {
       }
     });
   }
-  // 修改一页几条
+  // Thay đổi trang
 
   changePageSize(e: number): void {
     this.tableConfig.pageSize = e;

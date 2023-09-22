@@ -1,3 +1,26 @@
 {
-    "demo": "tiếng việt"
+    "LayoutHeadRightMenuComponent": "LayoutHeadRightMenuComponent",
+    "LHRMCen": "Tiếng Anh",
+    "LHRMCvi": "Tiếng Việt",
+    "LHRMCja": "Tiếng Nhật",
+    "LHRMCtitle1": "Trung tâm cá nhân",
+    "LHRMCtitle2": "Cài đặt cá nhân",
+    "LHRMCtitle3": "Thay đổi mật khẩu",
+    "LHRMCtitle4": "Xóa bộ nhớ cache",
+    "LHRMCtitle5": "Khóa màn hình",
+    "LHRMCtitle6": "Đăng xuất",
+
+    "AntTableComponent": "AntTableComponent",
+    "ATCtitle1": "Tổng cộng",
+    "ATCtitle2": "Mục",
+
+    "CardTableWrapComponent": "CardTableWrapComponent",
+    "CTWCtitle1": "Cài đặt cột",
+    "CTWCtitle2": "Làm tươi",
+    "CTWCtitle3": "Tỉ trọng",
+    "CTWCtitle4": "Cố định bên trái",
+    "CTWCtitle5": "Cố định ở bên phải",
+    "CTWCtitle6": "Cột kiểm tra",
+    "CTWCtitle7": "Cột hiển thị",
+    "CTWCtitle8": "Cài lại"
  }

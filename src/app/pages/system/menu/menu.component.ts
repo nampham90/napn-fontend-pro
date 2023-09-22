@@ -96,9 +96,9 @@ export class MenuComponent implements OnInit {
     this.getDataList();
   }
 
-  // 触发表格变更检测
+  // Phát hiện thay đổi bảng kích hoạt
   tableChangeDectction(): void {
-    // 改变引用触发变更检测。
+    // Thay đổi tham chiếu sẽ kích hoạt phát hiện thay đổi.
     this.dataList = [...this.dataList];
     this.cdr.detectChanges();
   }
@@ -189,7 +189,7 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  // 修改
+  // Cập nhật
   edit(id: number, fatherId: number): void {
     this.dataService
       .getMenuDetail(id)
@@ -213,7 +213,7 @@ export class MenuComponent implements OnInit {
       });
   }
 
-  // 修改一页几条
+  // Thay đổi trang
   changePageSize(e: number): void {
     this.tableConfig.pageSize = e;
   }

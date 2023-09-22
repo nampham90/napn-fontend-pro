@@ -1,3 +1,26 @@
 {
-    "demo": "tiếng nhật"
+    "LayoutHeadRightMenuComponent": "LayoutHeadRightMenuComponent",
+    "LHRMCen": "英語",
+    "LHRMCvi": "ベトナム語",
+    "LHRMCja": "日本語",
+    "LHRMCtitle1": "パーソナルセンター",
+    "LHRMCtitle2": "プライバシー設定",
+    "LHRMCtitle3": "パスワードを変更する",
+    "LHRMCtitle4": "キャッシュの消去",
+    "LHRMCtitle5": "ロック画面",
+    "LHRMCtitle6": "ログアウト",
+
+    "AntTableComponent": "AntTableComponent",
+    "ATCtitle1": "合計",
+    "ATCtitle2": "アイテム",
+
+    "CardTableWrapComponent": "CardTableWrapComponent",
+    "CTWCtitle1": "列の設定",
+    "CTWCtitle2": "リフレッシュ",
+    "CTWCtitle3": "密度",
+    "CTWCtitle4": "左側に固定",
+    "CTWCtitle5": "右側に固定",
+    "CTWCtitle6": "テストカラム",
+    "CTWCtitle7": "表示欄",
+    "CTWCtitle8": "彩来"
  }

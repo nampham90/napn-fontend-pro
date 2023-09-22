@@ -2,7 +2,7 @@ import { DOCUMENT, registerLocaleData } from '@angular/common';
 import { withInterceptorsFromDi, provideHttpClient, HttpClient } from '@angular/common/http';
 import vi from '@angular/common/locales/vi';
 import { enableProdMode, APP_INITIALIZER, importProvidersFrom } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, RouteReuseStrategy, withComponentInputBinding, withHashLocation, withInMemoryScrolling, withPreloading } from '@angular/router';
 
@@ -20,14 +20,14 @@ import { SubWindowWithService } from '@core/services/common/sub-window-with.serv
 import { ThemeSkinService } from '@core/services/common/theme-skin.service';
 import { StartupService } from '@core/startup/startup.service';
 import { environment } from '@env/environment';
-
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NzDrawerServiceModule } from 'ng-zorro-antd/drawer';
-import { NZ_I18N, vi_VN } from 'ng-zorro-antd/i18n';
+import { NZ_I18N, vi_VN, en_US, ja_JP } from 'ng-zorro-antd/i18n';
 import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import { NzMessageServiceModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-
 const icons = [MenuFoldOutline, MenuUnfoldOutline, DashboardOutline, FormOutline];
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 registerLocaleData(vi);
 
@@ -49,6 +49,10 @@ export function InitLockedStatusServiceFactory(subLockedStatusService: SubLocked
 
 export function SubWindowWithServiceFactory(subWindowWithService: SubWindowWithService) {
   return () => subWindowWithService.subWindowWidth();
+}
+
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
 }
 
 const APPINIT_PROVIDES = [
@@ -116,7 +120,18 @@ bootstrapApplication(AppComponent, {
       withHashLocation(),
       withComponentInputBinding() // Kích hoạt ràng buộc tham số định tuyến vào thuộc tính đầu vào của thành phần, tính năng mới trong ng16
     ),
-    importProvidersFrom(NzMessageServiceModule, NzDrawerServiceModule, NzModalModule),
+    importProvidersFrom(
+      BrowserModule,
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: httpTranslateLoader,
+          deps: [HttpClient]
+        }
+      }),
+      NzMessageServiceModule, 
+      NzDrawerServiceModule, 
+      NzModalModule),
     ...interceptors,
     ...APPINIT_PROVIDES,
     provideAnimations(),

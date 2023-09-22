@@ -18,15 +18,15 @@
           nzPopoverPlacement="bottomRight"
           nzPopoverTrigger="click"
           nzTheme="outline"
-          nzTooltipTitle="Cài đặt cột"
+          [nzTooltipTitle]="CTWCtitle1"
           nzType="setting"
           [nzPopoverContent]="contentTemplate"
           [nzPopoverTitle]="popoverTitle"
           [(nzPopoverVisible)]="tableConfigVisible"
         ></i>
-        <i *nzSpaceItem class="hand-model" nz-icon nz-tooltip nzTheme="outline" nzTooltipTitle="Làm tươi" nzType="reload" (click)="reloadClick()"></i>
+        <i *nzSpaceItem class="hand-model" nz-icon nz-tooltip nzTheme="outline" [nzTooltipTitle]="CTWCtitle2" nzType="reload" (click)="reloadClick()"></i>
         <ng-container *appScreenLessHidden="'393'">
-          <i *nzSpaceItem class="hand-model" nz-dropdown nz-icon nz-tooltip nzTheme="outline" nzTooltipTitle="Tỉ trọng" nzTrigger="click" nzType="column-height" [nzDropdownMenu]="tableSizeMenu"></i>
+          <i *nzSpaceItem class="hand-model" nz-dropdown nz-icon nz-tooltip nzTheme="outline" [nzTooltipTitle]="CTWCtitle3" nzTrigger="click" nzType="column-height" [nzDropdownMenu]="tableSizeMenu"></i>
         </ng-container>
       </nz-space>
     </div>
@@ -52,7 +52,7 @@
           nz-icon
           nz-tooltip
           nzTheme="outline"
-          nzTooltipTitle="Cố định bên trái"
+          [nzTooltipTitle]="CTWCtitle4"
           nzType="vertical-right"
           [ngStyle]="{ color: item.fixedDir === 'left' && item.fixed ? '#409eff' : '' }"
           (click)="fixedTableHead('left', item)"
@@ -63,7 +63,7 @@
           nz-icon
           nz-tooltip
           nzTheme="outline"
-          nzTooltipTitle="Cố định ở bên phải"
+          [nzTooltipTitle]="CTWCtitle5"
           nzType="vertical-left"
           [ngStyle]="{ color: item.fixedDir === 'right' && item.fixed ? '#409eff' : '' }"
           (click)="fixedTableHead('right', item)"
@@ -75,9 +75,24 @@
 <ng-template #popoverTitle>
   <div class="space-between">
     <span>
-      <label nz-checkbox [(nzChecked)]="currentTableComponent.tableConfig.showCheckbox" (nzCheckedChange)="changeTableCheckBoxShow($event)">Cột kiểm tra</label>
-      <label nz-checkbox [nzIndeterminate]="allTableFieldIndeterminate" [(nzChecked)]="allTableFieldChecked" (nzCheckedChange)="changeAllTableTableConfigShow($event)">Cột hiển thị</label>
+      <label nz-checkbox [(nzChecked)]="currentTableComponent.tableConfig.showCheckbox" (nzCheckedChange)="changeTableCheckBoxShow($event)">{{'CTWCtitle6' | translate}}</label>
+      <label nz-checkbox [nzIndeterminate]="allTableFieldIndeterminate" [(nzChecked)]="allTableFieldChecked" (nzCheckedChange)="changeAllTableTableConfigShow($event)">{{'CTWCtitle7' | translate}}</label>
     </span>
-    <button class="operate-text" nz-button nzType="text" (click)="reset()">Cài lại</button>
+    <button class="operate-text" nz-button nzType="text" (click)="reset()">{{'CTWCtitle8' | translate}}</button>
   </div>
+</ng-template>
+<ng-template #CTWCtitle1>
+      <span>{{'CTWCtitle1' | translate}}</span>
+</ng-template>
+<ng-template #CTWCtitle2>
+  <span>{{'CTWCtitle2' | translate}}</span>
+</ng-template>
+<ng-template #CTWCtitle3>
+  <span>{{'CTWCtitle3' | translate}}</span>
+</ng-template>
+<ng-template #CTWCtitle4>
+  <span>{{'CTWCtitle4' | translate}}</span>
+</ng-template>
+<ng-template #CTWCtitle5>
+  <span>{{'CTWCtitle5' | translate}}</span>
 </ng-template>

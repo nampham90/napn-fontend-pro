@@ -15,7 +15,7 @@ export abstract class InputComponentToken {
   styleUrls: ['./input-currency.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NzInputModule, FormsModule],
+  imports: [NzInputModule, FormsModule , InputCurrencyDirective],
   providers: [{ provide: InputComponentToken, useExisting: InputCurrencyComponent }]
 })
 export class InputCurrencyComponent implements OnInit{

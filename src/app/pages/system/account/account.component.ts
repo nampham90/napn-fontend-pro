@@ -124,14 +124,14 @@ export class AccountComponent implements OnInit {
       });
   }
 
-  // 设置权限
+  // Đặt quyền
   setRole(id: number): void {
     this.router.navigate(['/default/system/role-manager/set-role'], { queryParams: { id: id } });
   }
 
-  // 触发表格变更检测
+  // Phát hiện thay đổi bảng kích hoạt
   tableChangeDectction(): void {
-    // 改变引用触发变更检测。
+    // Thay đổi tham chiếu sẽ kích hoạt phát hiện thay đổi.
     this.dataList = [...this.dataList];
     this.cdr.detectChanges();
   }
@@ -162,7 +162,7 @@ export class AccountComponent implements OnInit {
     this.getDataList();
   }
 
-  // 修改
+  // Cập nhật
   edit(id: string): void {
     this.dataService
       .getAccountDetail(id)
@@ -246,7 +246,7 @@ export class AccountComponent implements OnInit {
         }
       });
     } else {
-      this.message.error('请勾选数据');
+      this.message.error('Vui lòng kiểm tra dữ liệu');
       return;
     }
   }
@@ -274,7 +274,7 @@ export class AccountComponent implements OnInit {
     });
   }
 
-  // 修改一页几条
+  //Sửa đổi trang
 
   changePageSize(e: number): void {
     this.tableConfig.pageSize = e;
@@ -285,7 +285,7 @@ export class AccountComponent implements OnInit {
     this.getDataList();
   }
 
-  /*展开*/
+  /*Mở rộng*/
   toggleCollapse(): void {
     this.isCollapse = !this.isCollapse;
   }

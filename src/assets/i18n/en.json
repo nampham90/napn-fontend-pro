@@ -1,3 +1,26 @@
 {
-   "demo": "Tiếng anh"
+   "LayoutHeadRightMenuComponent": "LayoutHeadRightMenuComponent",
+   "LHRMCen": "English",
+   "LHRMCvi": "Vietnamese",
+   "LHRMCja": "Japanese",
+   "LHRMCtitle1": "Personal center",
+   "LHRMCtitle2": "Privacy setting",
+   "LHRMCtitle3": "Change the password",
+   "LHRMCtitle4": "Clear cache",
+   "LHRMCtitle5": "Lock screen",
+   "LHRMCtitle6": "Log out",
+
+   "AntTableComponent": "AntTableComponent",
+   "ATCtitle1": "Total",
+   "ATCtitle2": "Item",
+
+   "CardTableWrapComponent": "CardTableWrapComponent",
+   "CTWCtitle1": "Column settings",
+   "CTWCtitle2": "Freshen",
+   "CTWCtitle3": "Density",
+   "CTWCtitle4": "Fixed on the right side",
+   "CTWCtitle5": "Fixed on the right side",
+   "CTWCtitle6": "Test column",
+   "CTWCtitle7": "Display column",
+   "CTWCtitle8": "Reinstall"
 }

@@ -34,6 +34,7 @@ import { Router } from '@angular/router';
 import { HuongdanService } from '@app/core/services/http/system/huongdan.service';
 import { SpinService } from '@app/core/services/store/common-store/spin.service';
 import { YoutubeModalService } from '@app/widget/biz-widget/system/youtube-modal/youtube.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 interface SearchParam {
   title1: string;
@@ -62,6 +63,7 @@ interface SearchParam {
     NzInputModule,
     NzIconModule,
     AuthDirective,
+    TranslateModule
   ]
 })
 export class DatascComponent extends AbsComponent implements OnInit {
@@ -90,8 +92,10 @@ export class DatascComponent extends AbsComponent implements OnInit {
     private modalSrv: NzModalService, 
     private datascService: DatascService,
     private modalService : DatascModalService,
+    public translate: TranslateService
     ) {
       super(cdr,spinService,dataService,youtubeModalService,router,menusService)
+      this.translate.setDefaultLang(localStorage.getItem('lang') || 'vi') ;
     }
 
   override ngOnInit(): void {
@@ -129,12 +133,11 @@ export class DatascComponent extends AbsComponent implements OnInit {
   del(id: any): void {
     this.modalSrv.confirm(
       {
-        nzTitle: "Bạn có chắc chăn muốn xóa không ?",
+        nzTitle: "Bạn có chắc chăn muốn xóa không ?" ,
         nzContent : "Nhấn OK để tiếp tục !",
         nzOnOk: () => {
           this.tableLoading(true);
           this.datascService.delDatasc(id).subscribe(res => {
-            console.log(res);
             this.getDataList();
          })
         }

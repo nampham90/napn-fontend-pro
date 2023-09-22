@@ -1,8 +1,9 @@
 import { DecimalPipe } from '@angular/common';
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appInputCurrency]'
+  selector: '[appInputCurrency]',
+  standalone: true
 })
 export class InputCurrencyDirective {
   private regexString(max?: number) {
