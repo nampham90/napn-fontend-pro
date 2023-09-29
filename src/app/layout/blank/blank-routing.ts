@@ -10,6 +10,7 @@ export default [
     component: BlankComponent,
     data: { key: 'blank', shouldDetach: 'no' },
     children: [
+      { path: '', redirectTo: 'other-login', pathMatch: 'full' },
       {
         path: 'empty-page',
         data: { title: 'Trang trống', key: 'empty-page', shouldDetach: 'no' },
