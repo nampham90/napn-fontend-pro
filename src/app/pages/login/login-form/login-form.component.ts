@@ -6,7 +6,7 @@ import { finalize } from 'rxjs/operators';
 
 import { LoginInOutService } from '@core/services/common/login-in-out.service';
 import { WindowService } from '@core/services/common/window.service';
-import { LoginService } from '@core/services/http/login/login.service';
+import { LoginService, Params, UserLogin } from '@core/services/http/login/login.service';
 import { MenuStoreService } from '@store/common-store/menu-store.service';
 import { SpinService } from '@store/common-store/spin.service';
 import { UserInfo, UserInfoService } from '@store/common-store/userInfo.service';
@@ -62,7 +62,12 @@ export class LoginFormComponent implements OnInit {
     // Loading
     this.spinService.setCurrentGlobalSpinStore(true);
     // Lấy giá trị của form
-    const param = this.validateForm.getRawValue();
+    const dataform = this.validateForm.getRawValue();
+    const userlogin: UserLogin = dataform as UserLogin;
+    const params: Params = {
+       filters: userlogin
+    }
+    console.log(params);
     // Gọi API đăng nhập
     //Cần lưu ý, mô-đun đăng nhập trả về dạng thống nhất từ phía máy chủ, nếu code không phải là 0, sẽ tự động bị chặn. Nếu cần thay đổi, vui lòng chỉnh sửa tại src/app/core/services/http/base-http.service.ts
     // {
@@ -71,7 +76,7 @@ export class LoginFormComponent implements OnInit {
     //   msg：string
     // }
     this.dataService
-      .login(param)
+      .login(params)
       .pipe(
         //  Dù sao, đặt loading toàn cầu thành false.
         finalize(() => {

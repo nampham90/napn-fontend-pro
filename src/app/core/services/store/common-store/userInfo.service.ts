@@ -5,8 +5,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 export interface UserInfo {
   userId: string;
-  authCode: string[];
   username: string;
+  authCode: string[];
   email: string;
 }
 
@@ -14,26 +14,28 @@ export interface UserInfo {
   providedIn: 'root'
 })
 export class UserInfoService {
-  private userInfo$ = new BehaviorSubject<UserInfo>({ userId: '-1', authCode: [], username: '-1', email: '-1' });
+  private userInfo$ = new BehaviorSubject<UserInfo>({ userId: '-1',username: '-1', authCode: [], email: '-1'});
 
   constructor() {}
 
   parsToken(token: string): UserInfo {
     const helper = new JwtHelperService();
     try {
-      const { rol, userId, username, email } = helper.decodeToken(token);
+      console.log(token);
+      const { userId, username, roles, permission } = helper.decodeToken(token);
       return {
         userId,
-        authCode: rol.split(','),
         username: username,
-        email: email
+        authCode: permission.split(','),
+        email: '-1',
+  
       };
     } catch (e) {
       return {
         userId: '-1',
         authCode: [],
         username: '-1',
-        email: '-1'
+        email: '-1',
       };
     }
   }

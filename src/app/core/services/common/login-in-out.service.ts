@@ -10,7 +10,7 @@ import { SimpleReuseStrategy } from '@core/services/common/reuse-strategy';
 import { TabService } from '@core/services/common/tab.service';
 import { WindowService } from '@core/services/common/window.service';
 import { Menu } from '@core/services/types';
-import { LoginService } from '@services/login/login.service';
+import { LoginService, ParamsUP } from '@services/login/login.service';
 import { MenuStoreService } from '@store/common-store/menu-store.service';
 import { UserInfo, UserInfoService } from '@store/common-store/userInfo.service';
 import { fnFlatDataHasParentToTree } from '@utils/treeTableTools';
@@ -44,8 +44,8 @@ export class LoginInOutService {
   ) {}
 
   // Lấy mảng menu theo Id người dùng
-  getMenuByUserId(userId: string): Observable<Menu[]> {
-    return this.loginService.getMenuByUserId(userId);
+  getMenuByUserId(params: ParamsUP): Observable<Menu[]> {
+    return this.loginService.getMenuByUserId(params);
   }
 
   loginIn(token: string): Promise<void> {
@@ -57,21 +57,25 @@ export class LoginInOutService {
       this.tokenStoreService.setGlobalTokenStore(token);
       // Phân tích mã thông báo và lấy thông tin người dùng
       const userInfo: UserInfo = this.userInfoService.parsToken(TokenPre + token);
+      console.log(userInfo);
       // việc cần làm Đây là quyền thêm nút theo cách thủ công để mở chi tiết trong thao tác tab trang tĩnh, vì chúng liên quan đến các bước nhảy định tuyến và chúng sẽ được bảo vệ bằng cách đi bộ, nhưng các quyền không được quản lý bởi phần phụ trợ, vì vậy hai dòng sau thêm quyền theo cách thủ công, thao tác thực tế Bạn có thể xóa 2 dòng sau trong
       userInfo.authCode.push(ActionCode.TabsDetail);
       userInfo.authCode.push(ActionCode.SearchTableDetail);
       // Lưu trữ thông tin người dùng vào dịch vụ toàn cầu
       this.userInfoService.setUserInfo(userInfo);
-      
-      this.userService.getAccountDetail(userInfo.userId)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(res=> {
-          if(res.avatar) {
-            this.avatarService.setAvatarStore(serverUrl + res.avatar.path);
-          }
-      });
+      // lay avata
+      // this.userService.getAccountDetail(userInfo.userId)
+      //   .pipe(takeUntilDestroyed(this.destroyRef))
+      //   .subscribe(res=> {
+      //     if(res.avatar) {
+      //       this.avatarService.setAvatarStore(serverUrl + res.avatar.path);
+      //     }
+      // });
       // Nhận menu do người dùng này sở hữu thông qua ID người dùng
-      this.getMenuByUserId(userInfo.userId)
+      const params : ParamsUP = {
+         filters: {}
+      }
+      this.getMenuByUserId(params)
         .pipe(
           finalize(() => {
             resolve();

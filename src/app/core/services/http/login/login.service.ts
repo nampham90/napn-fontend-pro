@@ -5,10 +5,23 @@ import { delay, Observable, of } from 'rxjs';
 import { Menu } from '@core/services/types';
 import { BaseHttpService } from '@services/base-http.service';
 import { MenusService } from '@services/system/menus.service';
+import * as Const from '@app/common/const';
 
 export interface UserLogin {
-  name: string;
+  name?: string;
+  email: string;
+  mobile?: string;
   password: string;
+}
+
+export interface Params {
+   pageNum?: number;
+   pageSize?: number;
+   filters: UserLogin;
+}
+
+export interface ParamsUP {
+   filters: {}
 }
 
 @Injectable({
@@ -21,11 +34,11 @@ export class LoginService {
     private menuService: MenusService
   ) {}
 
-  public login(params: UserLogin): Observable<string> {
-    return this.http.post('user/login', params, { needSuccessInfo: false });
+  public login(params: Params): Observable<string> {
+    return this.http.post(Const.Ant100UserLogin, params, { needSuccessInfo: false });
   }
 
-  public getMenuByUserId(userId: string): Observable<Menu[]> {
-    return this.http.get(`user/menu`);
+  public getMenuByUserId(params: ParamsUP): Observable<Menu[]> {
+    return this.http.post(Const.Ant100UserPermission,params, { needSuccessInfo: false });
   }
 }

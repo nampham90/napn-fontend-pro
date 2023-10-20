@@ -73,7 +73,7 @@ export class LockWidgetComponent extends BasicConfirmModalComponent implements O
         userId: res.userId,
         username: res.username,
         authCode: [],
-        email: res.email
+        email: res.email,
       };
     });
     // get avatar
