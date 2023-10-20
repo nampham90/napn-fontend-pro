@@ -173,7 +173,7 @@ export class NavBarComponent implements OnInit {
   // Sao chép sâu (deep clone) mảng menu
   cloneMenuArray(sourceMenuArray: Menu[], target: Menu[] = []): Menu[] {
     sourceMenuArray.forEach(item => {
-      const obj: Menu = { menuName: '', menuType: 'C', path: '', id: -1, fatherId: -1 };
+      const obj: Menu = { menu_name: '', menu_type: 'C', path: '', id: -1, father_id: -1, order_num: -1 };
       for (let i in item) {
         if (item.hasOwnProperty(i)) {
           // @ts-ignore
@@ -219,7 +219,7 @@ export class NavBarComponent implements OnInit {
     menus.forEach(item => {
       item.selected = false;
       item.open = false;
-      if (routePath.includes(item.path) && !item.newLinkFlag) {
+      if (routePath.includes(item.path) && !item.is_new_link) {
         item.selected = true;
         item.open = true;
       }
@@ -259,7 +259,7 @@ export class NavBarComponent implements OnInit {
   }
 
   changeRoute(e: MouseEvent, menu: Menu): void {
-    if (menu.newLinkFlag) {
+    if (menu.is_new_link) {
       fnStopMouseEvent(e);
       window.open(menu.path, '_blank');
       return;

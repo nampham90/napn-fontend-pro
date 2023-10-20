@@ -74,18 +74,19 @@ export interface CascaderOption {
  * Menu
  * */
 export interface Menu {
-  id: number | string;
-  fatherId: number | string;
+  id: number ;
+  father_id: number ;
   path: string;
-  menuName: string;
-  menuType: 'C' | 'F'; // c: menu, f nút
+  menu_name: string;
+  menu_type: 'C' | 'F'; // c: menu, f nút
+  order_num: number;
   icon?: string; // Nếu showIcon sai, hãy đặt biểu tượng này làm biểu tượng ngoài cùng bên trái trong cửa sổ tìm kiếm
-  alIcon?: string; //Nếu showIcon sai, hãy đặt biểu tượng này làm biểu tượng ngoài cùng bên trái trong cửa sổ tìm kiếm
+  al_icon?: string; //Nếu showIcon sai, hãy đặt biểu tượng này làm biểu tượng ngoài cùng bên trái trong cửa sổ tìm kiếm
   open?: boolean;
   selected?: boolean; // Nó đã được chọn chưa
   children?: Menu[];
   code?: string; // Mã quyền
-  newLinkFlag?: 0 | 1; // Đây có phải là một trang mới?
+  is_new_link?: 0 | 1; // Đây có phải là một trang mới?
   visible?: boolean;
   status?: boolean;
 }

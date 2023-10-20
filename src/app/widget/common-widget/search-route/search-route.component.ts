@@ -109,13 +109,13 @@ export class SearchRouteComponent extends BasicConfirmModalComponent implements 
   }
 
   getResultItem(menu: Menu, fatherTitle: string = ''): ResultItem[] {
-    const fatherTitleTemp = fatherTitle === '' ? menu.menuName : `${fatherTitle} > ${menu.menuName}`;
+    const fatherTitleTemp = fatherTitle === '' ? menu.menu_name : `${fatherTitle} > ${menu.menu_name}`;
     let resultItem: ResultItem = {
       title: fatherTitleTemp,
       routePath: menu.path!,
       selItem: false,
-      isAliIcon: !!menu.alIcon,
-      icon: menu.icon! || menu.alIcon!
+      isAliIcon: !!menu.al_icon,
+      icon: menu.icon! || menu.al_icon!
     };
     if (menu.children && menu.children.length > 0) {
       let resultArrayTemp: ResultItem[] = [];

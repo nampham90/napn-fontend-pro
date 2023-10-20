@@ -6,7 +6,7 @@
     <ul>
       <li *ngFor="let permission of permissionList">
         <div class="first-menu">
-          <label nz-checkbox [(ngModel)]="permission.checked">{{ permission.menuName }}</label>
+          <label nz-checkbox [(ngModel)]="permission.checked">{{ permission.menu_name }}</label>
           <span *ngIf="permission.children && permission.children.length > 0" class="hand-model" (click)="permission.isOpen = !permission.isOpen">
             <i nz-icon nzTheme="outline" [nzType]="permission.isOpen ? 'down' : 'right'"></i>
             <span class="operate-text">{{ permission.isOpen ? 'Ẩn' : 'Mở rộng' }}</span>

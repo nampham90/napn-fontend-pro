@@ -40,16 +40,16 @@ const fnTreeDataToMap = function tableToTreeData(dataList: any[]): { [key: strin
  * Nhận một mảng có tham số là mối quan hệ cha-con
  * Trả về một mảng cấu trúc cây
  */
-const fnFlatDataHasParentToTree = function translateDataToTree(data: any[], fatherId = 'fatherId'): any {
+const fnFlatDataHasParentToTree = function translateDataToTree(data: any[], father_id = 'father_id'): any {
 
   // Chúng tôi tin rằng dữ liệu có parentId=0 là dữ liệu cấp một
   // dữ liệu không có nút cha
-  let parents = data.filter(value => value[fatherId] === 0)
-  .sort((a, b) => a.orderNum - b.orderNum);
+  let parents = data.filter(value => value[father_id] === 0)
+  .sort((a, b) => a.order_num - b.order_num);
 
   //Dữ liệu với nút cha
-  let children = data.filter(value => value[fatherId] !== 0)
-  .sort((a, b) => a.orderNum - b.orderNum);
+  let children = data.filter(value => value[father_id] !== 0)
+  .sort((a, b) => a.order_num - b.order_num);
 
   //Xác định cách triển khai cụ thể của phương thức chuyển đổi
   let translator = (parents: any[], children: any[]): any => {
@@ -58,7 +58,7 @@ const fnFlatDataHasParentToTree = function translateDataToTree(data: any[], fath
       //Duyệt qua dữ liệu nút con
       children.forEach((current, index) => {
         //Lúc này, một nút con tương ứng với nút cha được tìm thấy.
-        if (current[fatherId] === parent.id) {
+        if (current[father_id] === parent.id) {
           //Thực hiện sao chép sâu dữ liệu nút con. Ở đây chỉ hỗ trợ một số loại dữ liệu sao chép sâu. Giày trẻ em chưa quen với bản sao sâu có thể tìm hiểu về bản sao sâu trước.
           let temp = JSON.parse(JSON.stringify(children));
           //Hãy xóa nút con hiện tại khỏi temp và temp được sử dụng làm dữ liệu nút con mới. Điều này nhằm làm cho số lần truyền qua nút con ít hơn trong quá trình đệ quy. Nếu mối quan hệ cha-con có nhiều cấp độ hơn thì sẽ nhiều hơn có lợi
