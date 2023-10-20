@@ -11,7 +11,7 @@ import { NzTreeFlatDataSource, NzTreeFlattener } from 'ng-zorro-antd/tree-view';
 
 interface TreeNode {
   id: number;
-  tenphongban: string;
+  department_name: string;
   disabled?: boolean;
   children?: TreeNode[];
 }
@@ -31,7 +31,7 @@ export class DeptTreeService {
   destroyRef = inject(DestroyRef);
   private transformer = (node: TreeNode, level: number): FlatNode => ({
     expandable: !!node.children && node.children.length > 0,
-    departmentName: node.tenphongban,
+    departmentName: node.department_name,
     level,
     id: node.id,
     disabled: !!node.disabled
@@ -72,7 +72,10 @@ export class DeptTreeService {
   initDate(): void {
     const params: SearchCommonVO<any> = {
       pageSize: 0,
-      pageNum: 0
+      pageNum: 0,
+      filters: {
+        department_name: ""
+      }
     };
     this.dataService
       .getDepts(params)

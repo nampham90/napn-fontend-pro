@@ -1,5 +1,5 @@
 export interface TreeNode {
-  tenphongban: string;
+  department_name: string;
   disabled?: boolean;
   children?: TreeNode[];
   id: number;

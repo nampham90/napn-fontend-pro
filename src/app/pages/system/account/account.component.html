@@ -94,7 +94,7 @@
     </button>
   </ng-template>
 
-  <ng-template #availableFlag let-available="available" let-id="id">
-    <nz-switch nzCheckedChildren="Cho phép" nzUnCheckedChildren="Vô hiệu hóa" [ngModel]="available" [nzControl]="true" [nzDisabled]="true"></nz-switch>
+  <ng-template #availableFlag let-is_available="is_available" let-id="id">
+    <nz-switch nzCheckedChildren="Cho phép" nzUnCheckedChildren="Vô hiệu hóa" [ngModel]="is_available" [nzControl]="true" [nzDisabled]="false"></nz-switch>
   </ng-template>
 </div>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 
 import { IObjectString } from '@app/common/IObiectString';
 import { HuongdanService } from '@app/core/services/http/system/huongdan.service';
@@ -56,16 +56,21 @@ export class AbsComponent implements OnInit {
   formItemName(): void {
     this.spinService.setCurrentGlobalSpinStore(true);
     const path = this.router.url;
-    this.menusService.getMenuDetailFromUrl(path).subscribe(list => {
+    const params: Params = {
+        filters: {
+            url: path
+        }
+    }
+    this.menusService.getMenuDetailFromUrl(params).subscribe(list => {
       
-      list.forEach(item => {
-        this.formItemNm[item.stt] = item.title1;
-      });
-      this.pageHeaderInfo = {
-        title: this.formItemNm[3],
-        breadcrumb: [this.formItemNm[1], this.formItemNm[2], this.formItemNm[3]],
-        extra: this.huongdanTpl
-      };
+      // list.forEach(item => {
+      //   this.formItemNm[item.stt] = item.title1;
+      // });
+      // this.pageHeaderInfo = {
+      //   title: this.formItemNm[3],
+      //   breadcrumb: [this.formItemNm[1], this.formItemNm[2], this.formItemNm[3]],
+      //   extra: this.huongdanTpl
+      // };
       this.fnInit();
       this.cdr.markForCheck();
       this.spinService.setCurrentGlobalSpinStore(false);

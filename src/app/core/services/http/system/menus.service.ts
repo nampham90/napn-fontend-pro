@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Menu, PageInfo, SearchCommonVO } from '@core/services/types';
 import { BaseHttpService } from '@services/base-http.service';
 import * as Const from 'src/app/common/const';
+import { Params } from '@angular/router';
 
 export interface MenuListObj {
   menuName: string;
@@ -55,7 +56,7 @@ export class MenusService {
     return this.http.post(Const.Ant100PostDetailMenu, { menuId: id }, { needSuccessInfo: true });
   }
 
-  public getMenuDetailFromUrl(url: string): Observable<DatascObj[]> {
-    return this.http.post(Const.Ant100PostUrlParams, { url: url }, { needSuccessInfo: true });
+  public getMenuDetailFromUrl(params: Params): Observable<DatascObj[]> {
+    return this.http.post(Const.Ant100PostUrlParams, params, { needSuccessInfo: true });
   }
 }

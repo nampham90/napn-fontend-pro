@@ -34,7 +34,7 @@ import { DeptTreeComponent } from './dept-tree/dept-tree.component';
 
 interface SearchParam {
   name: string;
-  phongban_id: number;
+  department_id: number;
   dienthoai: number;
   available: boolean;
 }
@@ -101,6 +101,7 @@ export class AccountComponent implements OnInit {
 
   getDataList(e?: NzTableQueryParams): void {
     this.tableConfig.loading = true;
+    if(!this.searchParam.department_id) this.searchParam.department_id = 0;
     const params: SearchCommonVO<any> = {
       pageSize: this.tableConfig.pageSize!,
       pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
@@ -281,7 +282,7 @@ export class AccountComponent implements OnInit {
   }
 
   searchDeptIdUser(departmentId: number): void {
-    this.searchParam.phongban_id = departmentId;
+    this.searchParam.department_id = departmentId;
     this.getDataList();
   }
 
@@ -301,13 +302,13 @@ export class AccountComponent implements OnInit {
       headers: [
         {
           title: 'Tên tài khoản',
-          field: 'name',
+          field: 'user_name',
           width: 120
         },
         {
           title: 'Trạng thái',
           width: 150,
-          field: 'available',
+          field: 'is_available',
           tdTemplate: this.availableFlag
         },
         {
@@ -319,7 +320,7 @@ export class AccountComponent implements OnInit {
         {
           title: 'Điện Thoại',
           width: 150,
-          field: 'dienthoai'
+          field: 'mobile'
         },
         {
           title: 'Email',
@@ -329,7 +330,7 @@ export class AccountComponent implements OnInit {
         {
           title: 'Đăng nhập lần cuối',
           width: 200,
-          field: 'lastLoginTime',
+          field: 'last_login_time',
           pipe: 'date:yyyy-MM-dd HH:mm'
         },
         {
@@ -341,7 +342,7 @@ export class AccountComponent implements OnInit {
         {
           title: 'Zalo',
           width: 150,
-          field: 'zalo'
+          field: 'mobile'
         },
         {
           title: 'Cập nhật',

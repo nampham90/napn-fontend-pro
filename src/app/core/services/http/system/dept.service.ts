@@ -10,10 +10,10 @@ import { BaseHttpService } from '../base-http.service';
  * */
 export interface Dept {
   id?: string;
-  tenphongban: string;
-  fatherId: string;
+  department_name: string;
+  father_id: string;
   state: 1 | 0;
-  orderNum: number;
+  order_num: number;
   title?: string;
   key?: string;
   value?: string;
