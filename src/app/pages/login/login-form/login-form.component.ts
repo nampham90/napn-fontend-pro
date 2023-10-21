@@ -88,6 +88,7 @@ export class LoginFormComponent implements OnInit {
         this.loginInOutService
           .loginIn(userToken)
           .then(() => {
+            
             this.router.navigateByUrl('default/dashboard/analysis');
           })
           .finally(() => {

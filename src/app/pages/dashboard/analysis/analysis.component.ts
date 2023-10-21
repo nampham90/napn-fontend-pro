@@ -26,6 +26,7 @@ import { HuongdanService } from '@app/core/services/http/system/huongdan.service
 import { MenusService } from '@app/core/services/http/system/menus.service';
 import { SpinService } from '@app/core/services/store/common-store/spin.service';
 import { YoutubeModalService } from '@app/widget/biz-widget/system/youtube-modal/youtube.service';
+import { SocketService } from '@app/core/services/common/socket.service';
 
 interface DataItem {
   name: string;
@@ -148,12 +149,14 @@ export class AnalysisComponent extends AbsComponent implements OnInit, AfterView
     protected override youtubeModalService: YoutubeModalService,
     protected override router: Router,
     protected override menusService: MenusService,
+    private socketService: SocketService,
     private ngZone: NgZone) {
       super(cdr,spinService,dataService,youtubeModalService,router,menusService)
     }
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.socketService.emit("loginsucess", "thang cong");
   }
 
   initMinibar(): void {
