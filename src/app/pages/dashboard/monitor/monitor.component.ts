@@ -573,31 +573,7 @@ export class MonitorComponent implements OnInit, AfterViewInit {
           }
 
           this.wordCloud();
-          // bản đồ
-          // api地址
-          // https://lbs.amap.com/demo/javascript-api/example/map-lifecycle/map-show
-          // Hãy tự đăng ký lấy chìa khóa. Đừng sử dụng Chìa khóa của tôi. Cảm ơn bạn.
-          // Địa chỉ ứng dụng https://console.amap.com/dev/key/app
-          AMapLoader.load({
-            key: '1c1b77fae2e59c25eb26ced9a0801103', //首次load必填
-            version: '1.4.15',
-            AMapUI: {
-              version: '1.1',
-              plugins: ['overlay/SimpleMarker']
-            }
-          })
-            .then(AMap => {
-              let map = new AMap.Map('map', {
-                resizeEnable: true,
-                zoom: 2,
-                center: [116.397428, 39.90923]
-              });
-              const styleName = 'amap://styles/darkblue';
-              map.setMapStyle(styleName);
-            })
-            .catch(e => {
-              console.error(e);
-            });
+         
         });
       });
   }
