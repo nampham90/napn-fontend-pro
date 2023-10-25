@@ -44,8 +44,8 @@ export class LoginInOutService {
   ) {}
 
   // Lấy mảng menu theo Id người dùng
-  getMenuByUserId(userId: string): Observable<Menu[]> {
-    return this.loginService.getMenuByUserId(userId);
+  getMenuByUserId(): Observable<Menu[]> {
+    return this.loginService.getMenuByUserId();
   }
 
   loginIn(token: string): Promise<void> {
@@ -63,7 +63,7 @@ export class LoginInOutService {
       // Lưu trữ thông tin người dùng vào dịch vụ toàn cầu
       this.userInfoService.setUserInfo(userInfo);
       
-      this.userService.getAccountDetail(userInfo.userId)
+      this.userService.getAccountDetail()
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(res=> {
           if(res.avatar) {
@@ -71,7 +71,7 @@ export class LoginInOutService {
           }
       });
       // Nhận menu do người dùng này sở hữu thông qua ID người dùng
-      this.getMenuByUserId(userInfo.userId)
+      this.getMenuByUserId()
         .pipe(
           finalize(() => {
             resolve();
@@ -107,6 +107,7 @@ export class LoginInOutService {
     return new Promise(resolve => {
       this.windowServe.removeSessionStorage(TokenKey);
       this.menuService.setMenuArrayStore([]);
+      localStorage.setItem('lang', 'vi');
       resolve();
     });
   }

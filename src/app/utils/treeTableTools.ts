@@ -44,7 +44,7 @@ const fnFlatDataHasParentToTree = function translateDataToTree(data: any[], fath
 
   // Chúng tôi tin rằng dữ liệu có parentId=0 là dữ liệu cấp một
   // dữ liệu không có nút cha
-  let parents = data.filter(value => value[fatherId] === 0)
+  let parents = data.filter(value => value.fatherId === "0" || value[fatherId] === 0)
   .sort((a, b) => a.orderNum - b.orderNum);
 
   //Dữ liệu với nút cha

@@ -54,7 +54,7 @@ export class SetRoleComponent implements OnInit {
   authCodeArr: string[] = [];
   permissionList: Array<Menu & { isOpen?: boolean; checked?: boolean }> = [];
   roleName!: string;
-  userId!: string;
+  userId!: number;
   destroyRef = inject(DestroyRef);
   @Input({ required: true }) id!: string; // Tính năng mới được hỗ trợ bởi ng16: Lấy ID vai trò từ định tuyến
   constructor(
@@ -93,7 +93,7 @@ export class SetRoleComponent implements OnInit {
   }
 
   getRoleName(): void {
-    if (this.userId != '') {
+    if (this.userId > 0) {
       this.dataService
         .getRolesDetail(this.userId)
         .pipe(takeUntilDestroyed(this.destroyRef))

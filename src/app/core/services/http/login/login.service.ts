@@ -5,7 +5,7 @@ import { delay, Observable, of } from 'rxjs';
 import { Menu } from '@core/services/types';
 import { BaseHttpService } from '@services/base-http.service';
 import { MenusService } from '@services/system/menus.service';
-
+import * as Const from '@app/common/const'
 export interface UserLogin {
   name: string;
   password: string;
@@ -22,10 +22,10 @@ export class LoginService {
   ) {}
 
   public login(params: UserLogin): Observable<string> {
-    return this.http.post('user/login', params, { needSuccessInfo: false });
+    return this.http.post(Const.Ant100UserLogin, params, { needSuccessInfo: false });
   }
 
-  public getMenuByUserId(userId: string): Observable<Menu[]> {
-    return this.http.get(`user/menu`);
+  public getMenuByUserId(): Observable<Menu[]> {
+    return this.http.post(Const.Ant100UserGetMenu,  { needSuccessInfo: false });
   }
 }

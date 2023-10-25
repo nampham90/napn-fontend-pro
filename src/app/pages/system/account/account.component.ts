@@ -163,9 +163,9 @@ export class AccountComponent implements OnInit {
   }
 
   // Cập nhật
-  edit(id: string): void {
+  edit(id: number): void {
     this.dataService
-      .getAccountDetail(id)
+      .getAccountDetail()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         this.modalService

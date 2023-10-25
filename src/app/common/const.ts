@@ -17,6 +17,8 @@ export const Ant100getAllPhongban = 'phongban/Ant100getAllPhongban';
 export const Ant100getIdPhongban = 'phongban/ant100getIdPhongban';
 
 //User account
+export const Ant100UserLogin = 'user/login';
+export const Ant100UserGetMenu = 'user/menu';
 export const Ant100findAllUser = 'user/ant100SearchAllUser';
 export const Ant100GetDetailUser = 'user/ant100GetDetailUser';
 export const Ant100EditDetailUser = 'user/ant100EditDetailUser';

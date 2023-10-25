@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 export interface UserInfo {
-  userId: string;
+  userId: number;
   authCode: string[];
   username: string;
   email: string;
@@ -14,7 +14,7 @@ export interface UserInfo {
   providedIn: 'root'
 })
 export class UserInfoService {
-  private userInfo$ = new BehaviorSubject<UserInfo>({ userId: '-1', authCode: [], username: '-1', email: '-1' });
+  private userInfo$ = new BehaviorSubject<UserInfo>({ userId: -1, authCode: [], username: '-1', email: '-1' });
 
   constructor() {}
 
@@ -30,7 +30,7 @@ export class UserInfoService {
       };
     } catch (e) {
       return {
-        userId: '-1',
+        userId: -1,
         authCode: [],
         username: '-1',
         email: '-1'

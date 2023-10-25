@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 @Injectable()
 export class LanguageInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<NzSafeAny>, next: HttpHandler): Observable<HttpEvent<NzSafeAny>> {
-        const lang = localStorage.getItem('lang') || "en";
+        const lang = localStorage.getItem('lang') || "vi";
 
         req = req.clone({
             setHeaders: {

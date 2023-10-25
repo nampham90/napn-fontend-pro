@@ -30,7 +30,7 @@ export interface User {
  * Người dùng thay đổi mật khẩu
  * */
 export interface UserPsd {
-  id: string;
+  id: number;
   oldPassword: string;
   newPassword: string;
 }
@@ -45,8 +45,8 @@ export class AccountService {
     return this.http.post(Const.Ant100findAllUser, param);
   }
 
-  public getAccountDetail(id: string): Observable<User> {
-    return this.http.get(`${Const.Ant100GetDetailUser}/${id}/`);
+  public getAccountDetail(): Observable<User> {
+    return this.http.post(Const.Ant100GetDetailUser);
   }
 
   public addAccount(param: User): Observable<void> {
