@@ -35,6 +35,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     let errMsg = '';
     if (status === 0) {
       errMsg = 'Mạng gặp phải lỗi không xác định, vui lòng kiểm tra kết nối mạng của bạn.';
+      alert("Lỗi kết nỗi máy chủ !");
     }
     if (status >= 300 && status < 400) {
       errMsg = `Mạng gặp phải lỗi không xác định, vui lòng kiểm tra kết nối mạng của bạn.${status}`;
