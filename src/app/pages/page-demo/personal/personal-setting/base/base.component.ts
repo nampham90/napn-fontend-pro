@@ -104,7 +104,7 @@ export class BaseComponent implements OnInit {
       };
     });
     if(this.userDetail.userId) {
-      this.userService.getAccountDetail()
+      this.userService.getAccountDetail(this.userDetail.userId)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res=> {
         if(res.avatar) {

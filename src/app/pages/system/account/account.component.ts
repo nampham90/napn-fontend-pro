@@ -165,9 +165,11 @@ export class AccountComponent implements OnInit {
   // Cập nhật
   edit(id: number): void {
     this.dataService
-      .getAccountDetail()
+      .getAccountDetail(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
+        res.role_id = [];
+        res.sys_roles!.map(role => res.role_id.push(role.id!));
         this.modalService
           .show({ nzTitle: 'Cập nhật' }, res)
           .pipe(takeUntilDestroyed(this.destroyRef))

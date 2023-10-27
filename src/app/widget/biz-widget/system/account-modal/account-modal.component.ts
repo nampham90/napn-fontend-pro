@@ -81,7 +81,7 @@ export class AccountModalComponent implements OnInit {
 
   getDeptList(): Promise<void> {
     return new Promise<void>(resolve => {
-      this.deptService.getDepts({ pageNum: 0, pageSize: 0 }).subscribe(({ list }) => {
+      this.deptService.getDepts({ pageNum: 1, pageSize: 10  }).subscribe(({ list }) => {
         list.forEach(item => {
           // @ts-ignore
           item.title = item.tenphongban;

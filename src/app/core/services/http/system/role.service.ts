@@ -31,7 +31,7 @@ export interface PutPermissionParam {
  * Vai trò
  * */
 export interface Role {
-  id?: string;
+  id?: number;
   rolename: string;
   mota?: string;
 }

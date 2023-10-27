@@ -13,7 +13,7 @@ export const PathSocket = "http://localhost:3006"// http://localhost:3006, http:
 export const Ant100addPhongban = 'phongban/ant100addPhongban';
 export const Ant100editPhongban = 'phongban/ant100editPhongban';
 export const Ant100delPhongban = 'phongban/ant100delPhongban';
-export const Ant100getAllPhongban = 'phongban/Ant100getAllPhongban';
+export const Ant100getAllPhongban = 'phongban/ant100getAllPhongban';
 export const Ant100getIdPhongban = 'phongban/ant100getIdPhongban';
 
 //User account

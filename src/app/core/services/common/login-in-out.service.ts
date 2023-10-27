@@ -63,7 +63,7 @@ export class LoginInOutService {
       // Lưu trữ thông tin người dùng vào dịch vụ toàn cầu
       this.userInfoService.setUserInfo(userInfo);
       
-      this.userService.getAccountDetail()
+      this.userService.getAccountDetail(userInfo.userId)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(res=> {
           if(res.avatar) {

@@ -6,8 +6,10 @@ import * as Const from 'src/app/common/const';
 import { PageInfo, SearchCommonVO } from '../../types';
 import { BaseHttpService } from '../base-http.service';
 import { TMT010FILE } from '@app/model/tmt010_file.model';
+import { Role } from './role.service';
+import { identifierName } from '@angular/compiler';
 /*
- * uản lý người dùng
+ * quản lý người dùng
  * */
 export interface User {
   id: number;
@@ -24,6 +26,10 @@ export interface User {
   departmentId?: number;
   departmentName?: string;
   avatar?: TMT010FILE;
+  sys_roles?: Role[] 
+  dienthoai?: string;
+  name?: string;
+  role_id: number[];
 }
 
 /*
@@ -45,8 +51,8 @@ export class AccountService {
     return this.http.post(Const.Ant100findAllUser, param);
   }
 
-  public getAccountDetail(): Observable<User> {
-    return this.http.post(Const.Ant100GetDetailUser);
+  public getAccountDetail(id: number): Observable<User> {
+    return this.http.post(Const.Ant100GetDetailUser, {id: id});
   }
 
   public addAccount(param: User): Observable<void> {
