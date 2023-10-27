@@ -23,8 +23,7 @@ export interface User {
   email?: string;
   lastLoginTime?: Date;
   oldPassword?: string;
-  departmentId?: number;
-  departmentName?: string;
+  phongban_id?: number;
   avatar?: TMT010FILE;
   sys_roles?: Role[] 
   dienthoai?: string;
@@ -60,7 +59,7 @@ export class AccountService {
   }
 
   public delAccount(ids: number[]): Observable<void> {
-    return this.http.post('/user/del/', { ids });
+    return this.http.post(Const.Ant100DeleteUsers, { ids:ids });
   }
 
   public editAccount(param: User): Observable<void> {

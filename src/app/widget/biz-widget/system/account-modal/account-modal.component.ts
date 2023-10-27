@@ -102,12 +102,11 @@ export class AccountModalComponent implements OnInit {
       password: ['a123456', [Validators.required, this.validatorsService.passwordValidator()]],
       sex: [1],
       available: [true],
-      zalo: [null, [this.validatorsService.mobileValidator()]],
+      // zalo: [null, [this.validatorsService.mobileValidator()]],
       dienthoai: [null, [this.validatorsService.mobileValidator()]],
       email: [null, [this.validatorsService.emailValidator()]],
       role_id: [null, [Validators.required]],
       phongban_id: [null, [Validators.required]],
-      departmentName: [null]
     });
   }
 

@@ -22,6 +22,7 @@ export const Ant100UserGetMenu = 'user/menu';
 export const Ant100findAllUser = 'user/ant100SearchAllUser';
 export const Ant100GetDetailUser = 'user/ant100GetDetailUser';
 export const Ant100EditDetailUser = 'user/ant100EditDetailUser';
+export const Ant100DeleteUsers = 'user/ant100DeleteUsers';
 export const Ant100AddDetailUser = 'user/ant100AddDetailUser';
 export const Ant100CheckEmailUser = 'user/ant100CheckEmailUser';
 export const Ant100CheckNameUser = 'user/ant100CheckNameUser';
