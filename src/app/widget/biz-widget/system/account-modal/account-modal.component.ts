@@ -126,18 +126,28 @@ export class AccountModalComponent implements OnInit {
   }
 
   checkEmail(email: string) {
-    this.accountService.checkEmail(email).subscribe(check =>{
-      if(check) {
-         this.addEditForm.controls['email'].setErrors({'message': this.vf.errorMessages.email.emaildb});
-      }
-    })
+    if(!email) {
+      this.addEditForm.controls['email'].setErrors({'message': this.vf.errorMessages.email.required});
+    } else {
+      this.accountService.checkEmail(email).subscribe(check =>{
+        if(check) {
+           this.addEditForm.controls['email'].setErrors({'message': this.vf.errorMessages.email.emaildb});
+        }
+      })
+    }
+
   }
 
   checkName(name: string) {
-    this.accountService.checkName(name).subscribe(check => {
-      if(check) {
-        this.addEditForm.controls['name'].setErrors({'message': this.vf.errorMessages.name.namedb});
-      }
-    })
+    if(!name) {
+      this.addEditForm.controls['name'].setErrors({'message': this.vf.errorMessages.name.required});
+    } else {
+      this.accountService.checkName(name).subscribe(check => {
+        if(check) {
+          this.addEditForm.controls['name'].setErrors({'message': this.vf.errorMessages.name.namedb});
+        }
+      })
+    }
+
   }
 }

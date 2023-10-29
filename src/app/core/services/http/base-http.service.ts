@@ -50,7 +50,6 @@ export class BaseHttpService {
   post<T>(path: string, param?: NzSafeAny, config?: HttpCustomConfig): Observable<T> {
     config = config || { needSuccessInfo: false };
     let reqPath = this.getUrl(path, config);
-    console.log(reqPath);
     return this.http.post<ActionResult<T>>(reqPath, param).pipe(this.resultHandle<T>(config));
   }
 

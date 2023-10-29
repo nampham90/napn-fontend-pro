@@ -100,15 +100,12 @@ export class LayoutHeadRightMenuComponent implements OnInit {
           newPassword: modalValue.newPassword
         };
       });
-      this.accountService.editAccountPsd(this.user).subscribe((res) => {
-        if(res['msgId'] == "") {
+      this.accountService.editAccountPsd(this.user)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
           this.loginOutService.loginOut().then();
           this.message.success('Sửa đổi thành công, vui lòng đăng nhập lại');
-        } else {
-          this.modalSrv.info({nzTitle: res['msgId'],nzContent: res['msgError']});
-        }
-       
-      });
+        });
     });
   }
 

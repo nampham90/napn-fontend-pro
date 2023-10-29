@@ -36,7 +36,7 @@ export class ValidationFormService {
       email: {
         required: 'Không được để trống.',
         email: 'Địa chỉ Email không đúng.',
-        emaildb: 'Email đã tồn tại.'
+        emaildb: 'Email đã tồn tại.',
       },
       password: {
         required: 'Password không được để trống',

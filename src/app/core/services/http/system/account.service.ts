@@ -40,6 +40,12 @@ export interface UserPsd {
   newPassword: string;
 }
 
+export interface Result {
+  code: number,
+  message: string,
+  data?: any
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -66,7 +72,7 @@ export class AccountService {
     return this.http.put(Const.Ant100EditDetailUser, param);
   }
 
-  public editAccountPsd(param: UserPsd): Observable<any> {
+  public editAccountPsd(param: UserPsd): Observable<Result> {
     return this.http.put(Const.Ant100ChangePasswordUser, param);
   }
 
