@@ -46,8 +46,8 @@ export class RoleService {
     return this.http.post(Const.Ant100SearchAllRole, param);
   }
 
-  public getRolesDetail(id: string | number): Observable<Role> {
-    return this.http.get(`${Const.Ant100GetDetailRole}/${id}/`);
+  public getRolesDetail(id: number): Observable<Role> {
+    return this.http.post(Const.Ant100GetDetailRole, {id:id});
   }
 
   public addRoles(param: Role): Observable<void> {
