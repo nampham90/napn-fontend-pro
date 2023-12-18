@@ -1,0 +1,8 @@
+product => spmt00101(màn hình tìm kiếm sản phẩm) 
+product => spmt00201(màn hình import sản phẩm) 
+product => spmt00501(màn hình thêm mới sản phẩm và cập nhật sản phẩm);
+
+
+nhaphang => spin00251(màn hình tạo đơn hang, chỉnh sửa đơn hàng)
+nhaphang => spin00301(màn hình tìm kiếm đơn hàng)
+

@@ -40,6 +40,10 @@ export default [
         loadComponent: () => import('../../pages/about/about.component').then(m => m.AboutComponent)
       },
       {
+        path: 'product',
+        loadChildren: () => import('../../pages/product/product-routing')
+      },
+      {
         path: 'system',
         loadChildren: () => import('../../pages/system/system-routing')
       }

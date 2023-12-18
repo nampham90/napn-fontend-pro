@@ -110,6 +110,7 @@ export class DatascComponent extends AbsComponent implements OnInit {
   searchMenutDatasc(idmenu: any): void {
     this.idmenu = idmenu;
     this.searchParam.idmenu = idmenu;
+  
     this.getDataList();
     this.getNameMenu(this.idmenu);
   }
@@ -184,6 +185,9 @@ export class DatascComponent extends AbsComponent implements OnInit {
       pageNum: e?.pageIndex || this.tableConfig.pageIndex!,
       filters: this.searchParam
     };
+    if(!e) {
+       params.pageNum = 1
+    }
     this.datascService
       .getDataSc(params)
       .pipe(

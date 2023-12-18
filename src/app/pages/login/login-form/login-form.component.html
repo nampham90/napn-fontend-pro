@@ -5,14 +5,14 @@
         <nz-form-item>
           <nz-form-control nzErrorTip="Email: namandroid.it@gmail.com">
             <nz-input-group nzPrefixIcon="mail" [nzSize]="'large'">
-              <input type="text" formControlName="email" nz-input placeholder="Email người dùng" [placeholder]="'Email: namandroid.it@gmail.com'" />
+              <input type="text" id="email" name="email" formControlName="email" nz-input placeholder="Email người dùng" [placeholder]="'Email: namandroid.it@gmail.com'" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
           <nz-form-control nzErrorTip="Password: Nampham90">
             <nz-input-group nzPrefixIcon="lock" [nzSize]="'large'">
-              <input type="password" autocomplete="on" formControlName="password" nz-input placeholder="Mật khẩu" [placeholder]="'Mật khẩu: Nampham90'" />
+              <input type="password" id="password" name="password" autocomplete="on" formControlName="password" nz-input placeholder="Mật khẩu" [placeholder]="'Mật khẩu: Nampham90'" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
