@@ -193,9 +193,7 @@ export class ModalWrapService {
       },
       nzClosable: true,
       nzWidth: 720,
-      nzComponentParams: {
-        params
-      } // Các thuộc tính trong tham số sẽ được truyền vào instance nzContent
+      nzData: params  // Các thuộc tính trong tham số sẽ được truyền vào instance nzContent
     };
     const newOptions = _.merge(defaultOptions, modalOptions);
     newOptions.nzWrapClassName = `${newOptions.nzWrapClassName || ''} ${wrapCls}`;

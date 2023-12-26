@@ -229,7 +229,7 @@ export class TabService {
       params = snapshot.params;
       // @ts-ignore
       urlWithOutParam = this.getCurrentPathWithoutParam(snapshot['_urlSegment'].segments, params);
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigateByUrl('/blank/global-loading', { skipLocationChange: true }).then(() => {
         SimpleReuseStrategy.deleteRouteSnapshot(key);
         this.router.navigate([urlWithOutParam, ...Object.values(params)]);
       });
@@ -239,7 +239,7 @@ export class TabService {
       const sourceUrl = this.router.url;
       const currentRoute = fnGetPathWithoutParam(sourceUrl);
       //Đó là tham số truy vấn
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigateByUrl('/blank/global-loading', { skipLocationChange: true }).then(() => {
         SimpleReuseStrategy.deleteRouteSnapshot(key);
         this.router.navigate([currentRoute], { queryParams: params });
       });
