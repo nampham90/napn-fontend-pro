@@ -15,14 +15,10 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
   standalone: true,
   imports: [PageHeaderComponent, NzGridModule, NzCardModule, NzButtonModule, NzWaveModule, NzIconModule]
 })
-export class BasicComponent implements OnInit {
+export class BasicComponent{
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: 'Thành phần cơ bản',
     breadcrumb: ['Home', 'Các thành phần', 'Thành phần cơ bản'],
     desc: 'Một loạt các thành phần cơ bản'
   };
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

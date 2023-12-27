@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { PageHeaderType } from '@shared/components/page-header/page-header.component';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -17,7 +17,7 @@ import { PageHeaderComponent } from '../../../shared/components/page-header/page
     standalone: true,
     imports: [PageHeaderComponent, NzGridModule, NzCardModule, NzButtonModule, NzInputModule, FormsModule, PasswordStrengthMeterComponent, NzIconModule]
 })
-export class StrengthMeterComponent implements OnInit {
+export class StrengthMeterComponent {
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: 'Thành phần xác minh độ mạnh mật khẩu',
     breadcrumb: ['Home', 'Các thành phân', 'Thành phần xác minh độ mạnh mật khẩu'],
@@ -25,8 +25,4 @@ export class StrengthMeterComponent implements OnInit {
   };
   passwordVisible = false;
   newPassword!: string;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

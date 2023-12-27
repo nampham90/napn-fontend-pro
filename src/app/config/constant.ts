@@ -23,4 +23,9 @@ export const tokenErrorCode = 1010;
 // Độ rộng tối đa của chế độ mở rộng của menu bên trái
 export const SideCollapsedMaxWidth = 700;
 // Độ rộng tối đa của chế độ mở rộng của menu bên trái
-export const TopCollapsedMaxWidth = 1244;
+export const TopCollapsedMaxWidth = 1247;
+
+// Chiều rộng của menu bên trái
+export const SideNavWidth = 208; // Nếu được sửa đổi, vui lòng sửa đổi đồng thời giá trị của @left-nav-width.
+// Độ rộng của menu bên trái ở trạng thái thu gọn
+export const CollapsedNavWidth = 48; // Nếu được sửa đổi, vui lòng sửa đổi đồng thời giá trị của @collapsed-nav-width.

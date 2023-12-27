@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { NzIconService } from 'ng-zorro-antd/icon';
 
@@ -7,8 +7,7 @@ import { NzIconService } from 'ng-zorro-antd/icon';
   providedIn: 'root'
 })
 export class LoadAliIconCdnService {
-  constructor(private iconService: NzIconService) {}
-
+  private iconService = inject(NzIconService);
   load(): void {
     // Bạn phải truy cập trang web chính thức của Thư viện Biểu tượng Alibaba để tự tạo js này.
     this.iconService.fetchFromIconfont({

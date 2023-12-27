@@ -24,6 +24,8 @@ export interface ReuseComponentRef {
 // https://blog.csdn.net/weixin_30561425/article/details/96985967?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control
 export class SimpleReuseStrategy implements RouteReuseStrategy {
   destroyRef = inject(DestroyRef);
+  private readonly doc = inject(DOCUMENT);
+  private readonly scrollService = inject(ScrollService);
 // Lưu trữ bản đồ của từng thành phần
   static handlers: { [key: string]: NzSafeAny } = {};
 // Cache vị trí cuộn của mỗi trang, tại sao không đặt nó vào bộ xử lý, vì khi tuyến rời đi, việc sử dụng lại tuyến khiến trang hiện tại làm khóa bị rỗng
@@ -57,7 +59,6 @@ export class SimpleReuseStrategy implements RouteReuseStrategy {
     });
   }
 
-  constructor(@Inject(DOCUMENT) private doc: Document, private scrollService: ScrollService) {}
 
   // Có cho phép sử dụng lại tuyến đường hay không
   shouldDetach(route: ActivatedRouteSnapshot): boolean {

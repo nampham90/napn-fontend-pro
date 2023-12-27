@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
@@ -27,8 +27,9 @@ export interface ActionResult<T> {
 })
 export class BaseHttpService {
   uri: string;
-
-  protected constructor(public http: HttpClient, public message: NzMessageService, public windowServe:WindowService) {
+  http = inject(HttpClient);
+  message = inject(NzMessageService);
+  protected constructor() {
     this.uri = environment.production ? localUrl : '/site/api';
   }
 

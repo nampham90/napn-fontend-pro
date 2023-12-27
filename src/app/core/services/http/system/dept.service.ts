@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import * as Const from 'src/app/common/const';
@@ -23,7 +23,7 @@ export interface Dept {
   providedIn: 'root'
 })
 export class DeptService {
-  constructor(public http: BaseHttpService) {}
+  http = inject(BaseHttpService);
 
   public getDepts(param: SearchCommonVO<Dept>): Observable<PageInfo<Dept>> {
     return this.http.post(Const.Ant100getAllPhongban, param);

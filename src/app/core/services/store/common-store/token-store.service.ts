@@ -8,8 +8,6 @@ export class TokenStoreService {
 
   private globalToken$ = new BehaviorSubject<string>('');
 
-  constructor() { }
-
   setGlobalTokenStore(token: string):void {
     this.globalToken$.next(token);
   }

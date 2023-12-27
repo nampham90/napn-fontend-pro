@@ -14,10 +14,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
   standalone: true,
   imports: [PageHeaderComponent, NzCardModule, NzDescriptionsModule, NzTagModule, DatePipe]
 })
-export class AboutComponent implements OnInit, OnDestroy {
-  ngOnDestroy(): void {
-    console.log('123');
-  }
+export class AboutComponent  {
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: 'Về chúng tôi',
     breadcrumb: ['Home', 'Các tính năng mở rộng', 'Về chúng tôi'],
@@ -25,7 +22,5 @@ export class AboutComponent implements OnInit, OnDestroy {
   };
   data = new Date();
   dateFormat = DateFormat.DateTime;
-  constructor() {}
 
-  ngOnInit(): void {}
 }

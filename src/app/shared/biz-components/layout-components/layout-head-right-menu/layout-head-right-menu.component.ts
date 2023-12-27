@@ -49,28 +49,25 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   ]
 })
 export class LayoutHeadRightMenuComponent implements OnInit {
+  private router = inject(Router);
+  private changePasswordModalService = inject(ChangePasswordService);
+  private loginOutService = inject(LoginInOutService);
+  private lockWidgetService = inject(LockWidgetService);
+  private windowServe = inject(WindowService);
+  private searchRouteService = inject(SearchRouteService);
+  private message = inject(NzMessageService);
+  private userInfoService = inject(UserInfoService);
+  private accountService = inject(AccountService);
+
+  private avatarService = inject(AvatarStoreService);
+  public translate = inject(TranslateService);
   user!: UserPsd;
   userDetail!: UserInfo;
   totalNotifi = 0;
   linkavatar = signal("");
   destroyRef = inject(DestroyRef);
   User!: User
-  constructor(
-    private router: Router,
-    private changePasswordModalService: ChangePasswordService,
-    private spinService: SpinService,
-    private loginOutService: LoginInOutService,
-    private lockWidgetService: LockWidgetService,
-    private windowServe: WindowService,
-    private activatedRoute: ActivatedRoute,
-    private searchRouteService: SearchRouteService,
-    public message: NzMessageService,
-    private userInfoService: UserInfoService,
-    private accountService: AccountService,
-    private modalSrv: NzModalService,
-    private avatarService: AvatarStoreService,
-    public translate: TranslateService
-  ) {
+  constructor() {
     this.translate.setDefaultLang(localStorage.getItem('lang') || 'vi');
   }
 

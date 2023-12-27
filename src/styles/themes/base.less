@@ -40,7 +40,12 @@ input:focus {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3, 
+h4, 
+h5, 
+h6 {
   margin-bottom: 0;
 }
 
@@ -53,7 +58,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .text-break {
-  word-break: break-all
+  word-break: break-all;
 }
 
 .full-height {
@@ -107,7 +112,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .text-left {
-  text-align: left !important;;
+  text-align: left !important;
 }
 
 .text-center {
@@ -115,7 +120,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .text-right {
-  text-align: right !important;;
+  text-align: right !important;
 }
 
 .pull-left {
@@ -160,6 +165,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .m-r-8 {
   margin-right: 8px !important;
+}
+
+.m-r-10 {
+  margin-right: 10px !important;
 }
 
 .m-r-15 {
@@ -442,7 +451,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .animate-03 {
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .clear-fix::after {
@@ -477,7 +486,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .text-error {
-  color: #f5222d !important
+  color: #f5222d !important;
 }
 
 .grey-color {
@@ -514,7 +523,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .center {
   display: flex;
-  .center-fn()
+  .center-fn();
 }
 
 .flex {
@@ -534,19 +543,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .end-start-center {
-  .center-fn(flex-end)
+  .center-fn(flex-end);
 }
 
 .left-start-center {
-  .center-fn(flex-start)
+  .center-fn(flex-start);
 }
 
 .space-between {
-  .center-fn(space-between)
+  .center-fn(space-between);
 }
 
 .space-around {
-  .center-fn(space-around)
+  .center-fn(space-around);
 }
 
 
@@ -579,7 +588,7 @@ h1, h2, h3, h4, h5, h6 {
       flex: 1 1;
       font-size: 16px;
       line-height: 24px;
-      opacity: .85;
+      opacity: 0.85;
       will-change: transform;
     }
 
@@ -637,7 +646,9 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+.ant-menu-inline,
+.ant-menu-vertical,
+.ant-menu-vertical-left {
   border: none;
 }
 
@@ -647,6 +658,12 @@ nz-date-picker {
 
 input[nz-input] {
   .animate-bg-0;
+}
+
+.cdk-global-overlay-wrapper{
+  z-index: unset;
+  position:unset;
+  display: unset;
 }
 
 // https://github.com/angular/angular/pull/42608

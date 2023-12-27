@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import * as Const from 'src/app/common/const';
@@ -50,7 +50,7 @@ export interface Result {
   providedIn: 'root'
 })
 export class AccountService {
-  constructor(public http: BaseHttpService) {}
+  http = inject(BaseHttpService);
 
   public getAccount(param: SearchCommonVO<User>): Observable<any> {
     return this.http.post(Const.Ant100findAllUser, param);

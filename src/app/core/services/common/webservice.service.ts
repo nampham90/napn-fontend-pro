@@ -2,7 +2,7 @@
 
 import { BaseHttpService } from '@services/base-http.service';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as Const from '@app/common/const';
 export interface Product {
@@ -25,12 +25,8 @@ export interface  ObjectDataSC{
 export class WebserviceService {
   urlApi = 'https://fakestoreapi.com/';
   provincesApi = Const.tinhthanhApi;
-  constructor(
-    public http: BaseHttpService,
-    private httpt: HttpClient
-  ) { 
-    
-  }
+  public http = inject(BaseHttpService) ;
+  private httpt = inject(HttpClient);
 
   httpOptions = {
     headers: new HttpHeaders({

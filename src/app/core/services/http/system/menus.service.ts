@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Menu, PageInfo, SearchCommonVO } from '@core/services/types';
@@ -29,7 +29,7 @@ export interface DatascObj {
   providedIn: 'root'
 })
 export class MenusService {
-  constructor(public http: BaseHttpService) {}
+  http = inject(BaseHttpService);
 
   public getMenuList(param: SearchCommonVO<any>): Observable<PageInfo<Menu>> {
     return this.http.post(Const.Ant100ListMenu, param);

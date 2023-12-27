@@ -27,21 +27,18 @@ import { SocketService } from './socket.service';
   providedIn: 'root'
 })
 export class LoginInOutService {
-  destroyRef = inject(DestroyRef);
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private tabService: TabService,
-    private loginService: LoginService,
-    private userService: AccountService,
-    private router: Router,
-    private userInfoService: UserInfoService,
-    private menuService: MenuStoreService,
-    private windowServe: WindowService,
-    private avatarService: AvatarStoreService,
-    private tokenStoreService: TokenStoreService,
-    private socketService: SocketService
-  ) {}
+  private destroyRef = inject(DestroyRef);
+  private activatedRoute = inject(ActivatedRoute);
+  private tabService = inject(TabService);
+  private loginService = inject(LoginService);
+  private router = inject(Router);
+  private userInfoService = inject(UserInfoService);
+  private menuService = inject(MenuStoreService);
+  private windowServe = inject(WindowService);
+  private avatarService = inject(AvatarStoreService);
+  private tokenStoreService = inject(TokenStoreService);
+  private socketService = inject(SocketService);
+  private userService= inject(AccountService);
 
   // Lấy mảng menu theo Id người dùng
   getMenuByUserId(): Observable<Menu[]> {

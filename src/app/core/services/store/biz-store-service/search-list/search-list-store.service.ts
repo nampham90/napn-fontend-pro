@@ -10,8 +10,6 @@ type componentName = 'Danh sách tìm kiếm (Bài viết)' | 'Danh sách tìm k
 export class SearchListStoreService {
   private SearchListComponentStore = new Subject<componentName>();
 
-  constructor() {}
-
   setCurrentSearchListComponentStore(componentName: componentName): void {
     this.SearchListComponentStore.next(componentName);
   }

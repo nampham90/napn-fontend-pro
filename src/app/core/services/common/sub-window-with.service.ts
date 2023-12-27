@@ -20,9 +20,10 @@ export class SubWindowWithService {
     '(min-width: 1200px) and (max-width: 1599.98px)': [EquipmentWidth.xl, [1200, 1599.98]],
     '(min-width: 1600px)': [EquipmentWidth.xxl, [1600, 9999]]
   };
-  destroyRef = inject(DestroyRef);
-
-  constructor(private winWidthService: WindowsWidthService, private breakpointObserver: BreakpointObserver, private themesService: ThemeService) {}
+  private destroyRef = inject(DestroyRef);
+  private winWidthService = inject(WindowsWidthService);
+  private breakpointObserver = inject(BreakpointObserver);
+  private themesService = inject(ThemeService);
 
   // Theo dõi chủ đề (trên cùng hoặc bên cạnh) và xác định độ rộng tối thiểu của chế độ trên
   subWidthForTheme(): void {

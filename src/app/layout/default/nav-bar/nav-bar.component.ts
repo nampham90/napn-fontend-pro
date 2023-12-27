@@ -1,5 +1,5 @@
 import { DOCUMENT, NgIf, NgTemplateOutlet, NgFor, AsyncPipe } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input, Inject, inject, DestroyRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input, Inject, inject, DestroyRef, booleanAttribute } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
@@ -26,42 +26,44 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
   templateUrl: './nav-bar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, NzMenuModule, NzNoAnimationModule, NgTemplateOutlet, NgFor, TrackByPropertyDirective, AuthDirective, NzButtonModule, NzIconModule, RouterLink, AsyncPipe]
+  imports: [NzMenuModule, NzNoAnimationModule, NgTemplateOutlet, AuthDirective, NzButtonModule, NzIconModule, RouterLink, AsyncPipe]
 })
 export class NavBarComponent implements OnInit {
-  @Input() isMixiHead = false; // Là chế độ kết hợp điều hướng trên cùng
-  @Input() isMixiLeft = false;
+  @Input({ transform: booleanAttribute })
+  isMixinHead = false; // Là chế độ kết hợp điều hướng trên cùng
+  @Input({ transform: booleanAttribute })
+  isMixinLeft = false;
+
+  private router = inject(Router);
+  private userInfoService = inject(UserInfoService);
+  private menuServices = inject(MenuStoreService);
+  private splitNavStoreService = inject(SplitNavStoreService);
+  private activatedRoute = inject(ActivatedRoute);
+  private tabService = inject(TabService);
+  private cdr = inject(ChangeDetectorRef);
+  private themesService = inject(ThemeService);
+
+  routerPath = this.router.url;
+  menus: Menu[] = [];
+  copyMenus: Menu[] = [];
+  authCodeArray: string[] = [];
 
   themesOptions$ = this.themesService.getThemesMode();
   isNightTheme$ = this.themesService.getIsNightTheme();
   isCollapsed$ = this.themesService.getIsCollapsed();
   isOverMode$ = this.themesService.getIsOverMode();
   leftMenuArray$ = this.splitNavStoreService.getSplitLeftNavArrayStore();
+  subTheme$: Observable<any>;
 
-  routerPath = this.router.url;
   themesMode: ThemeMode['key'] = 'side';
   isOverMode = false;
   isCollapsed = false;
-  isMixiMode = false;
+  isMixinMode = false;
   leftMenuArray: Menu[] = [];
-  menus: Menu[] = [];
-  copyMenus: Menu[] = [];
-  authCodeArray: string[] = [];
-  subTheme$: Observable<any>;
+
   destroyRef = inject(DestroyRef);
 
-  constructor(
-    private router: Router,
-    private userInfoService: UserInfoService,
-    private menuServices: MenuStoreService,
-    private splitNavStoreService: SplitNavStoreService,
-    private activatedRoute: ActivatedRoute,
-    private tabService: TabService,
-    private cdr: ChangeDetectorRef,
-    private themesService: ThemeService,
-    private titleServe: Title,
-    @Inject(DOCUMENT) private doc: Document
-  ) {
+  constructor() {
     this.initMenus();
 
     this.subTheme$ = this.isOverMode$.pipe(
@@ -71,9 +73,8 @@ export class NavBarComponent implements OnInit {
       }),
       tap(options => {
         this.themesMode = options.mode;
-        this.isMixiMode = this.themesMode === 'mixi';
+        this.isMixinMode = this.themesMode === 'mixi';
       }),
-      share(),
       takeUntilDestroyed(this.destroyRef)
     );
 
@@ -89,7 +90,7 @@ export class NavBarComponent implements OnInit {
           this.subTheme$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             // Chuyển đổi chủ đề sang chế độ kết hợp, thiết lập nguồn dữ liệu cho menu bên trái
             //  Nếu đặt trong ngInit để lắng nghe, khi chế độ kết hợp, sau khi làm mới trang và chuyển đổi định tuyến, sẽ có runOutSideAngular
-            if (this.isMixiMode) {
+            if (this.isMixinMode) {
               this.setMixModeLeftMenu();
             }
           });
@@ -124,27 +125,9 @@ export class NavBarComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(routeData => {
-        // Trang chi tiết có được mở dưới dạng tab mới hay không
+        // Trang chi tiết có mở trang tab mới hay không
         let isNewTabDetailPage = routeData['newTab'] === 'true';
-
-        let route = this.activatedRoute;
-        while (route.firstChild) {
-          route = route.firstChild;
-        }
-
-        this.tabService.addTab(
-          {
-            snapshotArray: [route.snapshot],
-            title: routeData['title'],
-            path: this.routerPath
-          },
-          isNewTabDetailPage
-        );
-        this.tabService.findIndex(this.routerPath);
-        // Từ Angular 16 trở đi, bạn có thể thiết lập tiêu đề trực tiếp trong định tuyến
-        this.titleServe.setTitle(`${routeData['title']} - Ant Design`);
-        // Khi ở chế độ kết hợp, khi chuyển đổi tab, menu bên trái cũng thay đổi tương ứng
-        this.setMixModeLeftMenu();
+        this.routeEndAction(isNewTabDetailPage);
       });
   }
 
@@ -308,6 +291,30 @@ export class NavBarComponent implements OnInit {
     });
   }
 
+  routeEndAction(isNewTabDetailPage = false): void {
+    let route = this.activatedRoute;
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+
+    let title = 'Ant Design';
+    if (typeof route.routeConfig?.title === 'string') {
+      title = route.routeConfig?.title;
+    }
+
+    this.tabService.addTab(
+      {
+        snapshotArray: [route.snapshot],
+        title,
+        path: this.routerPath
+      },
+      isNewTabDetailPage
+    );
+    this.tabService.findIndex(this.routerPath);
+    // Ở chế độ hỗn hợp, chuyển đổi tab để menu bên trái thay đổi tương ứng.
+    this.setMixModeLeftMenu();
+  }
+
   ngOnInit(): void {
     // Trong chế độ top, hãy đóng trạng thái mở của menu
     this.subTheme$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(options => {
@@ -315,5 +322,6 @@ export class NavBarComponent implements OnInit {
         this.closeMenu();
       }
     });
+    this.routeEndAction();
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { first } from 'rxjs/operators';
 
 import { LockedKey, salt } from '@config/constant';
@@ -11,8 +11,8 @@ import { fnDecrypt, fnEncrypt } from '@utils/tools';
   providedIn: 'root'
 })
 export class SubLockedStatusService {
-  constructor(private windowSer: WindowService, private lockScreenStoreService: LockScreenStoreService) {}
-
+  private windowSer = inject(WindowService);
+  private lockScreenStoreService = inject(LockScreenStoreService);
   initLockedStatus(): void {
     //Xác định xem có bộ đệm không
     const hasCash = this.windowSer.getSessionStorage(LockedKey);

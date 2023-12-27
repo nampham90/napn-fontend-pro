@@ -18,9 +18,10 @@ import { SideNavComponent } from '../side-nav/side-nav.component';
 })
 export class NavDrawerComponent implements OnInit {
   isShowModal = false;
-  themesOptions$ = this.themesService.getThemesMode();
   destroyRef = inject(DestroyRef);
-  constructor(private cdr: ChangeDetectorRef, private themesService: ThemeService) {}
+  private cdr = inject(ChangeDetectorRef);
+  private themesService = inject(ThemeService);
+  themesOptions$ = this.themesService.getThemesMode();
 
   subTheme(): void {
     this.themesService

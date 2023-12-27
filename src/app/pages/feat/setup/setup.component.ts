@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 
 import { DriverService } from '@core/services/common/driver.service';
 import { PageHeaderType, PageHeaderComponent } from '@shared/components/page-header/page-header.component';
@@ -19,7 +19,7 @@ export class SetupComponent implements OnInit {
     desc: 'Dùng để hướng dẫn người dùng'
   };
 
-  constructor(private driverService: DriverService) {}
+  private driverService = inject(DriverService);
 
   go(): void {
     this.driverService.load();

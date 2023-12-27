@@ -18,7 +18,10 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
   standalone: true,
   imports: [PageHeaderComponent, AdDirective]
 })
-export class LazyScrollComponent implements OnInit, AfterViewInit {
+export class LazyScrollComponent implements  AfterViewInit {
+  private lazyServiceService = inject(LazyServiceService);
+  private zone = inject(NgZone);
+  private cdr = inject(ChangeDetectorRef);
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: 'Ví dụ về thành phần tải lười biếng cuộn',
     breadcrumb: ['Home', 'Các thành phần', 'cuộn tải lười biếng'],
@@ -26,9 +29,6 @@ export class LazyScrollComponent implements OnInit, AfterViewInit {
   };
   @ViewChild(AdDirective, { static: true }) adHost!: AdDirective;
   destroyRef = inject(DestroyRef);
-  constructor(private lazyServiceService: LazyServiceService, private zone: NgZone, private cdr: ChangeDetectorRef) {}
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.lazyServiceService.adHost = this.adHost;

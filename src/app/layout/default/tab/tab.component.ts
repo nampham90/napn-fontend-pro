@@ -28,6 +28,13 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
   imports: [NgIf, NzCardModule, NzTabsModule, NgFor, NzDropDownModule, NzMenuModule, NzButtonModule, NgClass, NgStyle, MouseHoverShowDirective, NzIconModule, AsyncPipe]
 })
 export class TabComponent implements OnInit {
+  private tabService = inject(TabService);
+  private nzContextMenuService = inject(NzContextMenuService);
+  private splitNavStoreService = inject(SplitNavStoreService);
+  private themesService = inject(ThemeService);
+  router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
+
   tabsSourceData: TabModel[] = [];
   tabsSourceData$ = this.tabService.getTabArray$();
   themesOptions$ = this.themesService.getThemesMode();
@@ -38,12 +45,6 @@ export class TabComponent implements OnInit {
   destroyRef = inject(DestroyRef);
 
   constructor(
-    public tabService: TabService,
-    private nzContextMenuService: NzContextMenuService,
-    private splitNavStoreService: SplitNavStoreService,
-    private themesService: ThemeService,
-    public router: Router,
-    public cdr: ChangeDetectorRef
   ) {
     this.router.events
       .pipe(filter((event: NzSafeAny) => event instanceof NavigationEnd))
