@@ -1,1 +1,7 @@
-<p>spmt00101 works!</p>
+<app-page-header [pageHeaderInfo]="pageHeaderInfo" />
+@if(showHello === false) {
+    <h2>Hello</h2>
+} 
+@else {
+    <p>{{formItemNm[2]}}</p>
+}

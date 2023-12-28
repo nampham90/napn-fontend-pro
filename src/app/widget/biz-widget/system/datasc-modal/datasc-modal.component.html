@@ -18,7 +18,9 @@
       <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="lang">Ngôn ngữ</nz-form-label>
       <nz-form-control [nzSm]="18" [nzXs]="24" [nzErrorTip]="combineTpl">
         <nz-select nzShowSearch nzAllowClear  formControlName="lang" nzPlaceHolder="Ngôn ngữ">
-          <nz-option *ngFor="let option of lang" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+          @for (item of lang; track item){
+            <nz-option  [nzLabel]="item.label" [nzValue]="item.value"></nz-option>
+          }
         </nz-select>
       </nz-form-control>
     </nz-form-item>

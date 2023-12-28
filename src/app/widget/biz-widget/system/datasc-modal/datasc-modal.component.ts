@@ -92,7 +92,7 @@ export class DatascModalComponent implements OnInit{
       return of(false);
     }
     let obj : DataScObj = {
-      idmenu: this.params.idmenu,
+      idmenu: this.nzModalData.idmenu,
       title1: this.addEditForm.value.title1,
       title2:  this.addEditForm.value.title2,
       lang: this.addEditForm.value.lang,
@@ -110,7 +110,7 @@ export class DatascModalComponent implements OnInit{
       title1: [null, [Validators.required]],
       title2: [null],
       status: [true],
-      lang: [null, [Validators.required]],
+      lang: ['vi', [Validators.required]],
       vitri: [null],
       list: this.listdatasc
     });
