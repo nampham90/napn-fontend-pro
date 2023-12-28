@@ -6,8 +6,5 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
 })
-export class EmptyComponent implements OnInit {
-  constructor() {}
+export class EmptyComponent {}
 
-  ngOnInit(): void {}
-}

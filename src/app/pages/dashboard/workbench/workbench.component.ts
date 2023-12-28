@@ -43,7 +43,9 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     NumberLoopPipe
   ]
 })
-export class WorkbenchComponent implements OnInit, AfterViewInit {
+export class WorkbenchComponent implements AfterViewInit {
+  public msg = inject(NzMessageService);
+  private ngZone = inject(NgZone);
   @ViewChild('pageHeaderContent', { static: false }) pageHeaderContent!: TemplateRef<NzSafeAny>;
   destroyRef = inject(DestroyRef);
   radarData = [
@@ -73,10 +75,6 @@ export class WorkbenchComponent implements OnInit, AfterViewInit {
     breadcrumb: [],
     desc: ''
   };
-
-  constructor(private fb: FormBuilder, public msg: NzMessageService, private ngZone: NgZone) {}
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.pageHeaderInfo = {

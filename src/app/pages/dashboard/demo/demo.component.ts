@@ -1,4 +1,4 @@
-import { Component ,ChangeDetectionStrategy, ChangeDetectorRef, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import { Component ,ChangeDetectionStrategy, ChangeDetectorRef, OnInit, ViewChild, TemplateRef, inject} from '@angular/core';
 import { Router } from '@angular/router';
 import { HuongdanService } from '@app/core/services/http/system/huongdan.service';
 import { MenusService } from '@app/core/services/http/system/menus.service';
@@ -31,28 +31,23 @@ interface SearchParam {
 })
 export class DemoComponent extends AbsComponent implements OnInit{
 
+  protected override cdr = inject(ChangeDetectorRef);
+  protected override spinService = inject(SpinService);
+  protected override dataService = inject(HuongdanService);
+  protected override youtubeModalService = inject(YoutubeModalService);
+  protected override router = inject(Router);
+  protected override menusService = inject(MenusService);
+  private message = inject(NzMessageService);
+  private demoStoreService = inject(DemoStoreService);
+  private subdemoService = inject(SubdemoService);
+  private modalSrv = inject(NzModalService);
+
   tableConfig! : AntTableConfig;
   dataList: Product[] = [];
   checkedCashArray: Product[] = [];
   visibleOptions: OptionsInterface[] = [];
 
   searchParam: Partial<SearchParam> = {};
-
-  constructor(
-    protected override cdr: ChangeDetectorRef,
-    protected override spinService: SpinService,
-    protected override dataService: HuongdanService,
-    protected override youtubeModalService: YoutubeModalService,
-    protected override router: Router,
-    protected override menusService: MenusService,
-    private message: NzMessageService,
-    private demoStoreService: DemoStoreService,
-    private subdemoService: SubdemoService,
-    private modalSrv: NzModalService
-  ) {
-    super(cdr,spinService,dataService,youtubeModalService,router,menusService)
-  }
-
 
   @ViewChild('oprationTpl', {static: true}) oprationTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('idproTpl', {static: true}) idproTpl!: TemplateRef<NzSafeAny>;

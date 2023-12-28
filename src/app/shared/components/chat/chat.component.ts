@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef, OnDestroy, Output, EventEmitter, ChangeDetectorRef, signal } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef, OnDestroy, Output, EventEmitter, ChangeDetectorRef, signal, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AvatarStoreService } from '@app/core/services/store/common-store/avatar-store.service';
 
@@ -22,6 +22,9 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
   imports: [NzCardModule, NzTypographyModule, NzGridModule, NzAvatarModule, NzResultModule, NgFor, NgIf, NzIconModule, NzButtonModule, FormsModule, ReactiveFormsModule, NzInputModule]
 })
 export class ChatComponent implements OnInit, OnDestroy {
+  private fb = inject(FormBuilder);
+  private cdr = inject(ChangeDetectorRef);
+  private avatarService = inject(AvatarStoreService);
   @ViewChild('scrollMe') private myScrollContainer!: ElementRef;
   @Output() readonly changeShows = new EventEmitter<boolean>();
   validateForm!: FormGroup;
@@ -102,7 +105,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   linkavatar = signal("");
 
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, private avatarService: AvatarStoreService,) {}
 
   ngOnDestroy(): void {
     console.log('Dịch vụ khách hàng đã bị phá hủy');

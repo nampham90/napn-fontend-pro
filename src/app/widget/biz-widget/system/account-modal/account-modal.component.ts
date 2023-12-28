@@ -1,5 +1,5 @@
 import { NgIf, NgFor } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
@@ -15,7 +15,7 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA,NzModalRef } from 'ng-zorro-antd/modal';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
@@ -32,6 +32,7 @@ import { ValidationFormService } from '@app/core/services/common/message-errors.
 export class AccountModalComponent implements OnInit {
   addEditForm!: FormGroup;
   params!: User;
+  readonly nzModalData: User = inject(NZ_MODAL_DATA);
   roleOptions: OptionsInterface[] = [];
   isEdit = false;
   value?: string;
@@ -43,14 +44,14 @@ export class AccountModalComponent implements OnInit {
   listDept: any = [];
   listRole: any = [];
 
-  constructor(
-    private modalRef: NzModalRef, 
-    private fb: FormBuilder, 
-    private validatorsService: ValidatorsService, 
-    private accountService: AccountService,
-    private roleService: RoleService, 
-    private vf: ValidationFormService,
-    private deptService: DeptService) {}
+  private fb = inject(FormBuilder); 
+  private validatorsService = inject(ValidatorsService); 
+  private accountService = inject(AccountService);
+  private roleService = inject(RoleService); 
+  private vf = inject(ValidationFormService);
+  private deptService = inject(DeptService)
+
+  constructor(private modalRef: NzModalRef) {}
 
   protected getAsyncFnData(modalValue: NzSafeAny): Observable<NzSafeAny> {
     return of(modalValue);
@@ -116,10 +117,10 @@ export class AccountModalComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.initForm();
-    this.isEdit = Object.keys(this.params).length > 0;
+    this.isEdit = !!this.nzModalData;
     await Promise.all([this.getRoleList(), this.getDeptList()]);
     if (this.isEdit) {
-      this.addEditForm.patchValue(this.params);
+      this.addEditForm.patchValue(this.nzModalData);
       this.addEditForm.controls['password'].disable();
       this.isReadonly = !this.isReadonly;
     }

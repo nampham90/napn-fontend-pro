@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationFormService } from '@app/core/services/common/message-errors.service';
 import { DataScObj } from '@app/core/services/http/system/datasc.service';
@@ -11,7 +11,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { Observable, of } from 'rxjs';
 
@@ -26,7 +26,7 @@ import { Observable, of } from 'rxjs';
   ]
 })
 export class DatascModalComponent implements OnInit{
-
+  readonly nzModalData: DataScObj = inject(NZ_MODAL_DATA);
   addEditForm!: FormGroup;
   params!: DataScObj;
   isEdit = false;
@@ -41,13 +41,11 @@ export class DatascModalComponent implements OnInit{
   tieudeNew = "";
 
   showBtnAddList = false;
-
+  private fb = inject(FormBuilder);
+  public vf = inject(ValidationFormService);
+  public message = inject(NzMessageService);
   constructor(
-    private modalRef: NzModalRef,
-    private fb: FormBuilder,
-    public vf: ValidationFormService,
-    public message: NzMessageService,
-  ) {
+    private modalRef: NzModalRef) {
     this.lang = [
       {
         value: 'vi',
@@ -79,10 +77,11 @@ export class DatascModalComponent implements OnInit{
 
   ngOnInit(): void {
     this.initForm();
-    if (Object.keys(this.params).length > 0) {
-      if(this.params._id && this.params._id != "") {
+    this.isEdit = !!this.nzModalData;
+    if (this.isEdit) {
+      if(this.nzModalData._id) {
           this.isEdit = true;
-          this.addEditForm.patchValue(this.params);
+          this.addEditForm.patchValue(this.nzModalData);
           this.showBtnAddList = true;
       }
     }

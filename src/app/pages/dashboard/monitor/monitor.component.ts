@@ -20,7 +20,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
   standalone: true,
   imports: [NzCardModule, NzBreadCrumbModule, NzGridModule, NzStatisticModule, NzTypographyModule, DecimalPipe, PercentPipe]
 })
-export class MonitorComponent implements OnInit, AfterViewInit {
+export class MonitorComponent implements AfterViewInit {
   deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30;
   destroyRef = inject(DestroyRef);
   miniAreaData = [264, 274, 284, 294, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 410, 420, 430, 440, 450, 460, 470];
@@ -577,6 +577,4 @@ export class MonitorComponent implements OnInit, AfterViewInit {
         });
       });
   }
-
-  ngOnInit(): void {}
 }

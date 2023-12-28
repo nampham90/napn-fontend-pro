@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
@@ -8,7 +8,7 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA,NzModalRef } from 'ng-zorro-antd/modal';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 
 @Component({
@@ -20,9 +20,10 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 })
 export class DeptManageModalComponent implements OnInit {
   addEditForm!: FormGroup;
+  readonly nzModalData: object = inject(NZ_MODAL_DATA);
   params: object;
-
-  constructor(private modalRef: NzModalRef, private fb: FormBuilder) {
+  private fb = inject(FormBuilder);
+  constructor(private modalRef: NzModalRef) {
     this.params = {};
   }
 
@@ -48,8 +49,8 @@ export class DeptManageModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    if (Object.keys(this.params).length > 0) {
-      this.addEditForm.patchValue(this.params);
+    if (!!this.nzModalData) {
+      this.addEditForm.patchValue(this.nzModalData);
     }
   }
 }

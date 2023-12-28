@@ -42,6 +42,14 @@ interface SearchParam {
   imports: [PageHeaderComponent, NzButtonModule, NzCardModule, FormsModule, NzFormModule, CardTableWrapComponent, NgIf, AntTableComponent, NzIconModule, AuthDirective]
 })
 export class HuongdanComponent extends AbsComponent implements OnInit {
+  public message= inject(NzMessageService);
+  private huongdanModalService= inject(HuongdanModalService);
+  protected override cdr= inject(ChangeDetectorRef);
+  protected override spinService= inject(SpinService);
+  protected override dataService= inject(HuongdanService);
+  protected override youtubeModalService= inject(YoutubeModalService);
+  protected override router= inject(Router);
+  protected override menusService= inject(MenusService);
   ActionCode = ActionCode;
   searchParam: Partial<SearchParam> = {};
   tableConfig!: AntTableConfig;
@@ -49,21 +57,6 @@ export class HuongdanComponent extends AbsComponent implements OnInit {
   checkedCashArray: any[] = [];
   visibleOptions: OptionsInterface[] = [];
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
-
-  constructor(
-    private datascStoreService: DatascStoreService,
-   
-    public message: NzMessageService,
-    private huongdanModalService: HuongdanModalService,
-    protected override cdr: ChangeDetectorRef,
-    protected override spinService: SpinService,
-    protected override dataService: HuongdanService,
-    protected override youtubeModalService: YoutubeModalService,
-    protected override router: Router,
-    protected override menusService: MenusService
-  ) {
-    super(cdr, spinService, dataService, youtubeModalService, router, menusService);
-  }
 
   override ngOnInit(): void {
     super.ngOnInit();

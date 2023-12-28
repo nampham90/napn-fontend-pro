@@ -27,11 +27,7 @@ export class YoutubeComponent implements OnInit{
     startSeconds = 0;
     endSeconds = 120;
 
-    constructor(
-        private modalRef: NzModalRef,
-        private fb: FormBuilder,
-        private cdf : ChangeDetectorRef,
-    ) {}
+    constructor(private modalRef: NzModalRef) {}
 
     ngOnInit(): void {
         if(this.params.idvideo != undefined && this.params.idvideo.length > 0) {

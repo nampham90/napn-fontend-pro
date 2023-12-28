@@ -45,8 +45,8 @@ export class IconSelComponent implements OnInit, AfterViewInit {
     width: '20%'
   };
   destroyRef = inject(DestroyRef);
-
-  constructor(private cdr: ChangeDetectorRef) {
+  private cdr = inject(ChangeDetectorRef);
+  constructor() {
     zorroIcons.forEach(item => {
       this.sourceIconsArray.push({ icon: fnKebabCase(item), isChecked: false });
     });

@@ -58,8 +58,15 @@ interface DataItem {
     NumberLoopPipe
   ]
 })
-export class AnalysisComponent extends AbsComponent implements OnInit, AfterViewInit {
+export class AnalysisComponent extends AbsComponent implements  AfterViewInit {
   //destroyRef = inject(DestroyRef);
+  protected override cdr = inject(ChangeDetectorRef)
+  protected override spinService = inject(SpinService)
+  protected override dataService = inject(HuongdanService)
+  protected override youtubeModalService = inject(YoutubeModalService)
+  protected override router = inject(Router)
+  protected override menusService = inject(MenusService)
+  private ngZone = inject(NgZone);
   cardPadding = { padding: '20px 24px 8px' };
   miniBarData = [497, 666, 219, 269, 274, 337, 81, 497, 666, 219, 269];
   miniAreaData = [264, 274, 284, 294, 284, 274, 264, 264, 274, 264, 264, 264, 284, 264, 254, 264, 244, 340, 264, 243, 226, 192];
@@ -140,21 +147,6 @@ export class AnalysisComponent extends AbsComponent implements OnInit, AfterView
       english: 89
     }
   ];
-
-  constructor(
-    protected override cdr: ChangeDetectorRef,
-    protected override spinService: SpinService,
-    protected override dataService: HuongdanService,
-    protected override youtubeModalService: YoutubeModalService,
-    protected override router: Router,
-    protected override menusService: MenusService,
-    private ngZone: NgZone) {
-      super(cdr,spinService,dataService,youtubeModalService,router,menusService)
-    }
-
-  override ngOnInit(): void {
-    super.ngOnInit();
-  }
 
   initMinibar(): void {
     const data = this.miniBarData;

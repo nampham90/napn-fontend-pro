@@ -26,6 +26,8 @@ export interface FlatNode {
 
 @Injectable()
 export class DeptTreeService {
+  private dataService = inject(DeptService);
+  private cdr = inject(ChangeDetectorRef);
   TREE_DATA$ = new BehaviorSubject<any[]>([]);
   currentSelNode: FlatNode | null = null;
   destroyRef = inject(DestroyRef);
@@ -53,8 +55,6 @@ export class DeptTreeService {
 
   dataSource = new NzTreeFlatDataSource(this.treeControl, this.treeFlattener);
   hasChild = (_: number, node: FlatNode): boolean => node.expandable;
-
-  constructor(private dataService: DeptService, private cdr: ChangeDetectorRef) {}
 
   resetTree(): void {
     if (this.currentSelNode) {

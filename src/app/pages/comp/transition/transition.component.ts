@@ -20,15 +20,11 @@ import { ExperimentsComponent } from './experiments/experiments.component';
   standalone: true,
   imports: [PageHeaderComponent, NzButtonModule, NzWaveModule, NzCardModule, NgIf, DemoMainComponent, DemoOnEnterOnLeaveComponent, DemoDynamicParamsComponent, ExperimentsComponent]
 })
-export class TransitionComponent implements OnInit {
+export class TransitionComponent{
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: 'Ví dụ về thành phần hoạt ảnh',
     desc: 'Hãy di chuyển!',
     breadcrumb: ['Home', 'Các thành phần', 'thành phần hoạt hình']
   };
   currentComp = 'home';
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

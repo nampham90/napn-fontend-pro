@@ -33,6 +33,13 @@ import { UserInfo, UserInfoService } from '@app/core/services/store/common-store
   imports: [NzIconModule, NzButtonModule, NzGridModule, NgIf, NzAvatarModule, FormsModule, NzFormModule, ReactiveFormsModule, NzInputModule, ChangNumberToChinesePipe, AsyncPipe, DatePipe]
 })
 export class LockScreenComponent implements OnInit {
+  private router = inject(Router);
+  private loginOutService = inject(LoginInOutService);
+  private lockScreenStoreService = inject(LockScreenStoreService);
+  private fb = inject(FormBuilder);
+  private avatarService = inject(AvatarStoreService);
+  private userInfoService = inject(UserInfoService);
+  private windowSrv = inject(WindowService);
   public showUnlock = false;
   public time$: Observable<Date> = timer(0, 1000).pipe(
     map(() => new Date()),
@@ -48,16 +55,6 @@ export class LockScreenComponent implements OnInit {
   destroyRef = inject(DestroyRef);
   userDetail!: UserInfo;
   linkavatar = signal('');
-
-  constructor(
-    private router: Router, 
-    private loginOutService: LoginInOutService, 
-    private lockScreenStoreService: LockScreenStoreService, 
-    private fb: FormBuilder, 
-    private avatarService: AvatarStoreService,
-    private userInfoService: UserInfoService, 
-    private windowSrv: WindowService) {}
-
   // Quay lại trang đăng nhập để mở khóa
   loginOut(): void {
     this.unlock();

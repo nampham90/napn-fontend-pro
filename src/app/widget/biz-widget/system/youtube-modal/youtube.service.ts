@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ModalWrapService } from '@widget/base-modal';
@@ -11,7 +11,7 @@ import { YoutubeComponent } from './youtube.component';
   providedIn: 'root'
 })
 export class YoutubeModalService {
-  constructor(private modalWrapService: ModalWrapService) {}
+  private modalWrapService = inject(ModalWrapService);
   protected getContentComponent(): NzSafeAny {
     return YoutubeComponent;
   }

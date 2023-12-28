@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -27,12 +27,10 @@ export class LoginModalComponent extends BasicConfirmModalComponent implements O
   override params: object;
 
   passwordVisible = false;
-
-  constructor(protected override modalRef: NzModalRef, 
-    private fb: FormBuilder, 
-    private loginService: LoginService,
-    private validators: ValidatorsService
-    ) {
+  private fb = inject(FormBuilder);
+  private loginService = inject(LoginService);
+  private validators = inject(ValidatorsService);
+  constructor(protected override modalRef: NzModalRef) {
     super(modalRef);
     this.params = {};
   }

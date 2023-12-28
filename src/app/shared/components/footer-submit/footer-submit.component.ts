@@ -19,6 +19,10 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
   imports: [NzCardModule, NgTemplateOutlet]
 })
 export class FooterSubmitComponent implements OnInit {
+  private splitNavStoreService = inject(SplitNavStoreService);
+  private themesService = inject(ThemeService);
+  private rd2 = inject(Renderer2);
+  private el = inject(ElementRef);
   @Input() leftTpl!: TemplateRef<NzSafeAny>;
   themesOptions$ = this.themesService.getThemesMode();
   isNightTheme$ = this.themesService.getIsNightTheme();
@@ -33,7 +37,6 @@ export class FooterSubmitComponent implements OnInit {
   isMixMode = false;
   destroyRef = inject(DestroyRef);
 
-  constructor(private splitNavStoreService: SplitNavStoreService, private themesService: ThemeService, private rd2: Renderer2, private el: ElementRef) {}
 
   setWidth(width: number): void {
     const dom = this.el.nativeElement.querySelector('.ant-pro-footer-bar');

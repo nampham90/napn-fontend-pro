@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 
 import {
   rotateInDownLeftOnEnterAnimation,
@@ -40,6 +40,7 @@ import { AngularImgComponent } from '../angular-img/angular-img.component';
   imports: [NgFor, AngularImgComponent, NzButtonModule, NzWaveModule]
 })
 export class ExperimentsComponent implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
   text1 = 'Công phu Thiếu Lâm hay, thực sự hay, Công phu Thiếu Lâm hay, thực sự hay...'.split('');
   text2 = 'Bạn có chân kim cương, tôi có chân kim cương, tôi có kỹ năng đầu sắt, ôi...'.split('');
   text3 = 'Ta đấm hổ thì hổ làm gió, hổ và hổ làm gió, lòng bàn tay ta ngất ngây, ngất ngây...'.split('');
@@ -47,8 +48,6 @@ export class ExperimentsComponent implements OnInit {
   animationState = false;
   hueState = false;
   flashState = false;
-
-  constructor(private cdr: ChangeDetectorRef) {}
 
   getDelay(index: number, lenght: number): number {
     if (index < lenght / 2 - 2) {

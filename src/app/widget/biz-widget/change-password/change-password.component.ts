@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormControl, NonNullableFormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
@@ -19,11 +19,10 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   standalone: true,
   imports: [FormsModule, NzFormModule, ReactiveFormsModule, NzGridModule, NzInputModule, NzButtonModule, PasswordStrengthMeterComponent, NzIconModule, NgIf]
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent  {
   passwordVisible = false;
   compirePasswordVisible = false;
-
-  constructor(private modalRef: NzModalRef, private fb: NonNullableFormBuilder) {}
+  private fb = inject(NonNullableFormBuilder);
 
   get newPassword(): string {
     return this.validateForm.controls.newPassword.value!;
@@ -53,6 +52,4 @@ export class ChangePasswordComponent implements OnInit {
   updateConfirmValidator(): void {
     Promise.resolve().then(() => this.validateForm.controls.sureNewPassword.updateValueAndValidity());
   }
-
-  ngOnInit(): void {}
 }

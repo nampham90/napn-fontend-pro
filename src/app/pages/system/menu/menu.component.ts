@@ -64,6 +64,11 @@ interface SearchParam {
   ]
 })
 export class MenuComponent implements OnInit {
+  private menuModalService = inject(MenuModalService);
+  private dataService = inject(MenusService);
+  private modalSrv = inject(NzModalService);
+  public message = inject(NzMessageService);
+  private cdr = inject(ChangeDetectorRef);
   @ViewChild('zorroIconTpl', { static: true }) zorroIconTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('aliIconTpl', { static: true }) aliIconTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
@@ -80,17 +85,6 @@ export class MenuComponent implements OnInit {
   };
   dataList: TreeNodeInterface[] = [];
   visibleOptions: OptionsInterface[] = [];
-
-  constructor(
-    private fb: FormBuilder,
-    private menuModalService: MenuModalService,
-    private dataService: MenusService,
-    private modalSrv: NzModalService,
-    public message: NzMessageService,
-    private router: Router,
-    private cdr: ChangeDetectorRef
-  ) {}
-
   reloadTable(): void {
     this.message.info('Đã được làm mới');
     this.getDataList();

@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
 
 @Component({
@@ -12,8 +12,9 @@ import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Rout
 })
 export class TopProgressBarComponent {
   isFetching = false;
-
-  constructor(private router: Router, private cdr: ChangeDetectorRef) {
+  private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
+  constructor() {
     this.router.events.subscribe(evt => {
       // Cho biết một sự kiện được kích hoạt trước khi cấu hình định tuyến được tải từng phần.
       if (!this.isFetching && evt instanceof RouteConfigLoadStart) {

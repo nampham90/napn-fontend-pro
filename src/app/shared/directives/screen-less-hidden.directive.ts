@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angular/core';
 
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 
@@ -9,6 +9,9 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
   standalone: true
 })
 export class ScreenLessHiddenDirective {
+  private breakpointObserver = inject(BreakpointObserver);
+  private templateRef = inject(TemplateRef);
+  private viewContainerRef = inject(ViewContainerRef);
   @Input('appScreenLessHidden')
   set appScreenLessHidden(lessScreen: string | undefined) {
     if (!lessScreen) {
@@ -23,8 +26,6 @@ export class ScreenLessHiddenDirective {
       }
     });
   }
-
-  constructor(private breakpointObserver: BreakpointObserver, private templateRef: TemplateRef<NzSafeAny>, private viewContainerRef: ViewContainerRef) {}
 
   private show(matched: boolean): void {
     matched ? this.viewContainerRef.createEmbeddedView(this.templateRef) : this.viewContainerRef.clear();

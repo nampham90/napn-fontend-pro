@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -18,7 +18,9 @@ export abstract class InputComponentToken {
   imports: [NzInputModule, FormsModule , InputCurrencyDirective],
   providers: [{ provide: InputComponentToken, useExisting: InputCurrencyComponent }]
 })
-export class InputCurrencyComponent implements OnInit{
+export class InputCurrencyComponent{
+  private cdr = inject(ChangeDetectorRef);
+  private currencyPipe = inject(CurrencyPipe);
   _amount: any;
   _disable = false;
   amt!: boolean;
@@ -47,15 +49,6 @@ export class InputCurrencyComponent implements OnInit{
   inputChangeDectction(): void {
     this.cdr.markForCheck();
   }
-
-  constructor(
-    private cdr: ChangeDetectorRef,
-    private currencyPipe: CurrencyPipe
-  ) {
-
-  }
-
-  ngOnInit(): void {}
 
   onQueryParamsChange($event:any): void {
     this.changeAmount.emit(($event.target.value.replace(/[^0-9.]+/g, '')/1000));

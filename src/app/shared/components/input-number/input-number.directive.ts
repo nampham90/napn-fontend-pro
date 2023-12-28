@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnInit, inject } from '@angular/core';
 
 @Directive({
   selector: '[appInputNumber]',
@@ -25,11 +25,9 @@ export class InputNumberDirective implements OnInit{
 
   
   private el: HTMLInputElement;
-
-  constructor(
-    private elementRef: ElementRef,
-    private decimalPipe: DecimalPipe
-  ) { 
+  private elementRef = inject(ElementRef);
+  private decimalPipe = inject(DecimalPipe);
+  constructor() { 
     this.el = this.elementRef.nativeElement;
     this.setRegex();
   }

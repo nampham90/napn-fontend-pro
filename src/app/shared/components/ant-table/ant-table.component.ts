@@ -1,6 +1,6 @@
 import { NgIf, NgFor, NgClass, NgTemplateOutlet } from '@angular/common';
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, inject } from '@angular/core';
 
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzResizeEvent, NzResizableModule } from 'ng-zorro-antd/resizable';
@@ -63,6 +63,8 @@ export interface SortFile {
   imports: [NzTableModule, NgIf, NgFor, NzResizableModule, NgClass, NgTemplateOutlet, MapPipe, TableFiledPipe, TranslateModule]
 })
 export class AntTableComponent implements OnInit, OnChanges {
+  private cdr = inject(ChangeDetectorRef);
+  public translate  = inject(TranslateService);
   _dataList!: NzSafeAny[];
   _tableConfig!: AntTableConfig;
   _scrollConfig: { x: string; y: string } | {} = {};
@@ -110,7 +112,7 @@ export class AntTableComponent implements OnInit, OnChanges {
   indeterminate: boolean = false;
   allChecked: boolean = false;
 
-  constructor(private cdr: ChangeDetectorRef, public translate : TranslateService) {
+  constructor() {
     this.translate.setDefaultLang(localStorage.getItem('lang') || 'vi');
   }
 

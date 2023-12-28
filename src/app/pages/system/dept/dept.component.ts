@@ -61,6 +61,11 @@ interface SearchParam {
   ]
 })
 export class DeptComponent implements OnInit {
+  private deptModalService = inject(DeptManageModalService);
+  private dataService = inject(DeptService);
+  private modalSrv = inject(NzModalService);
+  public message = inject(NzMessageService);
+  private cdr = inject(ChangeDetectorRef);
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('state', { static: true }) state!: TemplateRef<NzSafeAny>;
   ActionCode = ActionCode;
@@ -74,24 +79,14 @@ export class DeptComponent implements OnInit {
   dataList: TreeNodeInterface[] = [];
   stateOptions: OptionsInterface[] = [];
 
-  constructor(
-    private fb: FormBuilder,
-    private deptModalService: DeptManageModalService,
-    private dataService: DeptService,
-    private modalSrv: NzModalService,
-    public message: NzMessageService,
-    private router: Router,
-    private cdr: ChangeDetectorRef
-  ) {}
-
   reloadTable(): void {
     this.message.info('Đã được làm mới');
     this.getDataList();
   }
 
-  // 触发表格变更检测
+  // Phát hiện thay đổi bảng kích hoạt
   tableChangeDectction(): void {
-    // 改变引用触发变更检测。
+    // Thay đổi tham chiếu sẽ kích hoạt phát hiện thay đổi.
     this.dataList = [...this.dataList];
     this.cdr.detectChanges();
   }
@@ -123,12 +118,12 @@ export class DeptComponent implements OnInit {
       });
   }
 
-  /*查看*/
+  /* Kiểm tra */
   check(id: string, children: any[], parent: any[]): void {
     this.message.success(id);
   }
 
-  /*重置*/
+  /* Làm mới */
   resetForm(): void {
     this.searchParam = {};
     this.getDataList();
@@ -136,7 +131,7 @@ export class DeptComponent implements OnInit {
 
   add(fatherId: number): void {
     this.deptModalService
-      .show({ nzTitle: '新增' })
+      .show({ nzTitle: 'Thêm mới' })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
         res => {
@@ -188,14 +183,14 @@ export class DeptComponent implements OnInit {
     });
   }
 
-  // 修改
+  // cập nhật
   edit(id: number, fatherId: number): void {
     this.dataService
       .getDeptsDetail(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         this.deptModalService
-          .show({ nzTitle: '编辑' }, res)
+          .show({ nzTitle: 'Cập nhật' }, res)
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(
             ({ modalValue, status }) => {
@@ -212,7 +207,7 @@ export class DeptComponent implements OnInit {
       });
   }
 
-  // 修改一页几条
+  // Sửa đổi một số mục trên một trang
   changePageSize(e: number): void {
     this.tableConfig.pageSize = e;
   }

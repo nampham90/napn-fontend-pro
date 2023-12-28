@@ -13,11 +13,12 @@ import { LockScreenFlag, LockScreenStoreService } from '@store/common-store/lock
   standalone: true
 })
 export class EmptyForLockComponent {
+  private lockScreenStoreService = inject(LockScreenStoreService);
   // Trạng thái màn hình khóa bộ định tuyến
   routeStatus!: LockScreenFlag;
   destroyRef = inject(DestroyRef);
 
-  constructor(private router: Router, private lockScreenStoreService: LockScreenStoreService) {
+  constructor() {
     this.lockScreenStoreService
       .getLockScreenStore()
       .pipe(takeUntilDestroyed(this.destroyRef))

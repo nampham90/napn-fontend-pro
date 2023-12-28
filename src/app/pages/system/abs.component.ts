@@ -20,6 +20,13 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 })
 export class AbsComponent implements OnInit {
   destroyRef = inject(DestroyRef);
+
+  protected cdr = inject(ChangeDetectorRef); 
+  protected spinService = inject(SpinService); 
+  protected dataService = inject(HuongdanService); 
+  protected youtubeModalService = inject(YoutubeModalService); 
+  protected router = inject(Router); 
+  protected menusService = inject(MenusService);
   formItemNm: IObjectString = {};
 
   @ViewChild('huongdanTpl', { static: true }) huongdanTpl!: TemplateRef<NzSafeAny>;
@@ -28,10 +35,6 @@ export class AbsComponent implements OnInit {
     breadcrumb: ['', '', ''],
     extra: this.huongdanTpl
   };
-
-  constructor(protected cdr: ChangeDetectorRef, protected spinService: SpinService, protected dataService: HuongdanService, protected youtubeModalService: YoutubeModalService, protected router: Router, protected menusService: MenusService) {
-    
-  }
 
   ngOnInit(): void {
     this.formItemName();

@@ -1,5 +1,5 @@
 import { DragDrop, DragRef } from '@angular/cdk/drag-drop';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { ModalTypes, NzModalService } from 'ng-zorro-antd/modal';
@@ -12,7 +12,8 @@ import { ModalTypes, NzModalService } from 'ng-zorro-antd/modal';
 })
 export class ModalDragService {
   static readonly DRAG_CLS_PREFIX = 'NZ-MODAL-WRAP-CLS-';
-  constructor(public modal: NzModalService, public dragDrop: DragDrop) {}
+  modal = inject(NzModalService);
+  dragDrop = inject(DragDrop);
 
   /**
    *Tạo một tay cầm kéo

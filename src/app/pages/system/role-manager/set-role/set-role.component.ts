@@ -46,6 +46,12 @@ import { NzResultModule } from 'ng-zorro-antd/result';
   ]
 })
 export class SetRoleComponent implements OnInit {
+  private dataService = inject(RoleService);
+  private cdr = inject(ChangeDetectorRef);
+  private menusService = inject(MenusService);
+  private router = inject(Router);
+  public message = inject(NzMessageService);
+  private userService = inject(UserInfoService);
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: 'Thiết lập quyền',
     desc: 'Vai trò hiện tại：',
@@ -57,31 +63,22 @@ export class SetRoleComponent implements OnInit {
   userId!: number;
   destroyRef = inject(DestroyRef);
   @Input({ required: true }) id!: string; // Tính năng mới được hỗ trợ bởi ng16: Lấy ID vai trò từ định tuyến
-  constructor(
-    private dataService: RoleService,
-    private cdr: ChangeDetectorRef,
-    private menusService: MenusService,
-    private routeInfo: ActivatedRoute,
-    private router: Router,
-    public message: NzMessageService,
-    private userService: UserInfoService
-  ) {}
 
-  // 初始化数据
+  // Dữ liệu khởi tạo
   initPermission(): void {
-    // 通过角色id获取这个角色拥有的权限码
+    // Nhận mã quyền do vai trò này sở hữu thông qua ID vai trò
     this.dataService
       .getPermissionById(this.id)
       .pipe(
         concatMap(authCodeArr => {
           this.authCodeArr = authCodeArr;
-          // 获取所有菜单
+          // Nhận tất cả các menu
           return this.menusService.getMenuList({ pageNum: 0, pageSize: 0 });
         }),
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(response => {
-        // isOpen表示 节点是否展开
+        // sOpen cho biết nút có được mở rộng hay không
         const menuArray: Array<Menu & { isOpen?: boolean; checked?: boolean }> = response.list;
         menuArray.forEach(item => {
           item.isOpen = false;

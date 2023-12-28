@@ -57,6 +57,12 @@ interface SearchParam {
   providers: [DecimalPipe,CurrencyPipe]
 })
 export class RoleManageComponent implements OnInit {
+  private dataService = inject(RoleService);
+  private modalSrv = inject(NzModalService);
+  private cdr = inject(ChangeDetectorRef);
+  private modalService = inject(RoleManageModalService);
+  private router = inject(Router);
+  public message = inject(NzMessageService);
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<any>;
   searchParam: Partial<SearchParam> = {};
   tableConfig!: AntTableConfig;
@@ -72,16 +78,6 @@ export class RoleManageComponent implements OnInit {
   flg = false;
   numberMode = 1000;
   amountMode = 1000;
-
-  constructor(
-    private dataService: RoleService,
-    private modalSrv: NzModalService,
-    private cdr: ChangeDetectorRef,
-    private messageService: MessageService,
-    private modalService: RoleManageModalService,
-    private router: Router,
-    public message: NzMessageService
-  ) {}
 
   changeNumber($event: any) {this.numberMode = $event; }
   changeAmount($event: any) {this.amountMode = $event; }

@@ -14,5 +14,4 @@ export class DisabledDirective {
   @HostBinding('class.operate-text') enable = false;
   @HostBinding('class.operate-text-disabled') disabledStyle = false;
 
-  constructor() {}
 }

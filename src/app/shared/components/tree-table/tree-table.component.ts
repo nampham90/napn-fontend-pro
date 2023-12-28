@@ -1,5 +1,5 @@
 import { NgIf, NgFor, NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ChangeDetectorRef, OnChanges, SimpleChanges, inject } from '@angular/core';
 
 import { AntTableConfig, SortFile, TableHeader } from '@shared/components/ant-table/ant-table.component';
 import { fnGetFlattenTreeDataByMap, fnTreeDataToMap } from '@utils/treeTableTools';
@@ -36,7 +36,8 @@ export abstract class AntTreeTableComponentToken {
   standalone: true,
   imports: [NzTableModule, NgIf, NgFor, NzResizableModule, NgClass, NgTemplateOutlet, MapPipe, TableFiledPipe]
 })
-export class TreeTableComponent implements OnInit, OnChanges {
+export class TreeTableComponent implements OnChanges {
+  private cdr = inject(ChangeDetectorRef);
   _dataList!: TreeNodeInterface[];
   allChecked: boolean = false;
   indeterminate = false;
@@ -88,8 +89,6 @@ export class TreeTableComponent implements OnInit, OnChanges {
   get tableSize(): NzTableSize {
     return this._tableSize;
   }
-
-  constructor(private cdr: ChangeDetectorRef) {}
 
   tableChangeDectction(): void {
     //Thay đổi tham chiếu sẽ kích hoạt phát hiện thay đổi.
@@ -217,6 +216,4 @@ export class TreeTableComponent implements OnInit, OnChanges {
       this.refreshStatus();
     }
   }
-
-  ngOnInit(): void {}
 }

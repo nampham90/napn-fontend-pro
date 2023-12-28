@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef, inject } from '@angular/core';
 
 import { UserInfoService } from '@store/common-store/userInfo.service';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
@@ -18,8 +18,10 @@ export class AuthDirective {
     }
     this.codeArray.includes(authCode) ? this.show(true) : this.show(false);
   }
-
-  constructor(private userInfoService: UserInfoService, private templateRef: TemplateRef<NzSafeAny>, private viewContainerRef: ViewContainerRef) {
+  private userInfoService = inject(UserInfoService);
+  private templateRef = inject(TemplateRef);
+  private viewContainerRef = inject(ViewContainerRef);
+  constructor() {
     this.userInfoService.getUserInfo().subscribe(userInfo => {
       this.codeArray = userInfo.authCode;
     });

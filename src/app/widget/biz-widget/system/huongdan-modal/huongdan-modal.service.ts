@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ModalWrapService } from '@widget/base-modal';
@@ -12,7 +12,7 @@ import { HuongdanModalComponent } from './huongdan-modal.component';
   providedIn: 'root'
 })
 export class HuongdanModalService {
-  constructor(private modalWrapService: ModalWrapService) {}
+  private modalWrapService = inject(ModalWrapService);
   protected getContentComponent(): NzSafeAny {
     return HuongdanModalComponent;
   }

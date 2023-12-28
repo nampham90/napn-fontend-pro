@@ -1,6 +1,6 @@
 
 import { NgIf } from '@angular/common';
-import {ChangeDetectionStrategy, Component, OnInit, signal} from '@angular/core'
+import {ChangeDetectionStrategy, Component, OnInit, inject, signal} from '@angular/core'
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationFormService } from '@app/core/services/common/message-errors.service';
 import { fnCheckForm } from '@app/utils/tools';
@@ -35,13 +35,10 @@ export class HuongdanModalComponent implements OnInit {
     params!: any;
     isEdit =  false;
     value?: string;
-
-    constructor(
-        private modalRef: NzModalRef,
-        private fb: FormBuilder,
-        public vf: ValidationFormService,
-        public message: NzMessageService,
-    ) {}
+    private fb = inject(FormBuilder);
+    public vf = inject(ValidationFormService);
+    public message = inject(NzMessageService);
+    constructor(private modalRef: NzModalRef) {}
 
     protected getAsyncFnData(modalValue: NzSafeAny): Observable<NzSafeAny> {
         return of(modalValue);

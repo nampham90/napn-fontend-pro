@@ -65,6 +65,12 @@ interface SearchParam {
   ]
 })
 export class AccountComponent implements OnInit {
+  private dataService = inject(AccountService);
+  private modalSrv = inject(NzModalService);
+  private cdr = inject(ChangeDetectorRef);
+  private modalService = inject(AccountModalService);
+  private router = inject(Router);
+  public message = inject(NzMessageService);
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<any>;
   @ViewChild('availableFlag', { static: true }) availableFlag!: TemplateRef<NzSafeAny>;
   searchParam: Partial<SearchParam> = {};
@@ -80,15 +86,6 @@ export class AccountComponent implements OnInit {
   availableOptions: OptionsInterface[] = [];
   destroyRef = inject(DestroyRef);
 
-  constructor(
-    private dataService: AccountService,
-    private modalSrv: NzModalService,
-    private cdr: ChangeDetectorRef,
-    private messageService: MessageService,
-    private modalService: AccountModalService,
-    private router: Router,
-    public message: NzMessageService
-  ) {}
 
   selectedChecked(e: User[]): void {
     this.checkedCashArray = [...e];

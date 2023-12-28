@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { NgIf, NgTemplateOutlet, NgFor, NgStyle } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef, inject } from '@angular/core';
 
 import { AntTreeTableComponentToken } from '@shared/components/tree-table/tree-table.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -54,6 +54,7 @@ interface TableSizeItem {
   ]
 })
 export class CardTableWrapComponent implements OnInit, AfterContentInit {
+  public translate = inject(TranslateService);
   @Input() tableTitle: string | TemplateRef<NzSafeAny> | undefined;
   @Input() btnTpl: TemplateRef<NzSafeAny> | undefined;
   @Input() isNormalTable = true; // Nếu bạn chỉ cần kiểu bọc thẻ trên bàn, hãy đặt kiểu này thành sai
@@ -72,7 +73,7 @@ export class CardTableWrapComponent implements OnInit, AfterContentInit {
   allTableFieldIndeterminate = false; // Đặt trạng thái được chọn một nửa của cột được chọn tất cả bên trong
   copyHeader: TableHeader[] = []; // Cấu hình mặc định bộ đệm
 
-  constructor(public translate : TranslateService) {
+  constructor() {
     this.translate.setDefaultLang(localStorage.getItem('lang') || 'vi');
   }
 

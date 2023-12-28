@@ -10,7 +10,6 @@ import { ThemeMode } from '@app/layout/default/setting-drawer/setting-drawer.com
 import { TabService } from '@core/services/common/tab.service';
 import { Menu } from '@core/services/types';
 import { AuthDirective } from '@shared/directives/auth.directive';
-import { TrackByPropertyDirective } from '@shared/directives/track-by-property.directive';
 import { MenuStoreService } from '@store/common-store/menu-store.service';
 import { SplitNavStoreService } from '@store/common-store/split-nav-store.service';
 import { ThemeService } from '@store/common-store/theme.service';

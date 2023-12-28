@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ModalWrapService } from '@app/widget/base-modal';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { ModalOptions } from 'ng-zorro-antd/modal';
@@ -9,8 +9,7 @@ import { SubdemoComponent } from './subdemo.component';
   providedIn: 'root'
 })
 export class SubdemoService {
-
-  constructor(private modalWrapService: ModalWrapService) {}
+  private modalWrapService = inject(ModalWrapService);
   protected getContentComponent(): NzSafeAny {
     return SubdemoComponent;
   }

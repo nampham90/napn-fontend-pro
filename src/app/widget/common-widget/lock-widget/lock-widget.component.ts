@@ -30,6 +30,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   imports: [NzAvatarModule, FormsModule, NzFormModule, ReactiveFormsModule, NzGridModule, NzButtonModule, NzInputModule, NzIconModule, NzWaveModule]
 })
 export class LockWidgetComponent extends BasicConfirmModalComponent implements OnInit {
+  private fb = inject(NonNullableFormBuilder);
+  private windowSrv = inject(WindowService);
+  private lockScreenStoreService = inject(LockScreenStoreService);
+  private activatedRoute = inject(ActivatedRoute);
+  private router = inject(Router);
+  private avatarService = inject(AvatarStoreService);
+  private userInfoService = inject(UserInfoService);
+
   validateForm = this.fb.group({
     password: ['', [Validators.required]]
   });
@@ -38,16 +46,7 @@ export class LockWidgetComponent extends BasicConfirmModalComponent implements O
   linkavatar = signal("")
   destroyRef = inject(DestroyRef);
   
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private lockScreenStoreService: LockScreenStoreService,
-    protected override modalRef: NzModalRef,
-    private fb: NonNullableFormBuilder,
-    private windowSrv: WindowService,
-    private avatarService: AvatarStoreService,
-    private userInfoService: UserInfoService, 
-  ) {
+  constructor(protected override modalRef: NzModalRef) {
     super(modalRef);
   }
 

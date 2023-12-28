@@ -67,6 +67,18 @@ interface SearchParam {
   ]
 })
 export class DatascComponent extends AbsComponent implements OnInit {
+  protected override cdr= inject(ChangeDetectorRef);
+  protected override spinService= inject(SpinService);
+  protected override dataService= inject(HuongdanService);
+  protected override youtubeModalService= inject(YoutubeModalService);
+  protected override router= inject(Router);
+  protected override menusService= inject(MenusService);
+  private menuService= inject(MenusService); 
+  public message= inject(NzMessageService); 
+  private modalSrv= inject(NzModalService); 
+  private datascService= inject(DatascService);
+  private modalService = inject(DatascModalService);
+  public translate= inject(TranslateService);
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<any>;
   @ViewChild('availableFlag', { static: true }) availableFlag!: TemplateRef<NzSafeAny>;
   searchParam: Partial<SearchParam> = {};
@@ -80,23 +92,10 @@ export class DatascComponent extends AbsComponent implements OnInit {
 
   dataSC!: DataScObj;
 
-  constructor(
-    protected override cdr: ChangeDetectorRef,
-    protected override spinService: SpinService,
-    protected override dataService: HuongdanService,
-    protected override youtubeModalService: YoutubeModalService,
-    protected override router: Router,
-    protected override menusService: MenusService,
-    private menuService: MenusService, 
-    public message: NzMessageService, 
-    private modalSrv: NzModalService, 
-    private datascService: DatascService,
-    private modalService : DatascModalService,
-    public translate: TranslateService
-    ) {
-      super(cdr,spinService,dataService,youtubeModalService,router,menusService)
-      this.translate.setDefaultLang(localStorage.getItem('lang') || 'vi') ;
-    }
+  constructor() {
+    super();
+    this.translate.setDefaultLang(localStorage.getItem('lang') || 'vi') ;
+  }
 
   override ngOnInit(): void {
     super.ngOnInit();

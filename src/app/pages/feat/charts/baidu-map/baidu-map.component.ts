@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, inject } from '@angular/core';
 
 import { LazyService } from '@core/services/common/lazy.service';
 import { PageHeaderType, PageHeaderComponent } from '@shared/components/page-header/page-header.component';
@@ -13,12 +13,11 @@ declare var BMap: any;
   imports: [PageHeaderComponent, NzCardModule]
 })
 export class BaiduMapComponent implements OnInit {
+  private lazyService = inject(LazyService);
   pageHeaderInfo: Partial<PageHeaderType> = {
     title: 'Bản đồ Baidu, đừng tiết lộ nơi ở của bạn',
     breadcrumb: ['Home', 'Chức năng', 'đồ thị', 'Bản đồ Baidu']
   };
-
-  constructor(private lazyService: LazyService) {}
 
   ngOnInit(): void {
     this.lazyService.loadScript('http://api.map.baidu.com/getscript?v=2.0&ak=RD5HkkjTa6uAIDpw7GRFtR83Fk7Wdk0j').then(() => {

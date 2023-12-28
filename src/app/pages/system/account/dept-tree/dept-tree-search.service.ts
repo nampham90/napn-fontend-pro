@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { FilteredTreeResult, TreeNode } from '@app/pages/system/account/dept-tre
 
 @Injectable()
 export class DeptTreeSearchService {
+  public deptTreeService = inject(DeptTreeService);
   expandedNodes: FlatNode[] = [];
   searchValue = '';
   originData$ = this.deptTreeService.TREE_DATA$;
@@ -23,7 +24,7 @@ export class DeptTreeSearchService {
     // @ts-ignore
   ]).pipe(map(([data, value]) => (value ? this.filterTreeData(data as TreeNode[], value) : new FilteredTreeResult(data as TreeNode[]))));
 
-  constructor(public deptTreeService: DeptTreeService) {
+  constructor() {
     this.filteredData$.pipe(takeUntilDestroyed()).subscribe(result => {
       this.deptTreeService.dataSource.setData(result.treeData);
 
