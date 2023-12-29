@@ -158,7 +158,12 @@ export class LayoutHeadRightMenuComponent implements OnInit {
     this.avatarService.getAvatarStore()
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(avatar=> {
-      this.linkavatar.set(avatar);
+      if(avatar) {
+        this.linkavatar.set(avatar);
+      } else {
+        this.linkavatar.set('./assets/imgs/avatar.png');
+      }
+      
     })
   }
 

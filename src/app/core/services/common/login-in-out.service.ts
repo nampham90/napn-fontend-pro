@@ -64,7 +64,12 @@ export class LoginInOutService {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(res=> {
           if(res.avatar) {
-            this.avatarService.setAvatarStore(serverUrl + res.avatar.path);
+            if(res.avatar) {
+              this.avatarService.setAvatarStore(serverUrl + res.avatar.path);
+            } else {
+              this.avatarService.setAvatarStore("./assets/imgs/avatar.png");
+            }
+            
           }
       });
       // Nhận menu do người dùng này sở hữu thông qua ID người dùng

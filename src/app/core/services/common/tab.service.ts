@@ -46,22 +46,22 @@ export class TabService {
     this.setTabsSourceData();
   }
 
-  addTab(param: TabModel, isNewTabDetailPage = false): void {
+  addTab(tabModel: TabModel, isNewTabDetailPage = false): void {
     this.tabArray.forEach(tab => {
       // Liệt kê các thao tác chi tiết, chẳng hạn như chi tiết nhấp chuột vào biểu mẫu người dùng, mở chi tiết trong tab hiện tại, bạn có thể xem ví dụ trực tuyến: "Biểu mẫu truy vấn" và "Nút xem" trong biểu mẫu
       // tiêu đề cần phải giống với tiêu đề của lộ trình thành phần chi tiết biểu mẫu người dùng
-      if (tab.title === param.title && !isNewTabDetailPage) {
+      if (tab.title === tabModel.title && !isNewTabDetailPage) {
        // Lưu ảnh chụp nhanh thành phần dưới mỗi tab vào mảng tab và thực hiện thao tác chống trùng lặp bên dưới
-        tab.snapshotArray = _.uniqBy([...tab.snapshotArray, ...param.snapshotArray], item => {
+        tab.snapshotArray = _.uniqBy([...tab.snapshotArray, ...tabModel.snapshotArray], item => {
           // @ts-ignore
           return item['_routerState'].url;
         });
         // Khi mở chi tiết trên trang hiện tại, bạn cần thay thế đường dẫn của tab tương ứng.
-        tab.path = param.path;
+        tab.path = tabModel.path;
       }
     });
-    if (!this.tabArray.find(value => value.path === param.path)) {
-      this.tabArray.push(param);
+    if (!this.tabArray.find(value => value.path === tabModel.path)) {
+      this.tabArray.push(tabModel);
     }
     this.setTabsSourceData();
   }

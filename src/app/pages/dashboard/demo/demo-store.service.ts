@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { SocketService } from '@app/core/services/common/socket.service';
 import { PageInfo ,Response, SearchCommonVO} from '@app/core/services/types';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -20,12 +20,13 @@ export interface Product {
 })
 export class DemoStoreService {
 
+  private socketService = inject(SocketService);
+  private moalSrv = inject(NzModalService);
+  private spinService = inject(SpinService);
   private productsStore$ = new BehaviorSubject<PageInfo<Product>>({pageNum:1,pageSize:10,total:0,list:[]});
 
   constructor(
-    private socketService: SocketService,
-    private moalSrv: NzModalService,
-    private spinService: SpinService
+
   ) {
       this.socketService.setupSocketConnection();
       
@@ -34,7 +35,7 @@ export class DemoStoreService {
             this.moalSrv.error({nzTitle: 'Thông báo lỗi',nzContent: res.msg});
          } else {
             this.setProductStore(res.data!);
-            this.spinService.setCurrentGlobalSpinStore(false);
+            
          }
       })
 
@@ -62,6 +63,7 @@ export class DemoStoreService {
 
   setProductStore(productStore: PageInfo<Product>) {
      this.productsStore$.next(productStore);
+     this.spinService.setCurrentGlobalSpinStore(false);
   }
 
   getProductStore(): Observable<PageInfo<Product>> {

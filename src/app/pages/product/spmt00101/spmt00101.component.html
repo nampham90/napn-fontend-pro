@@ -1,7 +1,64 @@
 <app-page-header [pageHeaderInfo]="pageHeaderInfo" />
-@if(showHello === false) {
-    <h2>Hello</h2>
-} 
-@else {
-    <p>{{formItemNm[2]}}</p>
-}
+<div class="normal-table-wrap">
+    <nz-card nzHoverable [nzBodyStyle]="{ 'padding-bottom': 0 }" class="m-b-10">
+        <div nz-row>
+
+            @if(showHello) {
+                <h2>Hello</h2>
+            } 
+            @else {
+                <p>{{formItemNm[2]}}</p>
+            }
+        </div>
+
+        <div nz-row>
+             <h1>1. Vòng lăp For Căn bản</h1>
+             <ul>
+                @for(color of colors; track color; let index = $index) {
+                    <li>{{index + 1}}:  {{color}}</li>
+                }
+             </ul>
+             <br>
+             <h1>2. Vòng lăp For Map</h1>
+             <ul>
+                @for(entry of myMap; track entry) {
+                    <li>{{ entry[0] }}: {{entry[1]}}</li>
+                }
+             </ul>
+             <br>
+             <h1>3. For với String</h1>
+             <ul>
+                <!-- @for(char of "Angular"; track char) {
+                    <li> {{char}}</li>
+                } -->
+             </ul>
+
+             <h1>4. Defer trong Angular</h1>
+                <button nz-button nzType="primary" #trigger> Load Component </button>
+                @defer(on interaction(trigger)) {
+                    <large-component />
+                }
+                @placeholder {
+                    <h2>Click show Component</h2>
+                }
+
+            <h1> Defer trong Angular</h1>
+            @defer (on timer(5s)) {
+                <app-signal />
+            }
+
+            <div style="height: 500px"></div>
+            <br>
+            <h1>3. Defer với String</h1>
+               @defer (on viewport) {
+                  <large-component />
+               }@placeholder {
+                  <p> loading </p>
+               }
+
+        </div>
+
+    </nz-card>
+
+</div>
+

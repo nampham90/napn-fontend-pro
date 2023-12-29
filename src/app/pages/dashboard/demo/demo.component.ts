@@ -19,6 +19,7 @@ import { finalize } from 'rxjs';
 import { SubdemoService } from '@app/widget/biz-widget/demo/subdemo/subdemo.service';
 import { ModalBtnStatus } from '@app/widget/base-modal';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { WindowService } from '@app/core/services/common/window.service';
 interface SearchParam {
 }
 @Component({

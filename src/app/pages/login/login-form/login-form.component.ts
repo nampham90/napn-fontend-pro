@@ -48,10 +48,7 @@ export class LoginFormComponent implements OnInit {
     private userInfoService: UserInfoService,
     private notification: NzNotificationService,
     private router: Router,
-    private userService: AccountService,
-    private avatarService: AvatarStoreService,
-    private tokenStoreService: TokenStoreService,
-    private socketService: SocketService
+
   ) {}
 
   submitForm(): void {
@@ -83,6 +80,7 @@ export class LoginFormComponent implements OnInit {
         this.loginInOutService
           .loginIn(userToken)
           .then(() => {
+           
             this.router.navigateByUrl('default/dashboard/analysis');
           })
           .finally(() => {
@@ -98,5 +96,6 @@ export class LoginFormComponent implements OnInit {
       remember: [null],
       mobile: [null]
     });
+    
   }
 }
