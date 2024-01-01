@@ -11,13 +11,15 @@ import * as Const from '@app/common/const'
 })
 export class SocketService {
 
-  private tokenStoreService = inject(TokenStoreService);
+  // private tokenStoreService = inject(TokenStoreService);
   private socket = io(Const.PathSocket, {
     path:  '/socket.io/',
     auth: {
       token: ''
     }
   });
+
+  constructor( private tokenStoreService : TokenStoreService) {}
 
   setupSocketConnection() {
     this.tokenStoreService.getGlobalTokenStore().subscribe((token)=> {
