@@ -161,14 +161,13 @@ export class DeptComponent implements OnInit {
   }
 
   del(id: number): void {
-    const ids: number[] = [id];
     this.modalSrv.confirm({
       nzTitle: 'Bạn có chắc chắn muốn xóa không？',
       nzContent: 'Không thể khôi phúc khi xóa',
       nzOnOk: () => {
         this.tableLoading(true);
         this.dataService
-          .delDepts(ids)
+          .delDepts(id)
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe(
             () => {
