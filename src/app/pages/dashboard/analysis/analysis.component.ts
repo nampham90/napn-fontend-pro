@@ -26,6 +26,7 @@ import { HuongdanService } from '@app/core/services/http/system/huongdan.service
 import { MenusService } from '@app/core/services/http/system/menus.service';
 import { SpinService } from '@app/core/services/store/common-store/spin.service';
 import { YoutubeModalService } from '@app/widget/biz-widget/system/youtube-modal/youtube.service';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 
 interface DataItem {
   name: string;
@@ -55,7 +56,8 @@ interface DataItem {
     NzDatePickerModule,
     NzTypographyModule,
     NzTableModule,
-    NumberLoopPipe
+    NumberLoopPipe,
+    NzAvatarModule
   ]
 })
 export class AnalysisComponent extends AbsComponent implements  AfterViewInit {
