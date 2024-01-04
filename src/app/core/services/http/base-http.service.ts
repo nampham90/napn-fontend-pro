@@ -30,7 +30,7 @@ export class BaseHttpService {
   http = inject(HttpClient);
   message = inject(NzMessageService);
   protected constructor() {
-    this.uri = environment.production ? localUrl : '/site/api';
+    this.uri = environment.production ? localUrl : '/site/api/';
   }
 
 

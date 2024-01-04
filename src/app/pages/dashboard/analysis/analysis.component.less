@@ -165,6 +165,7 @@ h3 {
 .card_remove {
   left: unset;
   right: 10px;
+  transition: 0.5s;
 }
 
 .card_od, .card_date, .card_name {
@@ -205,7 +206,7 @@ h3 {
 }
 
 .grid_card:hover {
-  background-color: #4daf54;
+  background-color: #177DDC;
   cursor: pointer;
 }
 
@@ -213,6 +214,10 @@ h3 {
 .grid_card:hover .card_remove,
 .grid_card:hover .card_many {
    top: 2px;
+}
+
+.card_remove:hover{
+  color: red;
 }
 
 .grid_card:hover .card_od,
