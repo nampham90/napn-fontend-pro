@@ -8,7 +8,6 @@ import { localUrl } from '@env/environment.prod';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import * as qs from 'qs';
-import { WindowService } from '../common/window.service';
 
 export interface HttpCustomConfig {
   needSuccessInfo?: boolean; // Bạn có cần lời nhắc "thao tác thành công" không?

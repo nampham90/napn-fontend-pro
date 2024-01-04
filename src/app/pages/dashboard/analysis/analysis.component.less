@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
-
+@import "mixin";
 .center {
   display: flex;
   align-items: center;
@@ -128,15 +128,28 @@ h3 {
 }
 
 // ----------Grid--------------------------
-.grid {
-   width: 208px;
-   height: auto;
-   background-color: #1F1F1F;
-   padding: 0;
-   margin: 0 auto;
-   display: grid;
-   grid-template-columns: repeat(2,1fr);
-}
+.themeMixin({
+  :host {
+    .grid {
+      width: 208px;
+      height: auto;
+      // background-color: @primary-color;
+      padding: 0;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+   }
+  }
+});
+// .grid {
+//    width: 208px;
+//    height: auto;
+//    background-color: #1F1F1F;
+//    padding: 0;
+//    margin: 0 auto;
+//    display: grid;
+//    grid-template-columns: repeat(2,1fr);
+// }
 
 .col {
   width: 100%;
@@ -147,11 +160,12 @@ h3 {
   margin: 15px auto;
   width: 90px;
   height: 120px;
-  background: #273D40;
+  // background: #273D40;
   padding: 5px;
   border-radius: 5px;
   position: relative;
   transition: 0.2s;
+  border: 1px solid #273D40;
 }
 
 .card_many, .card_remove {
