@@ -1,0 +1,43 @@
+<section class="content_wrap">
+    <div class="grid">
+        @if(isNewOrder) {
+            <div class="col">
+                <div class="grid_card flex">
+                    <div class="neworder">
+                        <span nz-icon nzType="plus"></span>
+                    </div>
+                </div>
+            </div>
+        }
+        @for(item of _listOrder; track item) {
+            <div class="col">
+                <div class="grid_card">
+                    <div class="card_many">
+                        <span nz-icon nzType="dollar" nzTheme="twotone" [nzTwotoneColor]="'#52c41a'"></span>
+                    </div>
+                    <div class="card_remove">
+                        <span nz-icon nzType="delete" nzTheme="outline"></span>
+                    </div>
+                    <div class="card_od">
+                        {{item.soodno}}
+                    </div>
+                    <div class="card_date">
+                        {{item.createdate}}
+                    </div>
+                    <div class="card_name">
+                        {{item.cstmmn}}
+                    </div>
+                    <div class="card_status">
+                        <!-- card_status_yllow -->
+                        <!-- card_status_red -->
+                        <span class="card_status_main" [ngClass]="{'card_status_yllow': item.qtests}"></span>
+                        <span class="card_status_main" [ngClass]="item.ordsts == true ? (item.ordappsts == true ? 'card_status_yllow' : 'card_status_red'):''"></span>
+                        <span class="card_status_main" [ngClass]="{'card_status_yllow': item.paysts}"></span>
+                        <span class="card_status_main" [ngClass]="{'card_status_yllow': item.shipsts}"></span>
+                    </div>
+                </div>
+            </div>
+        }
+        
+    </div>
+</section>

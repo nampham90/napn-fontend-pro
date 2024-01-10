@@ -15,20 +15,23 @@
         <ng-container *appAuth="menu.code">
           <!--Thực đơn-->
           @if (!menu.children || menu.children.length === 0) {
-            <li nz-menu-item [nzPaddingLeft]="(themesMode !== 'top' || isOverMode) && !isCollapsed ? 16 : 0" [nzSelected]="menu.selected">
-              <a (click)="changeRoute($event, menu)">
-                @if (menu.icon) {
-                  <i nz-icon [nzType]="menu.icon"></i>
-                }
-                @if (menu.alIcon) {
-                  <i nz-icon [nzIconfont]="menu.alIcon"></i>
-                }
-                <span>{{ menu.menuName }}</span>
-              </a>
-            </li>
+            @if(menu.visible === 1) {
+              <li nz-menu-item [nzPaddingLeft]="(themesMode !== 'top' || isOverMode) && !isCollapsed ? 16 : 0" [nzSelected]="menu.selected">
+                <a (click)="changeRoute($event, menu)">
+                  @if (menu.icon) {
+                    <i nz-icon [nzType]="menu.icon"></i>
+                  }
+                  @if (menu.alIcon) {
+                    <i nz-icon [nzIconfont]="menu.alIcon"></i>
+                  }
+                  <span>{{ menu.menuName }}</span>
+                </a>
+              </li>
+            }
           }
           <!--Menu phụ-->
           @if (menu.children && menu.children.length > 0) {
+            @if(menu.visible === 1) {
             <!--*appAuth="menu.code"-->
             <li nz-submenu [nzPaddingLeft]="(themesMode !== 'top' || isOverMode) && !isCollapsed ? 16 : 0" [nzTitle]="titleTpl" [(nzOpen)]="menu.open" (nzOpenChange)="changeOpen(menu, menus)">
               <ng-template #titleTpl>
@@ -45,20 +48,23 @@
                   <!--Giấy phép 2-->
                   <ng-container *appAuth="menuSecond.code">
                     @if (!menuSecond.children || menuSecond.children.length === 0) {
-                      <li nz-menu-item [nzPaddingLeft]="(themesMode !== 'top' || isOverMode) && !isCollapsed ? 32 : 0" [nzSelected]="menuSecond.selected">
-                        <a (click)="changeRoute($event, menuSecond)">
-                          @if (menuSecond.icon) {
-                            <i nz-icon [nzType]="menuSecond.icon"></i>
-                          }
-                          @if (menuSecond.alIcon) {
-                            <i nz-icon [nzIconfont]="menuSecond.alIcon"></i>
-                          }
-                          <span>{{ menuSecond.menuName }}</span>
-                        </a>
-                      </li>
+                      @if(menuSecond.visible === 1) {
+                        <li nz-menu-item [nzPaddingLeft]="(themesMode !== 'top' || isOverMode) && !isCollapsed ? 32 : 0" [nzSelected]="menuSecond.selected">
+                          <a (click)="changeRoute($event, menuSecond)">
+                            @if (menuSecond.icon) {
+                              <i nz-icon [nzType]="menuSecond.icon"></i>
+                            }
+                            @if (menuSecond.alIcon) {
+                              <i nz-icon [nzIconfont]="menuSecond.alIcon"></i>
+                            }
+                            <span>{{ menuSecond.menuName }}</span>
+                          </a>
+                        </li>
+                      }
                     }
                     <!--Thực đơn cấp ba-->
                     @if (menuSecond.children && menuSecond.children.length > 0) {
+                      @if(menuSecond.visible === 1) {
                       <li
                         nz-submenu
                         [nzPaddingLeft]="(themesMode !== 'top' || isOverMode) && !isCollapsed ? 32 : 0"
@@ -79,20 +85,23 @@
                           @for (menuThird of menuSecond.children; track menuThird) {
                             <ng-container *appAuth="menuThird.code">
                               @if (!menuThird.children || menuThird.children.length === 0) {
-                                <li nz-menu-item [nzPaddingLeft]="(themesMode !== 'top' || isOverMode) && !isCollapsed ? 48 : 0" [nzSelected]="menuThird.selected">
-                                  <a (click)="changeRoute($event, menuThird)">
-                                    @if (menuThird.icon) {
-                                      <i nz-icon [nzType]="menuThird.icon"></i>
-                                    }
-                                    @if (menuThird.alIcon) {
-                                      <i nz-icon [nzIconfont]="menuThird.alIcon"></i>
-                                    }
-                                    <span>{{ menuThird.menuName }}</span>
-                                  </a>
-                                </li>
+                                @if(menuThird.visible === 1) {
+                                  <li nz-menu-item [nzPaddingLeft]="(themesMode !== 'top' || isOverMode) && !isCollapsed ? 48 : 0" [nzSelected]="menuThird.selected">
+                                    <a (click)="changeRoute($event, menuThird)">
+                                      @if (menuThird.icon) {
+                                        <i nz-icon [nzType]="menuThird.icon"></i>
+                                      }
+                                      @if (menuThird.alIcon) {
+                                        <i nz-icon [nzIconfont]="menuThird.alIcon"></i>
+                                      }
+                                      <span>{{ menuThird.menuName }}</span>
+                                    </a>
+                                  </li>
+                                }
                               }
                               <!--Thực đơn cấp 4-->
                               @if (menuThird.children && menuThird.children.length > 0) {
+                                @if(menuThird.visible === 1) {
                                 <li
                                   nz-submenu
                                   [nzPaddingLeft]="(themesMode !== 'top' || isOverMode) && !isCollapsed ? 48 : 0"
@@ -124,17 +133,20 @@
                                     }
                                   </ul>
                                 </li>
+                               }
                               }
                             </ng-container>
                           }
                         </ul>
                       </li>
+                     }
                     }
                   </ng-container>
                   <!--Giấy phép 2 kết thúc-->
                 }
               </ul>
             </li>
+           }
           }
         </ng-container>
         <!--Hết quyền 1-->

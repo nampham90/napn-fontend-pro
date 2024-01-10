@@ -70,4 +70,13 @@ export const Tmt101Ant100Searchparam = 'tmt101/tmt101Ant100Searchparam';
 export const Tmt101Ant100FindAll = 'tmt101/tmt101Ant100FindAll';
 
 
-// 
+// tmt050
+
+export const Tmt050listpaymethcd = 'master/tmt050listpaymethcd';
+
+// tmt170
+export const Tmt170listdelimthcd = 'master/tmt170listdelimthcd';
+
+
+// province Api
+export const Apiprovinces = 'master/apiprovinces';

@@ -5,14 +5,20 @@ import { login } from './business/login';
 import { menu } from './business/menu';
 import { role } from './business/role';
 import { user } from './business/user';
+import { spot00101 } from './business/out/spot00101';
 
 export const handlers = [
-  login, // 登陆
-  menu, // 菜单
-  ...role, // 角色列表
-  ...user, // 用户列表
-  ...department, // 部门
+  // system
+  login, // Đăng nhập
+  ...menu, // menu
+  ...role, // danh sách vai trò
+  ...user, // Danh sách người dùng
+  ...department, // phòng ban
 
+  /// xuất hàng
+  ...spot00101,/// out/ đơn hàng
+
+  http.get('https://provinces.open-api.vn/api/?depth=2', () => passthrough()),
   http.get(/.*\.(js|svg|css|jpg|gif|png|woff2)$/, () => passthrough()),
   http.get('https://vdata.amap.com/tiles', () => passthrough()),
   http.get('https://restapi.amap.com/v3/log/init', () => passthrough()),

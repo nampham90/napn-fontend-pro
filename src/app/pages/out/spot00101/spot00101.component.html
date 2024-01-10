@@ -1,0 +1,13 @@
+<app-page-header [pageHeaderInfo]="pageHeaderInfo" />
+
+<div class="normal-table-wrap">
+    <ul>
+        @for(item of listPaymeth(); track item; let i = $index) {
+           <li>{{i}}:{{item.paymethcd}}: {{item.paymethnm}} </li> 
+        }
+
+        @for(item of listDelimth(); track item; let i = $index) {
+            <li>{{i}}:{{item.delimthcd}}: {{item.delimthnm}} </li> 
+         }
+    </ul>
+</div>

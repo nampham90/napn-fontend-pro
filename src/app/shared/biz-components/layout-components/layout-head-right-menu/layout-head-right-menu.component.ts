@@ -26,27 +26,29 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AvatarStoreService } from '@app/core/services/store/common-store/avatar-store.service';
 import { window } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { HomeOrderComponent } from "../home-order/home-order.component";
 
 @Component({
-  selector: 'app-layout-head-right-menu',
-  templateUrl: './layout-head-right-menu.component.html',
-  styleUrls: ['./layout-head-right-menu.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [
-    NgTemplateOutlet,
-    ScreenLessHiddenDirective,
-    NzToolTipModule,
-    NzIconModule,
-    NzButtonModule,
-    ToggleFullscreenDirective,
-    NgIf,
-    NzDropDownModule,
-    NzBadgeModule,
-    NzMenuModule,
-    HomeNoticeComponent,
-    TranslateModule
-  ]
+    selector: 'app-layout-head-right-menu',
+    templateUrl: './layout-head-right-menu.component.html',
+    styleUrls: ['./layout-head-right-menu.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        NgTemplateOutlet,
+        ScreenLessHiddenDirective,
+        NzToolTipModule,
+        NzIconModule,
+        NzButtonModule,
+        ToggleFullscreenDirective,
+        NgIf,
+        NzDropDownModule,
+        NzBadgeModule,
+        NzMenuModule,
+        HomeNoticeComponent,
+        TranslateModule,
+        HomeOrderComponent
+    ]
 })
 export class LayoutHeadRightMenuComponent implements OnInit {
   private router = inject(Router);

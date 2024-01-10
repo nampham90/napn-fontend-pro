@@ -10,7 +10,7 @@
     <span *appScreenLessHidden="'320'" class="bst-header-icon" nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="Tìm kiếm" (click)="showSearchModal()">
       <i nz-icon nzTheme="outline" nzType="search"></i>
     </span>
-    <!--注释的是一个弹出外连接的按钮-->
+
     <!-- <span *appScreenLessHidden="'375'" class="bst-header-icon" nz-tooltip nzTooltipTitle="OnChat的帮助文档"
            nzTooltipPlacement="bottom">
              <a href="https://docs.chat.hypergo.net/docs/intro/" target="_blank"><i nz-icon nzType="question-circle"
@@ -31,7 +31,13 @@
       </ng-template>
     </span>
 
-    <span class="bst-header-icon" nz-dropdown nzPlacement="bottomRight" nzTrigger="click" [nzDropdownMenu]="noticeMenu">
+    <span  class="bst-header-icon" nzTrigger="click" [nzDropdownMenu]="orderMenu" nz-dropdown nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="Đơn hàng">
+      <nz-badge class="bst-badge" [nzCount]="3">
+        <i nz-icon nzTheme="outline" nzType="bars"></i>
+      </nz-badge>
+    </span>
+
+    <span class="bst-header-icon" nz-dropdown nzPlacement="bottomRight" nzTrigger="click" [nzDropdownMenu]="noticeMenu" nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="Thông báo">
       <nz-badge class="bst-badge" [nzCount]="11">
         <i nz-icon nzTheme="outline" nzType="bell"></i>
       </nz-badge>
@@ -85,5 +91,8 @@
   </div>
   <nz-dropdown-menu #noticeMenu="nzDropdownMenu">
     <app-home-notice></app-home-notice>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #orderMenu="nzDropdownMenu">
+    <app-home-order></app-home-order>
   </nz-dropdown-menu>
 </ng-template>

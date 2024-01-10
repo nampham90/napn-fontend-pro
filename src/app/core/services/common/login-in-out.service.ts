@@ -84,7 +84,7 @@ export class LoginInOutService {
           menus = menus.filter(item => {
             item.selected = false;
             item.open = false;
-            return item.menuType === 'C';
+            return (item.menuType === 'C');
           });
           const temp = fnFlatDataHasParentToTree(menus);
           // Lưu trử Menu

@@ -973,6 +973,40 @@ const userMenu = http.post('/site/api/user/menu', () => {
             "icon": "caret-right",
             "createdAt": "2023-10-23T07:11:47.000Z",
             "updatedAt": "2023-10-23T07:11:47.000Z"
+        },
+        {
+            "id": "64867f1def5220e488de1a78",/// menu tự tạo
+            "lang": "vi",
+            "menuName": "Xuất hàng",
+            "code": "default:out",
+            "fatherId": "0",
+            "orderNum": 3,
+            "path": "/default/out",
+            "menuType": "C",
+            "visible": 1,
+            "status": 1,
+            "newLinkFlag": 0,
+            "alIcon": null,
+            "icon": "export",
+            "createdAt": "2023-10-23T07:11:47.000Z",
+            "updatedAt": "2023-10-23T07:11:47.000Z"
+        },
+        {
+            "id": "64867f1def5220e488de1a79",
+            "lang": "vi",
+            "menuName": "Đơn hàng",
+            "code": "default:out:spot00101",
+            "fatherId": "64867f1def5220e488de1a78",
+            "orderNum": 3,
+            "path": "/default/out/spot00101",
+            "menuType": "C",
+            "visible": 1,
+            "status": 1,
+            "newLinkFlag": 0,
+            "alIcon": null,
+            "icon": "export",
+            "createdAt": "2023-10-23T07:11:47.000Z",
+            "updatedAt": "2023-10-23T07:11:47.000Z"
         }
     ]
 })

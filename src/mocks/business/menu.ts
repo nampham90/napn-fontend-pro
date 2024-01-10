@@ -1,6 +1,33 @@
 import { http, HttpResponse } from 'msw';
 
-export const menu = http.get('/site/api/sysPermission/menu/1', () => {
+const menuListFromUrl = http.post('/site/api/menu/ant100PostUrlParams',()=> {
+    return HttpResponse.json({
+        "code": 0,
+        "msg": "SUCCESS",
+        "data": [
+            {
+                "stt": 1,
+                "title1": "Trang chủ",
+                "title2": "Trang chủ",
+                "idyoutube": ""
+            },
+            {
+                "stt": 2,
+                "title1": "Xuất hàng",
+                "title2": "Xuất hàng",
+                "idyoutube": ""
+            },
+            {
+                "stt": 3,
+                "title1": "Đơn hàng",
+                "title2": "Đơn hàng",
+                "idyoutube": ""
+            }
+        ]
+    });
+})
+
+const menuList = http.get('/site/api/sysPermission/menu/1', () => {
   return HttpResponse.json({
     code: 0,
     msg: 'SUCCESS',
@@ -977,3 +1004,6 @@ export const menu = http.get('/site/api/sysPermission/menu/1', () => {
   ]
   });
 });
+
+
+export const menu = [menuList, menuListFromUrl];
