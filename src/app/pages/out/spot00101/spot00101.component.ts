@@ -1,7 +1,6 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Paymeth, Tmt050Service } from '@app/core/services/http/master/tmt050/tmt050.service';
-import { Delimth, Tmt170Service } from '@app/core/services/http/master/tmt170/tmt170.service';
+import { Tmt050, Tmt050Service } from '@app/core/services/http/master/tmt050/tmt050.service';
 import { AbsComponent } from '@app/pages/system/abs.component';
 import { PageHeaderComponent } from '@app/shared/components/page-header/page-header.component';
 
@@ -13,21 +12,20 @@ import { PageHeaderComponent } from '@app/shared/components/page-header/page-hea
   styleUrl: './spot00101.component.less'
 })
 export class Spot00101Component extends AbsComponent{
-  tmt170Service = inject(Tmt170Service);
   tmt050Service = inject(Tmt050Service);
 
-  listPaymeth = signal<Paymeth[]>([]);
-  listDelimth = signal<Delimth[]>([]);
+  listPaymeth = signal<Tmt050[]>([]);
+  listDelimth = signal<Tmt050[]>([]);
   override destroyRef = inject(DestroyRef);
   override ngOnInit(): void {
     super.ngOnInit();
-    this.tmt050Service.listPaymethcd()
+    this.tmt050Service.listRcdkbn('0002')
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(listpaymeth => {
        this.listPaymeth.set(listpaymeth);
     });
 
-    this.tmt170Service.listDelimthcd()
+    this.tmt050Service.listRcdkbn('0001')
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(data => {
        this.listDelimth.set(data);

@@ -72,10 +72,7 @@ export const Tmt101Ant100FindAll = 'tmt101/tmt101Ant100FindAll';
 
 // tmt050
 
-export const Tmt050listpaymethcd = 'master/tmt050listpaymethcd';
-
-// tmt170
-export const Tmt170listdelimthcd = 'master/tmt170listdelimthcd';
+export const Tmt050listRcdkbn = 'tmt050/tmt050FindRcdkbn';
 
 
 // province Api

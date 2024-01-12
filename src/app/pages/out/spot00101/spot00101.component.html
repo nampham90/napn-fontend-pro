@@ -3,11 +3,11 @@
 <div class="normal-table-wrap">
     <ul>
         @for(item of listPaymeth(); track item; let i = $index) {
-           <li>{{i}}:{{item.paymethcd}}: {{item.paymethnm}} </li> 
+           <li>{{i}}:{{item.DATACD}}: {{item.DATANM}} </li> 
         }
 
         @for(item of listDelimth(); track item; let i = $index) {
-            <li>{{i}}:{{item.delimthcd}}: {{item.delimthnm}} </li> 
+            <li>{{i}}:{{item.DATACD}}: {{item.DATANM}} </li> 
          }
     </ul>
 </div>
