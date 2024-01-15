@@ -2,12 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 //const ip = 'nanp.bounceme.net';
-const ip = 'localhost';
-const port = '3006';
-export const localUrl = `http://${ip}:${port}`;
+const ip = 'localhost:4201';
+const port = '80';
+export const localUrl = `http://${ip}:${port}/`;
 
 export const environment = {
-  production: true
+  production: true 
 };
 
 /*

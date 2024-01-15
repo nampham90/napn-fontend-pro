@@ -82,7 +82,7 @@ export class MenuModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    if (!!this.nzModalData) {
+    if (!!this.nzModalData.menuType) {
       this.changeMenuType(this.nzModalData.menuType);
       this.validateForm.patchValue(this.nzModalData);
     }

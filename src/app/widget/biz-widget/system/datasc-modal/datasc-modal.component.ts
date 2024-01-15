@@ -1,9 +1,11 @@
 import { NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, computed, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationFormService } from '@app/core/services/common/message-errors.service';
 import { DataScObj } from '@app/core/services/http/system/datasc.service';
 import { OptionsInterface } from '@app/core/services/types';
+import { AntTableComponent, AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
+import { CardTableWrapComponent } from '@app/shared/components/card-table-wrap/card-table-wrap.component';
 import { fnCheckForm } from '@app/utils/tools';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
@@ -11,9 +13,12 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Observable, of } from 'rxjs';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'app-datasc-modal',
@@ -22,7 +27,8 @@ import { Observable, of } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    FormsModule, NzFormModule, NzButtonModule, ReactiveFormsModule, NgIf, NgFor, NzSelectModule, NzInputNumberModule, NzInputModule
+    CardTableWrapComponent, AntTableComponent,
+    FormsModule, NzFormModule, NzButtonModule, ReactiveFormsModule, NzSelectModule, NzInputNumberModule, NzInputModule, NzSwitchModule
   ]
 })
 export class DatascModalComponent implements OnInit{
@@ -34,18 +40,27 @@ export class DatascModalComponent implements OnInit{
 
   isReadonly = false;
   messageErrors: any = [];
-  lang : OptionsInterface[] = [
-];
+  lang : OptionsInterface[] = [];
   menuName = "";
   listdatasc : DataScObj[] = [];
   tieudeNew = "";
 
   showBtnAddList = false;
+
+  tableConfig!: AntTableConfig;
+  
+  mode: boolean = false; // false => insert, true => update
   private fb = inject(FormBuilder);
   public vf = inject(ValidationFormService);
   public message = inject(NzMessageService);
-  constructor(
-    private modalRef: NzModalRef) {
+  private cdr = inject(ChangeDetectorRef);
+  private dataSevice = inject(DataService);
+  private modalSrv= inject(NzModalService);
+
+  dataList = this.dataSevice.cartItems;
+
+  @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<any>;
+  constructor(private modalRef: NzModalRef) {
     this.lang = [
       {
         value: 'vi',
@@ -77,6 +92,7 @@ export class DatascModalComponent implements OnInit{
 
   ngOnInit(): void {
     this.initForm();
+    this.initTable();
     this.isEdit = !!this.nzModalData;
     if (this.isEdit) {
       if(this.nzModalData._id) {
@@ -87,7 +103,7 @@ export class DatascModalComponent implements OnInit{
     }
   }
 
-  addList() {
+  addList(){
     if (!fnCheckForm(this.addEditForm)) {
       return of(false);
     }
@@ -99,10 +115,28 @@ export class DatascModalComponent implements OnInit{
       vitri: this.addEditForm.value.vitri,
       status:  this.addEditForm.value.status
     }
-    this.listdatasc.push(obj);
-    this.tieudeNew = obj.title1;
-    this.addEditForm.reset({status: true});
-    return "";
+    // thực hiện update 
+    if(this.mode === true) {
+       this.dataSevice.updateInCart(obj);
+       this.addEditForm.reset({status: true});
+       this.mode = false;
+       return "";
+    } else { // thực hiện regist
+       // kiểm tra có trung key khi tạo mới
+       let item = this.dataList().find(item=> item.vitri === obj.vitri)
+       if(item) {
+          this.message.error("Tiều để này đã tồn tại");
+          return of(false);
+       } else {
+          this.dataSevice.addToCart(obj);
+          this.getDataList();
+          this.tieudeNew = obj.title1;
+          this.addEditForm.reset({status: true});
+          return "";
+       }
+       
+    }
+
   }
 
   initForm(): void {
@@ -114,6 +148,113 @@ export class DatascModalComponent implements OnInit{
       vitri: [null],
       list: this.listdatasc
     });
+  }
+
+  edit(vitri: number) : void {
+
+     let item: DataScObj | undefined = this.dataList().find(item => item.vitri === vitri);
+     if(item) {
+       this.addEditForm.patchValue(item);
+       this.mode = true;
+     }
+  }
+
+  del(vitri: number): void {
+      this.modalSrv.confirm({
+        nzTitle: "Bạn có chắc chăn muốn xóa không ?" ,
+        nzContent : "Nhấn OK để tiếp tục !",
+        nzOnOk: () => {
+          this.tableLoading(true);
+          let item: DataScObj | undefined = this.dataList().find(item => item.vitri === vitri);
+          if(item) {
+             this.dataSevice.removeFromCart(item);
+             this.tableLoading(false);
+          }
+        }
+      })
+  }
+
+  allDel(): void {
+    this.modalSrv.confirm({
+      nzTitle: "Bạn có chắc chăn muốn xóa không ?" ,
+      nzContent : "Nhấn OK để tiếp tục !",
+      nzOnOk: () => {
+        this.dataSevice.cartItems.set([]);
+      }
+    })
+  }
+
+  getDataList(e?: NzTableQueryParams): void {
+    this.tableLoading(false);
+    
+
+  }
+
+  // Phát hiện thay đổi bảng kích hoạt
+  tableChangeDectction(): void {
+    // Thay đổi tham chiếu sẽ kích hoạt phát hiện thay đổi.
+   // this.dataList = [...this.dataList];
+    this.cdr.detectChanges();
+  }
+
+  tableLoading(isLoading: boolean): void {
+    this.tableConfig.loading = isLoading;
+    this.tableChangeDectction();
+  }
+
+  reloadTable(): void {
+    this.message.info('Làm mới thành công');
+    this.getDataList();
+  }
+
+  selectedChecked(e: any[]): void {
+    this.checkedCashArray = [...e];
+  }
+
+  checkedCashArray: any[] = [];
+
+  // Sửa đổi số lượng mục trên mỗi trang
+  changePageSize(e: number): void {
+    this.tableConfig.pageSize = e;
+  }
+
+  private initTable(): void {
+    this.tableConfig = {
+      showCheckbox: true,
+      headers: [
+        {
+          title: 'Title 1',
+          field: 'title1',
+          width: 200
+        },
+        {
+          title: 'title 2',
+          width: 200,
+          field: 'title2'
+        },
+        {
+          title: 'Ngôn ngữ',
+          width: 100,
+          field: 'lang'
+        },
+        {
+          title: 'Vị trí',
+          width: 80,
+          field: 'vitri'
+        },
+        {
+          title: 'Vận hành',
+          tdTemplate: this.operationTpl,
+          width: 200,
+          fixed: true,
+          fixedDir: 'right'
+        }
+      ],
+      total: 0,
+      loading: true,
+      pageSize: 10,
+      pageIndex: 1
+    };
   }
 
 }

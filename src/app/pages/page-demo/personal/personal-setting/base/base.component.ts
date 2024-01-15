@@ -23,6 +23,7 @@ import { UserInfo, UserInfoService } from '@app/core/services/store/common-store
 import { AccountService, User } from '@app/core/services/http/system/account.service';
 import {serverUrl} from '@env/environment.prod'
 import { AvatarStoreService } from '@app/core/services/store/common-store/avatar-store.service';
+import { ApiService } from '@app/core/services/http/master/api/api.service';
 @Component({
   selector: 'app-base',
   templateUrl: './base.component.html',
@@ -47,6 +48,17 @@ import { AvatarStoreService } from '@app/core/services/store/common-store/avatar
   ]
 })
 export class BaseComponent implements OnInit {
+
+  private userInfoService = inject(UserInfoService); 
+  private fb = inject(FormBuilder); 
+  private msg = inject(NzMessageService); 
+  private validatorsService = inject(ValidatorsService); 
+  private breakpointObserver = inject(BreakpointObserver); 
+  private cdr = inject(ChangeDetectorRef);
+  private userService = inject(AccountService);
+  private avatarService = inject(AvatarStoreService);
+  private apiService = inject(ApiService)
+
   @Input() data!: { label: string };
   validateForm!: FormGroup;
   selectedProvince = 1;
@@ -64,15 +76,7 @@ export class BaseComponent implements OnInit {
   linkavatar = signal("");
 
   constructor(
-    private userInfoService: UserInfoService, 
-    private fb: FormBuilder, 
-    private msg: NzMessageService, 
-    private validatorsService: ValidatorsService, 
-    private breakpointObserver: BreakpointObserver, 
-    private cdr: ChangeDetectorRef,
-    private userService: AccountService,
-    private avatarService: AvatarStoreService,
-    private webService : WebserviceService) {
+) {
     this.url = localUrl + Const.Tmt010Ant100SaveFile;
     this.serverurl = serverUrl;
   }
@@ -160,17 +164,27 @@ export class BaseComponent implements OnInit {
       });
   }
 
+  getListProvinces() {
+      this.apiService.provincesApi()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(res => {
+         this.provinceData = res;
+      })
+  }
+
   ngOnInit(): void {
-    this.webService.GetCallProvinces(response=>{
-      this.provinceData = response;
-      console.log(this.provinceData);
-    })
     this.initForm();
+    this.getListProvinces();
     this.obBreakPoint();
     this.avatarService.getAvatarStore()
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(avatar => {
-       this.linkavatar.set(avatar);
+       if(avatar) {
+         this.linkavatar.set(avatar);
+       } else {
+         this.linkavatar.set('./assets/imgs/avatar.png');
+       }
+       
     })
   }
 }

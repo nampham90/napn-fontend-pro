@@ -1,0 +1,31 @@
+<section class="content_wrap">
+    <div class="grid">
+        @for(item of _dataList; track item) {
+            <div class="col">
+                <div class="grid_card">
+                    <div class="card_many">
+                        <span nz-icon nzType="dollar" nzTheme="twotone" [nzTwotoneColor]="'#52c41a'"></span>
+                    </div>
+                    <div class="card_remove">
+                        <span nz-icon nzType="delete" nzTheme="outline" ></span>
+                    </div>
+                    <div class="card_od">
+                        {{item.soOD}}
+                    </div>
+                    <div class="card_date">
+                        {{item.ngaytao}}
+                    </div>
+                    <div class="card_name">
+                        {{item.tenkhachang}}
+                    </div>
+                    <div class="card_status">
+                        <span class="card_status_main" [ngClass]="{'card_status_yllow': item.sts_baogia}"></span>
+                        <span class="card_status_main" [ngClass]="{'card_status_yllow': item.sts_dathang}"></span>
+                        <span class="card_status_main" [ngClass]="{'card_status_yllow': item.sts_thanhtoan}"></span>
+                        <span class="card_status_main" [ngClass]="{'card_status_yllow': item.sts_xuathang}"></span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>

@@ -1,0 +1,104 @@
+
+    @if(ishowCart()) {
+        <div class="normal-table-wrap">
+            
+        </div>
+
+    } @else {
+        <div class="normal-table-wrap">
+            <nz-card nzHoverable [nzBodyStyle]="{ 'padding-bottom': 0 }" class="m-b-10">
+                <form nz-form>
+                    <div nz-row [nzGutter]="[16, 16]">
+                        <div nz-col [nzLg]="12" [nzMd]="24" [nzSm]="24" [nzXl]="12" [nzXs]="24" [nzXXl]="12">
+                            <nz-form-item>
+                                <nz-form-label [nzFor]="">Danh mục</nz-form-label>
+                                <nz-form-control>
+                                    <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.catcd">
+                                        @for(item of catcds(); track item) {
+                                            <nz-option  [nzLabel]="item['catnm']" [nzValue]="item['catcd']"></nz-option>
+                                        }
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div nz-col [nzLg]="12" [nzMd]="24" [nzSm]="24" [nzXl]="12" [nzXs]="24" [nzXXl]="12">
+                            <nz-form-item>
+                                <nz-form-label [nzFor]="">Hãng sản xuất</nz-form-label>
+                                <nz-form-control>
+                                    <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.manufcd">
+                                        @for(item of manufcds(); track item) {
+                                            <nz-option  [nzLabel]="item['manufnm']" [nzValue]="item['manufcd']"></nz-option>
+                                        }
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div nz-row [nzGutter]="[16, 16]">
+                        <div nz-col [nzLg]="12" [nzMd]="24" [nzSm]="24" [nzXl]="12" [nzXs]="24" [nzXXl]="12">
+                            <nz-form-item>
+                                <nz-form-label [nzFor]="">Chất lượng</nz-form-label>
+                                <nz-form-control>
+                                    <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.qtycd">
+                                        @for(item of qtycds(); track item) {
+                                            <nz-option  [nzLabel]="item['qtynm']" [nzValue]="item['qtycd']"></nz-option>
+                                        }
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+    
+                        <div nz-col [nzLg]="12" [nzMd]="24" [nzSm]="24" [nzXl]="12" [nzXs]="24" [nzXXl]="12">
+                            <nz-form-item>
+                                <nz-form-label [nzFor]="">Nhà cung cấp</nz-form-label>
+                                <nz-form-control>
+                                    <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.supplycd">
+                                        @for(item of supplycds(); track item) {
+                                            <nz-option  [nzLabel]="item['supplynm']" [nzValue]="item['supplycd']"></nz-option>
+                                        }
+                                    </nz-select>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div nz-row [nzGutter]="[16, 16]">
+                        <div class="text-right p-0 m-b-10" nz-col [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXl]="24" [nzXs]="24" [nzXXl]="24">
+                            <button nz-button [nzType]="'primary'" (click)="getDataList()">
+                                <i nz-icon nzType="search"></i>
+                                Tìm kiếm
+                              </button>
+                            <button nz-button class="m-l-15" (click)="resetForm()"><i nz-icon nzType="close-circle" nzTheme="outline"></i>Reset</button>
+                        </div>
+                         
+                    </div>
+                </form>
+            </nz-card>
+            <app-card-table-wrap [tableTitle]="'Danh sách chi tiết'" (reload)="reloadTable()" [btnTpl]="tableBtns">
+                <app-ant-table
+                  (changePageSize)="changePageSize($event)"
+                  (changePageNum)="getDataList($event)"
+                  [tableConfig]="tableConfig"
+                  [tableData]="dataList"
+                ></app-ant-table>
+                <ng-template #operationTpl let-prodcd="prodcd" let-sericd="sericd">
+                    <!-- *appAuth="ActionCode.HuongdanUpdate" -->
+                    <span  class="operate-text">
+                        <button nz-button nzType="primary" nzGhost (click)="addCart(sericd)">Add cart</button>
+                    </span>
+                    <span  class="operate-text">
+                        <button nz-button nzType="primary" nzGhost (click)="removeCart(sericd)">Remove</button>
+                    </span>
+                    
+        
+                </ng-template>
+            </app-card-table-wrap>
+        
+            <ng-template #tableBtns>
+            </ng-template>
+        </div>
+    }
+
+
+<nz-badge class="bst-badge" [nzCount]="0">
+    <span nz-icon [nzType]="!ishowCart()?'shopping-cart': 'home'" (click)="showcart(ishowCart())" nzTheme="outline" class="head-example"></span>
+</nz-badge>

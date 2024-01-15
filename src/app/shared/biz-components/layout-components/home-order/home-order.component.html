@@ -1,0 +1,32 @@
+<nz-card [nzBodyStyle]="{ padding: 0 }">
+    <nz-tabset nzCentered [nzTabBarStyle]="{ paddingLeft: '15px', paddingRight: '15px' }">
+      <nz-tab nzTitle="Đơn mới(2)">
+        <ng-container *ngTemplateOutlet="notifiNewOrderTpl"></ng-container>
+      </nz-tab>
+      <nz-tab nzTitle="Báo giá(4)">
+        <ng-container *ngTemplateOutlet="notifiBaogiaTpl"></ng-container>
+      </nz-tab>
+      <nz-tab nzTitle="Đặt hàng(3)">
+        <ng-container *ngTemplateOutlet="notifidathangTpl"></ng-container>
+      </nz-tab>
+      <nz-tab nzTitle="Thanh toán(4)">
+        <ng-container *ngTemplateOutlet="notifithanhtoanTpl"></ng-container>
+      </nz-tab>
+    </nz-tabset>
+  </nz-card>
+
+  <ng-template #notifiNewOrderTpl>
+    <app-list-order [isNewOrder]="true"></app-list-order>
+  </ng-template>
+
+  <ng-template #notifiBaogiaTpl>
+    <app-list-order></app-list-order>
+  </ng-template>
+
+  <ng-template #notifidathangTpl>
+    <app-list-order></app-list-order>
+  </ng-template>
+
+  <ng-template #notifithanhtoanTpl>
+    <app-list-order></app-list-order>
+  </ng-template>

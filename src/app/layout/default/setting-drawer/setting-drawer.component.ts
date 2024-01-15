@@ -87,13 +87,13 @@ export class SettingDrawerComponent implements OnInit {
   themes: Theme[] = [
     {
       key: 'dark',
-      image: '/assets/imgs/theme-dark.svg',
+      image: 'assets/imgs/theme-dark.svg',
       title: 'Giao diện menu tối',
       isChecked: false
     },
     {
       key: 'light',
-      image: '/assets/imgs/theme-light.svg',
+      image: 'assets/imgs/theme-light.svg',
       title: 'Giao diện menu sáng',
       isChecked: true
     }
@@ -151,19 +151,19 @@ export class SettingDrawerComponent implements OnInit {
   modes: ThemeMode[] = [
     {
       key: 'side',
-      image: '/assets/imgs/menu-side.svg',
+      image: 'assets/imgs/menu-side.svg',
       title: 'Bố cục menu bên cạnh',
       isChecked: true
     },
     {
       key: 'top',
-      image: '/assets/imgs/menu-top.svg',
+      image: 'assets/imgs/menu-top.svg',
       title: 'Bố cục menu phía trên',
       isChecked: false
     },
     {
       key: 'mixi',
-      image: '/assets/imgs/menu-top.svg',
+      image: 'assets/imgs/menu-top.svg',
       title: 'Bố cục menu kết hợp',
       isChecked: false
     }

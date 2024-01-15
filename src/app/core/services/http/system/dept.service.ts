@@ -37,8 +37,8 @@ export class DeptService {
     return this.http.post(Const.Ant100addPhongban, param);
   }
 
-  public delDepts(ids: number[]): Observable<void> {
-    return this.http.post('/department/del/', { ids });
+  public delDepts(id: number): Observable<void> {
+    return this.http.post(Const.Ant100delPhongban, { id:id }, { needSuccessInfo: true });
   }
 
   public editDepts(param: Dept): Observable<void> {

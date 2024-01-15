@@ -28,7 +28,12 @@
     <nz-form-item>
       <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="vitri">Vị trí</nz-form-label>
       <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Vui lòng nhập số lượng">
+        @if(mode) {
+          <nz-input-number name="vitri" id="vitri" formControlName="vitri" [nzMin]="0" [nzMax]="100" [nzStep]="1" [nzDisabled]="true"></nz-input-number>
+        } @else {
           <nz-input-number name="vitri" id="vitri" formControlName="vitri" [nzMin]="0" [nzMax]="100" [nzStep]="1"></nz-input-number>
+        }
+          
       </nz-form-control>
     </nz-form-item>
   
@@ -38,11 +43,36 @@
         <nz-switch formControlName="status" nzCheckedChildren="Cho phép" nzUnCheckedChildren="Vô hiệu hóa"></nz-switch>
       </nz-form-control>
     </nz-form-item>
-    <ng-container *ngIf="!showBtnAddList">
-      <button  nz-button (click)="addList()" nzType="primary">Add List</button><span>&nbsp;&nbsp;Tổng tiêu dề: {{listdatasc.length}}</span>
-    </ng-container>
+      @if(!showBtnAddList) {
+        <button  nz-button (click)="addList()" nzType="primary">Confirm{{dataList().length}}</button>
+      }
   </form>
+  <app-card-table-wrap [btnTpl]="tableBtns" [tableTitle]="'Danh sách tiêu đề'" (reload)="reloadTable()">
+    <app-ant-table
+      [checkedCashArrayFromComment]="checkedCashArray"
+      [tableConfig]="tableConfig"
+      [tableData]="dataList()"
+      (changePageNum)="getDataList($event)"
+      (changePageSize)="changePageSize($event)"
+      (selectedChange)="selectedChecked($event)"
+    ></app-ant-table>
+    <ng-template #operationTpl let-vitri="vitri">
+      <a nz-button nzType="primary" (click)="edit(vitri)">Cập nhật</a>
+      <a nz-button nzType="default" (click)="del(vitri)">Xóa</a>
+    </ng-template>
+  </app-card-table-wrap>
+  <ng-template #tableBtns>
+    <button (click)="allDel()" nz-button nzType="default">
+      <i nz-icon nzType="delete"></i>
+       Xóa tất cả
+    </button>
+</ng-template>
   <ng-template #combineTpl let-control>
-      <ng-container *ngIf="control.hasError('message')">{{ control.errors.message }}</ng-container>
-      <ng-container *ngIf="control.hasError('required')">Phần bắt buộc</ng-container>
+    @if(control.hasError('message')){
+      <ng-container >{{ control.errors.message }}</ng-container>
+    }
+
+    @if(control.hasError('required')) {
+      <ng-container >Phần bắt buộc</ng-container>
+    }
   </ng-template>
