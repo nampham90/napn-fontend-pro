@@ -10,17 +10,22 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { Observable, of } from 'rxjs';
+import { Observable, finalize, of } from 'rxjs';
 import { ActionCode } from '@app/config/actionCode';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { CardTableWrapComponent } from "../../../../shared/components/card-table-wrap/card-table-wrap.component";
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { StockService } from '@app/core/services/http/stock/stock.service';
+import { SearchCommonVO } from '@app/core/services/types';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TST010_STCK } from '@app/model/tst010_stck.model';
+import { CommonModule } from '@angular/common';
 interface SearchParam {
-  catcd: string; // danh mục san phẩm
-  qtycd: string; // chât lượng sản phẩm
-  manufcd: string; // hãng
-  supplycd: string; // nhà cũng cấp
+  CATCD: string; // danh mục san phẩm
+  QTYCD: string; // chât lượng sản phẩm
+  SUPPLYCD: string; // hãng
+  MANUFACTTURECD: string; // nhà cũng cấp
 }
 @Component({
     selector: 'app-product-list',
@@ -31,17 +36,19 @@ interface SearchParam {
         NzSelectModule,
         NzButtonModule,
         NzBadgeModule,
+        CommonModule,
         NzIconModule, CardTableWrapComponent, AntTableComponent]
 })
 export class ProductListComponent implements OnInit {
   readonly nzModalData: any = inject(NZ_MODAL_DATA);
   ishowCart = signal(false);
   tableConfig!: AntTableConfig;
-  dataList: any[] = [];
+  dataList: TST010_STCK[] = [];
   ActionCode = ActionCode;
   public message = inject(NzMessageService);
   destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
+  private stockService = inject(StockService);
   constructor(private modalRef: NzModalRef) {}
   addEditForm!: FormGroup;
   searchParam: Partial<SearchParam> = {};
@@ -51,6 +58,9 @@ export class ProductListComponent implements OnInit {
   supplycds = signal([]);
 
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<any>;
+  @ViewChild('productnameTpl', { static: true }) productnameTpl!: TemplateRef<any>;
+  @ViewChild('sellpirceTpl', { static: true }) sellpirceTpl!: TemplateRef<any>;
+  @ViewChild('imageTpl', { static: true }) imageTpl!: TemplateRef<any>;
 
   protected getAsyncFnData(modalValue: NzSafeAny): Observable<NzSafeAny> {
     return of(modalValue);
@@ -69,14 +79,33 @@ export class ProductListComponent implements OnInit {
   }
 
   getDataList(e?: NzTableQueryParams): void{
-    this.tableLoading(false);
+    const params: SearchCommonVO<any> = {
+       pageSize: this.tableConfig.pageSize,
+       pageNum:  e?.pageIndex || this.tableConfig.pageIndex!,
+       filters: this.searchParam
+    }
+
+    this.stockService.findAllStck(params)
+    .pipe(
+      finalize(() => {
+        this.tableLoading(false);
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    )
+    .subscribe(data => {
+      const { list, total, pageNum } = data;
+      this.dataList = [...list];
+      this.tableConfig.total = total!;
+      this.tableConfig.pageIndex = pageNum!;
+      this.tableLoading(false);
+    })
   }
 
-  removeCart(sericd: string) {
+  removeCart() {
     
   }
 
-  addCart(sericd: string) {
+  addCart() {
     
   }
 
@@ -112,34 +141,38 @@ export class ProductListComponent implements OnInit {
       showCheckbox: false,
       headers: [
         {
-          title: '',
-          field: 'img',
-          width: 120
+          title: 'Hình ảnh',
+          field: 'IMAGE',
+          tdTemplate: this.imageTpl,
+          width: 60
         },
         {
           title: 'Tên sản phẩm',
           field: 'prodname',
+          tdTemplate: this.productnameTpl,
           width: 300
         },
         {
           title: 'Số lượng',
-          field: 'quantity',
-          width: 120
+          field: 'TOTALALLWQTY',
+          width: 80
         },
         {
-          title: 'Giá',
-          field: 'price',
+          title: 'Đơn giá',
+          field: 'SELLPIRCE',
+          tdTemplate: this.sellpirceTpl,
           width: 120
         },
         {
           title: 'Ngày hết hạn',
-          field: 'expdate',
+          field: 'LIMITDATE',
+          pipe: 'date: dd/MM/yyyy',
           width: 120
         },
         {
-          title: 'Cập nhật',
+          title: 'Thêm vào giỏ hàng',
           tdTemplate: this.operationTpl,
-          width: 200,
+          width: 120,
           fixed: true,
           fixedDir: 'right'
         }

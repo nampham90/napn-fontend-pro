@@ -77,3 +77,9 @@ export const Tmt050listRcdkbn = 'tmt050/tmt050FindRcdkbn';
 
 // province Api
 export const Apiprovinces = 'master/apiprovinces';
+
+
+// stock
+export const StockListProduct = 'stock/stockListProduct';
+
+// spot00101

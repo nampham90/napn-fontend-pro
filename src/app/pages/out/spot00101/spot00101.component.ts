@@ -28,7 +28,7 @@ export class Spot00101Component extends AbsComponent{
   }
 
   showProdutList() {
-     this.productListService.show({nzTitle: "Danh sách sản phẩm", nzWidth: 1024},{showCart: true})
+     this.productListService.show({nzTitle: "Trong Kho", nzWidth: 1224},{showCart: true})
      .pipe(takeUntilDestroyed(this.destroyRef))
      .subscribe(
         res => {

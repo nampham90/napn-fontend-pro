@@ -13,7 +13,7 @@
                             <nz-form-item>
                                 <nz-form-label [nzFor]="">Danh mục</nz-form-label>
                                 <nz-form-control>
-                                    <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.catcd">
+                                    <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.CATCD">
                                         @for(item of catcds(); track item) {
                                             <nz-option  [nzLabel]="item['catnm']" [nzValue]="item['catcd']"></nz-option>
                                         }
@@ -25,7 +25,7 @@
                             <nz-form-item>
                                 <nz-form-label [nzFor]="">Hãng sản xuất</nz-form-label>
                                 <nz-form-control>
-                                    <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.manufcd">
+                                    <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.MANUFACTTURECD">
                                         @for(item of manufcds(); track item) {
                                             <nz-option  [nzLabel]="item['manufnm']" [nzValue]="item['manufcd']"></nz-option>
                                         }
@@ -39,7 +39,7 @@
                             <nz-form-item>
                                 <nz-form-label [nzFor]="">Chất lượng</nz-form-label>
                                 <nz-form-control>
-                                    <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.qtycd">
+                                    <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.QTYCD">
                                         @for(item of qtycds(); track item) {
                                             <nz-option  [nzLabel]="item['qtynm']" [nzValue]="item['qtycd']"></nz-option>
                                         }
@@ -52,7 +52,7 @@
                             <nz-form-item>
                                 <nz-form-label [nzFor]="">Nhà cung cấp</nz-form-label>
                                 <nz-form-control>
-                                    <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.supplycd">
+                                    <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.SUPPLYCD">
                                         @for(item of supplycds(); track item) {
                                             <nz-option  [nzLabel]="item['supplynm']" [nzValue]="item['supplycd']"></nz-option>
                                         }
@@ -80,25 +80,43 @@
                   [tableConfig]="tableConfig"
                   [tableData]="dataList"
                 ></app-ant-table>
-                <ng-template #operationTpl let-prodcd="prodcd" let-sericd="sericd">
+                <ng-template #operationTpl>
                     <!-- *appAuth="ActionCode.HuongdanUpdate" -->
                     <span  class="operate-text">
-                        <button nz-button nzType="primary" nzGhost (click)="addCart(sericd)">Add cart</button>
+                        <button nz-button nzType="primary" nzGhost (click)="addCart()">Add cart</button>
                     </span>
                     <span  class="operate-text">
-                        <button nz-button nzType="primary" nzGhost (click)="removeCart(sericd)">Remove</button>
+                        <button nz-button nzType="primary" nzGhost (click)="removeCart()">Remove</button>
                     </span>
-                    
-        
                 </ng-template>
+               
             </app-card-table-wrap>
         
             <ng-template #tableBtns>
             </ng-template>
         </div>
+
     }
 
-
+<ng-template #productnameTpl let-product="product">
+    {{product['product_name']}}
+</ng-template>
+<ng-template #imageTpl let-IMAGE="IMAGE">
+     @if(IMAGE) {
+        <img src=""/>
+     } @else { 
+        <img src="./assets/imgs/bf.jpg" alt="" [ngStyle]="{'width':'70px','height':'50px'}"/>
+     }
+</ng-template>
+<ng-template #sellpirceTpl let-SELLPIRCE="SELLPIRCE">
+    {{SELLPIRCE | currency: 'VND'}}
+</ng-template>
+<ng-template #operationTpl>
+    <!-- *appAuth="ActionCode.HuongdanUpdate" -->
+    <span  class="operate-text">
+        <button nz-button nzType="primary" nzGhost (click)="addCart()">Add cart</button>
+    </span>
+</ng-template>
 <nz-badge class="bst-badge" [nzCount]="0">
     <span nz-icon [nzType]="!ishowCart()?'shopping-cart': 'home'" (click)="showcart(ishowCart())" nzTheme="outline" class="head-example"></span>
 </nz-badge>
