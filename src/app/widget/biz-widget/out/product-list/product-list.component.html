@@ -1,7 +1,7 @@
 
     @if(ishowCart()) {
         <div class="normal-table-wrap">
-            
+            <app-list-cart />
         </div>
 
     } @else {
@@ -107,9 +107,7 @@
     <!-- *appAuth="ActionCode.HuongdanUpdate" -->
     <span  class="operate-text">
         <button [ngClass]="{addtocart: ISADDTOCART === undefined? false: ISADDTOCART}" nz-button nzType="primary" nzGhost (click)="addCart(PRODUCTCD)">
-            
                 <span nz-icon nzType="plus"></span>
-            
             Add cart
         </button>
     </span>

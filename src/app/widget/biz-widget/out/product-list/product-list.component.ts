@@ -23,6 +23,7 @@ import { TST010_STCK } from '@app/model/tst010_stck.model';
 import { CommonModule } from '@angular/common';
 import { CartService } from './cart.service';
 import { rollOutAnimation } from 'angular-animations';
+import { ListCartComponent } from "./list-cart/list-cart.component";
 interface SearchParam {
   CATCD: string; // danh mục san phẩm
   QTYCD: string; // chât lượng sản phẩm
@@ -34,13 +35,13 @@ interface SearchParam {
     standalone: true,
     templateUrl: './product-list.component.html',
     styleUrl: './product-list.component.less',
+    animations: [rollOutAnimation()],
     imports: [NzGridModule, NzCardModule, FormsModule, NzFormModule,
         NzSelectModule,
         NzButtonModule,
         NzBadgeModule,
         CommonModule,
-        NzIconModule, CardTableWrapComponent, AntTableComponent],
-    animations: [rollOutAnimation()]
+        NzIconModule, CardTableWrapComponent, AntTableComponent, ListCartComponent]
 })
 export class ProductListComponent implements OnInit {
   readonly nzModalData: any = inject(NZ_MODAL_DATA);
