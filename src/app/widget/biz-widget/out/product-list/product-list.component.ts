@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, OnInit, TemplateRef, ViewChild, inject, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, OnInit, TemplateRef, ViewChild, computed, inject, signal } from '@angular/core';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { AntTableConfig, AntTableComponent } from '@app/shared/components/ant-table/ant-table.component';
 import { fnCheckForm } from '@app/utils/tools';
@@ -21,6 +21,8 @@ import { SearchCommonVO } from '@app/core/services/types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TST010_STCK } from '@app/model/tst010_stck.model';
 import { CommonModule } from '@angular/common';
+import { CartService } from './cart.service';
+import { rollOutAnimation } from 'angular-animations';
 interface SearchParam {
   CATCD: string; // danh mục san phẩm
   QTYCD: string; // chât lượng sản phẩm
@@ -37,18 +39,20 @@ interface SearchParam {
         NzButtonModule,
         NzBadgeModule,
         CommonModule,
-        NzIconModule, CardTableWrapComponent, AntTableComponent]
+        NzIconModule, CardTableWrapComponent, AntTableComponent],
+    animations: [rollOutAnimation()]
 })
 export class ProductListComponent implements OnInit {
   readonly nzModalData: any = inject(NZ_MODAL_DATA);
   ishowCart = signal(false);
   tableConfig!: AntTableConfig;
-  dataList: TST010_STCK[] = [];
+  dataList = signal<TST010_STCK[]>([]);
   ActionCode = ActionCode;
   public message = inject(NzMessageService);
   destroyRef = inject(DestroyRef);
   private cdr = inject(ChangeDetectorRef);
   private stockService = inject(StockService);
+  private cartService = inject(CartService);
   constructor(private modalRef: NzModalRef) {}
   addEditForm!: FormGroup;
   searchParam: Partial<SearchParam> = {};
@@ -56,6 +60,11 @@ export class ProductListComponent implements OnInit {
   catcds = signal([]);
   manufcds = signal([]);
   supplycds = signal([]);
+  isAddtocart = signal(false);
+
+  animationState = false;
+
+  cartCount = computed(() => this.cartService.cartItems().length)
 
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<any>;
   @ViewChild('productnameTpl', { static: true }) productnameTpl!: TemplateRef<any>;
@@ -94,7 +103,7 @@ export class ProductListComponent implements OnInit {
     )
     .subscribe(data => {
       const { list, total, pageNum } = data;
-      this.dataList = [...list];
+      this.dataList.set(list);
       this.tableConfig.total = total!;
       this.tableConfig.pageIndex = pageNum!;
       this.tableLoading(false);
@@ -105,8 +114,19 @@ export class ProductListComponent implements OnInit {
     
   }
 
-  addCart() {
+  addCart(productcd: string) {
+    let item = this.dataList().find(product => product.PRODUCTCD === productcd);
+
+    this.cartService.addToCart(item!);
     
+    if(item) {
+      item.ISADDTOCART = true;
+          setTimeout(() => {
+            item!.ISADDTOCART = false
+      }, 1000);
+    }
+
+    console.log(this.cartService.cartItems());
   }
 
   resetForm(): void {}
@@ -118,7 +138,7 @@ export class ProductListComponent implements OnInit {
   // Phát hiện thay đổi bảng kích hoạt
   tableChangeDectction(): void {
     // Thay đổi tham chiếu sẽ kích hoạt phát hiện thay đổi.
-    this.dataList = [...this.dataList];
+  //  this.dataList = [...this.dataList];
     this.cdr.detectChanges();
   }
 
