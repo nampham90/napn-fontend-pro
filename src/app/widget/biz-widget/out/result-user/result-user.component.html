@@ -1,0 +1,12 @@
+<nz-badge class="bst-badge" [nzCount]="0">
+    <span nz-icon [nzType]="!ishowPlus() ? 'plus': 'search'" (click)="showPlus(ishowPlus())" nzTheme="outline" class="head-example"></span>
+</nz-badge>
+<div class="normal-table-wrap">
+    @if(ishowPlus()) {
+        <app-add-user />
+    } @else {
+        <app-search-user />
+    }
+</div>
+
+

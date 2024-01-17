@@ -7,19 +7,20 @@ import { PageInfo, SearchCommonVO } from '../../types';
 import { BaseHttpService } from '../base-http.service';
 import { TMT010FILE } from '@app/model/tmt010_file.model';
 import { Role } from './role.service';
-import { identifierName } from '@angular/compiler';
+
 /*
  * quản lý người dùng
  * */
 export interface User {
-  id: number;
-  password: string;
+  id?: number;
+  password?: string;
   userName?: string;
   available?: boolean;
   roleName?: string[];
   sex?: 1 | 0;
   telephone?: string;
   mobile?: string | number;
+  address?: string;
   email?: string;
   lastLoginTime?: Date;
   oldPassword?: string;
@@ -28,7 +29,13 @@ export interface User {
   sys_roles?: Role[] 
   dienthoai?: string;
   name?: string;
-  role_id: number[];
+  taxcd?: string;
+  desc?: string; // mo tả user
+  area?: string; // vùng , quốc gia
+  province?: string; // tỉnh thành phố
+  city?: string; // phường , xã
+  street?: string; // số nhà,địa chỉ đường phố
+  role_id?: number[];
 }
 
 /*
@@ -60,7 +67,7 @@ export class AccountService {
     return this.http.post(Const.Ant100GetDetailUser, {id: id});
   }
 
-  public addAccount(param: User): Observable<void> {
+  public addAccount(param: User): Observable<User> {
     return this.http.post(Const.Ant100AddDetailUser, param);
   }
 
@@ -68,7 +75,7 @@ export class AccountService {
     return this.http.post(Const.Ant100DeleteUsers, { ids:ids });
   }
 
-  public editAccount(param: User): Observable<void> {
+  public editAccount(param: User): Observable<User> {
     return this.http.put(Const.Ant100EditDetailUser, param);
   }
 

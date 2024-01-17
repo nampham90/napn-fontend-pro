@@ -24,6 +24,7 @@ import { CommonModule } from '@angular/common';
 import { CartService } from './cart.service';
 import { rollOutAnimation } from 'angular-animations';
 import { ListCartComponent } from "./list-cart/list-cart.component";
+import { CartItem } from './model/Cart';
 interface SearchParam {
   CATCD: string; // danh mục san phẩm
   QTYCD: string; // chât lượng sản phẩm
@@ -72,15 +73,16 @@ export class ProductListComponent implements OnInit {
   @ViewChild('sellpirceTpl', { static: true }) sellpirceTpl!: TemplateRef<any>;
   @ViewChild('imageTpl', { static: true }) imageTpl!: TemplateRef<any>;
 
-  protected getAsyncFnData(modalValue: NzSafeAny): Observable<NzSafeAny> {
+  protected getAsyncFnData(modalValue: CartItem[] | boolean): Observable<CartItem[]|boolean> {
     return of(modalValue);
   }
 
-  protected getCurrentValue(): Observable<NzSafeAny> {
-    if (!fnCheckForm(this.addEditForm)) {
+  protected getCurrentValue(): Observable<CartItem[] | boolean> {
+    if(this.cartService.cartItems().length === 0) {
+      this.message.info("Vùi lòng thêm sản phẩm vào giỏ hàng !")
       return of(false);
     }
-    return of(this.addEditForm.value);
+    return of(this.cartService.cartItems());
   }
 
   ngOnInit(): void {

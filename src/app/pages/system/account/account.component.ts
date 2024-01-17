@@ -1,5 +1,5 @@
 import { NgIf, NgFor } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef, ChangeDetectorRef, inject, DestroyRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef, ChangeDetectorRef, inject, DestroyRef, Input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,12 +25,13 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 import { DeptTreeComponent } from './dept-tree/dept-tree.component';
+
 
 interface SearchParam {
   name: string;
@@ -65,6 +66,8 @@ interface SearchParam {
   ]
 })
 export class AccountComponent implements OnInit {
+
+  // input
   private dataService = inject(AccountService);
   private modalSrv = inject(NzModalService);
   private cdr = inject(ChangeDetectorRef);
@@ -73,6 +76,7 @@ export class AccountComponent implements OnInit {
   public message = inject(NzMessageService);
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<any>;
   @ViewChild('availableFlag', { static: true }) availableFlag!: TemplateRef<NzSafeAny>;
+  @ViewChild('nameTpl', { static: true }) nameTpl!: TemplateRef<NzSafeAny>;
   searchParam: Partial<SearchParam> = {};
   tableConfig!: AntTableConfig;
   pageHeaderInfo: Partial<PageHeaderType> = {
@@ -166,7 +170,7 @@ export class AccountComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
         res.role_id = [];
-        res.sys_roles!.map(role => res.role_id.push(role.id!));
+        res.sys_roles!.map(role => res.role_id!.push(role.id!));
         this.modalService
           .show({ nzTitle: 'Cập nhật' }, res)
           .pipe(takeUntilDestroyed(this.destroyRef))
@@ -221,7 +225,7 @@ export class AccountComponent implements OnInit {
         nzContent: 'Không thể phục hồi sau khi xóa',
         nzOnOk: () => {
           this.checkedCashArray.forEach(item => {
-            tempArrays.push(item.id);
+            tempArrays.push(item.id!);
           });
           this.tableLoading(true);
           this.dataService
@@ -296,18 +300,28 @@ export class AccountComponent implements OnInit {
 
   private initTable(): void {
     this.tableConfig = {
-      showCheckbox: true,
+      showCheckbox: false,
       headers: [
         {
           title: 'Tên tài khoản',
           field: 'name',
-          width: 120
+          width: 220,
+          tdTemplate: this.nameTpl
         },
         {
-          title: 'Trạng thái',
+          title: 'Điện Thoại',
           width: 150,
-          field: 'available',
-          tdTemplate: this.availableFlag
+          field: 'dienthoai'
+        },
+        {
+          title: 'Địa chỉ',
+          field: 'address',
+          width: 300,
+        },
+        {
+          title: 'Email',
+          width: 200,
+          field: 'email'
         },
         {
           title: 'Giới Tính',
@@ -316,14 +330,10 @@ export class AccountComponent implements OnInit {
           pipe: 'sex'
         },
         {
-          title: 'Điện Thoại',
+          title: 'Trạng thái',
           width: 150,
-          field: 'dienthoai'
-        },
-        {
-          title: 'Email',
-          width: 200,
-          field: 'email'
+          field: 'available',
+          tdTemplate: this.availableFlag
         },
         {
           title: 'Đăng nhập lần cuối',
@@ -336,11 +346,6 @@ export class AccountComponent implements OnInit {
           width: 150,
           field: 'createdAt',
           pipe: 'date:yyyy-MM-dd HH:mm'
-        },
-        {
-          title: 'Zalo',
-          width: 150,
-          field: 'zalo'
         },
         {
           title: 'Cập nhật',

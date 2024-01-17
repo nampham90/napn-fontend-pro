@@ -1,6 +1,12 @@
 // url tinh thanh API
 export const  tinhthanhApi = "https://provinces.open-api.vn/api/?depth=2";
 
+export const doanhnghiepcd = 8;
+export const kythuatcd = 4;
+export const khachlecd = 5;
+export const quanlycd = 1;
+
+
 // type notifi
 export const System = 'system';
 export const Notifi = 'notifi';

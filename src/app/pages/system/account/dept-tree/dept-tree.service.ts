@@ -38,7 +38,7 @@ export class DeptTreeService {
     id: node.id,
     disabled: !!node.disabled
   });
-  // 不要多选
+  // Không chọn nhiều
   selectListSelection = new SelectionModel<FlatNode>(false);
 
   treeControl = new FlatTreeControl<FlatNode>(
