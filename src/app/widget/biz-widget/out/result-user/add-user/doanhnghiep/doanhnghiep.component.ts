@@ -99,10 +99,10 @@ export class DoanhnghiepComponent {
       desc: [null],
       city: [null, [Validators.required]],
       province: [null, [Validators.required]],
-      mobile: [null, [Validators.required, this.validatorsService.mobileValidator()]],
+      dienthoai: [null, [Validators.required, this.validatorsService.mobileValidator()]],
       street: [null, [Validators.required]],
       phongban_id: Const.doanhnghiepcd,
-      role_id: [2],
+      role_id: [[2]],
       password: 'a123456',
     });
   }

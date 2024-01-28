@@ -19,7 +19,7 @@ export interface User {
   roleName?: string[];
   sex?: 1 | 0;
   telephone?: string;
-  mobile?: string | number;
+  mobile?: string;
   address?: string;
   email?: string;
   lastLoginTime?: Date;

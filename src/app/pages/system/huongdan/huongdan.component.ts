@@ -30,6 +30,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 import { AbsComponent } from '../abs.component';
 import { SpinService } from '@app/core/services/store/common-store/spin.service';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 interface SearchParam {
   urldisplayid: string;
@@ -39,7 +40,7 @@ interface SearchParam {
   templateUrl: './huongdan.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [PageHeaderComponent, NzButtonModule, NzCardModule, FormsModule, NzFormModule, CardTableWrapComponent, NgIf, AntTableComponent, NzIconModule, AuthDirective]
+  imports: [PageHeaderComponent,NzInputModule, NzButtonModule, NzCardModule, FormsModule, NzFormModule, CardTableWrapComponent, NgIf, AntTableComponent, NzIconModule, AuthDirective]
 })
 export class HuongdanComponent extends AbsComponent implements OnInit {
   public message= inject(NzMessageService);
