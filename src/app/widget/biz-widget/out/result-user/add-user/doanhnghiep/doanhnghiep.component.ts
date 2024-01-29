@@ -155,7 +155,7 @@ export class DoanhnghiepComponent {
       this.apiService.provincesApi()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(res => {
-         this.provinceData = res;
+         this.provinceData = res.data;
       })
   }
 

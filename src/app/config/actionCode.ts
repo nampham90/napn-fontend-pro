@@ -37,5 +37,8 @@ export const ActionCode = {
   /* quản lý video hướng dẫn*/
   HuongdanAdd: 'default:system:huongdan:add',
   HuongdanallDel: 'default:system:huongdan:allDel',
-  HuongdanUpdate: 'default:system:huongdan:update'
+  HuongdanUpdate: 'default:system:huongdan:update',
+
+  /* spot00101 */
+  AddListProduct: 'default:out:spot00101:addListProduct',
 };

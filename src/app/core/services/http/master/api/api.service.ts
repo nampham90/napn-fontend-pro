@@ -11,7 +11,7 @@ export class ApiService {
 
   constructor() { }
 
-  public  provincesApi(): Observable<any[]> {
+  public  provincesApi(): Observable<any> {
      return this.http.post(Const.Apiprovinces);
   }
 }
