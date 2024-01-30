@@ -2,7 +2,7 @@
     <div class="grid">
         @if(isNewOrder) {
             <div class="col">
-                <div class="grid_card flex">
+                <div class="grid_card flex" (click)="newOrder()">
                     <div class="neworder">
                         <span nz-icon nzType="plus"></span>
                     </div>

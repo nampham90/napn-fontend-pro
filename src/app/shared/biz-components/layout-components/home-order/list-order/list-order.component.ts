@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, DestroyRef, Input, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Spot00101Service } from '@app/core/services/http/out/spot00101.service';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 export interface Order {
@@ -10,8 +12,8 @@ export interface Order {
   ordappsts: boolean; // trạng thái duyệt đơn hàng
   paysts: boolean; // trạng thái thanh toán
   shipsts: boolean;// trạng thái xuất hàng
-  cstmcd: string; // mã khác hàng
-  cstmmn: string; // ten khách hàng
+  cstmcd: string | null; // mã khác hàng
+  cstmmn: string | null; // ten khách hàng
 }
 
 @Component({
@@ -22,6 +24,8 @@ export interface Order {
   styleUrl: './list-order.component.less'
 })
 export class ListOrderComponent {
+  spot00101Service = inject(Spot00101Service);
+  destroyRef = inject(DestroyRef);
   _listOrder: Order[] = [];
 
   @Input()
@@ -35,5 +39,14 @@ export class ListOrderComponent {
 
   @Input()
   isNewOrder: boolean = false;
+
+
+  newOrder() {
+    this.spot00101Service.newOrder()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(res => {
+      console.log(res);
+    })
+  }
 
 }

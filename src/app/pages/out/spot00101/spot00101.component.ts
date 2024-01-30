@@ -91,6 +91,7 @@ export class Spot00101Component extends AbsComponent{
   override ngOnInit(): void {
     super.ngOnInit();
     this.initFormHeader();
+    this.initTable();
   }
 
   initFormHeader() : void {
@@ -151,15 +152,28 @@ export class Spot00101Component extends AbsComponent{
   }
 
   onChangeOrddate($event: any) {
-    throw new Error('Method not implemented.');
+    
   }
 
   onChangeShipdate($event: any) {
-    throw new Error('Method not implemented.');
+    
   }
 
   submitForm() : void {
 
+  }
+
+  private initTable(): void {
+    this.tableConfig = {
+      showCheckbox: false,
+      headers: [
+
+      ],
+      total: 0,
+      loading: true,
+      pageSize: 10,
+      pageIndex: 1
+    }
   }
 
 }

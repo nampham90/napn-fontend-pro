@@ -89,3 +89,4 @@ export const Apiprovinces = 'master/apiprovinces';
 export const StockListProduct = 'stock/stockListProduct';
 
 // spot00101
+export const Spot00101NewOrder = 'spot00101/spot00101neworder'
