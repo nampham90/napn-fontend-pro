@@ -1,8 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, Input, inject } from '@angular/core';
+import { Component, DestroyRef, Input, OnDestroy, computed, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Spot00101Service } from '@app/core/services/http/out/spot00101.service';
+import { TOT010 } from '@app/model/tot-model/tot010_sts.model';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { ListOrderService } from './list-order.service';
+import { Router } from '@angular/router';
+import { OrderService } from '@app/pages/out/spot00101/order.service';
+
 
 export interface Order {
   soodno : string;// mã hóa đơn
@@ -25,17 +30,12 @@ export interface Order {
 })
 export class ListOrderComponent {
   spot00101Service = inject(Spot00101Service);
+  orderService = inject(OrderService);
+  router = inject(Router);
+  listOrderService = inject(ListOrderService);
   destroyRef = inject(DestroyRef);
-  _listOrder: Order[] = [];
+  _listOrder = computed(() => this.listOrderService.listOrderNew());
 
-  @Input()
-  get listOrder() {
-     return this._listOrder;
-  }
-
-  set listOrder(listOrder: Order[]) {
-     this._listOrder = listOrder;
-  }
 
   @Input()
   isNewOrder: boolean = false;
@@ -45,8 +45,13 @@ export class ListOrderComponent {
     this.spot00101Service.newOrder()
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(res => {
-      console.log(res);
+      this.listOrderService.updateList(res.lstnewOd);
     })
+  }
+
+  setOrder(order: TOT010) {
+    this.orderService.updateOrder(order);
+    this.router.navigateByUrl('/default/out/spot00101');
   }
 
 }

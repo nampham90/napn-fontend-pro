@@ -1,8 +1,11 @@
 <nz-card [nzBodyStyle]="{ padding: 0 }">
     <nz-tabset nzCentered [nzTabBarStyle]="{ paddingLeft: '15px', paddingRight: '15px' }">
-      <nz-tab nzTitle="Đơn mới(2)">
+      <nz-tab [nzTitle]="NewOrder">
         <ng-container *ngTemplateOutlet="notifiNewOrderTpl"></ng-container>
       </nz-tab>
+      <ng-template #NewOrder>
+        <span>Đơn mới({{totalNewOrder()}})</span>
+      </ng-template>
       <nz-tab nzTitle="Báo giá(4)">
         <ng-container *ngTemplateOutlet="notifiBaogiaTpl"></ng-container>
       </nz-tab>

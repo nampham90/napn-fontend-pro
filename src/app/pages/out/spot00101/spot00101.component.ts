@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActionCode } from '@app/config/actionCode';
@@ -24,6 +24,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { CardTableWrapComponent } from "../../../shared/components/card-table-wrap/card-table-wrap.component";
 import { AuthDirective } from '@app/shared/directives/auth.directive';
+import { OrderService } from './order.service';
 
 @Component({
     selector: 'app-spot00101',
@@ -46,10 +47,12 @@ import { AuthDirective } from '@app/shared/directives/auth.directive';
         NzCardModule,
         CardTableWrapComponent,
         AuthDirective,
+        ReactiveFormsModule
     ]
 })
 export class Spot00101Component extends AbsComponent{
   tmt050Service = inject(Tmt050Service);
+  private orderService = inject(OrderService);
   private productListService = inject(ProductListService);
   private resultUserService = inject(ResultUserService);
   override destroyRef = inject(DestroyRef);
@@ -60,7 +63,8 @@ export class Spot00101Component extends AbsComponent{
   listDelimth = signal<Tmt050[]>([]);
 
 
-  headerForm!: FormGroup;
+  headerForm!: FormGroup ;
+  
 
   // table process
   tableConfig!: AntTableConfig;
@@ -86,33 +90,35 @@ export class Spot00101Component extends AbsComponent{
     this.getDataList();
   }
 
+  order = computed(() => this.orderService.order());
+
   // end table process
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.initFormHeader();
+    // this.initFormHeader();
     this.initTable();
   }
 
-  initFormHeader() : void {
-    this.headerForm = this.fb.group({
-      SOODNO: [null, [Validators.required]],
-      DELIMTHDCD: [null],
-      PAYMETHDCD: [null],
-      STATUS: [null, [Validators.required]],
-      ORDERDATE: [null],
-      SHIPDATE: [null],
-      SOREMARK: [null],
-      CSTMCD: [null],
-      CSTNAME: [null],
-      CSTMOBILE: [null],
-      CSTADDRESS: [null]
-    });
-  }
+  // initFormHeader() : void {
+  //   this.headerForm = this.fb.group({
+  //     SOODNO: [ this.orderService.order().SOODNO, [Validators.required]],
+  //     DELIMTHDCD: [this.orderService.order().tot020_ordhed?.DELIMTHDCD],
+  //     PAYMETHDCD: [null],
+  //     STATUS: [null, [Validators.required]],
+  //     ORDERDATE: [null],
+  //     SHIPDATE: [null],
+  //     SOREMARK: [null],
+  //     CSTMCD: [null],
+  //     CSTNAME: [null],
+  //     CSTMOBILE: [null],
+  //     CSTADDRESS: [null]
+  //   });
+  // }
 
-  get f():{ [key: string]: AbstractControl } {
-    return this.headerForm.controls;
-  }
+  // get f():{ [key: string]: AbstractControl } {
+  //   return this.headerForm.controls;
+  // }
 
   // hiển thị modal tìm kiếm sản phẩm
   showProdutList() {

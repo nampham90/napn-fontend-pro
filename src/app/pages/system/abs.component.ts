@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 
 import { IObjectString } from '@app/common/IObiectString';
+import { TabService } from '@app/core/services/common/tab.service';
 import { HuongdanService } from '@app/core/services/http/system/huongdan.service';
 import { MenusService } from '@app/core/services/http/system/menus.service';
 import { SpinService } from '@app/core/services/store/common-store/spin.service';
@@ -27,6 +28,7 @@ export class AbsComponent implements OnInit {
   protected youtubeModalService = inject(YoutubeModalService); 
   protected router = inject(Router); 
   protected menusService = inject(MenusService);
+  protected tabService = inject(TabService);
   formItemNm: IObjectString = {};
 
   @ViewChild('huongdanTpl', { static: true }) huongdanTpl!: TemplateRef<NzSafeAny>;
@@ -74,4 +76,14 @@ export class AbsComponent implements OnInit {
       this.spinService.setCurrentGlobalSpinStore(false);
     });
   }
+
+  transfer(path: string) {
+    let index =  this.tabService.findIndex(path);
+    if(index == -1) {
+      this.router.navigate([path]);
+    } else {
+      this.tabService.delTab(this.tabService.getTabArray()[index],index);
+      this.router.navigate([path]);
+    }
+}
 }

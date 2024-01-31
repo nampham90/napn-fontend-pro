@@ -9,9 +9,9 @@
                 </div>
             </div>
         }
-        @for(item of _listOrder; track item) {
+        @for(item of _listOrder(); track item) {
             <div class="col">
-                <div class="grid_card">
+                <div class="grid_card" (click)="setOrder(item)">
                     <div class="card_many">
                         <span nz-icon nzType="dollar" nzTheme="twotone" [nzTwotoneColor]="'#52c41a'"></span>
                     </div>
@@ -19,21 +19,21 @@
                         <span nz-icon nzType="delete" nzTheme="outline"></span>
                     </div>
                     <div class="card_od">
-                        {{item.soodno}}
+                        {{item.SOODNO}}
                     </div>
                     <div class="card_date">
-                        {{item.createdate}}
+                        {{item.createdAt | date: 'dd/MM/yyy'}}
                     </div>
                     <div class="card_name">
-                        {{item.cstmmn}}
+                        {{item.tot020_ordhed!.CSTMCD == null? "No Name": item.tot020_ordhed!.CSTMCD}}
                     </div>
                     <div class="card_status">
                         <!-- card_status_yllow -->
                         <!-- card_status_red -->
-                        <span class="card_status_main" [ngClass]="{'card_status_yllow': item.qtests}"></span>
-                        <span class="card_status_main" [ngClass]="item.ordsts == true ? (item.ordappsts == true ? 'card_status_yllow' : 'card_status_red'):''"></span>
-                        <span class="card_status_main" [ngClass]="{'card_status_yllow': item.paysts}"></span>
-                        <span class="card_status_main" [ngClass]="{'card_status_yllow': item.shipsts}"></span>
+                        <span class="card_status_main" [ngClass]="{'card_status_yllow': item.QTESTS}"></span>
+                        <span class="card_status_main" [ngClass]="item.ORDSTS == true ? (item.ORDAPPSTS == true ? 'card_status_yllow' : 'card_status_red'):''"></span>
+                        <span class="card_status_main" [ngClass]="{'card_status_yllow': item.PAYSTS}"></span>
+                        <span class="card_status_main" [ngClass]="{'card_status_yllow': item.SHIPSTS}"></span>
                     </div>
                 </div>
             </div>
