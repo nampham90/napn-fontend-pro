@@ -80,6 +80,12 @@ export const Tmt101Ant100FindAll = 'tmt101/tmt101Ant100FindAll';
 
 export const Tmt050listRcdkbn = 'tmt050/tmt050FindRcdkbn';
 
+// tmt170
+export const Tmt170listdelimthd = 'tmt170/tmt170listdelimthd';
+
+// tmt171
+export const Tmt171listpaymethd = 'tmt171/tmt171listpaymethd';
+
 
 // province Api
 export const Apiprovinces = 'master/apiprovinces';

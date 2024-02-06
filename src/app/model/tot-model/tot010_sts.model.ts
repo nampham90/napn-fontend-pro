@@ -12,7 +12,7 @@ export interface TOT010 {
     SOCNCLCOMPFLG: boolean;
     EXCHANGEFLG: boolean;
     EXCHANGECOMPFLG: boolean;
-    tot020_ordhed: TOT020 | null
+    tot020_ordhed: TOT020
     createdAt: Date | null;
     updatedAt: Date | null;
 }
