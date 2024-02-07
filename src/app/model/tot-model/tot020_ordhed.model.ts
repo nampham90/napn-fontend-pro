@@ -1,3 +1,5 @@
+import { TOT040 } from "./tot040_orddtl.model";
+
 export interface TOT020 {
     SOODNO: string;
     CSTMCD: string;
@@ -16,7 +18,7 @@ export interface TOT020 {
     POSTPAIDFLG: boolean;
     SOREMARK: string;
     USERCD: string;
-    tot040_orddtls: []
+    tot040_orddtls: TOT040[]
     createdAt: Date | null;
     updatedAt: Date | null;
 

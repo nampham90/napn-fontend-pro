@@ -1,11 +1,11 @@
 import { CommonModule, JsonPipe, NgClass } from '@angular/common';
-import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, TemplateRef, ViewChild, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActionCode } from '@app/config/actionCode';
 import { Tmt050, Tmt050Service } from '@app/core/services/http/master/tmt050/tmt050.service';
 import { AbsComponent } from '@app/pages/system/abs.component';
-import { AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
+import { AntTableConfig, AntTableComponent } from '@app/shared/components/ant-table/ant-table.component';
 import { PageHeaderComponent } from '@app/shared/components/page-header/page-header.component';
 import { ModalBtnStatus } from '@app/widget/base-modal';
 import { CartService } from '@app/widget/biz-widget/out/product-list/cart.service';
@@ -29,7 +29,17 @@ import { TMT171 } from '@app/model/tmt-model/tmt171_paymethd.model';
 import { TMT170 } from '@app/model/tmt-model/tmt170_delimthd.model';
 import { Tmt170Service } from '@app/core/services/http/master/tmt170/tmt170.service';
 import { Tmt171Service } from '@app/core/services/http/master/tmt171/tmt171.service';
-
+import { WindowService } from '@app/core/services/common/window.service';
+import { soodno } from '@app/config/constant';
+import { CartItem } from '@app/widget/biz-widget/out/product-list/model/Cart';
+import { TOT040 } from '@app/model/tot-model/tot040_orddtl.model';
+import { NzSafeAny } from 'ng-zorro-antd/core/types';
+export interface UserDetail {
+  CSTMCD: string;
+  CSTNAME: string;
+  CSTMOBILE: string;
+  CSTADDRESS: string;
+}
 @Component({
     selector: 'app-spot00101',
     standalone: true,
@@ -51,7 +61,8 @@ import { Tmt171Service } from '@app/core/services/http/master/tmt171/tmt171.serv
         CardTableWrapComponent,
         AuthDirective,
         ReactiveFormsModule,
-        JsonPipe
+        JsonPipe,
+        AntTableComponent
     ]
 })
 export class Spot00101Component extends AbsComponent{
@@ -64,11 +75,21 @@ export class Spot00101Component extends AbsComponent{
   private cartService = inject(CartService)
   private fb = inject(FormBuilder); 
   public message = inject(NzMessageService);
+  private windownService = inject(WindowService);
   private tmt170Service = inject(Tmt170Service);
   private tmt171Service = inject(Tmt171Service);
   listPaymeth = signal<TMT171[]>([]);
   listDelimth = signal<TMT170[]>([]);
   order = computed(() => this.orderService.order());
+  userDetail = signal<UserDetail>({
+    CSTMCD : "",
+    CSTNAME: "",
+    CSTMOBILE: "",
+    CSTADDRESS: ""
+  });
+  cartItems = signal<CartItem[]>([]);
+  listDetail = signal<TOT040[]>([]);
+
   headerForm!: FormGroup ;
 
   constructor() {
@@ -79,9 +100,10 @@ export class Spot00101Component extends AbsComponent{
   tableConfig!: AntTableConfig;
   ActionCode = ActionCode;
   checkedCashArray: any[] = [];
-  dataList = signal<any[]>([]);
+  dataList = signal<TOT040[]>([]);
 
   getDataList(e?: NzTableQueryParams): void {
+    this.tableLoading(false);
     
   }
 
@@ -105,28 +127,15 @@ export class Spot00101Component extends AbsComponent{
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.initFormHeader();
-    this.apiGetListDelimthd();
+    if(this.order().SOODNO === "") {
+       this.orderService.updateOrder(JSON.parse(this.windownService.getStorage(soodno)!))
+    }
     this.apiGetListPaymethd();
+    this.apiGetListDelimthd();
+
     this.initTable();
 
    // console.log(this.order().tot020_ordhed.DELIMTHDCD + ":" + this.DELIMTHDCD());
-  }
-
-  initFormHeader() : void {
-    this.headerForm = this.fb.group({
-      SOODNO: [ this.order().SOODNO, [Validators.required]],
-      DELIMTHCD: [this.order().tot020_ordhed.DELIMTHDCD],
-      PAYMTHDCD: [this.order().tot020_ordhed.PAYMETHDCD],
-      // STATUS: [null, [Validators.required]],
-      // ORDERDATE: [null],
-      // SHIPDATE: [null],
-      // SOREMARK: [null],
-      // CSTMCD: [null],
-      // CSTNAME: [null],
-      // CSTMOBILE: [null],
-      // CSTADDRESS: [null]
-    });
   }
 
   get f():{ [key: string]: AbstractControl } {
@@ -143,9 +152,32 @@ export class Spot00101Component extends AbsComponent{
             this.cartService.cartItems.set([]);
             return;
           }
-          console.log(res.modalValue);
+          this.cartItems.set(res.modalValue);
+          this.mergeCartToTot040();
         }
      )
+  }
+
+  // merge list cartItem to Tot040
+  mergeCartToTot040(): void {
+    if(this.cartItems().length > 0) {
+      for(let i = 0; i < this.cartItems().length; i++) {
+        let tot040 : TOT040 = {
+          SOODNO: this.order().SOODNO,
+          SODTLNO: i+1,
+          SOPRICE: this.cartItems()[i].productstck.SELLPIRCE,
+          SHIPMNTORDQTY: this.cartItems()[i].quantity,
+          SHIPMNTORDREMAINQTY: this.cartItems()[i].productstck.TOTALALLWQTY,
+          SOREMARK: "",
+          PRODUCTCD: this.cartItems()[i].productstck.product,
+          QTYCD: this.cartItems()[i].productstck.QTYCD
+        }
+        this.listDetail().push(tot040);
+      }
+
+      console.log(this.listDetail())
+
+    }
   }
 
   // hiển thị modal tìm kiếm user
@@ -157,14 +189,15 @@ export class Spot00101Component extends AbsComponent{
         if (!res || res.status === ModalBtnStatus.Cancel) {
           return;
         }
-        this.headerForm.patchValue({
-          CSTMCD: res.modalValue.id,
-          CSTNAME: res.modalValue.name,
-          CSTMOBILE: "0" + res.modalValue.dienthoai,
-          CSTADDRESS: (res.modalValue.BUYERADRS1ENC==null? "": res.modalValue.BUYERADRS1ENC) + " " + 
+        this.userDetail.set({
+           CSTMCD : res.modalValue.id,
+           CSTNAME: res.modalValue.name,
+           CSTMOBILE: "0" + res.modalValue.dienthoai,
+           CSTADDRESS: (res.modalValue.BUYERADRS1ENC==null? "": res.modalValue.BUYERADRS1ENC) + " " + 
                       (res.modalValue.BUYERADRS2ENC==null? "": res.modalValue.BUYERADRS2ENC) + " " + 
                       (res.modalValue.BUYERADRS3ENC==null? "": res.modalValue.BUYERADRS3ENC)
         })
+        this.orderService.updateCSTMCD(res.modalValue.id);
         // console.log(res.modalValue);
       }
     )
@@ -175,6 +208,7 @@ export class Spot00101Component extends AbsComponent{
     this.tmt171Service.getListPaymethd()
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(res => {
+      console.log(res);
       this.listPaymeth.set(res);
     })
   }
@@ -184,6 +218,7 @@ export class Spot00101Component extends AbsComponent{
     this.tmt170Service.getListDelimthd()
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(res => {
+      console.log(res)
       this.listDelimth.set(res);
     })
   }
@@ -209,10 +244,38 @@ export class Spot00101Component extends AbsComponent{
     
   }
 
+  @ViewChild('pronameTpl', { static: true }) pronameTpl!: TemplateRef<NzSafeAny>;
+
   private initTable(): void {
     this.tableConfig = {
       showCheckbox: false,
       headers: [
+         {
+            title: "Tên sản phẩm",
+            field: "PRODUCTNAME",
+            tdTemplate: this.pronameTpl,
+            width: 200,
+         },
+         {
+            title: "Số lượng",
+            field: "SHIPMNTORDQTY",
+            width: 80,
+         },
+         {
+            title: "Giá",
+            field: "SOPRICE",
+            width: 100,
+         },
+         {
+            title: "Bảo hành",
+            field: "SOPRICE",
+            width: 100,
+         },
+         {
+            title: "Ghi chú",
+            field: "SOREMARK",
+            width: 300,
+         }
 
       ],
       total: 0,

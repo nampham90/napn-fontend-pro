@@ -7,6 +7,7 @@ import { Spot00101Service } from '@app/core/services/http/out/spot00101.service'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ListOrderService } from './list-order/list-order.service';
 import { TOT010 } from '@app/model/tot-model/tot010_sts.model';
+import { soodno } from '@app/config/constant';
 
 @Component({
     selector: 'app-home-order',
@@ -20,7 +21,9 @@ export class HomeOrderComponent implements OnInit{
     listOrderService = inject(ListOrderService);
     destroyRef = inject(DestroyRef);
 
-    totalNewOrder = this.listOrderService.totalOrdernew;
+    totalOrderNew = computed(() => this.listOrderService.totalOrdernew());
+
+
     ngOnInit(): void {
        this.apiOrderStatus();
     }

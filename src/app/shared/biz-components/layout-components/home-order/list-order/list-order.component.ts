@@ -51,6 +51,7 @@ export class ListOrderComponent {
 
   setOrder(order: TOT010) {
     this.orderService.updateOrder(order);
+    this.orderService.updateLocalStorageSelectedOD(order);
     this.router.navigateByUrl('/default/out/spot00101');
   }
 

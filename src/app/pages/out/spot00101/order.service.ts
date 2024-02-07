@@ -1,10 +1,14 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
+import { soodno } from '@app/config/constant';
+import { WindowService } from '@app/core/services/common/window.service';
 import { TOT010 } from '@app/model/tot-model/tot010_sts.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
+
+  windownService = inject(WindowService)
 
   order = signal<TOT010>({
     SOODNO: "",
@@ -18,10 +22,11 @@ export class OrderService {
     SOCNCLCOMPFLG: false,
     EXCHANGEFLG: false,
     EXCHANGECOMPFLG: false,
+    STSNM: "",
     tot020_ordhed: {
       SOODNO: "",
       CSTMCD: "",
-      DELIMTHDCD: "0001",
+      DELIMTHDCD: "0002",
       PAYMETHDCD: "02",
       DELIPLNDATE: null,
       ORDERDATE: null,
@@ -50,6 +55,14 @@ export class OrderService {
 
   updateDelimthd(delimthd: string) {
     this.order().tot020_ordhed.DELIMTHDCD = delimthd;
+  }
+
+  updateLocalStorageSelectedOD(od: TOT010) {
+    this.windownService.setStorage(soodno, JSON.stringify(od));
+  }
+
+  updateCSTMCD(cstmcd: string) {
+     this.order().tot020_ordhed.CSTMCD = cstmcd;
   }
 
   constructor() { }

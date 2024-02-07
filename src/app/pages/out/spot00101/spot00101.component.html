@@ -1,7 +1,7 @@
 <app-page-header [pageHeaderInfo]="pageHeaderInfo" />
 <div class="normal-table-wrap">
     <nz-tabset nzType="card">
-        <form nz-form [formGroup]="headerForm">
+        <form nz-form>
             <nz-tab nzTitle="Thông tin">
                 <nz-card class="m-b-10" nzHoverable [nzBodyStyle]="{ 'padding-bottom': 0 }">
                     <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
@@ -9,17 +9,17 @@
                             <nz-form-item>
                                 <nz-form-label [nzFor]="">Số hóa đơn</nz-form-label>
                                 <nz-form-control [nzErrorTip]="combineTpl">
-                                    <input name="SOODNO" nz-input formControlName="SOODNO"  [readOnly]="true" [ngClass]="['bgdisable']"/>
+                                    <input name="SOODNO" id="SOODNO" nz-input [(ngModel)]="order().SOODNO"  [readOnly]="true" [ngClass]="['bgdisable']"/>
                                 </nz-form-control>
                             </nz-form-item>               
                         </div>
                         <div nz-col [nzLg]="8" [nzMd]="12" [nzSm]="24" [nzXl]="8" [nzXs]="24" [nzXXl]="8">
                             <nz-form-item>
-                                <nz-form-label [nzFor]="">PT vận chuyển</nz-form-label>
+                                <nz-form-label [nzFor]="">PT vận chuyển: </nz-form-label>
                                 <nz-form-control [nzErrorTip]="combineTpl">
-                                    <nz-select formControlName="DELIMTHCD" (ngModelChange)="changeDelimthd($event)" nzAllowClear>
-                                        @for(item of listDelimth(); track item) {
-                                            <nz-option [nzLabel]="item.DELIMTHNM" [nzValue]="item.DELIMTHCD"></nz-option>
+                                    <nz-select name="DELIMTHDCD"  id="DELIMTHDCD" [(ngModel)]="order().tot020_ordhed.DELIMTHDCD" >
+                                        @for(Delim of listDelimth(); track Delim) {
+                                            <nz-option [nzLabel]="Delim.DELIMTHNM" [nzValue]="Delim.DELIMTHCD"></nz-option>
                                         }
                                     </nz-select>
                                 </nz-form-control>
@@ -29,9 +29,9 @@
                             <nz-form-item>
                                 <nz-form-label [nzFor]="">PT Thanh toán</nz-form-label>
                                 <nz-form-control [nzErrorTip]="combineTpl">
-                                    <nz-select  formControlName="PAYMTHDCD" nzAllowClear>
+                                    <nz-select name="PAYMETHDCD" id="PAYMETHDCD" [(ngModel)]="order().tot020_ordhed.PAYMETHDCD" >
                                         @for(item of listPaymeth(); track item) {
-                                            <nz-option [nzLabel]="item.PAYMETHDNM" [nzValue]="item.PAYMETHDCD"></nz-option>
+                                            <nz-option  [nzLabel]="item.PAYMETHDNM" [nzValue]="item.PAYMETHDCD"></nz-option>
                                         }
                                     </nz-select>
                                 </nz-form-control>
@@ -39,8 +39,91 @@
                         </div>
                         <!--   -->
                     </div>
-   
-
+                    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
+                        <div nz-col [nzLg]="8" [nzMd]="12" [nzSm]="24" [nzXl]="8" [nzXs]="24" [nzXXl]="8">
+                            <nz-form-item>
+                                <nz-form-label [nzFor]="">Trạng thái</nz-form-label>
+                                <nz-form-control [nzErrorTip]="combineTpl">
+                                    <input name="STATUS" nz-input [(ngModel)]="order().STSNM"  [readOnly]="true" [ngClass]="['bgdisable']"/>
+                                </nz-form-control>
+                            </nz-form-item>               
+                        </div>
+                        <!--  -->
+                        <div nz-col [nzLg]="8" [nzMd]="12" [nzSm]="24" [nzXl]="8" [nzXs]="24" [nzXXl]="8">
+                            <nz-form-item>
+                                <nz-form-label [nzFor]="">Ngày đặt hàng</nz-form-label>
+                                <nz-form-control [nzErrorTip]="combineTpl">
+                                    <nz-date-picker [(ngModel)]="order().tot020_ordhed.ORDERDATE" (ngModelChange)="onChangeOrddate($event)"></nz-date-picker>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <!-- Tài khoản quản lý mới đươc chọn ngày xuất hàng -->
+                        <div nz-col [nzLg]="8" [nzMd]="12" [nzSm]="24" [nzXl]="8" [nzXs]="24" [nzXXl]="8">
+                            <nz-form-item>
+                                <nz-form-label [nzFor]="">Ngày xuất hàng</nz-form-label>
+                                <nz-form-control [nzErrorTip]="combineTpl">
+                                    <nz-date-picker [(ngModel)]="order().tot020_ordhed.SHIPDATE" (ngModelChange)="onChangeShipdate($event)"></nz-date-picker>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
+                        <div nz-col [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXl]="24" [nzXs]="24" [nzXXl]="24">
+                            <nz-form-item>
+                                <nz-form-label [nzFor]="">Ghi chú</nz-form-label>
+                                <nz-form-control>
+                                    <textarea
+                                    nz-input
+                                    [(ngModel)]="order().tot020_ordhed.SOREMARK"
+                                    [nzAutosize]="{ minRows: 1, maxRows: 6 }"
+                                    ></textarea>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                </nz-card>
+                <nz-card class="m-b-10" nzHoverable [nzBodyStyle]="{ 'padding-bottom': 0 }">
+                    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
+                        <div nz-col [nzLg]="8" [nzMd]="12" [nzSm]="24" [nzXl]="8" [nzXs]="24" [nzXXl]="8">
+                            <nz-form-item>
+                                <nz-form-label [nzFor]="">Mã khách hàng</nz-form-label>
+                                <nz-form-control [nzErrorTip]="combineTpl">
+                                    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                                        <input name="CSTMCD" id="CSTMCD" type="text"  nz-input [(ngModel)]="userDetail().CSTMCD" [readOnly]="true" [ngClass]="['bgdisable']"/>
+                                    </nz-input-group>
+                                    <ng-template #suffixIconButton>
+                                        <button nz-button nzType="primary" (click)="resultUser()"><span nz-icon nzType="search"></span></button>
+                                    </ng-template>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div nz-col [nzLg]="8" [nzMd]="12" [nzSm]="24" [nzXl]="8" [nzXs]="24" [nzXXl]="8">
+                            <nz-form-item>
+                                <nz-form-label [nzFor]="">Tên khách hàng</nz-form-label>
+                                <nz-form-control [nzErrorTip]="combineTpl">
+                                    <input name="CSTNAME" id="CSTNAME" nz-input  [(ngModel)]="userDetail().CSTNAME"  [readOnly]="true" [ngClass]="['bgdisable']"/>
+                                </nz-form-control>
+                            </nz-form-item>               
+                        </div>
+                        <div nz-col [nzLg]="8" [nzMd]="12" [nzSm]="24" [nzXl]="8" [nzXs]="24" [nzXXl]="8">
+                            <nz-form-item>
+                                <nz-form-label [nzFor]="">Số điện thoài</nz-form-label>
+                                <nz-form-control [nzErrorTip]="combineTpl">
+                                    <input name="CSTMOBILE" id="CSTMOBILE" [(ngModel)]="userDetail().CSTMOBILE"  nz-input   [readOnly]="true" [ngClass]="['bgdisable']"/>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
+                        <div nz-col [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXl]="24" [nzXs]="24" [nzXXl]="24">
+                            <nz-form-item>
+                                <nz-form-label [nzFor]="">Địa chỉ</nz-form-label>
+                                <nz-form-control [nzErrorTip]="combineTpl">
+                                    <input name="CSTADDRESS" id="CSTADDRESS" [(ngModel)]="userDetail().CSTADDRESS" nz-input   [readOnly]="true" [ngClass]="['bgdisable']" />
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
                 </nz-card>
 
                 <ng-template #combineTpl let-control>
@@ -57,16 +140,21 @@
             </nz-tab>
         </form>
     </nz-tabset>
-    <!-- <app-card-table-wrap [btnTpl]="tableBtns" [tableTitle]="'Danh sách tài khoản'" (reload)="reloadTable()">
-
+    <app-card-table-wrap [btnTpl]="tableBtns" [tableTitle]="'Danh sách Sản phẩm'" (reload)="reloadTable()">
+        <app-ant-table
+          [checkedCashArrayFromComment]="checkedCashArray"
+          (changePageNum)="getDataList($event)"
+          [tableConfig]="tableConfig"
+          [tableData]="dataList()"
+        ></app-ant-table>
     </app-card-table-wrap>
     <ng-template #tableBtns>
-        -->
-        <!--  <button *appAuth="ActionCode.AddListProduct" class="m-r-8" nz-button nzType="primary" (click)="showProdutList()">
+       
+         <button *appAuth="ActionCode.AddListProduct" class="m-r-8" nz-button nzType="primary" (click)="showProdutList()">
             <i nz-icon nzType="plus"></i>
             Thêm mới
           </button>
-    </ng-template> -->
+    </ng-template>
 </div>
 
 <pre>
