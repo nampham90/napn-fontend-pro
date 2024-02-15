@@ -66,7 +66,6 @@ export interface UserDetail {
     ]
 })
 export class Spot00101Component extends AbsComponent{
-
   tmt050Service = inject(Tmt050Service);
   private orderService = inject(OrderService);
   private productListService = inject(ProductListService);
@@ -174,8 +173,6 @@ export class Spot00101Component extends AbsComponent{
         }
         this.listDetail().push(tot040);
       }
-
-      console.log(this.listDetail())
 
     }
   }

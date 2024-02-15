@@ -1,5 +1,5 @@
 import { NgTemplateOutlet, NgIf } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy, signal, inject, DestroyRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, signal, inject, DestroyRef, computed } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { LoginInOutService } from '@core/services/common/login-in-out.service';
@@ -24,9 +24,9 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { HomeNoticeComponent } from '../home-notice/home-notice.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AvatarStoreService } from '@app/core/services/store/common-store/avatar-store.service';
-import { window } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HomeOrderComponent } from "../home-order/home-order.component";
+import { MenuOrderService } from './menu-order.service';
 
 @Component({
     selector: 'app-layout-head-right-menu',
@@ -51,6 +51,11 @@ import { HomeOrderComponent } from "../home-order/home-order.component";
     ]
 })
 export class LayoutHeadRightMenuComponent implements OnInit {
+changeMenu($event: boolean) {
+    console.log($event);
+    this.ishowmenuorderService.update($event);
+}
+  private ishowmenuorderService = inject(MenuOrderService);
   private router = inject(Router);
   private changePasswordModalService = inject(ChangePasswordService);
   private loginOutService = inject(LoginInOutService);
@@ -68,7 +73,8 @@ export class LayoutHeadRightMenuComponent implements OnInit {
   totalNotifi = 0;
   linkavatar = signal("");
   destroyRef = inject(DestroyRef);
-  User!: User
+  User!: User;
+  ishowmenuorder = computed(() => this.ishowmenuorderService.isShowMenuOrder());
   constructor() {
     this.translate.setDefaultLang(localStorage.getItem('lang') || 'vi');
   }
@@ -140,6 +146,8 @@ export class LayoutHeadRightMenuComponent implements OnInit {
      
   }
 
+
+
   goPage(path: string): void {
     this.router.navigateByUrl(`/default/page-demo/personal/${path}`);
   }
@@ -188,4 +196,5 @@ export class LayoutHeadRightMenuComponent implements OnInit {
       }; break;
     }
   }
+
 }

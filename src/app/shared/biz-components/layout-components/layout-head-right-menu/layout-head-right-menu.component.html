@@ -31,7 +31,7 @@
       </ng-template>
     </span>
 
-    <span  class="bst-header-icon" nzTrigger="click" [nzDropdownMenu]="orderMenu" nz-dropdown nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="Đơn hàng">
+    <span  class="bst-header-icon" nzTrigger="click"  [nzDropdownMenu]="orderMenu" nzPlacement="bottomLeft" nz-dropdown nz-tooltip (nzVisibleChange)="changeMenu($event)" nzTooltipPlacement="bottom" [nzVisible]="ishowmenuorder()" nzTooltipTitle="Đơn hàng">
       <nz-badge class="bst-badge" [nzCount]="3">
         <i nz-icon nzTheme="outline" nzType="bars"></i>
       </nz-badge>

@@ -89,7 +89,7 @@
                                 <nz-form-label [nzFor]="">Mã khách hàng</nz-form-label>
                                 <nz-form-control [nzErrorTip]="combineTpl">
                                     <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-                                        <input name="CSTMCD" id="CSTMCD" type="text"  nz-input [(ngModel)]="userDetail().CSTMCD" [readOnly]="true" [ngClass]="['bgdisable']"/>
+                                        <input name="CSTMCD" id="CSTMCD" type="text"  nz-input [(ngModel)]="order().tot020_ordhed.CSTMCD" [readOnly]="true" [ngClass]="['bgdisable']" />
                                     </nz-input-group>
                                     <ng-template #suffixIconButton>
                                         <button nz-button nzType="primary" (click)="resultUser()"><span nz-icon nzType="search"></span></button>
