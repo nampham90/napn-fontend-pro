@@ -49,4 +49,14 @@ export class CartService {
          items.map(item => item.productstck.PRODUCTCD === cartItem.productstck.PRODUCTCD ?
              {productstck: cartItem.productstck, quantity}: item));
   }
+
+  updatePriceCart(cartItem: CartItem) {
+    this.cartItems.update(items => 
+         items.map(item => item.productstck.PRODUCTCD === cartItem.productstck.PRODUCTCD ?
+            cartItem : item))
+  }
+
+  refeshCart() {
+    this.cartItems.set([]);
+  }
 }

@@ -5,15 +5,17 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { FormsModule } from '@angular/forms';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe, DecimalPipe } from '@angular/common';
+import { InputCurrencyComponent } from '@app/shared/components/input-currency/input-currency.component';
 
 
 @Component({
   selector: 'app-cart-item',
   standalone: true,
-  imports: [NzInputNumberModule,FormsModule, NzGridModule, NzButtonModule, CommonModule],
+  imports: [NzInputNumberModule,FormsModule, NzGridModule, NzButtonModule, CommonModule, InputCurrencyComponent],
   templateUrl: './cart-item.component.html',
-  styleUrl: './cart-item.component.less'
+  styleUrl: './cart-item.component.less',
+  providers: [CurrencyPipe, DecimalPipe]
 })
 export class CartItemComponent {
 
@@ -30,6 +32,12 @@ export class CartItemComponent {
   }
 
   cartItem = signal(this.item);
+
+  amountMode = computed(()=> (this.cartItem().productstck.SELLPIRCE/1000));
+  changeAmount($event: number) {
+    this.cartItem().productstck.SELLPIRCE = ($event*1000); 
+    this.cartService.updatePriceCart(this.cartItem());
+  }
 
   exPrice = computed(() => 
     this.cartItem().quantity * Number(this.cartItem().productstck.SELLPIRCE));

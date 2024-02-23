@@ -3,13 +3,17 @@
         <div nz-col nzSpan="6">
             {{ cartItem().productstck.product.product_name }}
         </div>
-        <div nz-col nzSpan="4">
-            {{ cartItem().productstck.SELLPIRCE | currency: 'VND'}}
+        <div nz-col nzSpan="3">
+            {{ cartItem().productstck.PURPIRCE| currency: 'VND'}}
         </div>
-        <div nz-col nzSpan="5">
+        <div nz-col nzSpan="3">
+            <!-- {{ cartItem().productstck.SELLPIRCE | currency: 'VND'}} -->
+            <app-input-currency [Amount]="amountMode()" (changeAmount)="changeAmount($event)"></app-input-currency>
+        </div>
+        <div nz-col nzSpan="4">
             <nz-input-number [(ngModel)]="cartItem().quantity" [nzMin]="1" [nzMax]="1000" [nzStep]="1" (ngModelChange)="change($event)"></nz-input-number>
         </div>
-        <div nz-col nzSpan="5">
+        <div nz-col nzSpan="4">
             {{ exPrice() | currency:'VND'}}
         </div>
         <div nz-col nzSpan="4">

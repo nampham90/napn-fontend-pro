@@ -70,7 +70,7 @@ export class BaseHttpService {
 
   getUrl(path: string, config: HttpCustomConfig): string {
     let reqPath = this.uri + path;
-    console.log(reqPath);
+    // console.log(reqPath);
     if (config.otherUrl) {
       reqPath = path;
     }

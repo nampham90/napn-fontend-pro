@@ -1,10 +1,12 @@
 // url tinh thanh API
 export const  tinhthanhApi = "https://provinces.open-api.vn/api/?depth=2";
 
+// nhom userid
 export const doanhnghiepcd = 8;
 export const kythuatcd = 4;
 export const khachlecd = 5;
 export const quanlycd = 1;
+export const nhacungcap = 12;// chưa xác định
 
 
 // type notifi
@@ -26,6 +28,7 @@ export const Ant100getIdPhongban = 'phongban/ant100getIdPhongban';
 export const Ant100UserLogin = 'user/login';
 export const Ant100UserGetMenu = 'user/menu';
 export const Ant100findAllUser = 'user/ant100SearchAllUser';
+export const Ant100UserFindByDepartmentId = 'user/ant100userfindbydepartmentid';
 export const Ant100GetDetailUser = 'user/ant100GetDetailUser';
 export const Ant100EditDetailUser = 'user/ant100EditDetailUser';
 export const Ant100DeleteUsers = 'user/ant100DeleteUsers';
@@ -77,8 +80,10 @@ export const Tmt101Ant100FindAll = 'tmt101/tmt101Ant100FindAll';
 
 
 // tmt050
-
 export const Tmt050listRcdkbn = 'tmt050/tmt050FindRcdkbn';
+
+// tmt140_qualities
+export const Tmt140listqualities = 'tmt140/tmt140getlistqty';
 
 // tmt170
 export const Tmt170listdelimthd = 'tmt170/tmt170listdelimthd';
@@ -97,3 +102,9 @@ export const StockListProduct = 'stock/stockListProduct';
 // spot00101
 export const Spot00101NewOrder = 'spot00101/spot00101neworder';
 export const Spot00101OrderStatus = 'spot00101/spot00101orderstatus';
+export const Spot00101UpdateOrder = 'spot00101/spot00101updateorder';
+export const Spot00101Inbaogia = 'spot00101/spot00101inbaogia';
+
+
+// product
+export const ProductCategogy = 'product/productcategories'

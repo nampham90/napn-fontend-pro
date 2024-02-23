@@ -25,6 +25,14 @@ import { CartService } from './cart.service';
 import { rollOutAnimation } from 'angular-animations';
 import { ListCartComponent } from "./list-cart/list-cart.component";
 import { CartItem } from './model/Cart';
+
+import { Categorie } from '@app/model/product-model/categorie.model';
+import { ProductcategoryService } from '@app/core/services/http/product/productcategory.service';
+import { TMT140 } from '@app/model/tmt-model/tmt140_qualitie.model';
+import { Tmt140Service } from '@app/core/services/http/master/tmt140/tmt140.service';
+import { Sysuser } from '@app/model/sys-model/sysuser.model';
+import { AccountService } from '@app/core/services/http/system/account.service';
+import * as Const from '@app/common/const';
 interface SearchParam {
   CATCD: string; // danh mục san phẩm
   QTYCD: string; // chât lượng sản phẩm
@@ -55,13 +63,16 @@ export class ProductListComponent implements OnInit {
   private cdr = inject(ChangeDetectorRef);
   private stockService = inject(StockService);
   private cartService = inject(CartService);
+  private productCategoriesService = inject(ProductcategoryService);
+  private tmt140Service = inject(Tmt140Service);
+  private accountService = inject(AccountService);
   constructor(private modalRef: NzModalRef) {}
   addEditForm!: FormGroup;
   searchParam: Partial<SearchParam> = {};
-  qtycds = signal([]);
-  catcds = signal([]);
-  manufcds = signal([]);
-  supplycds = signal([]);
+  qtycds = signal<TMT140[]>([]);
+  catcds = signal<Categorie[]>([]);
+  manufcds = signal<Sysuser[]>([]);
+  supplycds = signal<Sysuser[]>([]);
   isAddtocart = signal(false);
 
   animationState = false;
@@ -87,7 +98,9 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.initTable();
-  
+    this.apiProductCategories();
+    this.apiGetlistQualities();
+    this.apiGetsupplys();
   }
 
   getDataList(e?: NzTableQueryParams): void{
@@ -119,17 +132,13 @@ export class ProductListComponent implements OnInit {
 
   addCart(productcd: string) {
     let item = this.dataList().find(product => product.PRODUCTCD === productcd);
-
     this.cartService.addToCart(item!);
-    
     if(item) {
       item.ISADDTOCART = true;
           setTimeout(() => {
             item!.ISADDTOCART = false
       }, 1000);
     }
-
-    console.log(this.cartService.cartItems());
   }
 
   resetForm(): void {}
@@ -157,6 +166,31 @@ export class ProductListComponent implements OnInit {
 
   changePageSize(e: number): void {
     this.tableConfig.pageSize = e;
+  }
+
+  apiProductCategories() : void {
+    this.productCategoriesService.category()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(res => {
+      this.catcds.set(res);
+    })
+  }
+
+  apiGetsupplys(): void {
+    this.accountService.getListUserByDepartmentId(Const.nhacungcap)
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(res => {
+      console.log(res);
+      this.supplycds.set(res);
+    })
+  }
+
+  apiGetlistQualities():void {
+    this.tmt140Service.listQualities()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(res => {
+      this.qtycds.set(res);
+    })
   }
 
   private initTable(): void {

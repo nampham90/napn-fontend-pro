@@ -41,4 +41,5 @@ export const ActionCode = {
 
   /* spot00101 */
   AddListProduct: 'default:out:spot00101:addListProduct',
+  Inbaogia: 'default:out:spot00101:inbaogia',
 };

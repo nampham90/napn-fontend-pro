@@ -57,6 +57,7 @@ export class CardTableWrapComponent implements OnInit, AfterContentInit {
   public translate = inject(TranslateService);
   @Input() tableTitle: string | TemplateRef<NzSafeAny> | undefined;
   @Input() btnTpl: TemplateRef<NzSafeAny> | undefined;
+  @Input() btnConfirm: TemplateRef<NzSafeAny> | undefined;
   @Input() isNormalTable = true; // Nếu bạn chỉ cần kiểu bọc thẻ trên bàn, hãy đặt kiểu này thành sai
   @Output() readonly reload = new EventEmitter<NzSafeAny>();
   @ContentChild(AntTableComponentToken) antTableComponent!: AntTableComponentToken;

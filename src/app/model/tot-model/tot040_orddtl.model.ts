@@ -11,4 +11,5 @@ export interface TOT040 {
     updatedAt?: Date;
     PRODUCTCD: Product;
     QTYCD: string;
+    LIMITDATE: Date;
 }

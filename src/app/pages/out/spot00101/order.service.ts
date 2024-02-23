@@ -2,6 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { soodno } from '@app/config/constant';
 import { WindowService } from '@app/core/services/common/window.service';
 import { TOT010 } from '@app/model/tot-model/tot010_sts.model';
+import { TOT040 } from '@app/model/tot-model/tot040_orddtl.model';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,10 @@ export class OrderService {
 
   updateCSTMCD(cstmcd: string) {
      this.order().tot020_ordhed.CSTMCD = cstmcd;
+  }
+
+  updateListDetail(tot040: TOT040[]) {
+     this.order().tot020_ordhed.tot040_orddtls = tot040;
   }
 
   constructor() { }

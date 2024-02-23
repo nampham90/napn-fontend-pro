@@ -61,6 +61,7 @@ export class AccountModalComponent implements OnInit {
     if (!fnCheckForm(this.addEditForm)) {
       return of(false);
     }
+    console.log(this.addEditForm.value);
     return of(this.addEditForm.value);
   }
 
@@ -117,7 +118,7 @@ export class AccountModalComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.initForm();
-    this.isEdit = !!this.nzModalData;
+    this.isEdit = !!this.nzModalData.id;
     await Promise.all([this.getRoleList(), this.getDeptList()]);
     if (this.isEdit) {
       this.addEditForm.patchValue(this.nzModalData);

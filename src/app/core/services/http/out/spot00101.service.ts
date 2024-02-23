@@ -33,5 +33,13 @@ export class Spot00101Service {
     return this.http.post(Const.Spot00101OrderStatus, {});
   }
 
+  public updateOD(od: TOT010) : Observable<string> {
+    return this.http.post(Const.Spot00101UpdateOrder, {order: od}, {needSuccessInfo: true})
+  }
+
+  public inbaogia(od: TOT010): Observable<any> {
+    return this.http.downLoadWithBlob(Const.Spot00101Inbaogia, {order: od}, {needSuccessInfo: false})
+  }
+
 
 }

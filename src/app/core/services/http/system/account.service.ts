@@ -7,6 +7,7 @@ import { PageInfo, SearchCommonVO } from '../../types';
 import { BaseHttpService } from '../base-http.service';
 import { TMT010FILE } from '@app/model/tmt010_file.model';
 import { Role } from './role.service';
+import { Sysuser } from '@app/model/sys-model/sysuser.model';
 
 /*
  * quản lý người dùng
@@ -61,6 +62,10 @@ export class AccountService {
 
   public getAccount(param: SearchCommonVO<User>): Observable<any> {
     return this.http.post(Const.Ant100findAllUser, param);
+  }
+
+  public getListUserByDepartmentId(param: number): Observable<Sysuser[]> {
+    return this.http.post(Const.Ant100UserFindByDepartmentId, {phongban_id: param}, {needSuccessInfo: false});
   }
 
   public getAccountDetail(id: number): Observable<User> {

@@ -1,5 +1,5 @@
 import { CommonModule, JsonPipe, NgClass } from '@angular/common';
-import { Component, DestroyRef, TemplateRef, ViewChild, computed, inject, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, OnInit, TemplateRef, ViewChild, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActionCode } from '@app/config/actionCode';
@@ -34,6 +34,8 @@ import { soodno } from '@app/config/constant';
 import { CartItem } from '@app/widget/biz-widget/out/product-list/model/Cart';
 import { TOT040 } from '@app/model/tot-model/tot040_orddtl.model';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
+import { Spot00101Service } from '@app/core/services/http/out/spot00101.service';
+import FileSaver from 'file-saver';
 export interface UserDetail {
   CSTMCD: string;
   CSTNAME: string;
@@ -65,8 +67,10 @@ export interface UserDetail {
         AntTableComponent
     ]
 })
-export class Spot00101Component extends AbsComponent{
+export class Spot00101Component extends AbsComponent implements OnInit{
+
   tmt050Service = inject(Tmt050Service);
+  protected override cdr= inject(ChangeDetectorRef);
   private orderService = inject(OrderService);
   private productListService = inject(ProductListService);
   private resultUserService = inject(ResultUserService);
@@ -77,6 +81,7 @@ export class Spot00101Component extends AbsComponent{
   private windownService = inject(WindowService);
   private tmt170Service = inject(Tmt170Service);
   private tmt171Service = inject(Tmt171Service);
+  private spot00101Service = inject(Spot00101Service);
   listPaymeth = signal<TMT171[]>([]);
   listDelimth = signal<TMT170[]>([]);
   order = computed(() => this.orderService.order());
@@ -88,8 +93,14 @@ export class Spot00101Component extends AbsComponent{
   });
   cartItems = signal<CartItem[]>([]);
   listDetail = signal<TOT040[]>([]);
+  filenamePdf = signal("");
 
   headerForm!: FormGroup ;
+  @ViewChild('productnameTpl', {static: true}) productnameTpl! : TemplateRef<NzSafeAny>;
+  @ViewChild('qtynmTpl', {static: true}) qtynmTpl!: TemplateRef<NzSafeAny>;
+
+  dataList: TOT040[] = []
+
 
   constructor() {
     super();
@@ -99,11 +110,12 @@ export class Spot00101Component extends AbsComponent{
   tableConfig!: AntTableConfig;
   ActionCode = ActionCode;
   checkedCashArray: any[] = [];
-  dataList = signal<TOT040[]>([]);
+  
 
   getDataList(e?: NzTableQueryParams): void {
+    this.dataList = [...this.listDetail()];
+    this.orderService.updateListDetail(this.dataList);
     this.tableLoading(false);
-    
   }
 
   tableChangeDectction(): void {
@@ -115,13 +127,14 @@ export class Spot00101Component extends AbsComponent{
     this.tableChangeDectction();
   }
 
+  changePageSize(e: number): void {
+    this.tableConfig.pageSize = e;
+  }
+
   reloadTable(): void {
     this.message.info('Làm mới thành công');
     this.getDataList();
   }
-
-
-
   // end table process
 
   override ngOnInit(): void {
@@ -131,10 +144,7 @@ export class Spot00101Component extends AbsComponent{
     }
     this.apiGetListPaymethd();
     this.apiGetListDelimthd();
-
     this.initTable();
-
-   // console.log(this.order().tot020_ordhed.DELIMTHDCD + ":" + this.DELIMTHDCD());
   }
 
   get f():{ [key: string]: AbstractControl } {
@@ -151,14 +161,17 @@ export class Spot00101Component extends AbsComponent{
             this.cartService.cartItems.set([]);
             return;
           }
+          
           this.cartItems.set(res.modalValue);
           this.mergeCartToTot040();
+          this.getDataList();
         }
      )
   }
 
   // merge list cartItem to Tot040
   mergeCartToTot040(): void {
+    this.listDetail.set([]);
     if(this.cartItems().length > 0) {
       for(let i = 0; i < this.cartItems().length; i++) {
         let tot040 : TOT040 = {
@@ -169,12 +182,13 @@ export class Spot00101Component extends AbsComponent{
           SHIPMNTORDREMAINQTY: this.cartItems()[i].productstck.TOTALALLWQTY,
           SOREMARK: "",
           PRODUCTCD: this.cartItems()[i].productstck.product,
-          QTYCD: this.cartItems()[i].productstck.QTYCD
+          QTYCD: this.cartItems()[i].productstck.QTYCD,
+          LIMITDATE: this.cartItems()[i].productstck.LIMITDATE
         }
         this.listDetail().push(tot040);
       }
 
-    }
+    } 
   }
 
   // hiển thị modal tìm kiếm user
@@ -195,7 +209,6 @@ export class Spot00101Component extends AbsComponent{
                       (res.modalValue.BUYERADRS3ENC==null? "": res.modalValue.BUYERADRS3ENC)
         })
         this.orderService.updateCSTMCD(res.modalValue.id);
-        // console.log(res.modalValue);
       }
     )
   }
@@ -205,7 +218,6 @@ export class Spot00101Component extends AbsComponent{
     this.tmt171Service.getListPaymethd()
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(res => {
-      console.log(res);
       this.listPaymeth.set(res);
     })
   }
@@ -215,7 +227,6 @@ export class Spot00101Component extends AbsComponent{
     this.tmt170Service.getListDelimthd()
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(res => {
-      console.log(res)
       this.listDelimth.set(res);
     })
   }
@@ -232,16 +243,34 @@ export class Spot00101Component extends AbsComponent{
 
   }
 
+  // printer báo gia đơn hàng cho khách hàng
+  btnInbaogia() {
+    this.spot00101Service.updateOD(this.orderService.order())
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(res=> {
+      console.log(res);
+      if(res !== "") {
+        this.filenamePdf.set(res)
+        this.xuatbaogia();
+      }
+    })
+  }
+
+  xuatbaogia(): void {
+    this.spot00101Service.inbaogia(this.orderService.order())
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(res => {
+       FileSaver.saveAs(res, this.filenamePdf());
+    })
+  }
+
   changeDelimthd($event: any) {
      this.orderService.updateDelimthd($event);
-    // console.log(this.order().tot020_ordhed.DELIMTHDCD);
   }
 
   onSubmit() {
     
   }
-
-  @ViewChild('pronameTpl', { static: true }) pronameTpl!: TemplateRef<NzSafeAny>;
 
   private initTable(): void {
     this.tableConfig = {
@@ -250,7 +279,7 @@ export class Spot00101Component extends AbsComponent{
          {
             title: "Tên sản phẩm",
             field: "PRODUCTNAME",
-            tdTemplate: this.pronameTpl,
+            tdTemplate: this.productnameTpl,
             width: 200,
          },
          {
@@ -264,9 +293,16 @@ export class Spot00101Component extends AbsComponent{
             width: 100,
          },
          {
+            title: 'Chất lượng',
+            field: 'QTYNM',
+            tdTemplate: this.qtynmTpl,
+            width: 120
+         },
+         {
             title: "Bảo hành",
-            field: "SOPRICE",
-            width: 100,
+            field: "LIMITDATE",
+            pipe: "date: dd/MM/yyyy",
+            width: 120,
          },
          {
             title: "Ghi chú",

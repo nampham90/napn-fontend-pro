@@ -15,7 +15,7 @@
                                 <nz-form-control>
                                     <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.CATCD">
                                         @for(item of catcds(); track item) {
-                                            <nz-option  [nzLabel]="item['catnm']" [nzValue]="item['catcd']"></nz-option>
+                                            <nz-option  [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
                                         }
                                     </nz-select>
                                 </nz-form-control>
@@ -27,7 +27,7 @@
                                 <nz-form-control>
                                     <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.MANUFACTTURECD">
                                         @for(item of manufcds(); track item) {
-                                            <nz-option  [nzLabel]="item['manufnm']" [nzValue]="item['manufcd']"></nz-option>
+                                            <nz-option  [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
                                         }
                                     </nz-select>
                                 </nz-form-control>
@@ -41,7 +41,7 @@
                                 <nz-form-control>
                                     <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.QTYCD">
                                         @for(item of qtycds(); track item) {
-                                            <nz-option  [nzLabel]="item['qtynm']" [nzValue]="item['qtycd']"></nz-option>
+                                            <nz-option  [nzLabel]="item.QTYNM" [nzValue]="item.QTYCD"></nz-option>
                                         }
                                     </nz-select>
                                 </nz-form-control>
@@ -54,7 +54,7 @@
                                 <nz-form-control>
                                     <nz-select name="available" nzAllowClear nzPlaceHolder="" [(ngModel)]="searchParam.SUPPLYCD">
                                         @for(item of supplycds(); track item) {
-                                            <nz-option  [nzLabel]="item['supplynm']" [nzValue]="item['supplycd']"></nz-option>
+                                            <nz-option  [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
                                         }
                                     </nz-select>
                                 </nz-form-control>
