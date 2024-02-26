@@ -1,4 +1,4 @@
-import { CommonModule, JsonPipe, NgClass } from '@angular/common';
+import { CommonModule, CurrencyPipe, JsonPipe, NgClass } from '@angular/common';
 import { ChangeDetectorRef, Component, DestroyRef, OnInit, TemplateRef, ViewChild, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -36,6 +36,8 @@ import { TOT040 } from '@app/model/tot-model/tot040_orddtl.model';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { Spot00101Service } from '@app/core/services/http/out/spot00101.service';
 import FileSaver from 'file-saver';
+import { SpinService } from '@app/core/services/store/common-store/spin.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
 export interface UserDetail {
   CSTMCD: string;
   CSTNAME: string;
@@ -64,8 +66,9 @@ export interface UserDetail {
         AuthDirective,
         ReactiveFormsModule,
         JsonPipe,
-        AntTableComponent
-    ]
+        AntTableComponent,
+        CurrencyPipe
+    ],
 })
 export class Spot00101Component extends AbsComponent implements OnInit{
 
@@ -82,6 +85,8 @@ export class Spot00101Component extends AbsComponent implements OnInit{
   private tmt170Service = inject(Tmt170Service);
   private tmt171Service = inject(Tmt171Service);
   private spot00101Service = inject(Spot00101Service);
+  protected override spinService = inject(SpinService);
+  private modalSrv = inject(NzModalService);
   listPaymeth = signal<TMT171[]>([]);
   listDelimth = signal<TMT170[]>([]);
   order = computed(() => this.orderService.order());
@@ -95,9 +100,12 @@ export class Spot00101Component extends AbsComponent implements OnInit{
   listDetail = signal<TOT040[]>([]);
   filenamePdf = signal("");
 
+  phongban_id = signal(0);// lưu trư lại phongban khi chọn khác hàng
+
   headerForm!: FormGroup ;
   @ViewChild('productnameTpl', {static: true}) productnameTpl! : TemplateRef<NzSafeAny>;
   @ViewChild('qtynmTpl', {static: true}) qtynmTpl!: TemplateRef<NzSafeAny>;
+  @ViewChild('sopriceTpl', {static: true}) sopriceTpl!: TemplateRef<NzSafeAny>;
 
   dataList: TOT040[] = []
 
@@ -142,9 +150,15 @@ export class Spot00101Component extends AbsComponent implements OnInit{
     if(this.order().SOODNO === "") {
        this.orderService.updateOrder(JSON.parse(this.windownService.getStorage(soodno)!))
     }
+    console.log("detail: " +this.order().tot020_ordhed.tot040_orddtls.length);
+
     this.apiGetListPaymethd();
     this.apiGetListDelimthd();
     this.initTable();
+    if(this.order().tot020_ordhed.tot040_orddtls.length > 0) {
+      this.listDetail.set(this.order().tot020_ordhed.tot040_orddtls);
+      this.tableChangeDectction();
+    }
   }
 
   get f():{ [key: string]: AbstractControl } {
@@ -153,9 +167,24 @@ export class Spot00101Component extends AbsComponent implements OnInit{
 
   // hiển thị modal tìm kiếm sản phẩm
   showProdutList() {
-     this.productListService.show({nzTitle: "Trong Kho", nzWidth: 1224},{showCart: true})
-     .pipe(takeUntilDestroyed(this.destroyRef))
-     .subscribe(
+    if(this.userDetail().CSTMCD !== "") {
+      this.confirmOK();
+    } else {
+      this.modalSrv.confirm({
+        nzTitle: "Thống báo",
+        nzContent: "Nếu không chọn khách hàng mặc định hiển thì giá lẻ !",
+        nzOnOk: () => {
+           this.confirmOK();
+        }
+      })
+    }
+  }
+
+  confirmOK(): void {
+    this.mergeTot040ToCart();
+    this.productListService.show({nzTitle: "Trong Kho", nzWidth: 1224},{showCart: true, phongban_id: this.phongban_id()})
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(
         res => {
           if (!res || res.status === ModalBtnStatus.Cancel) {
             this.cartService.cartItems.set([]);
@@ -166,7 +195,7 @@ export class Spot00101Component extends AbsComponent implements OnInit{
           this.mergeCartToTot040();
           this.getDataList();
         }
-     )
+    )
   }
 
   // merge list cartItem to Tot040
@@ -181,14 +210,38 @@ export class Spot00101Component extends AbsComponent implements OnInit{
           SHIPMNTORDQTY: this.cartItems()[i].quantity,
           SHIPMNTORDREMAINQTY: this.cartItems()[i].productstck.TOTALALLWQTY,
           SOREMARK: "",
-          PRODUCTCD: this.cartItems()[i].productstck.product,
+          PRODUCTCD: this.cartItems()[i].productstck.PRODUCTCD,
+          product: this.cartItems()[i].productstck.product,
           QTYCD: this.cartItems()[i].productstck.QTYCD,
-          LIMITDATE: this.cartItems()[i].productstck.LIMITDATE
         }
         this.listDetail().push(tot040);
       }
-
     } 
+  }
+
+  // merge tot040 sang CartItem
+  mergeTot040ToCart(): void {
+    let listCart : CartItem[] = []
+    if(this.dataList.length > 0) {
+      for(let element of this.dataList) {
+         let item: CartItem = {
+            productstck: {
+              PRODUCTCD: element.PRODUCTCD,
+              TOTALALLWQTY: 0,
+              PURPIRCE: 0,
+              SELLPIRCE: element.SOPRICE,
+              QTYCD: element.QTYCD,
+              TOTALSHIPQTY: 0,
+              IMAGE: "",
+              product: element.product,
+              ISADDTOCART: true,
+            },
+            quantity: element.SHIPMNTORDQTY
+         }
+         listCart.push(item);
+      }
+      this.cartService.updateListCart(listCart);
+    }
   }
 
   // hiển thị modal tìm kiếm user
@@ -200,6 +253,7 @@ export class Spot00101Component extends AbsComponent implements OnInit{
         if (!res || res.status === ModalBtnStatus.Cancel) {
           return;
         }
+        this.phongban_id.set(res.modalValue.phongban_id);
         this.userDetail.set({
            CSTMCD : res.modalValue.id,
            CSTNAME: res.modalValue.name,
@@ -245,10 +299,10 @@ export class Spot00101Component extends AbsComponent implements OnInit{
 
   // printer báo gia đơn hàng cho khách hàng
   btnInbaogia() {
+    this.spinService.setCurrentGlobalSpinStore(true);
     this.spot00101Service.updateOD(this.orderService.order())
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(res=> {
-      console.log(res);
       if(res !== "") {
         this.filenamePdf.set(res)
         this.xuatbaogia();
@@ -261,6 +315,7 @@ export class Spot00101Component extends AbsComponent implements OnInit{
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(res => {
        FileSaver.saveAs(res, this.filenamePdf());
+       this.spinService.setCurrentGlobalSpinStore(false);
     })
   }
 
@@ -290,6 +345,7 @@ export class Spot00101Component extends AbsComponent implements OnInit{
          {
             title: "Giá",
             field: "SOPRICE",
+            tdTemplate: this.sopriceTpl,
             width: 100,
          },
          {
@@ -297,12 +353,6 @@ export class Spot00101Component extends AbsComponent implements OnInit{
             field: 'QTYNM',
             tdTemplate: this.qtynmTpl,
             width: 120
-         },
-         {
-            title: "Bảo hành",
-            field: "LIMITDATE",
-            pipe: "date: dd/MM/yyyy",
-            width: 120,
          },
          {
             title: "Ghi chú",

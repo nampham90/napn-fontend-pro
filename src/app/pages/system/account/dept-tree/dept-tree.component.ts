@@ -1,6 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter, inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter, inject, input, effect, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { DeptTreeSearchService } from '@app/pages/system/account/dept-tree/dept-tree-search.service';
@@ -27,10 +27,16 @@ export class DeptTreeComponent implements OnInit {
   selectListSelection: SelectionModel<FlatNode>;
   treeControl: FlatTreeControl<FlatNode>;
   @Output() readonly deptIdEven = new EventEmitter<number>();
+  dataSearch = input('', {
+    alias: "cuttomSearch"
+  })
+
+  ishowdataSearch = signal(false);
 
   constructor() {
     this.selectListSelection = this.deptTreeService.selectListSelection;
     this.treeControl = this.deptTreeService.treeControl;
+
   }
 
   changeSearch(event: string): void {
@@ -48,5 +54,9 @@ export class DeptTreeComponent implements OnInit {
 
   ngOnInit(): void {
     this.deptTreeService.initDate();
+    if(this.dataSearch() !== '') {
+      this.ishowdataSearch.set(true);
+      this.deptTreeSearchService.searchValue$.next(this.dataSearch());
+    }
   }
 }

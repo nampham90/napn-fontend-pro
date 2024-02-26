@@ -76,6 +76,7 @@ export class ProductListComponent implements OnInit {
   isAddtocart = signal(false);
 
   animationState = false;
+  phongban_id = signal(0);
 
   cartCount = computed(() => this.cartService.cartItems().length)
 
@@ -83,6 +84,7 @@ export class ProductListComponent implements OnInit {
   @ViewChild('productnameTpl', { static: true }) productnameTpl!: TemplateRef<any>;
   @ViewChild('sellpirceTpl', { static: true }) sellpirceTpl!: TemplateRef<any>;
   @ViewChild('imageTpl', { static: true }) imageTpl!: TemplateRef<any>;
+  @ViewChild('qtynmTpl', {static: true}) qtynmTpl!: TemplateRef<NzSafeAny>;
 
   protected getAsyncFnData(modalValue: CartItem[] | boolean): Observable<CartItem[]|boolean> {
     return of(modalValue);
@@ -101,6 +103,7 @@ export class ProductListComponent implements OnInit {
     this.apiProductCategories();
     this.apiGetlistQualities();
     this.apiGetsupplys();
+    this.phongban_id.set(this.nzModalData.phongban_id);
   }
 
   getDataList(e?: NzTableQueryParams): void{
@@ -131,6 +134,7 @@ export class ProductListComponent implements OnInit {
   }
 
   addCart(productcd: string) {
+    console.log(productcd);
     let item = this.dataList().find(product => product.PRODUCTCD === productcd);
     this.cartService.addToCart(item!);
     if(item) {
@@ -180,7 +184,6 @@ export class ProductListComponent implements OnInit {
     this.accountService.getListUserByDepartmentId(Const.nhacungcap)
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(res => {
-      console.log(res);
       this.supplycds.set(res);
     })
   }
@@ -207,7 +210,7 @@ export class ProductListComponent implements OnInit {
           title: 'Tên sản phẩm',
           field: 'prodname',
           tdTemplate: this.productnameTpl,
-          width: 300
+          width: 200
         },
         {
           title: 'Số lượng',
@@ -219,6 +222,12 @@ export class ProductListComponent implements OnInit {
           field: 'SELLPIRCE',
           tdTemplate: this.sellpirceTpl,
           width: 120
+        },
+        {
+          title: 'Chất lượng',
+          field: 'QTYCD',
+          tdTemplate: this.qtynmTpl,
+          width: 80
         },
         {
           title: 'Ngày hết hạn',

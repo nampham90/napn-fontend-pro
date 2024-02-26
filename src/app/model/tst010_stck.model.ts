@@ -5,7 +5,7 @@ export interface TST010_STCK {
     TOTALALLWQTY: number;
     PURPIRCE: number;
     SELLPIRCE: number;
-    LIMITDATE: Date;
+    LIMITDATE?: Date ;
     QTYCD: string;
     TOTALSHIPQTY: number;
     IMAGE: string;

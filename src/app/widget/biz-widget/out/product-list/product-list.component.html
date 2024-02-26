@@ -100,8 +100,28 @@
         <img src="./assets/imgs/bf.jpg" alt="" [ngStyle]="{'width':'70px','height':'50px'}"/>
      }
 </ng-template>
-<ng-template #sellpirceTpl let-SELLPIRCE="SELLPIRCE">
-    {{SELLPIRCE | currency: 'VND'}}
+<ng-template #sellpirceTpl let-SELLPIRCE="SELLPIRCE" let-TECHNICALPRICE="TECHNICALPRICE">
+    @if(phongban_id()===4) {
+        {{TECHNICALPRICE | currency: 'VND'}}
+    } @else {
+        {{SELLPIRCE | currency: 'VND'}}
+    }
+</ng-template>
+<ng-template #qtynmTpl let-QTYCD="QTYCD"> 
+    @switch (QTYCD) {
+        @case ("01") {
+            <span>Mới</span>
+        }
+        @case ("02") {
+            <span>Củ</span>
+        }
+        @case ("03") {
+            <span>Qua sử dụng</span>
+        }
+        @default {
+            <div>Mới</div>
+        } 
+    }
 </ng-template>
 <ng-template #operationTpl let-PRODUCTCD="PRODUCTCD" let-ISADDTOCART="ISADDTOCART">
     <!-- *appAuth="ActionCode.HuongdanUpdate" -->

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, Input, OnDestroy, computed, inject } from '@angular/core';
+import { Component, DestroyRef, Input, OnDestroy, computed, inject, input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Spot00101Service } from '@app/core/services/http/out/spot00101.service';
 import { TOT010 } from '@app/model/tot-model/tot010_sts.model';
@@ -38,18 +38,23 @@ export class ListOrderComponent {
   destroyRef = inject(DestroyRef);
   private cartService = inject(CartService);
   private menuorderService = inject(MenuOrderService);
-  _listOrder = computed(() => this.listOrderService.listOrderNew());
+  _listOrder = input([], {
+    alias: 'lstOrder',
+    transform: (_listOrder: TOT010[]) => _listOrder
+  }) ;//computed(() => this.listOrderService.listOrderNew());
 
 
   @Input()
   isNewOrder: boolean = false;
 
 
+
+
   newOrder() {
     this.spot00101Service.newOrder()
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(res => {
-      this.listOrderService.updateList(res.lstnewOd);
+      this.listOrderService.updateListNew(res.lstnewOd);
     })
   }
 

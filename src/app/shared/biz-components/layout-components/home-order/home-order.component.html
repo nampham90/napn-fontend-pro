@@ -6,24 +6,33 @@
       <ng-template #NewOrder>
         <span>Đơn mới({{totalOrderNew()}})</span>
       </ng-template>
-      <nz-tab nzTitle="Báo giá(4)">
+      <nz-tab [nzTitle]="QTESTSOrder">
         <ng-container *ngTemplateOutlet="notifiBaogiaTpl"></ng-container>
       </nz-tab>
-      <nz-tab nzTitle="Đặt hàng(3)">
+      <ng-template #QTESTSOrder>
+        <span>Báo giá({{totalOrderQTESTS()}})</span>
+      </ng-template>
+      <nz-tab [nzTitle]="ORDSTSOrder">
         <ng-container *ngTemplateOutlet="notifidathangTpl"></ng-container>
       </nz-tab>
-      <nz-tab nzTitle="Thanh toán(4)">
+      <ng-template #ORDSTSOrder>
+        <span>Đặt hàng({{totalOrderORDSTS()}})</span>
+      </ng-template>
+      <nz-tab [nzTitle]="PAYSTSOrder">
         <ng-container *ngTemplateOutlet="notifithanhtoanTpl"></ng-container>
       </nz-tab>
+      <ng-template #PAYSTSOrder>
+        <span>Thanh toán({{totalOrderPAYSTS()}})</span>
+      </ng-template>
     </nz-tabset>
   </nz-card>
 
   <ng-template #notifiNewOrderTpl>
-    <app-list-order [isNewOrder]="true"></app-list-order>
+    <app-list-order [isNewOrder]="true" [lstOrder]="listOrderService.listOrderNew()"></app-list-order>
   </ng-template>
 
   <ng-template #notifiBaogiaTpl>
-    <app-list-order></app-list-order>
+    <app-list-order [lstOrder]="listOrderService.listOrderQTESTS()"></app-list-order>
   </ng-template>
 
   <ng-template #notifidathangTpl>

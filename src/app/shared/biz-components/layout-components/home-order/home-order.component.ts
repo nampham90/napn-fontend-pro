@@ -22,6 +22,12 @@ export class HomeOrderComponent implements OnInit{
     destroyRef = inject(DestroyRef);
 
     totalOrderNew = computed(() => this.listOrderService.totalOrdernew());
+    totalOrderQTESTS = computed(() => this.listOrderService.totalOrderQTESTS());
+    totalOrderORDSTS = computed(() => this.listOrderService.totalOrderORDSTS());
+    totalOrderORDAPPSTS = computed(() => this.listOrderService.totalOrderORDAPPSTS());
+    totalOrderPAYSTS = computed(() => this.listOrderService.totalOrderPAYSTS());
+    totalOrderSHIPSTS = computed(() => this.listOrderService.totalOrderSHIPSTS());
+   
 
 
     ngOnInit(): void {
@@ -32,7 +38,12 @@ export class HomeOrderComponent implements OnInit{
         this.spot00101Service.orderStatus()
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(res => {
-            this.listOrderService.updateList(res.lstnewOd);
+            this.listOrderService.updateListNew(res.lstnewOd);
+            this.listOrderService.updateListQTESTS(res.lstQTESTS)
+            this.listOrderService.updateListORDSTS(res.lstORDSTS)
+            this.listOrderService.updateListORDAPPSTS(res.lstORDAPPSTS)
+            this.listOrderService.updateListPAYSTS(res.lstPAYSTS)
+            this.listOrderService.updateListSHIPSTS(res.lstSHIPSTS)
         })
     }
   

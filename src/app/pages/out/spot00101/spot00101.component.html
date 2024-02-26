@@ -146,9 +146,9 @@
           [tableConfig]="tableConfig"
           [tableData]="dataList"
         ></app-ant-table>
-        <ng-template #productnameTpl let-PRODUCTCD="PRODUCTCD">
-            @if(PRODUCTCD) {
-                <span>{{PRODUCTCD.product_name}}</span>
+        <ng-template #productnameTpl let-product="product">
+            @if(product) {
+                <span>{{product.product_name}}</span>
             }
         </ng-template>
         <ng-template #qtynmTpl let-QTYCD="QTYCD"> 
@@ -166,6 +166,9 @@
                     <div>Mới</div>
                 } 
             }
+        </ng-template>
+        <ng-template #sopriceTpl let-SOPRICE="SOPRICE">
+            {{SOPRICE | currency: 'VND' }}
 
         </ng-template>
     </app-card-table-wrap>

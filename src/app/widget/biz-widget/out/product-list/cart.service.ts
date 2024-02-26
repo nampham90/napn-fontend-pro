@@ -59,4 +59,8 @@ export class CartService {
   refeshCart() {
     this.cartItems.set([]);
   }
+
+  updateListCart(lstCart: CartItem[]) {
+    this.cartItems.set(lstCart);
+  }
 }

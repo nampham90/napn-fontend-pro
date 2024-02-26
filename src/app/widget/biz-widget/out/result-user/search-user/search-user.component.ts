@@ -20,6 +20,7 @@ import { CardTableWrapComponent } from "../../../../../shared/components/card-ta
 import { UserDetailService } from '../user-detail.service';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { ModalBtnStatus } from '@app/widget/base-modal';
+import * as Const from '@app/common/const';
 interface SearchParam {
   name: string;
   phongban_id: number;
@@ -59,6 +60,7 @@ export class SearchUserComponent implements OnInit{
   tableConfig!: AntTableConfig;
   isCollapse = true;
   availableOptions: OptionsInterface[] = [];
+  cuttomSearch = "Khách Hàng";
 
   dataList = signal<User[]>([]);
   @ViewChild('availableFlag', { static: true }) availableFlag!: TemplateRef<NzSafeAny>;
@@ -129,6 +131,7 @@ export class SearchUserComponent implements OnInit{
 
   ngOnInit(): void {
     this.initTable();
+    this.searchParam.phongban_id = Const.kythuatcd;
   }
 
   private initTable(): void {

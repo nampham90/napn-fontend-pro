@@ -9,7 +9,8 @@ export interface TOT040 {
     SOREMARK: string;
     createdAt?: Date;
     updatedAt?: Date;
-    PRODUCTCD: Product;
+    PRODUCTCD: string;
+    product: Product;
     QTYCD: string;
-    LIMITDATE: Date;
+    LIMITDATE?: Date;
 }

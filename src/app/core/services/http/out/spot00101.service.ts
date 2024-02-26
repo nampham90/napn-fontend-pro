@@ -38,7 +38,7 @@ export class Spot00101Service {
   }
 
   public inbaogia(od: TOT010): Observable<any> {
-    return this.http.downLoadWithBlob(Const.Spot00101Inbaogia, {order: od}, {needSuccessInfo: false})
+    return this.http.downLoadWithBlob(Const.ReportInbaogia, {order: od}, {needSuccessInfo: false})
   }
 
 
