@@ -150,8 +150,6 @@ export class Spot00101Component extends AbsComponent implements OnInit{
     if(this.order().SOODNO === "") {
        this.orderService.updateOrder(JSON.parse(this.windownService.getStorage(soodno)!))
     }
-    console.log("detail: " +this.order().tot020_ordhed.tot040_orddtls.length);
-
     this.apiGetListPaymethd();
     this.apiGetListDelimthd();
     this.initTable();
