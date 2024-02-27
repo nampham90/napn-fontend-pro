@@ -25,7 +25,7 @@
                         {{item.createdAt | date: 'dd/MM/yyy'}}
                     </div>
                     <div class="card_name">
-                        {{item.tot020_ordhed!.CSTMCD == null? "No Name": item.tot020_ordhed!.CSTMCD}}
+                        {{item.tot020_ordhed!.CSTMCD == null? "No Name": item.tot020_ordhed!.customer?.name}}
                     </div>
                     <div class="card_status">
                         <!-- card_status_yllow -->

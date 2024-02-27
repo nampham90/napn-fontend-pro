@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { OrderService } from '@app/pages/out/spot00101/order.service';
 import { MenuOrderService } from '../../layout-head-right-menu/menu-order.service';
 import { CartService } from '@app/widget/biz-widget/out/product-list/cart.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 export interface Order {
@@ -38,30 +39,36 @@ export class ListOrderComponent {
   destroyRef = inject(DestroyRef);
   private cartService = inject(CartService);
   private menuorderService = inject(MenuOrderService);
+  private message = inject(NzMessageService);
   _listOrder = input([], {
     alias: 'lstOrder',
     transform: (_listOrder: TOT010[]) => _listOrder
-  }) ;//computed(() => this.listOrderService.listOrderNew());
+  }) ;
 
 
   @Input()
   isNewOrder: boolean = false;
 
+  totalNewOrder = computed(() => this.listOrderService.totalOrdernew());
+
 
 
 
   newOrder() {
-    this.spot00101Service.newOrder()
-    .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe(res => {
-      this.listOrderService.updateListNew(res.lstnewOd);
-    })
+    if(this.totalNewOrder() < 10) {
+      this.spot00101Service.newOrder()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(res => {
+        this.listOrderService.updateListNew(res.lstnewOd);
+      })
+    } else {
+      this.message.info("Không được tạo quá 10 đơn hàng mới !")
+    }
   }
 
   setOrder(order: TOT010) {
     const defaultUrl = '/default/out/spot00101'
     this.menuorderService.update(false);
-    console.log(this.menuorderService.isShowMenuOrder());
     this.orderService.updateOrder(order);
     this.orderService.updateLocalStorageSelectedOD(order);
     this.cartService.refeshCart();

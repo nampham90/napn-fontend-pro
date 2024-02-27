@@ -18,8 +18,13 @@ export interface TOT020 {
     POSTPAIDFLG: boolean;
     SOREMARK: string;
     USERCD: string;
-    tot040_orddtls: TOT040[]
+    customer: customer | null;
+    tot040_orddtls: TOT040[];
     createdAt: Date | null;
     updatedAt: Date | null;
 
+}
+
+interface customer {
+    name : string;
 }

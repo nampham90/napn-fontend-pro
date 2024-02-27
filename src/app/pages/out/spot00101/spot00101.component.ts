@@ -38,6 +38,8 @@ import { Spot00101Service } from '@app/core/services/http/out/spot00101.service'
 import FileSaver from 'file-saver';
 import { SpinService } from '@app/core/services/store/common-store/spin.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { ListOrderService } from '@app/shared/biz-components/layout-components/home-order/list-order/list-order.service';
+import { AccountService } from '@app/core/services/http/system/account.service';
 export interface UserDetail {
   CSTMCD: string;
   CSTNAME: string;
@@ -87,6 +89,8 @@ export class Spot00101Component extends AbsComponent implements OnInit{
   private spot00101Service = inject(Spot00101Service);
   protected override spinService = inject(SpinService);
   private modalSrv = inject(NzModalService);
+  private accountService = inject(AccountService);
+  listOrderService = inject(ListOrderService);
   listPaymeth = signal<TMT171[]>([]);
   listDelimth = signal<TMT170[]>([]);
   order = computed(() => this.orderService.order());
@@ -118,6 +122,8 @@ export class Spot00101Component extends AbsComponent implements OnInit{
   tableConfig!: AntTableConfig;
   ActionCode = ActionCode;
   checkedCashArray: any[] = [];
+
+  demoDate = new Date('2024-02-27 02:43:03');
   
 
   getDataList(e?: NzTableQueryParams): void {
@@ -150,8 +156,6 @@ export class Spot00101Component extends AbsComponent implements OnInit{
     if(this.order().SOODNO === "") {
        this.orderService.updateOrder(JSON.parse(this.windownService.getStorage(soodno)!))
     }
-    console.log("detail: " +this.order().tot020_ordhed.tot040_orddtls.length);
-
     this.apiGetListPaymethd();
     this.apiGetListDelimthd();
     this.initTable();
@@ -159,6 +163,12 @@ export class Spot00101Component extends AbsComponent implements OnInit{
       this.listDetail.set(this.order().tot020_ordhed.tot040_orddtls);
       this.tableChangeDectction();
     }
+
+    // trường hợp tồi tại id user, mà không có thông tin user thì lấy thông tin user từ DB
+    if(this.order().tot020_ordhed.CSTMCD !== null && this.userDetail().CSTNAME === "") {
+      this.apiGetDetaiUser();
+    }
+    console.log(this.order());
   }
 
   get f():{ [key: string]: AbstractControl } {
@@ -244,6 +254,20 @@ export class Spot00101Component extends AbsComponent implements OnInit{
     }
   }
 
+  apiGetDetaiUser(): void {
+    this.accountService.getAccountDetail(Number(this.order().tot020_ordhed.CSTMCD))
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(user => {
+      this.userDetail.set({
+         CSTMCD: user.id + "",
+         CSTNAME: user.name == undefined? "" : user.name,
+         CSTADDRESS: user.address == undefined? "" : user.address,
+         CSTMOBILE: user.dienthoai == undefined? "" : user.dienthoai
+      })
+    })
+
+  }
+
   // hiển thị modal tìm kiếm user
   resultUser() {
     this.resultUserService.show({nzTitle: "User Info", nzWidth: 1424}, {showcomfirm: false})
@@ -304,9 +328,25 @@ export class Spot00101Component extends AbsComponent implements OnInit{
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(res=> {
       if(res !== "") {
-        this.filenamePdf.set(res)
+        this.filenamePdf.set(res);
+        // update lai list order service
+        this.updateListOrder();
+        // xuat báo giá
         this.xuatbaogia();
       }
+    })
+  }
+
+  updateListOrder() : void {
+    this.spot00101Service.orderStatus()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(res => {
+      this.listOrderService.updateListNew(res.lstnewOd);
+      this.listOrderService.updateListQTESTS(res.lstQTESTS)
+      this.listOrderService.updateListORDSTS(res.lstORDSTS)
+      this.listOrderService.updateListORDAPPSTS(res.lstORDAPPSTS)
+      this.listOrderService.updateListPAYSTS(res.lstPAYSTS)
+      this.listOrderService.updateListSHIPSTS(res.lstSHIPSTS)
     })
   }
 

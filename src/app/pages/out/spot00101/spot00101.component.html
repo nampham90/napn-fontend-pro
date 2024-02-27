@@ -52,8 +52,8 @@
                         <div nz-col [nzLg]="8" [nzMd]="12" [nzSm]="24" [nzXl]="8" [nzXs]="24" [nzXXl]="8">
                             <nz-form-item>
                                 <nz-form-label [nzFor]="">Ngày đặt hàng</nz-form-label>
-                                <nz-form-control [nzErrorTip]="combineTpl">
-                                    <nz-date-picker [(ngModel)]="order().tot020_ordhed.ORDERDATE" (ngModelChange)="onChangeOrddate($event)"></nz-date-picker>
+                                <nz-form-control [nzErrorTip]="combineTpl"> 
+                                    <nz-date-picker name="ORDERDATE" [(ngModel)]="order().tot020_ordhed.ORDERDATE" (ngModelChange)="onChangeOrddate($event)"></nz-date-picker>
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
@@ -62,7 +62,7 @@
                             <nz-form-item>
                                 <nz-form-label [nzFor]="">Ngày xuất hàng</nz-form-label>
                                 <nz-form-control [nzErrorTip]="combineTpl">
-                                    <nz-date-picker [(ngModel)]="order().tot020_ordhed.SHIPDATE" (ngModelChange)="onChangeShipdate($event)"></nz-date-picker>
+                                    <nz-date-picker  name="SHIPDATE" [(ngModel)]="order().tot020_ordhed.SHIPDATE" (ngModelChange)="onChangeShipdate($event)"></nz-date-picker>
                                 </nz-form-control>
                             </nz-form-item>
                         </div>

@@ -42,6 +42,7 @@ export class OrderService {
       POSTPAIDFLG: false,
       SOREMARK: "",
       USERCD: "",
+      customer: null,
       tot040_orddtls: [],
       createdAt: null,
       updatedAt: null,
