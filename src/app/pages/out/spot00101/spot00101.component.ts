@@ -162,8 +162,7 @@ export class Spot00101Component extends AbsComponent implements OnInit{
     if(this.order().tot020_ordhed.tot040_orddtls.length > 0) {
       this.listDetail.set(this.order().tot020_ordhed.tot040_orddtls);
       this.tableChangeDectction();
-    }
-
+    } 
     // trường hợp tồi tại id user, mà không có thông tin user thì lấy thông tin user từ DB
     if(this.order().tot020_ordhed.CSTMCD !== null && this.userDetail().CSTNAME === "") {
       this.apiGetDetaiUser();
