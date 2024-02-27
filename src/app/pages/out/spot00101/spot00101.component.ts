@@ -168,7 +168,6 @@ export class Spot00101Component extends AbsComponent implements OnInit{
     if(this.order().tot020_ordhed.CSTMCD !== null && this.userDetail().CSTNAME === "") {
       this.apiGetDetaiUser();
     }
-    console.log(this.order());
   }
 
   get f():{ [key: string]: AbstractControl } {
@@ -236,7 +235,7 @@ export class Spot00101Component extends AbsComponent implements OnInit{
       for(let element of this.dataList) {
          let item: CartItem = {
             productstck: {
-              PRODUCTCD: element.PRODUCTCD,
+              PRODUCTCD: element.PRODUCTGROUPCD!,
               TOTALALLWQTY: 0,
               PURPIRCE: 0,
               SELLPIRCE: element.SOPRICE,

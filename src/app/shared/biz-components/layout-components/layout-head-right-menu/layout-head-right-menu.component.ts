@@ -52,7 +52,6 @@ import { MenuOrderService } from './menu-order.service';
 })
 export class LayoutHeadRightMenuComponent implements OnInit {
 changeMenu($event: boolean) {
-    console.log($event);
     this.ishowmenuorderService.update($event);
 }
   private ishowmenuorderService = inject(MenuOrderService);

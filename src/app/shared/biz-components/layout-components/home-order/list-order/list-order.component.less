@@ -32,59 +32,66 @@
                     position: relative;
                     transition: 0.2s;
                     border: 1px solid #273D40;
-                    .card_many, .card_remove {
-                        font-size: 14px;
-                        position:  absolute;
-                        left: 10px;
-                        top: 5px;
-                        transition: 0.2s;
-                    }
-                    
-                    .card_remove {
-                        left: unset;
-                        right: 10px;
-                        transition: 0.5s;
-                    }
-                        
-                    .card_od, .card_date, .card_name {
-                        font-size: 0.7em;
-                        text-align: center;
-                        transition: 0.2s;
-                    }
-                    
-                    .card_od {
-                        margin-top: 30px;
-                        font-weight: bold;
-                    }
-                        
-                    .card_name {
-                        margin-top: 7px;
-                        font-weight: bold;
-                        color: #4daf54;
-                    }
-                    
-                    .card_status {
-                        display: flex;
-                        margin: 10px auto;
-                        justify-content: center;
-                        transition: 0.2s;
-                        .card_status_main {
-                            width: 10px;
-                            height: 10px;
-                            border-radius: 50%;
-                            background-color: rgb(196, 196, 196);
-                            margin: 0 3px;
+                    .cart_header {
+                        position: relative;
+                        .card_many, .card_remove {
+                            font-size: 14px;
+                            position:  absolute;
+                            left: 10px;
+                            top: 5px;
+                            transition: 0.2s;
                         }
                         
-                        .card_status_red {
-                            background-color: red !important;
+                        .card_remove {
+                            left: unset;
+                            right: 10px;
+                            transition: 0.5s;
+                        }
+                    }
+
+                    .cart_content  {
+                        margin-top: 3px;
+                        .card_od, .card_date, .card_name {
+                            font-size: 0.7em;
+                            text-align: center;
+                            transition: 0.2s;
                         }
                         
-                        .card_status_yllow {
-                            background-color: yellow !important;
+                        .card_od {
+                            margin-top: 30px;
+                            font-weight: bold;
                         }
-                    
+                            
+                        .card_name {
+                            margin-top: 7px;
+                            font-weight: bold;
+                            color: #4daf54;
+                        }
+                        
+                        .card_status {
+                            display: flex;
+                            margin: 10px auto;
+                            justify-content: center;
+                            transition: 0.2s;
+                            .card_status_main {
+                                width: 10px;
+                                height: 10px;
+                                border-radius: 50%;
+                                background-color: rgb(196, 196, 196);
+                                margin: 0 3px;
+                            }
+                            
+                            .card_status_red {
+                                background-color: red !important;
+                            }
+                            
+                            .card_status_yllow {
+                                background-color: yellow !important;
+                            }
+                        
+                        }
                     }
+                   
                 }
 
                 .grid_card:hover {

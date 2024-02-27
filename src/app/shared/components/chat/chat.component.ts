@@ -107,7 +107,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    console.log('Dịch vụ khách hàng đã bị phá hủy');
+    // console.log('Dịch vụ khách hàng đã bị phá hủy');
   }
 
   close(): void {

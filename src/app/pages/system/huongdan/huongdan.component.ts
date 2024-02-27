@@ -124,7 +124,6 @@ export class HuongdanComponent extends AbsComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(data => {
-        console.log(data);
         const { list, total, pageNum } = data;
         this.dataList = [...list];
         this.tableConfig.total = total!;

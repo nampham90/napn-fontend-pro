@@ -61,7 +61,6 @@ export class AccountModalComponent implements OnInit {
     if (!fnCheckForm(this.addEditForm)) {
       return of(false);
     }
-    console.log(this.addEditForm.value);
     return of(this.addEditForm.value);
   }
 

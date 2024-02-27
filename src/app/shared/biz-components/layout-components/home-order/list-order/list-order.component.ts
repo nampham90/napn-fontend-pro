@@ -32,6 +32,7 @@ export interface Order {
   styleUrl: './list-order.component.less'
 })
 export class ListOrderComponent {
+
   spot00101Service = inject(Spot00101Service);
   orderService = inject(OrderService);
   router = inject(Router);
@@ -51,9 +52,6 @@ export class ListOrderComponent {
 
   totalNewOrder = computed(() => this.listOrderService.totalOrdernew());
 
-
-
-
   newOrder() {
     if(this.totalNewOrder() < 10) {
       this.spot00101Service.newOrder()
@@ -64,6 +62,10 @@ export class ListOrderComponent {
     } else {
       this.message.info("Không được tạo quá 10 đơn hàng mới !")
     }
+  }
+
+  deleteOrder(soodno: string) {
+    this.message.info(`Bạn vưa click xóa ${soodno}`);
   }
 
   setOrder(order: TOT010) {

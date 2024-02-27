@@ -10,6 +10,7 @@ export interface TOT040 {
     createdAt?: Date;
     updatedAt?: Date;
     PRODUCTCD: string;
+    PRODUCTGROUPCD?: string;
     product: Product;
     QTYCD: string;
     LIMITDATE?: Date;

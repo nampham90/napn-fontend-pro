@@ -258,8 +258,8 @@ export class TreeListComponent implements OnInit {
   /*Kiểm tra*/
   check(id: string, children: any[], parent: any[]): void {
     this.message.success(id);
-    console.log(children);
-    console.log(parent);
+    // console.log(children);
+    // console.log(parent);
   }
 
   /*cài lại*/

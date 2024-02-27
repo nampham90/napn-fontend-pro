@@ -17,6 +17,6 @@ export class BindComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.data);
+    // console.log(this.data);
   }
 }

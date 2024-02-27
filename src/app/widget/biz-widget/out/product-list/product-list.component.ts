@@ -134,7 +134,6 @@ export class ProductListComponent implements OnInit {
   }
 
   addCart(productcd: string) {
-    console.log(productcd);
     let item = this.dataList().find(product => product.PRODUCTCD === productcd);
     this.cartService.addToCart(item!);
     if(item) {

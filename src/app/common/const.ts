@@ -103,6 +103,7 @@ export const StockListProduct = 'stock/stockListProduct';
 export const Spot00101NewOrder = 'spot00101/spot00101neworder';
 export const Spot00101OrderStatus = 'spot00101/spot00101orderstatus';
 export const Spot00101UpdateOrder = 'spot00101/spot00101updateorder';
+export const Spot00101DeleteOrder = 'spot00101/spot00101deleteorder'
 //export const Spot00101Inbaogia = 'spot00101/spot00101inbaogia';
 
 
