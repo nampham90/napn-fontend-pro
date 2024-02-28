@@ -11,4 +11,9 @@ export interface Product {
     updatedAt: Date;
     category_id: number;
     productCategoryId: number;
+    product_category: Category;
+}
+
+interface Category {
+    name: string;
 }

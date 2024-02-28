@@ -27,4 +27,6 @@ export interface TOT020 {
 
 interface customer {
     name : string;
+    dienthoai: string;
+    email: string;
 }

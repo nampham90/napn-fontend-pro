@@ -113,6 +113,11 @@ export class Spot00101Component extends AbsComponent implements OnInit{
 
   dataList: TOT040[] = []
 
+  namebtnAdd = computed(() => {
+    if(this.listDetail().length > 0) return "Cập nhật";
+    return "Thêm mới";
+  })
+
 
   constructor() {
     super();
@@ -234,7 +239,7 @@ export class Spot00101Component extends AbsComponent implements OnInit{
       for(let element of this.dataList) {
          let item: CartItem = {
             productstck: {
-              PRODUCTCD: element.PRODUCTGROUPCD!,
+              PRODUCTCD: element.PRODUCTGROUPCD! == undefined? element.PRODUCTCD : element.PRODUCTGROUPCD,
               TOTALALLWQTY: 0,
               PURPIRCE: 0,
               SELLPIRCE: element.SOPRICE,

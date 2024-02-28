@@ -27,6 +27,7 @@ import { AvatarStoreService } from '@app/core/services/store/common-store/avatar
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HomeOrderComponent } from "../home-order/home-order.component";
 import { MenuOrderService } from './menu-order.service';
+import { ListOrderService } from '../home-order/list-order/list-order.service';
 
 @Component({
     selector: 'app-layout-head-right-menu',
@@ -66,6 +67,7 @@ changeMenu($event: boolean) {
   private accountService = inject(AccountService);
 
   private avatarService = inject(AvatarStoreService);
+  private listOrderService = inject(ListOrderService);
   public translate = inject(TranslateService);
   user!: UserPsd;
   userDetail!: UserInfo;
@@ -74,6 +76,7 @@ changeMenu($event: boolean) {
   destroyRef = inject(DestroyRef);
   User!: User;
   ishowmenuorder = computed(() => this.ishowmenuorderService.isShowMenuOrder());
+  totalOrdernew = computed(() => this.listOrderService.totalOrdernew());
   constructor() {
     this.translate.setDefaultLang(localStorage.getItem('lang') || 'vi');
   }
