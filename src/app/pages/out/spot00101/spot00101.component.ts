@@ -45,6 +45,7 @@ export interface UserDetail {
   CSTNAME: string;
   CSTMOBILE: string;
   CSTADDRESS: string;
+  CSTEMAIL: string;
 }
 @Component({
     selector: 'app-spot00101',
@@ -98,7 +99,8 @@ export class Spot00101Component extends AbsComponent implements OnInit{
     CSTMCD : "",
     CSTNAME: "",
     CSTMOBILE: "",
-    CSTADDRESS: ""
+    CSTADDRESS: "",
+    CSTEMAIL: "",
   });
   cartItems = signal<CartItem[]>([]);
   listDetail = signal<TOT040[]>([]);
@@ -121,15 +123,11 @@ export class Spot00101Component extends AbsComponent implements OnInit{
 
   constructor() {
     super();
-    
   }
   // table process
   tableConfig!: AntTableConfig;
   ActionCode = ActionCode;
   checkedCashArray: any[] = [];
-
-  demoDate = new Date('2024-02-27 02:43:03');
-  
 
   getDataList(e?: NzTableQueryParams): void {
     this.dataList = [...this.listDetail()];
@@ -242,12 +240,14 @@ export class Spot00101Component extends AbsComponent implements OnInit{
               PRODUCTCD: element.PRODUCTGROUPCD! == undefined? element.PRODUCTCD : element.PRODUCTGROUPCD,
               TOTALALLWQTY: 0,
               PURPIRCE: 0,
+              TECHNICALPRICE: element.SOPRICE,
               SELLPIRCE: element.SOPRICE,
               QTYCD: element.QTYCD,
               TOTALSHIPQTY: 0,
               IMAGE: "",
               product: element.product,
               ISADDTOCART: true,
+              
             },
             quantity: element.SHIPMNTORDQTY
          }
@@ -265,7 +265,8 @@ export class Spot00101Component extends AbsComponent implements OnInit{
          CSTMCD: user.id + "",
          CSTNAME: user.name == undefined? "" : user.name,
          CSTADDRESS: user.address == undefined? "" : user.address,
-         CSTMOBILE: user.dienthoai == undefined? "" : user.dienthoai
+         CSTMOBILE: user.dienthoai == undefined? "" : user.dienthoai,
+         CSTEMAIL: user.email == undefined? "" : user.email
       })
     })
 
@@ -287,9 +288,10 @@ export class Spot00101Component extends AbsComponent implements OnInit{
            CSTMOBILE: "0" + res.modalValue.dienthoai,
            CSTADDRESS: (res.modalValue.BUYERADRS1ENC==null? "": res.modalValue.BUYERADRS1ENC) + " " + 
                       (res.modalValue.BUYERADRS2ENC==null? "": res.modalValue.BUYERADRS2ENC) + " " + 
-                      (res.modalValue.BUYERADRS3ENC==null? "": res.modalValue.BUYERADRS3ENC)
+                      (res.modalValue.BUYERADRS3ENC==null? "": res.modalValue.BUYERADRS3ENC),
+          CSTEMAIL: res.modalValue.email
         })
-        this.orderService.updateCSTMCD(res.modalValue.id);
+        this.orderService.updateCustomer(this.userDetail());
       }
     )
   }

@@ -33,9 +33,17 @@ export class CartItemComponent {
 
   cartItem = signal(this.item);
 
-  amountMode = computed(()=> (this.cartItem().productstck.SELLPIRCE/1000));
-  changeAmount($event: number) {
+  phongban_id = computed(() => this.cartService.phongban_id());
+
+  amountModeSELLPIRCE = computed(()=> (this.cartItem().productstck.SELLPIRCE/1000));
+  changeAmountSELLPIRCE($event: number) {
     this.cartItem().productstck.SELLPIRCE = ($event*1000); 
+    this.cartService.updatePriceCart(this.cartItem());
+  }
+
+  amountModeTECHNICALPRICE = computed(()=> (this.cartItem().productstck.TECHNICALPRICE/1000));
+  changeAmountTECHNICALPRICE($event: number) {
+    this.cartItem().productstck.TECHNICALPRICE = ($event*1000); 
     this.cartService.updatePriceCart(this.cartItem());
   }
 

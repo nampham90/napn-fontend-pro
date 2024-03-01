@@ -9,9 +9,21 @@ export class CartService {
 
   cartItems = signal<CartItem[]>([]);
 
+  phongban_id = signal(0);
+
+  updatePhongbanID(id: number) : void {
+    this.phongban_id.set(id);
+  }
+
   // tính tổng tiền trong giỏ hàng
-  subTotal = computed(() => this.cartItems().reduce((a, b)=> 
-  a + (b.quantity * Number(b.productstck.SELLPIRCE)),0));
+  subTotal = computed(() => {
+     if(this.phongban_id() === 4) {
+       return this.cartItems().reduce((a, b)=> 
+              a + (b.quantity * Number(b.productstck.TECHNICALPRICE)),0)
+     } 
+     return this.cartItems().reduce((a, b)=> 
+              a + (b.quantity * Number(b.productstck.SELLPIRCE)),0)
+  });
 
   // giao hàng miễn phí nếu đơn hơn có giá trị trên 1000.000đ
   deliveryFee = computed(() => this.subTotal() < 1000000 ? 50000 : 0);
@@ -37,6 +49,10 @@ export class CartService {
         ]);
 
     }
+  }
+
+  updatePriceSell(price: number) :void {
+
   }
 
   // xóa sản phẩm ra khỏi giỏ hàng

@@ -48,6 +48,10 @@ export default [
         loadChildren: () => import('../../pages/out/out-routing')
       },
       {
+        path: 'in',
+        loadChildren: () => import('../../pages/in/in-routing')
+      },
+      {
         path: 'system',
         loadChildren: () => import('../../pages/system/system-routing')
       }

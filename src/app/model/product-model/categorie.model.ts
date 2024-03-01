@@ -4,4 +4,5 @@ export interface Categorie {
     name: string;
     description: string;
     fatherId: number;
+    catid: string;
 }

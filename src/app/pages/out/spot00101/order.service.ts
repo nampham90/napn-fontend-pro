@@ -3,6 +3,8 @@ import { soodno } from '@app/config/constant';
 import { WindowService } from '@app/core/services/common/window.service';
 import { TOT010 } from '@app/model/tot-model/tot010_sts.model';
 import { TOT040 } from '@app/model/tot-model/tot040_orddtl.model';
+import { UserDetail } from './spot00101.component';
+import { customer } from '@app/model/tot-model/tot020_ordhed.model';
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +68,16 @@ export class OrderService {
 
   updateCSTMCD(cstmcd: string) {
      this.order().tot020_ordhed.CSTMCD = cstmcd;
+  }
+
+  updateCustomer(userDetail: UserDetail){
+    let cust : customer = {
+      name : userDetail.CSTNAME,
+      dienthoai: userDetail.CSTMOBILE,
+      email: userDetail.CSTEMAIL
+    }
+    this.order().tot020_ordhed.CSTMCD = userDetail.CSTMCD;
+    this.order().tot020_ordhed.customer = cust;
   }
 
   updateListDetail(tot040: TOT040[]) {

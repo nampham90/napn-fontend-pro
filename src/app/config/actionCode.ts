@@ -42,4 +42,7 @@ export const ActionCode = {
   /* spot00101 */
   AddListProduct: 'default:out:spot00101:addListProduct',
   Inbaogia: 'default:out:spot00101:inbaogia',
+
+  // product spmt00101
+  Spmt00110AddNew: 'default:product:spmt00101:add',
 };

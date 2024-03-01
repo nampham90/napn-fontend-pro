@@ -1,0 +1,26 @@
+<form nz-form [formGroup]="addEditForm">
+    <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="product_name">Tên sản phẩm</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Vui lòng nhập ID Youtube">
+          <input nz-input formControlName="product_name" name="product_name" placeholder="Vui lòng nhập tên sản phẩm" id="product_name" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="category_id">Danh mục</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Vui lòng nhập ">
+          <nz-select formControlName="category_id" name="category_id">
+            @for(item of lstCats(); track item) {
+                <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+            }
+          </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<ng-template #combineTpl let-control>
+    @if(control.hasError('message')){
+      {{ control.errors.message }}
+    }
+    @if(control.hasError('required')){
+      Phần bắt buộc
+    }
+</ng-template>

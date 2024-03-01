@@ -104,6 +104,7 @@ export class ProductListComponent implements OnInit {
     this.apiGetlistQualities();
     this.apiGetsupplys();
     this.phongban_id.set(this.nzModalData.phongban_id);
+    this.cartService.updatePhongbanID(this.phongban_id());
   }
 
   getDataList(e?: NzTableQueryParams): void{
