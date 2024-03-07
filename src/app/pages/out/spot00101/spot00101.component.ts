@@ -40,6 +40,8 @@ import { SpinService } from '@app/core/services/store/common-store/spin.service'
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ListOrderService } from '@app/shared/biz-components/layout-components/home-order/list-order/list-order.service';
 import { AccountService } from '@app/core/services/http/system/account.service';
+import { TOT010 } from '@app/model/tot-model/tot010_sts.model';
+import { UserDetailService } from '@app/widget/biz-widget/out/result-user/user-detail.service';
 export interface UserDetail {
   CSTMCD: string;
   CSTNAME: string;
@@ -217,7 +219,7 @@ export class Spot00101Component extends AbsComponent implements OnInit{
         let tot040 : TOT040 = {
           SOODNO: this.order().SOODNO,
           SODTLNO: i+1,
-          SOPRICE: this.cartItems()[i].productstck.SELLPIRCE,
+          SOPRICE: this.computerSoprice(i),
           SHIPMNTORDQTY: this.cartItems()[i].quantity,
           SHIPMNTORDREMAINQTY: this.cartItems()[i].productstck.TOTALALLWQTY,
           SOREMARK: "",
@@ -228,6 +230,13 @@ export class Spot00101Component extends AbsComponent implements OnInit{
         this.listDetail().push(tot040);
       }
     } 
+  }
+
+  computerSoprice(index: number) {
+    if(this.phongban_id() === 4) {
+      return this.cartItems()[index].productstck.TECHNICALPRICE;
+    }
+    return this.cartItems()[index].productstck.SELLPIRCE
   }
 
   // merge tot040 sang CartItem
@@ -268,6 +277,7 @@ export class Spot00101Component extends AbsComponent implements OnInit{
          CSTMOBILE: user.dienthoai == undefined? "" : user.dienthoai,
          CSTEMAIL: user.email == undefined? "" : user.email
       })
+      this.phongban_id.set(user.phongban_id!);
     })
 
   }
@@ -347,12 +357,26 @@ export class Spot00101Component extends AbsComponent implements OnInit{
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(res => {
       this.listOrderService.updateListNew(res.lstnewOd);
+
       this.listOrderService.updateListQTESTS(res.lstQTESTS)
-      this.listOrderService.updateListORDSTS(res.lstORDSTS)
-      this.listOrderService.updateListORDAPPSTS(res.lstORDAPPSTS)
-      this.listOrderService.updateListPAYSTS(res.lstPAYSTS)
-      this.listOrderService.updateListSHIPSTS(res.lstSHIPSTS)
+      this.updateOrderService(res.lstQTESTS);
+
+      // this.listOrderService.updateListORDSTS(res.lstORDSTS)
+      // this.listOrderService.updateListORDAPPSTS(res.lstORDAPPSTS)
+      // this.listOrderService.updateListPAYSTS(res.lstPAYSTS)
+      // this.listOrderService.updateListSHIPSTS(res.lstSHIPSTS)
     })
+  }
+  updateOrderService(lstQTESTS: TOT010[]) {
+    let order = lstQTESTS.find((od) => od.SOODNO === this.filenamePdf());
+    if (order) {
+      this.orderService.updateLocalStorageSelectedOD(order);
+      this.orderService.updateOrder(JSON.parse(this.windownService.getStorage(soodno)!));
+    } else {
+      this.message.error("Order không tồn tại");
+
+    }
+   // this.orderService.updateOrder(JSON.parse(this.windownService.getStorage(soodno)!));
   }
 
   xuatbaogia(): void {

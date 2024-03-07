@@ -1,0 +1,15 @@
+@if(products().length > 0) {
+    <div nz-row [nzGutter]="[16, 16]">
+        <div nz-col nzSpan="4">Mã sản phẩm</div>
+        <div nz-col nzSpan="6">Tên sản phẩm</div>
+        <div nz-col nzSpan="3">Số lượng</div>
+        <div nz-col nzSpan="3">Chất lượng</div>
+        <div nz-col nzSpan="4">Giá nhập</div>
+        <div nz-col nzSpan="4">Delete</div>
+    </div>
+    @for(item of products(); track item) {
+        <app-product-item [product]="item"></app-product-item>
+    }
+} @else { 
+    No Produts in Product Store
+}

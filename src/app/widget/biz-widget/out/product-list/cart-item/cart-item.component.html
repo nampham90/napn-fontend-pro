@@ -18,9 +18,17 @@
         <div nz-col nzSpan="5">
             <nz-input-number [(ngModel)]="cartItem().quantity" [nzMin]="1" [nzMax]="1000" [nzStep]="1" (ngModelChange)="change($event)"></nz-input-number>
         </div>
-        <div nz-col nzSpan="5">
-            {{ exPrice() | currency:'VND'}}
-        </div>
+        @if(phongban_id() === 4) {
+            <div nz-col nzSpan="5">
+                {{ exPriceTECHNICALPRICE() | currency:'VND'}}
+            </div>
+
+        } @else {
+            <div nz-col nzSpan="5">
+                {{ exPrice() | currency:'VND'}}
+            </div>
+
+        }
         <div nz-col nzSpan="4">
             <button nz-button nzType="primary" (click)="onRemove()">Delete</button>
         </div>

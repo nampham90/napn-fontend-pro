@@ -29,8 +29,8 @@ export class OrderService {
     tot020_ordhed: {
       SOODNO: "",
       CSTMCD: "",
-      DELIMTHDCD: "0002",
-      PAYMETHDCD: "02",
+      DELIMTHDCD: "",
+      PAYMETHDCD: "",
       DELIPLNDATE: null,
       ORDERDATE: null,
       PAYOFDATE: null,
@@ -55,7 +55,6 @@ export class OrderService {
 
   updateOrder(order: TOT010) {
     this.order.set(order);
-    console.log(this.order());
   }
 
   updateDelimthd(delimthd: string) {

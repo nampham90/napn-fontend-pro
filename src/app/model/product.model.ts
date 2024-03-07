@@ -12,6 +12,7 @@ export interface Product {
     category_id: number;
     productCategoryId: number;
     product_category: Category;
+    isaddproduct?: boolean;
 }
 
 interface Category {

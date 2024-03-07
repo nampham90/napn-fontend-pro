@@ -69,4 +69,56 @@
             </div>
         </div>
     </nz-card>
+
+    <app-card-table-wrap [tableTitle]="'Danh sách sản phẩm'" (reload)="reloadTable()" [btnTpl]="tableBtns">
+
+        <app-ant-table
+           (changePageNum)="getDataList($event)"
+           [tableConfig]="tableConfig"
+           [tableData]="dataList()"
+        >
+        </app-ant-table>
+        <ng-template #operationTpl></ng-template>
+        <ng-template #product_nameTpl let-product="product">
+            {{ product.product_name }}
+        </ng-template>
+        <ng-template #proidTpl let-product="product">
+            {{ product.id }}
+        </ng-template>
+        <ng-template #qtycdTpl let-QTYCD="QTYCD"> 
+            @switch (QTYCD) {
+                @case ("01") {
+                    <span>Mới</span>
+                }
+                @case ("02") {
+                    <span>Củ</span>
+                }
+                @case ("03") {
+                    <span>Qua sử dụng</span>
+                }
+                @default {
+                    <div>Mới</div>
+                } 
+            }
+        </ng-template>
+        <ng-template #sipriceTpl let-SIPRICE="SIPRICE">
+            {{SIPRICE | currency: 'VND' }}
+
+        </ng-template>
+        <ng-template #soluongTpl let-ARVLPLNQTY="ARVLPLNQTY">
+            {{ARVLPLNQTY}}
+
+        </ng-template>
+        <ng-template #thanhtienTpl let-ARVLPLNQTY="ARVLPLNQTY" let-SIPRICE="SIPRICE">
+            {{(ARVLPLNQTY*SIPRICE) | currency : 'VND'}}
+
+        </ng-template>
+    </app-card-table-wrap>
+    <ng-template #tableBtns>
+        <!-- *appAuth="ActionCode.Spot00101AddNew"  -->
+        <button (click)="add()" nz-button nzType="primary" class="m-r-8">
+            <i nz-icon nzType="plus"></i>
+            {{namebtnAdd()}}
+          </button>
+    </ng-template>
 </div>

@@ -49,6 +49,10 @@ export class CartItemComponent {
 
   exPrice = computed(() => 
     this.cartItem().quantity * Number(this.cartItem().productstck.SELLPIRCE));
+
+  exPriceTECHNICALPRICE = computed(() => 
+    this.cartItem().quantity * Number(this.cartItem().productstck.TECHNICALPRICE)
+  )
   
   onRemove() : void {
     this.cartService.removeFromCart(this.cartItem());

@@ -1,0 +1,58 @@
+
+.head-example {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #1F1F1F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    font-size: 20px;
+    transition: 0.3s;
+
+}
+
+.head-example:hover {
+    background: #177DDC;
+}
+
+.bst-badge {
+    position: absolute;
+    top: 8px;
+    right: 70px;
+   
+}
+.addtocart{
+    position: relative;
+    transition: 0.5s;
+}
+
+.addtocart span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: yellow;
+
+    animation: fly 2s ease-in-out forwards;
+}
+
+/* Tạo một keyframe cho hiệu ứng chuyển động */
+@keyframes fly {
+    /* Tại thời điểm bắt đầu, icon xuất hiện với độ trong suốt là 0 */
+    0% {
+    opacity: 0;
+    }
+    /* Tại thời điểm 10%, icon xuất hiện với độ trong suốt là 1 */
+    10% {
+    opacity: 1;
+    }
+    /* Tại thời điểm 90%, icon bay lên với độ dịch chuyển là -100px */
+    90% {
+    transform: translateY(-100px);
+    }
+    /* Tại thời điểm kết thúc, icon biến mất với độ trong suốt là 0 */
+    100% {
+    opacity: 0;
+    }
+    }

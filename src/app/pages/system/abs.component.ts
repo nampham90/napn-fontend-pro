@@ -12,12 +12,13 @@ import { ModalBtnStatus } from '@app/widget/base-modal';
 import { YoutubeModalService } from '@app/widget/biz-widget/system/youtube-modal/youtube.service';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 
+
 @Component({
   selector: 'app-abs',
   template: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [PageHeaderComponent]
+  imports: [PageHeaderComponent],
 })
 export class AbsComponent implements OnInit {
   destroyRef = inject(DestroyRef);

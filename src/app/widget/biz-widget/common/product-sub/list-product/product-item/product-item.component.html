@@ -1,0 +1,30 @@
+@if(_product()) {
+    <div nz-row [nzGutter]="[16, 16]">
+        <div nz-col nzSpan="3">
+            {{_product().product.id}}
+
+        </div>
+        <div nz-col nzSpan="6">
+            {{_product().product.product_name}}
+
+        </div>
+        <div nz-col nzSpan="3">
+            <nz-input-number [(ngModel)]="_product().ARVLPLNQTY" [nzMin]="1" [nzMax]="1000" [nzStep]="1" (ngModelChange)="change($event)"></nz-input-number>
+        </div>
+        <div nz-col nzSpan="4">
+            <nz-select name="available" nzPlaceHolder="" [(ngModel)]="_product().QTYCD">
+                @for(item of qtycds(); track item) {
+                    <nz-option  [nzLabel]="item.QTYNM" [nzValue]="item.QTYCD"></nz-option>
+                }
+            </nz-select>
+        </div>
+        <div nz-col nzSpan="4">
+            <!-- <input nz-input name="SIPRICE" [(ngModel)]="_product().SIPRICE" placeholder="search name" /> -->
+            <app-input-currency [Amount]="SIPRICE()" (changeAmount)="changeSELLPIRCE($event)"></app-input-currency>
+        </div>
+        <div nz-col nzSpan="4">
+            <button nz-button nzType="primary" (click)="onRemove()">Delete</button>
+        </div>
+    </div>
+
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit , ChangeDetectionStrategy, signal, inject, TemplateRef, ViewChild} from '@angular/core';
+import { Component, OnInit , ChangeDetectionStrategy, signal, inject, TemplateRef, ViewChild, input} from '@angular/core';
 import { AbsComponent } from '@app/pages/system/abs.component';
 import { PageHeaderComponent, PageHeaderType } from '@app/shared/components/page-header/page-header.component';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -20,11 +20,12 @@ import { CardTableWrapComponent } from "../../../shared/components/card-table-wr
 import { ProductcategoryService } from '@app/core/services/http/product/productcategory.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Spmt00101Service } from '@app/core/services/http/product/spmt00101.service';
-import { finalize } from 'rxjs';
+import { finalize} from 'rxjs';
 import { AuthDirective } from '@app/shared/directives/auth.directive';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { Spmt00101ModalService } from '@app/widget/biz-widget/product/spmt00101-modal/spmt00101-modal.service';
 import { ModalBtnStatus } from '@app/widget/base-modal';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 interface SearchParam {
   category_id: number;
   product_name: string;
@@ -65,7 +66,7 @@ export class Spmt00101Component extends AbsComponent implements OnInit{
   visibleOptions: OptionsInterface[] = [];
 
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
-
+  @ViewChild('idTpl', { static: true }) idTpl!: TemplateRef<NzSafeAny>;
 
   getDataList(e?: NzTableQueryParams): void {
     const params: SearchCommonVO<any> = {
@@ -167,7 +168,8 @@ export class Spmt00101Component extends AbsComponent implements OnInit{
         {
           title: 'Mã sản phẩm',
           field: 'id',
-          width: 120
+          width: 80,
+          tdTemplate: this.idTpl
         },
         {
           title: 'Tên sản phảm',
@@ -179,7 +181,7 @@ export class Spmt00101Component extends AbsComponent implements OnInit{
           tdTemplate: this.operationTpl,
           width: 250,
           fixed: true,
-          fixedDir: 'right'
+          fixedDir: 'right',
         }
       ],
       total: 0,

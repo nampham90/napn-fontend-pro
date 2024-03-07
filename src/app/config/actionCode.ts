@@ -44,5 +44,9 @@ export const ActionCode = {
   Inbaogia: 'default:out:spot00101:inbaogia',
 
   // product spmt00101
-  Spmt00110AddNew: 'default:product:spmt00101:add',
+  Spmt001010AddNew: 'default:product:spmt00101:add',
+
+
+  // in spin00101
+  Spin00101AddNew: '', 
 };

@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, computed, signal } from '@angular/core';
 import { User } from '@app/core/services/http/system/account.service';
 
 @Injectable({
@@ -7,6 +7,8 @@ import { User } from '@app/core/services/http/system/account.service';
 export class UserDetailService {
 
   userDetail = signal<User>({})
+
+  phongban_id = computed(() => this.userDetail().phongban_id)
 
   constructor() { }
 }
