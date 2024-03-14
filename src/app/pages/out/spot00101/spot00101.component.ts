@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, DestroyRef, OnInit, TemplateRef, ViewChil
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActionCode } from '@app/config/actionCode';
-import { Tmt050, Tmt050Service } from '@app/core/services/http/master/tmt050/tmt050.service';
+import {  Tmt050Service } from '@app/core/services/http/master/tmt050/tmt050.service';
 import { AbsComponent } from '@app/pages/system/abs.component';
 import { AntTableConfig, AntTableComponent } from '@app/shared/components/ant-table/ant-table.component';
 import { PageHeaderComponent } from '@app/shared/components/page-header/page-header.component';
@@ -41,7 +41,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { ListOrderService } from '@app/shared/biz-components/layout-components/home-order/list-order/list-order.service';
 import { AccountService } from '@app/core/services/http/system/account.service';
 import { TOT010 } from '@app/model/tot-model/tot010_sts.model';
-import { UserDetailService } from '@app/widget/biz-widget/out/result-user/user-detail.service';
+import * as Const from '@app/common/const';
 export interface UserDetail {
   CSTMCD: string;
   CSTNAME: string;
@@ -284,7 +284,7 @@ export class Spot00101Component extends AbsComponent implements OnInit{
 
   // hiển thị modal tìm kiếm user
   resultUser() {
-    this.resultUserService.show({nzTitle: "User Info", nzWidth: 1424}, {showcomfirm: false})
+    this.resultUserService.show({nzTitle: Const.Khachhangnm, nzWidth: 1424}, {showcomfirm: false, department: Const.Khachhangnm})
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(
       res => {
@@ -384,6 +384,7 @@ export class Spot00101Component extends AbsComponent implements OnInit{
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(res => {
        FileSaver.saveAs(res, this.filenamePdf());
+       
        this.spinService.setCurrentGlobalSpinStore(false);
     })
   }

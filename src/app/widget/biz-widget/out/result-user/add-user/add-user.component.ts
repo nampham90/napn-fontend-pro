@@ -1,5 +1,5 @@
-import { NgClass } from '@angular/common';
-import { ChangeDetectorRef, Component, DestroyRef, OnInit, ViewChild, inject } from '@angular/core';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectorRef, Component, DestroyRef, OnInit, ViewChild, computed, inject, input } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -12,6 +12,7 @@ import { KhachleComponent } from './khachle/khachle.component';
 import { KythuatComponent } from './kythuat/kythuat.component';
 import { DoanhnghiepComponent } from './doanhnghiep/doanhnghiep.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import * as Const from '@app/common/const';
 interface TabInterface {
   key: string;
   component: DynamicComponent;
@@ -19,7 +20,7 @@ interface TabInterface {
 @Component({
   selector: 'app-add-user',
   standalone: true,
-  imports: [NzCardModule, NgClass, NzMenuModule, NzButtonModule, NzGridModule, NzTypographyModule, AdDirective_1],
+  imports: [NzCardModule,NgTemplateOutlet,NgClass, NzMenuModule, NzButtonModule, NzGridModule, NzTypographyModule, AdDirective_1],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.less'
 })
@@ -54,6 +55,21 @@ export class AddUserComponent implements OnInit{
     }
   ];
   currentTitle: string = this.menus[0].title;
+  
+  cuttomSearch = input('', {
+    alias: 'department'
+  });
+
+  numberShowTpl = computed(() => {
+    let number = 1;
+    switch(this.cuttomSearch()) {
+      case Const.Khachhangnm : number = 1 ;break;// show thêm khách hàng
+      case Const.Nhacungcapnm : number = 2; break;
+      default: number = 1
+    }
+    return number;
+  })
+
   ngOnInit(): void {
     this.to(this.menus[0]);
     this.obBreakPoint();

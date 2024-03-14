@@ -3,9 +3,9 @@
 </nz-badge>
 <div class="normal-table-wrap">
     @if(ishowPlus()) {
-        <app-add-user />
+        <app-add-user  [department]="searchDepartment()"/>
     } @else {
-        <app-search-user />
+        <app-search-user [department]="searchDepartment()"/>
     }
 </div>
 

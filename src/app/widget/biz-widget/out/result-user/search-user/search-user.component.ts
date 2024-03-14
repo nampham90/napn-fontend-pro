@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, DestroyRef, OnInit, TemplateRef, ViewChild, inject, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, OnInit, TemplateRef, ViewChild, inject, input, signal } from '@angular/core';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { DeptTreeComponent } from "../../../../../pages/system/account/dept-tree/dept-tree.component";
 import { AccountService, User } from '@app/core/services/http/system/account.service';
@@ -60,7 +60,9 @@ export class SearchUserComponent implements OnInit{
   tableConfig!: AntTableConfig;
   isCollapse = true;
   availableOptions: OptionsInterface[] = [];
-  cuttomSearch = "Khách Hàng";
+  cuttomSearch = input('', {
+    alias: 'department'
+  });
 
   dataList = signal<User[]>([]);
   @ViewChild('availableFlag', { static: true }) availableFlag!: TemplateRef<NzSafeAny>;
@@ -131,7 +133,13 @@ export class SearchUserComponent implements OnInit{
 
   ngOnInit(): void {
     this.initTable();
-    this.searchParam.phongban_id = Const.kythuatcd;
+    if(this.cuttomSearch() === Const.Khachhangnm) {
+      this.searchParam.phongban_id = Const.kythuatcd;
+    }
+    if(this.cuttomSearch() === Const.Nhacungcapnm) {
+      this.searchParam.phongban_id = Const.nhacungcap;
+    }
+    
   }
 
   private initTable(): void {

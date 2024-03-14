@@ -34,6 +34,10 @@ export class WindowService {
     this.window.location.reload();
   }
 
+  openUrl(url: string) {
+    this.window.open(url, '_blank');
+  }
+
   setStorage(key: string, value: string): void {
     if (this.isBrowser) {
       localStorage.setItem(key, value);

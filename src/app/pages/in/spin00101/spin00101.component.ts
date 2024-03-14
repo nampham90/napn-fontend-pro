@@ -22,7 +22,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ModalBtnStatus } from '@app/widget/base-modal';
 import { ProductSubService } from '@app/widget/biz-widget/common/product-sub/product-sub.service';
 import { TIN040 } from '@app/model/tin-model/tin040_plantdl.model';
-
+import { ResultUserService } from '@app/widget/biz-widget/out/result-user/result-user.service';
+import * as Const from '@app/common/const';
+import { UserDetail } from '@app/pages/out/spot00101/spot00101.component';
 @Component({
     selector: 'app-spin00101',
     standalone: true,
@@ -50,6 +52,7 @@ export class Spin00101Component extends AbsComponent implements OnInit{
   public message = inject(NzMessageService);
   private productSubSevice = inject(ProductSubService);
   protected override cdr= inject(ChangeDetectorRef);
+  private resultUserService = inject(ResultUserService);
   // valible
   divkbns = signal([]);
   
@@ -74,6 +77,14 @@ export class Spin00101Component extends AbsComponent implements OnInit{
     return "Thêm mới";
   })
 
+  phongban_id = signal(0);// lưu trư lại phongban khi chọn nha cung cap
+  userDetail = signal<UserDetail>({
+    CSTMCD : "",
+    CSTNAME: "",
+    CSTMOBILE: "",
+    CSTADDRESS: "",
+    CSTEMAIL: "",
+  });
   getDataList(e?: NzTableQueryParams): void {
    // this.dataList = [...this.listTIN040()];
     console.log(this.dataList);
@@ -119,8 +130,28 @@ export class Spin00101Component extends AbsComponent implements OnInit{
     })
   }
 
+  // hiển thị màn hình con tìm kiếm nhà cung cấp
   resultSupply() {
-    throw new Error('Method not implemented.');
+    this.resultUserService.show({nzTitle: Const.Nhacungcapnm, nzWidth: 1424}, {showcomfirm: false, department: Const.Nhacungcapnm})
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(
+      res => {
+        if (!res || res.status === ModalBtnStatus.Cancel) {
+          return;
+        }
+        this.phongban_id.set(res.modalValue.phongban_id);
+        this.userDetail.set({
+          CSTMCD : res.modalValue.id,
+          CSTNAME: res.modalValue.name,
+          CSTMOBILE: "0" + res.modalValue.dienthoai,
+          CSTADDRESS: (res.modalValue.BUYERADRS1ENC==null? "": res.modalValue.BUYERADRS1ENC) + " " + 
+                     (res.modalValue.BUYERADRS2ENC==null? "": res.modalValue.BUYERADRS2ENC) + " " + 
+                     (res.modalValue.BUYERADRS3ENC==null? "": res.modalValue.BUYERADRS3ENC),
+          CSTEMAIL: res.modalValue.email
+        });
+        console.log(this.userDetail());
+      }
+    )
   }
 
   private initTable(): void {

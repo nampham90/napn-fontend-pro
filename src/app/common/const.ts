@@ -8,6 +8,12 @@ export const khachlecd = 5;
 export const quanlycd = 1;
 export const nhacungcap = 12;// chưa xác định
 
+// định nghĩa search user theo tên phòng ban
+export const Khachhangnm = "Khách Hàng";
+export const Nhacungcapnm = "Nhà cung cấp";
+export const Doanhnghiepnm = "Doanh nghiệp";
+export const Khachlenm = "Khách lẻ";
+export const Kythuatnm = "Kỷ thuật";
 
 // type notifi
 export const System = 'system';

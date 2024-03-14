@@ -1,6 +1,6 @@
 <div nz-row [nzGutter]="[16, 16]">
     <div nz-col [nzLg]="6" [nzMd]="24" [nzSm]="24" [nzXl]="6" [nzXs]="24" [nzXXl]="6">
-        <app-dept-tree #deptTree (deptIdEven)="searchDeptIdUser($event)" [cuttomSearch]="cuttomSearch"></app-dept-tree>
+        <app-dept-tree #deptTree (deptIdEven)="searchDeptIdUser($event)" [cuttomSearch]="cuttomSearch()"></app-dept-tree>
     </div>
     <div nz-col [nzLg]="18" [nzMd]="24" [nzSm]="24" [nzXl]="18" [nzXs]="24" [nzXXl]="18">
         <nz-card class="m-b-10" nzHoverable [nzBodyStyle]="{ 'padding-bottom': 0 }">
