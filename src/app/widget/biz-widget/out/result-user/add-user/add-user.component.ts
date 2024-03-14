@@ -1,5 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectorRef, Component, DestroyRef, OnInit, ViewChild, computed, inject, input } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, OnInit, ViewChild, computed, inject, input, signal } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -13,6 +13,7 @@ import { KythuatComponent } from './kythuat/kythuat.component';
 import { DoanhnghiepComponent } from './doanhnghiep/doanhnghiep.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import * as Const from '@app/common/const';
+import { NhacungcapComponent } from './nhacungcap/nhacungcap.component';
 interface TabInterface {
   key: string;
   component: DynamicComponent;
@@ -34,10 +35,11 @@ export class AddUserComponent implements OnInit{
     { key: 'khachle', component: new DynamicComponent(KhachleComponent, { label: 'Thêm mới Khách lẻ' }) },
     { key: 'kythuat', component: new DynamicComponent(KythuatComponent, { label: 'Thêm mới Kỷ thuật' }) },
     { key: 'doanhnghiep', component: new DynamicComponent(DoanhnghiepComponent, { label: 'Thêm mới Doanh nghiệp' }) },
+    { key: 'nhacungcap', component: new DynamicComponent(NhacungcapComponent, { label: 'Thêm mới Nhà cung cấp' }) },
     
   ];
   destroyRef = inject(DestroyRef);
-  menus: Array<{ key: string; title: string; selected?: boolean }> = [
+  menukhachhang : Array<{ key: string; title: string; selected?: boolean }> = [
     {
       key: 'khachle',
       title: 'Thêm mới khách lẻ',
@@ -54,24 +56,33 @@ export class AddUserComponent implements OnInit{
       title: 'Thêm mới doanh nghiệp'
     }
   ];
-  currentTitle: string = this.menus[0].title;
-  
+
+  menunhacungcap : Array<{ key: string; title: string; selected?: boolean }> = [
+    {
+      key: 'nhacungcap',
+      title: 'Thêm mới Nhà cung cấp',
+      selected: true
+    }
+  ];
+
   cuttomSearch = input('', {
     alias: 'department'
   });
 
-  numberShowTpl = computed(() => {
-    let number = 1;
+  menus = computed(() => {
+    let menu: Array<{ key: string; title: string; selected?: boolean }>;
     switch(this.cuttomSearch()) {
-      case Const.Khachhangnm : number = 1 ;break;// show thêm khách hàng
-      case Const.Nhacungcapnm : number = 2; break;
-      default: number = 1
+      case Const.Khachhangnm : menu = this.menukhachhang ;break;// show thêm khách hàng
+      case Const.Nhacungcapnm : menu = this.menunhacungcap; break;
+      default: menu = this.menukhachhang 
     }
-    return number;
+    return menu;
   })
 
+  currentTitle: string = this.menus()[0].title;
+  
   ngOnInit(): void {
-    this.to(this.menus[0]);
+    this.to(this.menus()[0]);
     this.obBreakPoint();
   }
 

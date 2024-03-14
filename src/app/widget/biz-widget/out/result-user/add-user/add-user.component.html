@@ -1,10 +1,9 @@
 <div class="content-wrap">
-  @switch (numberShowTpl()) {
-     @case (1)  {
+
       <nz-card [nzBodyStyle]="{ padding: 0 }">
         <div class="menu-wrap" [ngClass]="{ 'horizontal-model': tabModel === 'horizontal' }">
           <ul nz-menu nzTheme="light" [ngClass]="{ menu: tabModel !== 'horizontal' }" [nzMode]="tabModel">
-              @for(item of menus; track item) {
+              @for(item of menus(); track item) {
                   <li nz-menu-item [nzSelected]="item.selected" (click)="to(item)">{{ item.title }}</li>
               }
           </ul>
@@ -13,20 +12,14 @@
               <div nz-row>
                 <h4 nz-col nz-typography nzSpan="24">{{ currentTitle }}</h4>
                 <div nz-col nzSpan="24">
-                  <!-- <ng-template appAd></ng-template> -->
-                  <ng-container *ngTemplateOutlet="app"></ng-container>
+                  <ng-template appAd></ng-template>
                 </div>
               </div>
             </nz-card>
           </div>
         </div>
       </nz-card>
-     }
-     @case (2)  {
 
-     }
-  }
 </div>
-<ng-template #app>
-  <ng-template appAd></ng-template>
-</ng-template>
+  
+
