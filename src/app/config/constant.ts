@@ -16,6 +16,7 @@ export const LockedKey = 'LockedKey';
 export const salt = 'EIpWsyfiy@R@X#qn17!StJNdZK1fFF8iV6ffN!goZkqt#JxO';
 
 export const soodno = 'OD';
+export const silnno = 'ID';
 
 // Mã lỗi vượt quá thời gian đăng nhập, hiển thị hộp thoại đăng nhập
 export const loginTimeOutCode = 1012;

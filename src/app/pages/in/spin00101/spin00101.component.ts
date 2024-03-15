@@ -9,7 +9,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-import { CurrencyPipe, NgClass } from '@angular/common';
+import { CurrencyPipe, JsonPipe, NgClass, NgStyle } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { AntTableComponent, AntTableConfig } from '@app/shared/components/ant-table/ant-table.component';
 import { ActionCode } from '@app/config/actionCode';
@@ -25,6 +25,13 @@ import { TIN040 } from '@app/model/tin-model/tin040_plantdl.model';
 import { ResultUserService } from '@app/widget/biz-widget/out/result-user/result-user.service';
 import * as Const from '@app/common/const';
 import { UserDetail } from '@app/pages/out/spot00101/spot00101.component';
+import { Tin020Service } from '../service/tin020.service';
+import { Tmt280Service } from '@app/core/services/http/master/tmt280/tmt280.service';
+import { TMT280 } from '@app/model/tmt-model/tmt280_div.model';
+import { AuthDirective } from '@app/shared/directives/auth.directive';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { Spin00101Service } from '@app/core/services/http/in/spin00101.service';
+import { finalize } from 'rxjs';
 @Component({
     selector: 'app-spin00101',
     standalone: true,
@@ -43,7 +50,9 @@ import { UserDetail } from '@app/pages/out/spot00101/spot00101.component';
       NzButtonModule,
       CardTableWrapComponent,
       AntTableComponent,
-      CurrencyPipe
+      CurrencyPipe,
+      NgStyle,
+      AuthDirective
     ]
 })
 export class Spin00101Component extends AbsComponent implements OnInit{
@@ -53,8 +62,11 @@ export class Spin00101Component extends AbsComponent implements OnInit{
   private productSubSevice = inject(ProductSubService);
   protected override cdr= inject(ChangeDetectorRef);
   private resultUserService = inject(ResultUserService);
+  private tin020Service = inject(Tin020Service);
+  private tmt280Service = inject(Tmt280Service);
+  private modalSrv = inject(NzModalService);
+  private spin00101Service = inject(Spin00101Service);
   // valible
-  divkbns = signal([]);
   
   tableConfig!: AntTableConfig;
   ActionCode = ActionCode;
@@ -77,6 +89,11 @@ export class Spin00101Component extends AbsComponent implements OnInit{
     return "Thêm mới";
   })
 
+  iconType = computed(() => {
+    if(this.listTIN040().length > 0) return "edit";
+    return "plus";
+  })
+
   phongban_id = signal(0);// lưu trư lại phongban khi chọn nha cung cap
   userDetail = signal<UserDetail>({
     CSTMCD : "",
@@ -85,9 +102,46 @@ export class Spin00101Component extends AbsComponent implements OnInit{
     CSTADDRESS: "",
     CSTEMAIL: "",
   });
+
+  tin020 = computed(() => this.tin020Service.tin020());
+  divkbns = signal<TMT280[]>([])
+
+  // danh sach các phương thức thanh toan của nha cung cáp
+  apiGetListDivkbn(): void {
+    this.tmt280Service.getListDivKbn()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(res => {
+      this.divkbns.set(res);
+    })
+  }
+
+  btnConfirm() {
+    if(this.tin020().SPPLYCD === 0 || this.tin020().ARVLPLNDATE === null) {
+      this.message.error("Vui lòng nhập đây đủa thông tin");
+    } else {
+      this.tableLoading(true);
+      this.modalSrv.confirm({
+        nzTitle: "Bạn có chắc chắn muốn tạo không ?",
+        nzContent: "Nhấn OK để hoàn thành việc đăng ký ",
+        nzOnOk: () => {
+          this.spin00101Service.create(this.tin020())
+          .pipe(
+            finalize(() => {
+              this.tableLoading(false);
+            }),
+            takeUntilDestroyed(this.destroyRef))
+          .subscribe(res => {
+            this.tin020Service.updateTin020(res);
+            this.listTIN040.set(this.tin020Service.tin020().tin040_plandtls);
+            this.tableLoading(false)
+          }) 
+        }
+      })
+    }
+  }
+
   getDataList(e?: NzTableQueryParams): void {
    // this.dataList = [...this.listTIN040()];
-    console.log(this.dataList);
     this.tableLoading(false);
     
   }
@@ -116,7 +170,9 @@ export class Spin00101Component extends AbsComponent implements OnInit{
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.apiGetListDivkbn();
     this.initTable();
+
   }
 
   add() {
@@ -126,7 +182,9 @@ export class Spin00101Component extends AbsComponent implements OnInit{
       if(!res || res.status === ModalBtnStatus.Cancel) {return;}
       this.listTIN040.set(res.modalValue);
       this.tableLoading(false);
-      console.log(this.dataList());
+      this.tin020Service.updateListDetail(this.dataList());
+
+      console.log(this.tin020());
     })
   }
 
@@ -149,7 +207,7 @@ export class Spin00101Component extends AbsComponent implements OnInit{
                      (res.modalValue.BUYERADRS3ENC==null? "": res.modalValue.BUYERADRS3ENC),
           CSTEMAIL: res.modalValue.email
         });
-        console.log(this.userDetail());
+        this.tin020Service.updateSpplycd(Number(res.modalValue.id));
       }
     )
   }

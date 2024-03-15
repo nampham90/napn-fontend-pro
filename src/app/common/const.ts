@@ -97,6 +97,9 @@ export const Tmt170listdelimthd = 'tmt170/tmt170listdelimthd';
 // tmt171
 export const Tmt171listpaymethd = 'tmt171/tmt171listpaymethd';
 
+// tmt280
+export const Tmt280listdivkbn = 'tmt280/tmt280listdivkbn';
+
 
 // province Api
 export const Apiprovinces = 'master/apiprovinces';
@@ -104,6 +107,9 @@ export const Apiprovinces = 'master/apiprovinces';
 
 // stock
 export const StockListProduct = 'stock/stockListProduct';
+
+// spin00101
+export const Spin00101Create = 'spin00101/spin00101create';
 
 // spot00101
 export const Spot00101NewOrder = 'spot00101/spot00101neworder';

@@ -48,5 +48,6 @@ export const ActionCode = {
 
 
   // in spin00101
-  Spin00101AddNew: '', 
+  Spin00101AddEdit: 'default:in:spin00101:addedit',
+  Spin00101Confirm: 'default:in:spin00101:confirm', 
 };
