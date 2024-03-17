@@ -119,21 +119,17 @@ export class Spin00101Component extends AbsComponent implements OnInit{
     if(this.tin020().SPPLYCD === 0 || this.tin020().ARVLPLNDATE === null) {
       this.message.error("Vui lòng nhập đây đủa thông tin");
     } else {
-      this.tableLoading(true);
       this.modalSrv.confirm({
         nzTitle: "Bạn có chắc chắn muốn tạo không ?",
         nzContent: "Nhấn OK để hoàn thành việc đăng ký ",
         nzOnOk: () => {
           this.spin00101Service.create(this.tin020())
           .pipe(
-            finalize(() => {
-              this.tableLoading(false);
-            }),
             takeUntilDestroyed(this.destroyRef))
           .subscribe(res => {
             this.tin020Service.updateTin020(res);
             this.listTIN040.set(this.tin020Service.tin020().tin040_plandtls);
-            this.tableLoading(false)
+            this.dataList = computed(() => this.listTIN040());
           }) 
         }
       })

@@ -4,25 +4,31 @@
             {{_product().product.id}}
 
         </div>
-        <div nz-col nzSpan="6">
+        <div nz-col nzSpan="5">
             {{_product().product.product_name}}
 
         </div>
-        <div nz-col nzSpan="3">
+        <div nz-col nzSpan="2">
             <nz-input-number [(ngModel)]="_product().ARVLPLNQTY" [nzMin]="1" [nzMax]="1000" [nzStep]="1" (ngModelChange)="change($event)"></nz-input-number>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzSpan="3">
             <nz-select name="available" nzPlaceHolder="" [(ngModel)]="_product().QTYCD">
                 @for(item of qtycds(); track item) {
                     <nz-option  [nzLabel]="item.QTYNM" [nzValue]="item.QTYCD"></nz-option>
                 }
             </nz-select>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzSpan="2">
             <!-- <input nz-input name="SIPRICE" [(ngModel)]="_product().SIPRICE" placeholder="search name" /> -->
             <app-input-currency [Amount]="SIPRICE()" (changeAmount)="changeSELLPIRCE($event)"></app-input-currency>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzSpan="2">
+            <nz-input-number name="GUARANTEQTY" [(ngModel)]="_product().GUARANTEQTY" [nzMin]="0" [nzMax]="100" [nzStep]="1" (ngModelChange)="changeGua($event)"></nz-input-number>
+        </div>
+        <div nz-col nzSpan="5">
+            <input nz-input name="SIDTLREMARK" [(ngModel)]="_product().SIDTLREMARK" />
+        </div>
+        <div nz-col nzSpan="2">
             <button nz-button nzType="primary" (click)="onRemove()">Delete</button>
         </div>
     </div>

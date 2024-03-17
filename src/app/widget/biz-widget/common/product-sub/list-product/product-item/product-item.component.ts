@@ -63,6 +63,8 @@ export class ProductItemComponent implements OnInit{
     this.productStore.removeProduct(this._product());
   }
     
+  changeGua($event: any) {
     
+  }
 
 }

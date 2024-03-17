@@ -1,11 +1,13 @@
 @if(products().length > 0) {
     <div nz-row [nzGutter]="[16, 16]">
-        <div nz-col nzSpan="4">Mã sản phẩm</div>
-        <div nz-col nzSpan="6">Tên sản phẩm</div>
-        <div nz-col nzSpan="3">Số lượng</div>
+        <div nz-col nzSpan="3">Mã sản phẩm</div>
+        <div nz-col nzSpan="5">Tên sản phẩm</div>
+        <div nz-col nzSpan="2">Số lượng</div>
         <div nz-col nzSpan="3">Chất lượng</div>
-        <div nz-col nzSpan="4">Giá nhập</div>
-        <div nz-col nzSpan="4">Delete</div>
+        <div nz-col nzSpan="2">Giá nhập</div>
+        <div nz-col nzSpan="2">Bảo hành</div>
+        <div nz-col nzSpan="5">Ghi chú</div>
+        <div nz-col nzSpan="2">Delete</div>
     </div>
     @for(item of products(); track item) {
         <app-product-item [product]="item"></app-product-item>
