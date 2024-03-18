@@ -32,6 +32,7 @@ import { AuthDirective } from '@app/shared/directives/auth.directive';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Spin00101Service } from '@app/core/services/http/in/spin00101.service';
 import { finalize } from 'rxjs';
+import { SpinService } from '@app/core/services/store/common-store/spin.service';
 @Component({
     selector: 'app-spin00101',
     standalone: true,
@@ -66,14 +67,15 @@ export class Spin00101Component extends AbsComponent implements OnInit{
   private tmt280Service = inject(Tmt280Service);
   private modalSrv = inject(NzModalService);
   private spin00101Service = inject(Spin00101Service);
+  public override spinService = inject(SpinService)
   // valible
   
   tableConfig!: AntTableConfig;
   ActionCode = ActionCode;
-  listTIN040 = signal<TIN040[]>([]);
-  dataList = computed(() => this.listTIN040())
+  dataList: TIN040[] = [];
   checkedCashArray: any[] = [];
   visibleOptions: OptionsInterface[] = [];
+  
 
   @ViewChild('operationTpl', { static: true }) operationTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('product_nameTpl', { static: true }) product_nameTpl!: TemplateRef<NzSafeAny>;
@@ -84,15 +86,7 @@ export class Spin00101Component extends AbsComponent implements OnInit{
   @ViewChild('soluongTpl', { static: true }) soluongTpl!: TemplateRef<NzSafeAny>;
   @ViewChild('thanhtienTpl', { static: true }) thanhtienTpl!: TemplateRef<NzSafeAny>;
   
-  namebtnAdd = computed(() => {
-    if(this.listTIN040().length > 0) return "Cập nhật";
-    return "Thêm mới";
-  })
 
-  iconType = computed(() => {
-    if(this.listTIN040().length > 0) return "edit";
-    return "plus";
-  })
 
   phongban_id = signal(0);// lưu trư lại phongban khi chọn nha cung cap
   userDetail = signal<UserDetail>({
@@ -105,6 +99,10 @@ export class Spin00101Component extends AbsComponent implements OnInit{
 
   tin020 = computed(() => this.tin020Service.tin020());
   divkbns = signal<TMT280[]>([])
+
+  showConfirm = false;
+
+  mode = 0; //mode = 0 insert, mode = 1 update 
 
   // danh sach các phương thức thanh toan của nha cung cáp
   apiGetListDivkbn(): void {
@@ -123,23 +121,45 @@ export class Spin00101Component extends AbsComponent implements OnInit{
         nzTitle: "Bạn có chắc chắn muốn tạo không ?",
         nzContent: "Nhấn OK để hoàn thành việc đăng ký ",
         nzOnOk: () => {
+          this.spinService.setCurrentGlobalSpinStore(true);
           this.spin00101Service.create(this.tin020())
           .pipe(
             takeUntilDestroyed(this.destroyRef))
           .subscribe(res => {
-            this.tin020Service.updateTin020(res);
-            this.listTIN040.set(this.tin020Service.tin020().tin040_plandtls);
-            this.dataList = computed(() => this.listTIN040());
+            this.spinService.setCurrentGlobalSpinStore(false);
+            // this.tin020Service.updateTin020(res);
+            // this.getDataList();
+            this.confirmOK();
           }) 
         }
       })
     }
   }
 
+  confirmOK() {
+    this.modalSrv.success({
+      nzTitle : "Đăng ký đơn hàng thành công !",
+      nzOnOk: () => {
+        this.tin020Service.refeshTin020();
+        this.showConfirm = false;
+        this.dataList = []
+        this.userDetail.set({
+            CSTMCD : "",
+            CSTNAME: "",
+            CSTMOBILE: "",
+            CSTADDRESS: "",
+            CSTEMAIL: "",
+        })
+        this.getDataList();
+      }
+    })
+  }
+
   getDataList(e?: NzTableQueryParams): void {
-   // this.dataList = [...this.listTIN040()];
+    if(this.dataList.length > 0) {
+       this.showConfirm = true;
+    }
     this.tableLoading(false);
-    
   }
 
   tableChangeDectction(): void {
@@ -168,7 +188,6 @@ export class Spin00101Component extends AbsComponent implements OnInit{
     super.ngOnInit();
     this.apiGetListDivkbn();
     this.initTable();
-
   }
 
   add() {
@@ -176,11 +195,9 @@ export class Spin00101Component extends AbsComponent implements OnInit{
     .pipe(takeUntilDestroyed(this.destroyRef))
     .subscribe(res => {
       if(!res || res.status === ModalBtnStatus.Cancel) {return;}
-      this.listTIN040.set(res.modalValue);
-      this.tableLoading(false);
-      this.tin020Service.updateListDetail(this.dataList());
-
-      console.log(this.tin020());
+      this.dataList = [...res.modalValue];
+      this.getDataList();
+      this.tin020Service.updateListDetail(this.dataList);
     })
   }
 

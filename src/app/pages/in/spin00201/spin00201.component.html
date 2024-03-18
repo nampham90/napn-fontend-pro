@@ -1,1 +1,119 @@
-<p>spin00201 works!</p>
+<app-page-header [pageHeaderInfo]="pageHeaderInfo" />
+<div class="normal-table-wrap">
+    <nz-card nzHoverable [nzBodyStyle]="{ 'padding-bottom': 0 }" class="m-b-10">
+        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
+            <div nz-col [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXl]="12" [nzXs]="24" [nzXXl]="12">
+                <nz-form-item>
+                    <nz-form-label [nzFor]="" >Từ ngày(From)</nz-form-label>
+                    <nz-form-control [nzErrorTip]="">
+                        <nz-date-picker
+                            [nzDisabledDate]="disabledStartDate"
+                            nzFormat="yyyy-MM-dd"
+                            [(ngModel)]="startValue"
+                            nzPlaceHolder="Từ ngày"
+                            (nzOnOpenChange)="handleStartOpenChange($event)"
+                        ></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXl]="12" [nzXs]="24" [nzXXl]="12">
+                <nz-form-item>
+                    <nz-form-label [nzFor]="" >Đến ngày(To)</nz-form-label>
+                    <nz-form-control [nzErrorTip]="">
+                        <nz-date-picker
+                            #endDatePicker
+                            [nzDisabledDate]="disabledEndDate"
+                            nzFormat="yyyy-MM-dd"
+                            [(ngModel)]="endValue"
+                            nzPlaceHolder="Đến ngày"
+                            (nzOnOpenChange)="handleEndOpenChange($event)"
+                        ></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
+            <div nz-col [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXl]="12" [nzXs]="24" [nzXXl]="12">
+                <nz-form-item>
+                    <nz-form-label [nzFor]="" >Số hóa đơn</nz-form-label>
+                    <nz-form-control [nzErrorTip]="">
+                        <input name="siplnno" id="siplnno" nz-input   [(ngModel)]="searchParam.siplnno" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXl]="12" [nzXs]="24" [nzXXl]="12">
+                <nz-form-item>
+                    <nz-form-label [nzFor]="" >Trạng thái</nz-form-label>
+                    <nz-form-control [nzErrorTip]="">
+                        <nz-checkbox-group [(ngModel)]="sts" (ngModelChange)="changeSts()"></nz-checkbox-group>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
+            <div nz-col [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXl]="12" [nzXs]="24" [nzXXl]="12">
+                <nz-form-item>
+                    <nz-form-label [nzFor]="">Nhà cung cấp</nz-form-label>
+                    <nz-form-control [nzErrorTip]="'Vui lòng chọn nhà cung cấp'">
+                        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                            <input name="SPPLYCD" id="SPPLYCD" [(ngModel)]="userDetail().CSTMCD" type="text"  nz-input [readOnly]="true" [ngClass]="['bgdisable']" />
+                        </nz-input-group>
+                        <ng-template #suffixIconButton>
+                            <button nz-button nzType="primary" (click)="resultSupply()"><span nz-icon nzType="search"></span></button>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXl]="12" [nzXs]="24" [nzXXl]="12">
+               <span [ngClass]="['styleName']">{{userDetail().CSTNAME}}</span> 
+            </div>
+        </div>
+        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
+            <div nz-col [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXl]="12" [nzXs]="24" [nzXXl]="12">
+                <nz-form-item>
+                    <nz-form-label [nzFor]="" >PT thanh toán</nz-form-label>
+                    <nz-form-control [nzErrorTip]="">
+                        <nz-select name="divkbn" id="divkbn" [(ngModel)]="searchParam.divkbn" >
+                            @for(item of divkbns(); track item) {
+                                <nz-option  [nzLabel]="item.DIVNM" [nzValue]="item.DIVKBN"></nz-option>
+                            }
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXl]="12" [nzXs]="24" [nzXXl]="12">
+                <!-- <nz-form-item>
+                    <nz-form-label [nzFor]="" ></nz-form-label>
+                    <nz-form-control [nzErrorTip]="">
+
+                    </nz-form-control>
+                </nz-form-item> -->
+            </div>
+        </div>
+        <div nz-row [nzGutter]="[16, 16]">
+            <div class="text-right p-0 m-b-10" nz-col [nzLg]="24" [nzMd]="24" [nzSm]="24" [nzXl]="24" [nzXs]="24" [nzXXl]="24">
+                <button nz-button [nzType]="'primary'" (click)="getDataList()">
+                    <i nz-icon nzType="search"></i>
+                    Tìm kiếm
+                  </button>
+                <button nz-button class="m-l-15" (click)="resetForm()"><i nz-icon nzType="close-circle" nzTheme="outline"></i>Reset</button>
+            </div>
+        </div>
+    </nz-card>
+
+    <app-card-table-wrap [tableTitle]="'Danh sách Sản phẩm'" (reload)="reloadTable()" [btnTpl]="tableBtns">
+        <app-ant-table
+        (selectedChange)="selectedChecked($event)"
+        [checkedCashArrayFromComment]="checkedCashArray"
+        (changePageSize)="changePageSize($event)"
+        (changePageNum)="getDataList($event)"
+        [tableConfig]="tableConfig"
+        [tableData]="dataList"
+      ></app-ant-table>
+    </app-card-table-wrap>
+
+    <ng-template #tableBtns>
+
+    </ng-template>
+
+</div>
