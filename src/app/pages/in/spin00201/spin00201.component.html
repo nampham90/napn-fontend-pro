@@ -37,7 +37,7 @@
                 <nz-form-item>
                     <nz-form-label [nzFor]="" >Số hóa đơn</nz-form-label>
                     <nz-form-control [nzErrorTip]="">
-                        <input name="siplnno" id="siplnno" nz-input   [(ngModel)]="searchParam.siplnno" />
+                        <input name="siplnno" id="siplnno" nz-input   [(ngModel)]="searchParam.SIPLNNO" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -73,7 +73,7 @@
                 <nz-form-item>
                     <nz-form-label [nzFor]="" >PT thanh toán</nz-form-label>
                     <nz-form-control [nzErrorTip]="">
-                        <nz-select name="divkbn" id="divkbn" [(ngModel)]="searchParam.divkbn" >
+                        <nz-select name="divkbn" id="divkbn" [(ngModel)]="searchParam.DIVKBN" >
                             @for(item of divkbns(); track item) {
                                 <nz-option  [nzLabel]="item.DIVNM" [nzValue]="item.DIVKBN"></nz-option>
                             }
@@ -110,6 +110,30 @@
         [tableConfig]="tableConfig"
         [tableData]="dataList"
       ></app-ant-table>
+      <ng-template #kiemdinhTpl let-SIPLNNO="SIPLNNO">
+        <button nz-button nzType="primary" (click)="kiemdinh(SIPLNNO)">Kiểm hàng</button>
+      </ng-template>
+      <ng-template #siplnnoTpl let-SIPLNNO="SIPLNNO">
+        <div nz-row>
+             <div nz-col>
+                <a nz-button  nzType="link">{{SIPLNNO}}</a>
+             </div>
+             <div nz-col>
+                <button nz-button [cdkCopyToClipboard]="copySiplnno(SIPLNNO)" nzType="default" nzShape="circle"><span nz-icon nzType="copy"></span></button>
+             </div>
+        </div>
+      </ng-template>
+      <ng-template #spplyTpl let-supplier="supplier">
+        {{supplier.name}}
+      </ng-template>
+      <ng-template #userTpl let-employe="employe">{{employe.name}}</ng-template>
+      <ng-template #divkbnTpl let-DIVKBN="DIVKBN">
+        @if(DIVKBN == '01') {
+            <span> Tiền mặt</span>
+        } @else {
+            <span> Trả sau</span>
+        }
+      </ng-template>
     </app-card-table-wrap>
 
     <ng-template #tableBtns>

@@ -11,4 +11,16 @@ export interface TIN020 {
     USERCD: number;
     tin040_plandtls: TIN040[];
     DIVKBN: string;
+    supplier?: Spply,
+    employe?: User
+}
+
+interface Spply {
+   id: number,
+   name: string;
+}
+
+interface User {
+    id: number;
+    name: string;
 }

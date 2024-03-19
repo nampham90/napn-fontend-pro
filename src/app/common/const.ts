@@ -111,6 +111,9 @@ export const StockListProduct = 'stock/stockListProduct';
 // spin00101
 export const Spin00101Create = 'spin00101/spin00101create';
 
+//spin00201
+export const Spin00201FindCondition = 'spin00201/spin00201findcondition';
+
 // spot00101
 export const Spot00101NewOrder = 'spot00101/spot00101neworder';
 export const Spot00101OrderStatus = 'spot00101/spot00101orderstatus';
