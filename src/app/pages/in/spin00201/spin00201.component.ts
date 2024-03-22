@@ -33,6 +33,8 @@ import { Spin00201Service } from '@app/core/services/http/in/spin00201.service';
 import { finalize } from 'rxjs';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { UrlDisplayId } from '@app/common/UrlDisplay';
+import { TIN020 } from '@app/model/tin-model/tin020_planhed.model';
+import { Tin050Service } from '../service/tin050.service';
 interface ObjectSts {
   ARVLCOMPFLG: string;
   SICOMPFLG: string;
@@ -81,11 +83,12 @@ export class Spin00201Component extends AbsComponent implements OnInit{
   private resultUserService = inject(ResultUserService);
   private spin00201Service = inject(Spin00201Service);
   private datePipe = inject(DatePipe);
+  private tin050Service = inject(Tin050Service);
   //
   searchParam: Partial<SearchParam> = {};
   ActionCode = ActionCode;
   tableConfig!: AntTableConfig;
-  dataList: any[] = [];
+  dataList: TIN020[] = [];
   checkedCashArray: any[] = [];
   visibleOptions: OptionsInterface[] = [];
   divkbns = signal<TMT280[]>([])
@@ -185,7 +188,8 @@ export class Spin00201Component extends AbsComponent implements OnInit{
   }
 
   kiemdinh(siplnno: string) {
-    console.log(siplnno);
+    let tin020 = this.dataList.find(item => item.SIPLNNO === siplnno);
+    this.tin050Service.mergeHedTin020ToTin050(tin020!);
     this.router.navigateByUrl(UrlDisplayId.SPIN00501);
   }
 

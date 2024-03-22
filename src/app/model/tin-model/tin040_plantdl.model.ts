@@ -11,4 +11,5 @@ export interface TIN040 {
     SIDTLREMARK: string; // ghi chú
     product: Product; // sản phẩm
     QTYCD: string; // chất lượng sản phẩm
+    PRODUCTGRPCD: string;
 } 

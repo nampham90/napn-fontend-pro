@@ -11,7 +11,7 @@ export class Spin00201Service {
   http = inject(BaseHttpService)
 
 
-  findConditon(param: SearchCommonVO<any>) : Observable<PageInfo<TIN020[]>> {
+  findConditon(param: SearchCommonVO<any>) : Observable<PageInfo<TIN020>> {
     return this.http.post(Const.Spin00201FindCondition, param, {needSuccessInfo:false});
   }
 

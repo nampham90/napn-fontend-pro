@@ -5,14 +5,14 @@ export interface TIN020 {
     SIPLNNO: string;
     ARVLPLNDATE: Date | null;
     SIREMARK: string;
-    tin010_sts: TIN010;
+    tin010_st: TIN010;
     STSNM: string,
     SPPLYCD: number;
     USERCD: number;
     tin040_plandtls: TIN040[];
     DIVKBN: string;
-    supplier?: Spply,
-    employe?: User
+    supplier?: Spply;
+    employe?: User;
 }
 
 interface Spply {

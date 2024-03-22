@@ -114,7 +114,8 @@ export class ProductSubComponent implements OnInit {
         product: product,
         SIDTLREMARK: "",
         SIPRICE: 0,
-        SODTLNO: 1
+        SODTLNO: 1,
+        PRODUCTGRPCD: "",
       }
       this.productStoreService.addProduct(tin040);
       setTimeout(() => {

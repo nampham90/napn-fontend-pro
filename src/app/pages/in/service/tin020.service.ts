@@ -14,7 +14,7 @@ export class Tin020Service {
     SIPLNNO: '',
     ARVLPLNDATE: null,
     SIREMARK: '',
-    tin010_sts: {
+    tin010_st: {
       SIPLNNO: '',
       ARVLCOMPFLG: '',
       SICOMPFLG: '',
@@ -51,7 +51,7 @@ export class Tin020Service {
       SIPLNNO: '',
       ARVLPLNDATE: null,
       SIREMARK: '',
-      tin010_sts: {
+      tin010_st: {
         SIPLNNO: '',
         ARVLCOMPFLG: '',
         SICOMPFLG: '',
