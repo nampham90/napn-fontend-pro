@@ -312,7 +312,7 @@ export class Spin00201Component extends AbsComponent implements OnInit{
 
   private initTable(): void {
     this.tableConfig = {
-      showCheckbox: true,
+      showCheckbox: false,
       headers: [
         {
           title: 'Kiểm hàng',

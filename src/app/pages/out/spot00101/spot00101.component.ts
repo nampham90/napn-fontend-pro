@@ -291,6 +291,7 @@ export class Spot00101Component extends AbsComponent implements OnInit{
         if (!res || res.status === ModalBtnStatus.Cancel) {
           return;
         }
+        console.log(res.modalValue);
         this.phongban_id.set(res.modalValue.phongban_id);
         this.userDetail.set({
            CSTMCD : res.modalValue.id,
