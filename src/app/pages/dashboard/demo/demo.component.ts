@@ -77,7 +77,7 @@ export class DemoComponent extends AbsComponent implements OnInit{
         pageNum:  this.tableConfig.pageIndex,
         data: res.modalValue
       }
-      this.demoStoreService.add(parmas);
+     // this.demoStoreService.add(parmas);
 
     })
   }
@@ -105,7 +105,7 @@ export class DemoComponent extends AbsComponent implements OnInit{
         pageNum:  this.tableConfig.pageIndex,
         data: modalValue
       }
-      this.demoStoreService.edit(parmas);
+    //  this.demoStoreService.edit(parmas);
     })
   }
 
@@ -119,7 +119,7 @@ export class DemoComponent extends AbsComponent implements OnInit{
           pageNum:  this.tableConfig.pageIndex,
           data: id
         }
-        this.demoStoreService.del(parmas);
+       // this.demoStoreService.del(parmas);
       }
     })
 
@@ -153,21 +153,21 @@ export class DemoComponent extends AbsComponent implements OnInit{
       //filters: this.searchParam,
     }
 
-    this.demoStoreService.sendList(parmas);
-    this.demoStoreService.getProductStore()
-    .pipe(
-      finalize(()=> {
-        this.tableLoading(false);
-      })
-    )
-    .subscribe(data=> {
-      const {list, total, pageNum} = data;
-      this.dataList = [...list];
-      this.tableConfig.total = total;
-      this.tableConfig.pageIndex = pageNum;
-      this.tableLoading(false);
-      this.checkedCashArray = [...this.checkedCashArray];
-    })
+    // this.demoStoreService.sendList(parmas);
+    // this.demoStoreService.getProductStore()
+    // .pipe(
+    //   finalize(()=> {
+    //     this.tableLoading(false);
+    //   })
+    // )
+    // .subscribe(data=> {
+    //   const {list, total, pageNum} = data;
+    //   this.dataList = [...list];
+    //   this.tableConfig.total = total;
+    //   this.tableConfig.pageIndex = pageNum;
+    //   this.tableLoading(false);
+    //   this.checkedCashArray = [...this.checkedCashArray];
+    // })
 
 
 

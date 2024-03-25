@@ -37,7 +37,7 @@ export class LoginInOutService {
   private windowServe = inject(WindowService);
   private avatarService = inject(AvatarStoreService);
   private tokenStoreService = inject(TokenStoreService);
-  private socketService = inject(SocketService);
+ // private socketService = inject(SocketService);
   private userService= inject(AccountService);
 
   // Lấy mảng menu theo Id người dùng
@@ -120,7 +120,7 @@ export class LoginInOutService {
         return this.clearSessionCash();
       })
       .then(() => {
-        this.socketService.disconnect();
+       // this.socketService.disconnect();
         this.router.navigate(['/login/login-form']);
       });
   }

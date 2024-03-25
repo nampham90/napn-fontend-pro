@@ -28,45 +28,45 @@ export class DemoStoreService {
   constructor(
 
   ) {
-      this.socketService.setupSocketConnection();
+      // this.socketService.setupSocketConnection();
       
-      this.socketService.on(ConstSocket.demoListProduct, (res:Response<Product>)=> {
-         if(res.code > 0) {
-            this.moalSrv.error({nzTitle: 'Thông báo lỗi',nzContent: res.msg});
-         } else {
-            this.setProductStore(res.data!);
+      // this.socketService.on(ConstSocket.demoListProduct, (res:Response<Product>)=> {
+      //    if(res.code > 0) {
+      //       this.moalSrv.error({nzTitle: 'Thông báo lỗi',nzContent: res.msg});
+      //    } else {
+      //       this.setProductStore(res.data!);
             
-         }
-      })
+      //    }
+      // })
 
    }
 
-  sendList(params: SearchCommonVO<Product>) {
-    this.spinService.setCurrentGlobalSpinStore(true)
-    this.socketService.emit(ConstSocket.demoListProduct, params);
-  }
+  // sendList(params: SearchCommonVO<Product>) {
+  //   this.spinService.setCurrentGlobalSpinStore(true)
+  //   this.socketService.emit(ConstSocket.demoListProduct, params);
+  // }
 
-  add(params: SearchCommonVO<Product>) {
-    this.spinService.setCurrentGlobalSpinStore(true);
-    this.socketService.emit(ConstSocket.demoCreatePorduct,params);
-  }
+  // add(params: SearchCommonVO<Product>) {
+  //   this.spinService.setCurrentGlobalSpinStore(true);
+  //   this.socketService.emit(ConstSocket.demoCreatePorduct,params);
+  // }
 
-  edit(params: SearchCommonVO<Product>) {
-    this.spinService.setCurrentGlobalSpinStore(true);
-    this.socketService.emit(ConstSocket.demoUpdatePorduct, params);
-  }
+  // edit(params: SearchCommonVO<Product>) {
+  //   this.spinService.setCurrentGlobalSpinStore(true);
+  //   this.socketService.emit(ConstSocket.demoUpdatePorduct, params);
+  // }
 
-  del(params: SearchCommonVO<Product>) {
-    this.spinService.setCurrentGlobalSpinStore(true);
-    this.socketService.emit(ConstSocket.demoDeletePorduct, params);
-  }
+  // del(params: SearchCommonVO<Product>) {
+  //   this.spinService.setCurrentGlobalSpinStore(true);
+  //   this.socketService.emit(ConstSocket.demoDeletePorduct, params);
+  // }
 
-  setProductStore(productStore: PageInfo<Product>) {
-     this.productsStore$.next(productStore);
-     this.spinService.setCurrentGlobalSpinStore(false);
-  }
+  // setProductStore(productStore: PageInfo<Product>) {
+  //    this.productsStore$.next(productStore);
+  //    this.spinService.setCurrentGlobalSpinStore(false);
+  // }
 
-  getProductStore(): Observable<PageInfo<Product>> {
-     return this.productsStore$.asObservable();
-  }
+  // getProductStore(): Observable<PageInfo<Product>> {
+  //    return this.productsStore$.asObservable();
+  // }
 }

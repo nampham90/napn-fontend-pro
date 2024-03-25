@@ -33,7 +33,7 @@ export class ResultUserComponent implements OnInit{
   constructor(private modalRef: NzModalRef) {}
   
   ngOnInit(): void {
-    
+    console.log(this.nzModalData)
   }
 
   protected getAsyncFnData(modalValue: NzSafeAny): Observable<NzSafeAny> {
@@ -44,6 +44,7 @@ export class ResultUserComponent implements OnInit{
     if(this.userDetailService.userDetail()){
       return of(false);
     } 
+    console.log(this.userDetailService.userDetail())
     return  of(this.userDetailService.userDetail());
   }
 
