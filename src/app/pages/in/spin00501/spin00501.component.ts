@@ -8,7 +8,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { CurrencyPipe, NgStyle } from '@angular/common';
+import { CurrencyPipe, JsonPipe, NgStyle } from '@angular/common';
 import { AntTableComponent } from '@app/shared/components/ant-table/ant-table.component';
 import { CardTableWrapComponent } from '@app/shared/components/card-table-wrap/card-table-wrap.component';
 import { AuthDirective } from '@app/shared/directives/auth.directive';
@@ -33,7 +33,8 @@ import { Tin050Service } from '../service/tin050.service';
               AntTableComponent,
               CurrencyPipe,
               NgStyle,
-              AuthDirective
+              AuthDirective,
+              JsonPipe
     ]
 })
 export class Spin00501Component extends AbsComponent implements OnInit{

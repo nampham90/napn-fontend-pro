@@ -54,6 +54,10 @@ export default [
       {
         path: 'system',
         loadChildren: () => import('../../pages/system/system-routing')
+      },
+      {
+        path: 'report',
+        loadChildren: () => import('../../pages/report/report-routing')
       }
     ]
   }
