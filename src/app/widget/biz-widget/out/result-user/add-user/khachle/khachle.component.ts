@@ -15,12 +15,14 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadChangeParam, NzUploadModule } from 'ng-zorro-antd/upload';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { User } from '@app/core/services/http/system/account.service';
+import { AccountService, User } from '@app/core/services/http/system/account.service';
 import { UserInfo } from '@app/core/services/store/common-store/userInfo.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fnCheckForm } from '@app/utils/tools';
 import * as Const from '@app/common/const';
 import { NzModalRef } from 'ng-zorro-antd/modal';
+import { UserDetailService } from '../../user-detail.service';
+import { ModalBtnStatus } from '@app/widget/base-modal';
 @Component({
   selector: 'app-khachle',
   standalone: true,
@@ -49,6 +51,9 @@ export class KhachleComponent {
   private cdr = inject(ChangeDetectorRef);
   private validatorsService = inject(ValidatorsService);
   private breakpointObserver = inject(BreakpointObserver); 
+  private userService = inject(AccountService);
+  private userDetailService = inject(UserDetailService);
+  
   constructor( private modalRef: NzModalRef,){}
   destroyRef = inject(DestroyRef);
   validateForm!: FormGroup;
@@ -86,14 +91,14 @@ export class KhachleComponent {
   initForm(): void {
     this.validateForm = this.fb.group({
       name: ['Khách lẻ'],
-      mobile: [null],
-      email: [null],
-      area: [null],
-      city: [null],
-      province: [null],
-      street: [null],
+      mobile: [''],
+      email: [''],
+      area: [''],
+      city: [''],
+      province: [''],
+      street: [''],
       phongban_id: Const.khachlecd,
-      role_id: [2],
+      role_id: [[2]],
       password: 'a123456',
     });
   }
@@ -102,6 +107,16 @@ export class KhachleComponent {
     if (!fnCheckForm(this.validateForm)) {
       return;
     }
+    this.userService.addAccount(this.validateForm.value)
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(user => {
+      if(user) {
+        this.userDetailService.userDetail.set(user);
+        this.modalRef.destroy({ status: ModalBtnStatus.Ok, modalValue:user });
+      } else {
+        this.msg.error("Tạo tài khoản không thành công !");
+      }
+    })
   }
 
   handleChange(info: NzUploadChangeParam): void {

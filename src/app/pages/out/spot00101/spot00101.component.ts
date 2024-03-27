@@ -219,9 +219,11 @@ export class Spot00101Component extends AbsComponent implements OnInit{
         let tot040 : TOT040 = {
           SOODNO: this.order().SOODNO,
           SODTLNO: i+1,
+          ORDLIMITDATE: new Date(),// tam thơi
           SOPRICE: this.computerSoprice(i),
           SHIPMNTORDQTY: this.cartItems()[i].quantity,
           SHIPMNTORDREMAINQTY: this.cartItems()[i].productstck.TOTALALLWQTY,
+          WARRANTY: this.cartItems()[i].warranty,
           SOREMARK: "",
           PRODUCTCD: this.cartItems()[i].productstck.PRODUCTCD,
           product: this.cartItems()[i].productstck.product,
@@ -251,6 +253,7 @@ export class Spot00101Component extends AbsComponent implements OnInit{
               PURPIRCE: 0,
               TECHNICALPRICE: element.SOPRICE,
               SELLPIRCE: element.SOPRICE,
+              LIMITDATE: element.ORDLIMITDATE,
               QTYCD: element.QTYCD,
               TOTALSHIPQTY: 0,
               IMAGE: "",
@@ -258,7 +261,8 @@ export class Spot00101Component extends AbsComponent implements OnInit{
               ISADDTOCART: true,
               
             },
-            quantity: element.SHIPMNTORDQTY
+            quantity: element.SHIPMNTORDQTY,
+            warranty: element.WARRANTY
          }
          listCart.push(item);
       }
@@ -424,6 +428,11 @@ export class Spot00101Component extends AbsComponent implements OnInit{
             field: 'QTYNM',
             tdTemplate: this.qtynmTpl,
             width: 120
+         },
+         {
+          title: 'Bảo hành',
+          field: 'WARRANTY',
+          width: 120
          },
          {
             title: "Ghi chú",

@@ -19,6 +19,7 @@ import { InputCurrencyComponent } from '@app/shared/components/input-currency/in
 })
 export class CartItemComponent {
 
+
   cartService = inject(CartService);
   _item!: CartItem;
 
@@ -62,5 +63,9 @@ export class CartItemComponent {
     this.cartService.updateInCart(this.cartItem(), Number($event));
     // this.exPrice = computed(() => 
     //      this.cartItem().quantity * Number(this.cartItem().productstck.SELLPIRCE));
+  }
+
+  changeWarranty($event: any) {
+    this.cartService.updateWarrantyInCart(this.cartItem(), Number($event));
   }
 }

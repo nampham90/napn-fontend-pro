@@ -6,5 +6,6 @@ export interface Cart {
 
 export interface CartItem {
     productstck: TST010_STCK;
-    quantity: number;
+    quantity: number; // soluong
+    warranty: number; // so tháng bao hành
 }

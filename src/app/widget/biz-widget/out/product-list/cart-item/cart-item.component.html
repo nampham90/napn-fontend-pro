@@ -1,6 +1,6 @@
 @if(cartItem()) {
     <div nz-row [nzGutter]="[16, 16]">
-        <div nz-col nzSpan="6">
+        <div nz-col nzSpan="5">
             {{ cartItem().productstck.product.product_name }}
         </div>
         @if(phongban_id() === 4) {
@@ -15,21 +15,24 @@
             </div>
         }
 
-        <div nz-col nzSpan="5">
+        <div nz-col nzSpan="4">
             <nz-input-number [(ngModel)]="cartItem().quantity" [nzMin]="1" [nzMax]="1000" [nzStep]="1" (ngModelChange)="change($event)"></nz-input-number>
         </div>
+        <div nz-col nzSpan="4">
+            <nz-input-number [(ngModel)]="cartItem().warranty" [nzMin]="1" [nzMax]="1000" [nzStep]="1" (ngModelChange)="changeWarranty($event)"></nz-input-number>
+        </div>
         @if(phongban_id() === 4) {
-            <div nz-col nzSpan="5">
+            <div nz-col nzSpan="4">
                 {{ exPriceTECHNICALPRICE() | currency:'VND'}}
             </div>
 
         } @else {
-            <div nz-col nzSpan="5">
+            <div nz-col nzSpan="4">
                 {{ exPrice() | currency:'VND'}}
             </div>
 
         }
-        <div nz-col nzSpan="4">
+        <div nz-col nzSpan="3">
             <button nz-button nzType="primary" (click)="onRemove()">Delete</button>
         </div>
     </div>

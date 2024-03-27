@@ -4,8 +4,10 @@ export interface TOT040 {
     SOODNO: string;
     SODTLNO: number;
     SOPRICE: number;
+    ORDLIMITDATE: Date;
     SHIPMNTORDQTY: number;
     SHIPMNTORDREMAINQTY: number;
+    WARRANTY: number;
     SOREMARK: string;
     createdAt?: Date;
     updatedAt?: Date;

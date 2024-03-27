@@ -1,10 +1,11 @@
 @if(cartItems().length > 0){
     <div nz-row [nzGutter]="[16, 16]">
-        <div nz-col nzSpan="6">Tên sản phẩm</div>
+        <div nz-col nzSpan="5">Tên sản phẩm</div>
         <div nz-col nzSpan="4">Giá Bán</div>
-        <div nz-col nzSpan="5">Số lượng đặt</div>
-        <div nz-col nzSpan="5">Thành tiền</div>
-        <div nz-col nzSpan="4">Delete</div>
+        <div nz-col nzSpan="4">Số lượng</div>
+        <div nz-col nzSpan="4">Bảo hành</div>
+        <div nz-col nzSpan="4">Thành tiền</div>
+        <div nz-col nzSpan="3">Delete</div>
     </div>
     @for(item of cartItems(); track item) {
         <app-cart-item [item]="item" />

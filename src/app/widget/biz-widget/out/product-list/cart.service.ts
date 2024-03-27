@@ -38,7 +38,7 @@ export class CartService {
     const index = this.cartItems().findIndex(item => item.productstck.PRODUCTCD === productstck.PRODUCTCD);
     if(index === -1) {
       // chưa có sản phẩm trong giỏ hàng thì thêm với mặc định là một
-      this.cartItems.update(items => [...items, { productstck, quantity : 1}])
+      this.cartItems.update(items => [...items, { productstck, quantity : 1, warranty: 0}])
     } else {
       // đã có trong giỏ hàng thì tăng giá trị lên 1
       this.cartItems.update(items => 
@@ -63,7 +63,13 @@ export class CartService {
   updateInCart(cartItem: CartItem, quantity: number) {
     this.cartItems.update(items => 
          items.map(item => item.productstck.PRODUCTCD === cartItem.productstck.PRODUCTCD ?
-             {productstck: cartItem.productstck, quantity}: item));
+             {productstck: cartItem.productstck, quantity, warranty: cartItem.warranty }: item));
+  }
+
+  updateWarrantyInCart(cartItem: CartItem, warranty: number) {
+    this.cartItems.update(items => 
+         items.map(item => (item.productstck.PRODUCTCD === cartItem.productstck.PRODUCTCD) && (item.productstck.QTYCD === cartItem.productstck.QTYCD) ?
+             {productstck: cartItem.productstck, quantity: cartItem.quantity, warranty }: item));
   }
 
   updatePriceCart(cartItem: CartItem) {
