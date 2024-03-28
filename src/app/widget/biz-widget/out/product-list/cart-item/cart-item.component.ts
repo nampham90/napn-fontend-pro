@@ -7,15 +7,16 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { CommonModule, CurrencyPipe, DecimalPipe } from '@angular/common';
 import { InputCurrencyComponent } from '@app/shared/components/input-currency/input-currency.component';
+import { InputNumberComponent } from "../../../../../shared/components/input-number/input-number.component";
 
 
 @Component({
-  selector: 'app-cart-item',
-  standalone: true,
-  imports: [NzInputNumberModule,FormsModule, NzGridModule, NzButtonModule, CommonModule, InputCurrencyComponent],
-  templateUrl: './cart-item.component.html',
-  styleUrl: './cart-item.component.less',
-  providers: [CurrencyPipe, DecimalPipe]
+    selector: 'app-cart-item',
+    standalone: true,
+    templateUrl: './cart-item.component.html',
+    styleUrl: './cart-item.component.less',
+    providers: [CurrencyPipe, DecimalPipe],
+    imports: [NzInputNumberModule, FormsModule, NzGridModule, NzButtonModule, CommonModule, InputCurrencyComponent, InputNumberComponent]
 })
 export class CartItemComponent {
 

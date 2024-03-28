@@ -19,7 +19,8 @@
             <nz-input-number [(ngModel)]="cartItem().quantity" [nzMin]="1" [nzMax]="1000" [nzStep]="1" (ngModelChange)="change($event)"></nz-input-number>
         </div>
         <div nz-col nzSpan="4">
-            <nz-input-number [(ngModel)]="cartItem().warranty" [nzMin]="1" [nzMax]="1000" [nzStep]="1" (ngModelChange)="changeWarranty($event)"></nz-input-number>
+            <!-- <nz-input-number [(ngModel)]="cartItem().warranty" [nzMin]="1" [nzMax]="1000" [nzStep]="1" (ngModelChange)="changeWarranty($event)"></nz-input-number> -->
+            <app-input-number  [Number]="cartItem().warranty" (changeNumber)="changeWarranty($event)"></app-input-number>
         </div>
         @if(phongban_id() === 4) {
             <div nz-col nzSpan="4">
